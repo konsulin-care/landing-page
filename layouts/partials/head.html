@@ -18,6 +18,22 @@
   } else {
     document.documentElement.classList.remove("dark");
   }
+
+  // Chatwoot chat
+  (function(d,t) {
+    var BASE_URL={{ .Site.Params.chatwoot_url }};
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.defer = true;
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: {{ .Site.Params.chatwoot_token }},
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
 </script>
 {{ $styles := resources.Get "/css/style.css" | postCSS }} {{ if hugo.IsServer }}
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />

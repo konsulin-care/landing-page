@@ -1,4 +1,5 @@
 baseURL: 'https://konsulin.care/'
+csURL: 'https://cs.konsulin.care'
 title: Konsulin
 languageCode: en-us
 DefaultContentLanguage: en
@@ -49,6 +50,8 @@ markup:
 params:
   author: Konsulin
   authorimage: ../assets/images/global/author.svg
+  chatwoot_url: "{chatwoot_url}"
+  chatwoot_token: "{chatwoot_token}"
   og_image: /images/positive-thinking-wide.png
   moto: "Psychological kit in your pocket"
   description: "Buat kamu yang peduli kesehatan mental"

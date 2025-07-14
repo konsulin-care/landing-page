@@ -25,6 +25,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Inject Chatwoot Secrets
+        run: |
+          sed -i "s|{chatwoot_url}|${{ secrets.CHATWOOT_URL }}|g" hugo.yaml
+          sed -i "s|{chatwoot_token}|${{ secrets.CHATWOOT_TOKEN }}|g" hugo.yaml
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
