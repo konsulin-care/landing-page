@@ -19,7 +19,13 @@
     document.documentElement.classList.remove("dark");
   }
 
-  // Chatwoot chat
+  // Chatwoot live chat
+  window.chatwootSettings = {
+    "position": "right",
+    "type": "expandable_bubble",
+    "launcherTitle": "Tanya Lyna"
+  };
+
   (function(d,t) {
     var BASE_URL={{ .Site.Params.chatwoot_url }};
     var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
