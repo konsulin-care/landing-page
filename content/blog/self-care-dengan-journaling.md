@@ -1,7 +1,7 @@
 ---
 summary: Temukan manfaat journaling sebagai perawatan kesehatan mental. Ayo bergabung dengan Konsulin untuk mulai menulis jurnal.
 description: Journaling adalah cara sederhana untuk merawat kesehatan mental dengan mengeksplorasi diri melalui tulisan. Manfaatnya termasuk mengelola stres, meningkatkan fokus, dan memori. Bergabunglah dengan komunitas Konsulin untuk mendapatkan inspirasi dan dukungan dalam perjalanan journalingmu. Mulailah hari ini dengan menulis jurnal secara teratur untuk memahami diri sendiri lebih dalam dan menciptakan hidup yang lebih sadar dan bermakna.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Self Care dengan Journaling"

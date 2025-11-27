@@ -1,7 +1,7 @@
 ---
 summary: Resiliensi bukan cuma bikin kamu kuat, tapi juga optimis melihat peluang di balik tantangan. Bagikan ceritamu bangkit di Konsulin!
 description: Resiliensi adalah kemampuan bangkit dari kesulitan dan melihat peluang di balik setiap tantangan. Dengan resiliensi, kamu bisa lebih kuat menghadapi masa sulit dan tetap optimis menjalani hidup. Kuncinya adalah belajar dari pengalaman buruk dan menjadikannya batu loncatan untuk pertumbuhan. Jangan takut gagal, karena setiap kegagalan punya hikmah tersembunyi. Yuk, bagikan kisah inspiratifmu tentang bangkit dari kesulitan di Konsulin! Ceritamu bisa jadi motivasi bagi banyak orang yang sedang berjuang untuk menemukan kekuatan mereka. Ayo mulai berbagi sekarang!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Manfaat Resiliensi"

@@ -1,7 +1,7 @@
 ---
 summary: "Pilih waktu terbaik untuk journaling: pagi, siang, atau malam. Temukan waktu yang nyaman dan buat journaling menjadi rutinitas di Konsulin."
 description: Menemukan waktu terbaik untuk journaling bisa meningkatkan pengalaman dan manfaat yang kamu dapatkan. Pagi hari cocok untuk menetapkan niat dan tujuan, siang hari untuk merefleksikan pencapaian dan mengurangi stres, sementara malam hari ideal untuk merenung dan menutup hari dengan rasa syukur. Tidak ada aturan baku; yang terpenting adalah menemukan waktu yang paling nyaman buatmu. Eksperimen dengan berbagai waktu dan rasakan perbedaannya. Temukan waktu journaling terbaikmu di Konsulin, dan buat journaling menjadi rutinitas yang menyenangkan dan bermanfaat!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Memilih Waktu Journaling"

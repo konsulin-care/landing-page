@@ -1,7 +1,7 @@
 ---
 summary: Menulis secara rutin bisa bantu memperkuat resiliensi psikologis. Dengan refleksi diri, kamu bisa lebih mudah beradaptasi di situasi sulit.
 description: Resiliensi psikologis adalah kemampuan untuk bertahan dan bangkit dari situasi sulit. Individu yang memiliki resiliensi kuat cenderung lebih mudah beradaptasi, mengelola emosi, dan menemukan solusi dalam tantangan. Menulis rutin terbukti membantu memperkuat resiliensi ini karena menulis memungkinkan refleksi diri, pelepasan emosi negatif, serta melihat pengalaman dari sudut pandang baru. Dengan mencatat perjalanan hidup secara teratur, kamu bisa mengembangkan pemahaman yang lebih dalam, optimisme, dan fleksibilitas dalam menghadapi hidup. Mulailah kebiasaan menulis ini untuk memperkuat resiliensi dan kesehatan mental kamu di Konsulin.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Fakta Resiliensi Psikologis"

@@ -1,7 +1,7 @@
 ---
 summary: Kenali tanda-tanda burnout lebih awal, seperti kehilangan motivasi dan energi. Jangan lupa istirahat dan refleksi untuk mencegahnya. 
 description: Burnout adalah kondisi kelelahan fisik dan mental yang dapat mengganggu kehidupan kita. Tanda-tanda burnout termasuk kehilangan motivasi, energi, dan kecemasan berlebihan. Untuk mencegahnya, kita perlu mengenali tanda-tanda ini lebih awal, memberikan diri waktu untuk beristirahat, mengelola stres, dan melakukan refleksi diri secara berkala. Burnout bisa dicegah dengan menjaga keseimbangan hidup, memberi waktu untuk diri sendiri, dan mencari dukungan saat dibutuhkan. Yuk, coba refleksi dan tulis kondisi mentalmu di Konsulin untuk mencegah burnout sejak dini.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Mengenali dan Mencegah Burnout"

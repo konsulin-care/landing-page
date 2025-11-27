@@ -1,7 +1,7 @@
 ---
 summary: Journaling mudah diterapkan dalam rutinitas harian serta terbukti efektif untuk mengelola stress, bantu memproses emosi, dan meningkatkan kesehatan mental.
 description: Journaling adalah teknik menulis yang efektif untuk mengelola stres, didukung oleh penelitian psikologis. Menulis tentang pengalaman dan emosi membantu individu memproses perasaan mereka, mengurangi tingkat stres, dan meningkatkan kesehatan mental secara keseluruhan. Penelitian oleh Pennebaker (1997) dan lainnya menunjukkan bahwa journaling dapat membawa dampak positif pada kesejahteraan emosional dan fisik, dengan berbagai manfaat, seperti pemahaman diri yang lebih baik dan pelacakan perkembangan emosi. Sebagai alat coping, journaling mudah diakses dan dapat dilakukan secara rutin untuk menjaga kesehatan mental di tengah tekanan hidup.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling Kelola Stress"

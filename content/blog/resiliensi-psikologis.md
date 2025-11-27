@@ -1,7 +1,7 @@
 ---
 summary: Resiliensi psikologis adalah kemampuan untuk bangkit dari tantangan. Seperti otot, semakin dilatih, semakin kuat. Latih mulai sekarang!
 description: Resiliensi psikologis adalah kemampuan seseorang untuk pulih dari tantangan, kegagalan, atau kesulitan hidup. Sama seperti otot, resiliensi dapat diperkuat melalui latihan yang konsisten. Setiap kali kamu menghadapi kegagalan atau masalah, itu adalah kesempatan untuk melatih kemampuanmu agar semakin tangguh. Orang yang tangguh bukan berarti tidak pernah merasa sedih, tapi mereka mampu bangkit lebih cepat. Dengan latihan yang tepat, resiliensi psikologis akan membantu kamu lebih siap menghadapi tantangan di masa depan. Yuk, mulai latih resiliensimu dan hadapi tantangan dengan lebih kuat!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Kenalan Yuk dengan Resiliensi Psikologis"

@@ -1,7 +1,7 @@
 ---
 summary: Journaling dapat meningkatkan mindfulness dengan membantu kamu fokus pada momen saat ini, mengelola emosi, dan menurunkan stres.
 description: Journaling adalah cara yang efektif untuk meningkatkan mindfulness dan kesejahteraan mental. Dengan menulis tentang perasaan dan pikiran saat ini, kamu bisa lebih fokus pada momen sekarang, mengelola stres, dan mendapatkan pemahaman diri yang lebih baik. Teknik ini membantu menurunkan tekanan mental dengan memberi tempat bagi emosi untuk diungkapkan. Jika kamu ingin menjelajahi manfaat journaling lebih dalam atau membutuhkan panduan tambahan, Konsulin siap membantumu. Ambil langkah pertama menuju kehidupan yang lebih mindful dengan Konsulin dan rasakan perubahan positif dalam hidupmu.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling Dan Mindfulness"

@@ -1,7 +1,7 @@
 ---
 summary: Mulai journaling dengan menulis perasaan dan rasa syukur harian. Langkah ini membantu mengembangkan kreativitas dan kesehatan mental yang lebih baik.
 description: Journaling adalah cara sederhana dan efektif untuk mengelola emosi, meningkatkan kreativitas, dan meningkatkan kesehatan mental. Pemula bisa memulai dengan menulis tentang perasaan sehari-hari atau hal-hal yang disyukuri. Jangan terlalu khawatir tentang tulisan yang sempurna—fokuslah pada mengekspresikan diri dan menikmati prosesnya. Selain menulis, kamu juga bisa memasukkan elemen kreatif seperti gambar atau sketsa untuk memperkaya pengalaman journaling. Dengan meluangkan waktu beberapa menit setiap hari, journaling bisa menjadi kebiasaan yang bermanfaat dalam kehidupan sehari-hari.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Tips Journaling untuk Pemula"

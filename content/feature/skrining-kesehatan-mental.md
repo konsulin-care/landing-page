@@ -13,7 +13,7 @@ description: >
   
   Kami mengajak kamu untuk melakukan skrining kesehatan mental secara gratis menggunakan aplikasi Konsulin. Aplikasi ini menyediakan tes psikometrik yang mudah digunakan untuk membantu kamu memahami kondisi kesehatan mental kamu. Dengan melakukan skrining secara berkala, kamu dapat menjaga kesejahteraan mental dan mengambil langkah proaktif untuk hidup yang lebih bahagia dan produktif. Jangan ragu mencari bantuan profesional jika diperlukan. Konsulin siap membantu kamu di setiap langkah.
 
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 categories: Feature
 tags: Psikometrik

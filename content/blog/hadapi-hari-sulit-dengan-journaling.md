@@ -1,7 +1,7 @@
 ---
 summary: Journaling dapat membantu menghadapi hari sulit dengan meredakan stres, mengelola emosi, dan meningkatkan kesehatan mental secara signifikan.
 description: Journaling adalah cara efektif untuk mengelola emosi saat menghadapi hari yang sulit. Dengan menuliskan perasaan, kamu bisa mencurahkan apa yang mengganjal, meredakan stres, dan memperoleh perspektif baru. Selain itu, journaling membantu mengurangi kecemasan, meningkatkan rasa percaya diri, dan mengenali pola emosi untuk mempersiapkan solusi yang lebih baik di masa depan. Kebiasaan ini juga membantu merefleksikan hal-hal positif dalam hidup, memberikan sudut pandang yang lebih optimis. Jika journaling dirasa kurang cukup, berbicara dengan konselor profesional seperti di Konsulin bisa jadi langkah selanjutnya.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Hadapi Hari Sulit dengan Journaling"

@@ -1,7 +1,7 @@
 ---
 summary: Journaling efektif untuk mengatasi masalah dengan menulis masalah, perasaan, dan ide solusi.
 description: Journaling adalah alat yang efektif untuk membantu menyelesaikan masalah. Dengan menuliskan masalah, perasaan, dan ide solusi, kamu dapat menguraikan pikiran yang kusut dan menemukan jalan keluar yang lebih jelas. Journaling tidak hanya membantu meredakan emosi negatif, tetapi juga memicu otak untuk mencari pola dan solusi. Langkah-langkah sederhana seperti menulis masalah, merinci perasaan, dan brainstorming solusi bisa sangat membantu. Dengan menjadikan journaling sebagai kebiasaan, kamu akan lebih mudah menemukan solusi untuk berbagai masalah yang dihadapi dalam hidup.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling Dan Penyelesaian Masalah"

@@ -1,7 +1,7 @@
 ---
 summary: Refleksi akhir tahun jadi lebih bermakna dengan journaling. Tuliskan perjalananmu, pelajari pelajaran, dan rancang tujuan baru bersama Konsulin!
 description: Akhir tahun adalah momen sempurna untuk refleksi. Journaling membantumu memahami perjalananmu selama setahun terakhir—pencapaian, tantangan, hingga pelajaran hidup. Dengan menuliskan pemikiran dan perasaan, kamu bisa lebih memahami dirimu, mengurangi stres, dan memperjelas tujuan hidupmu. Mulai dengan menulis momen terbaik dan terberat, pelajaran yang kamu dapatkan, dan rencana untuk tahun depan. Ini adalah cara sederhana untuk memproses emosi dan menyusun resolusi yang bermakna. Jangan lupa, buat refleksi akhir tahunmu semakin bermakna dengan Konsulin!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling untuk Refleksi Akhir Tahun"

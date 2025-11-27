@@ -1,7 +1,7 @@
 ---
 summary: Kenali gejala depresi yang tak terlihat seperti perubahan pola tidur dan makan. Mulailah langkah sederhana dengan menulis perasaan di Konsulin.
 description: Gejala depresi sering kali tidak terlihat, namun dapat muncul melalui perubahan kecil, seperti pola tidur dan makan yang tidak biasa. Banyak orang mungkin merasa berbeda dari biasanya, tapi sulit mengidentifikasi perasaan mereka. Langkah sederhana seperti menulis perasaan bisa menjadi awal untuk mengenali dan memahami emosi ini. Menuliskan apa yang kamu rasakan dapat menjadi bentuk terapi pribadi yang membantu melihat pola-pola tersembunyi dalam perasaanmu. Dengan mencurahkan isi hati di Konsulin, kamu bisa mulai merawat diri dan memahami dirimu lebih baik tanpa merasa sendirian dalam perjalanan ini.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Gejala Depresi yang Tak Terlihat"

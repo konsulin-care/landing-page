@@ -1,7 +1,7 @@
 ---
 summary: Terima kasih 2024, waktunya untuk refleksi dan menyambut 2025 dengan semangat baru! Ayo, catat perjalananmu di Konsulin dan buat tahun baru lebih cerah!
 description: Tahun 2024 akan segera berakhir. Ini adalah waktu yang tepat untuk meresapi perjalanan yang telah kamu lalui. Dalam menghadapi tantangan, kita belajar banyak hal dan tumbuh menjadi lebih baik. Kini saatnya untuk menutup tahun ini dengan rasa syukur dan membuka pintu untuk 2025 dengan semangat baru. Merawat kesehatan mental menjadi hal yang penting, dan Konsulin siap menjadi tempat untuk menulis perjalananmu, mencatat refleksi, dan menyusun tujuan baru. Yuk, siap-siap sambut tahun yang lebih cerah dengan kesehatan mental yang lebih baik!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Saying Goodbye to 2024"

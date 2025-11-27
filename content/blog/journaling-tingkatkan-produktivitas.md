@@ -1,7 +1,7 @@
 ---
 summary: Journaling adalah kunci untuk meningkatkan produktivitas dengan struktur rencana harian dan evaluasi.
 description: Journaling adalah kunci untuk meningkatkan produktivitas dengan memberikan struktur dan fokus pada tujuan harian. Dengan mengurangi stres, meningkatkan akuntabilitas, dan membangun kebiasaan positif, journaling membantu mengatur pikiran dan meningkatkan efisiensi waktu. Konsulin siap membantu dalam mengembangkan kebiasaan journaling yang efektif untuk mencapai produktivitas yang lebih besar.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Tingkatkan Produktivitas dengan Journaling"

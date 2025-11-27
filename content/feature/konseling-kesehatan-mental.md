@@ -6,7 +6,7 @@ language: en
 featured_image: ../assets/images/featured/psychologist.png
 summary: Tingkatkan ketangguhan dan kesejahteraan diri dengan dukungan profesional. Temukan layanan kesehatan mental terbaik dengan konseling melalui Konsulin.
 description: Temukan kesehatan mental yang lebih baik melalui konseling Konsulin. Dapatkan bantuan dari profesional untuk mengelola stres, mengatasi kecemasan, dan membangun ketangguhan. Konseling tidak hanya membantu dalam kondisi psikologis berat tetapi juga dalam mengatasi tantangan sehari-hari. Dengan akses mudah, Konsulin menyediakan lingkungan aman untuk mengungkapkan perasaan tanpa takut dihakimi. Jadwalkan sesi pertama dan mulai perjalanan menuju keseimbangan dan kebahagiaan hari ini.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 categories: features
 tags: Konseling

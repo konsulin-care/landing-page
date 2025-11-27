@@ -1,7 +1,7 @@
 ---
 summary: Atasi writer’s block dengan mulai dari pertanyaan sederhana atau tulis apa yang ada di pikiranmu. Gunakan Konsulin untuk bantuan lebih lanjut.
 description: Terjebak writer’s block saat journaling? Jangan khawatir! Coba mulai dengan pertanyaan sederhana seperti "Apa yang paling berkesan hari ini?" atau "Bagaimana perasaanku saat ini?" Jika masih buntu, tulis saja apa yang ada di pikiranmu tanpa memikirkan struktur atau tata bahasa. Beri dirimu ruang dan waktu, dan jangan takut untuk mengulang topik favorit. Untuk dukungan lebih lanjut, gunakan Konsulin. Platform ini menyediakan tips, trik, dan bantuan yang kamu butuhkan untuk mengatasi writer’s block dan menjaga aliran kreatifmu tetap lancar. Selamat journaling!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Atasi Writer's Block Saat Journaling"

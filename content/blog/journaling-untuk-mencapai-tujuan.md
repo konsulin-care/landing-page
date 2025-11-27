@@ -1,7 +1,7 @@
 ---
 summary: Journaling membantu mencapai tujuan dengan menuliskan langkah spesifik, mengevaluasi progres, dan meningkatkan fokus serta komitmen.
 description: Journaling adalah cara efektif untuk mencapai tujuan pribadi. Dengan menuliskan tujuan secara spesifik dan memecahnya menjadi langkah-langkah kecil, kamu dapat memantau progres dan tetap fokus. Journaling juga membantu kamu mengevaluasi perkembangan secara berkala, mengidentifikasi kendala, dan menemukan solusi. Selain itu, menulis tujuan meningkatkan komitmen karena memberikan ruang untuk refleksi dan motivasi. Dengan konsistensi, journaling bisa menjadi alat yang kuat untuk mencapai pencapaian yang lebih besar dalam hidup. Capai tujuanmu dengan journaling dan dukungan dari Konsulin!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling Untuk Mencapai Tujuan"

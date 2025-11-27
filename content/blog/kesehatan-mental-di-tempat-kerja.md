@@ -1,7 +1,7 @@
 ---
 summary: Journaling efektif membantu menjaga kesehatan mental di tempat kerja dengan memproses stres dan menemukan solusi dari tantangan sehari-hari.
 description: Kesehatan mental di tempat kerja sangat penting untuk menjaga produktivitas dan kesejahteraan. Salah satu cara yang dapat membantu adalah journaling. Dengan journaling, kamu bisa mencatat hal-hal yang membuat stres, merenungkan perasaan, serta menemukan solusi dari masalah yang dihadapi. Melalui proses menulis, kamu dapat melihat pola yang menyebabkan stres dan lebih mudah mencari cara untuk mengatasinya. Journaling tidak membutuhkan banyak waktu, hanya 5-10 menit sehari sudah cukup untuk membantu menjaga kesehatan mentalmu di tengah kesibukan kerja.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Kesehatan Mental di Tempat Kerja"

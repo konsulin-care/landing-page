@@ -10,7 +10,7 @@ date: 2024-07-12T09:10:36+08:00
 draft: false
 language: en
 featured_image: ../assets/images/pages/pricing-premium.png
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 ---
 

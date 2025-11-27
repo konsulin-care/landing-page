@@ -1,5 +1,5 @@
 ---
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 summary: Konsulin adalah platform kesehatan digital yang mengintegrasikan rekam medis, tes psikometri, dan jurnal pribadi untuk kesejahteraan mentalmu.
 description: Selamat datang di Konsulin, platform kesehatan digital yang mengintegrasikan rekam medis, tes psikometri, jurnal pribadi, dan sistem ahli untuk meningkatkan kesejahteraan mental. Konsulin membantu klinisi dalam pengambilan keputusan dengan memberikan saran cerdas berdasarkan masukan dari pengguna. Pengguna dapat mengakses berbagai fitur seperti dasbor pengguna, pusat penilaian, jurnal pribadi, dan latihan self-compassion. Desain Konsulin yang minimalis dan ramah pengguna membuat perawatan kesehatan mental lebih mudah diakses. Bergabunglah dengan Konsulin untuk mengambil alih kesehatan mentalmu dan rasakan dukungan yang personal dan efektif.

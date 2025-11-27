@@ -48,12 +48,12 @@ markup:
       xhtml: false
 
 params:
-  author: Konsulin
+  author: PT TEMAN KONSULIN SEJAWAT
   authorimage: ../assets/images/global/author.svg
   chatwoot_url: "{chatwoot_url}"
   chatwoot_token: "{chatwoot_token}"
   og_image: /images/positive-thinking-wide.png
-  moto: "Psychological kit in your pocket"
+  moto: "Wellness kit in your pocket"
   description: "Buat kamu yang peduli kesehatan mental"
   long_description: "Pakai Konsulin, kesehatan mental kamu selalu dalam genggaman. Lagi kepingin curhat? Atau mau skrining kesehatan mental? Yuk, Konsulin dulu!"
   button: "Coba sekarang"

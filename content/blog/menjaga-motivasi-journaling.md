@@ -1,7 +1,7 @@
 ---
 summary: "Cara mudah menjaga motivasi journaling: gunakan pena berwarna, tulis di tempat favorit, dan ciptakan ritual menulis yang menyenangkan."
 description: Menjaga motivasi untuk journaling bisa menjadi tantangan, tetapi ada cara untuk membuatnya lebih menarik. Gunakan pena berwarna untuk menambah semangat, tulis di tempat favorit yang membuatmu nyaman, dan ciptakan ritual khusus seperti menyalakan lilin atau mendengarkan musik favorit. Eksplorasi gaya menulis yang berbeda juga bisa membuat journaling lebih menyenangkan dan personal. Jika kamu butuh dorongan lebih, Konsulin hadir untuk membantumu tetap termotivasi dan terinspirasi dalam perjalanan journalingmu, serta mendukung pengembangan diri secara keseluruhan.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Menjaga Motivasi Journaling"

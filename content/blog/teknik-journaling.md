@@ -1,7 +1,7 @@
 ---
 summary: "Temukan teknik journaling yang cocok: free writing, gratitude journal, morning pages, visual journaling."
 description: Journaling bisa berdampak positif pada kesehatan mental. Mulai dengan teknik seperti free writing untuk membebaskan pikiran, gratitude journal untuk meningkatkan rasa syukur, morning pages untuk inspirasi pagi, dan visual journaling untuk ekspresi kreatif. Untuk panduan lebih lanjut, kunjungi Konsulin yang menawarkan bimbingan dan konsultasi tentang berbagai teknik journaling. Temukan cara yang sesuai dengan gaya hidup dan kebutuhanmu untuk mengembangkan kebiasaan journaling yang bermanfaat dan memperkaya hidup secara keseluruhan.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Teknik Journaling"

@@ -1,7 +1,7 @@
 ---
 summary: Journaling bantu stabilkan emosi dengan mengenali pola, mengurangi stres, dan meningkatkan kesehatan mental. Yuk, coba journaling hari ini.
 description: Emosi naik turun bisa bikin capek. Journaling membantu menstabilkan emosi dengan menulis tentang perasaan dan pikiranmu. Menulis secara rutin membantu mengenali pola emosi, mengurangi stres, dan meningkatkan kesehatan mental. Kamu bisa mulai dengan menulis beberapa kalimat setiap hari, baik di pagi atau malam hari. Journaling adalah cara aman dan pribadi untuk melampiaskan perasaan. Jika butuh bantuan lebih lanjut, Konsulin siap mendukung perjalanan emosionalmu. Jangan biarkan emosi menguasaimu, mulai journaling hari ini dan rasakan manfaatnya. Yuk, stabilkan emosi dengan Konsulin!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling Kesehatan Emosi"

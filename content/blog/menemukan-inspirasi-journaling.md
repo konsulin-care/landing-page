@@ -1,7 +1,7 @@
 ---
 summary: Inspirasi untuk journaling dapat berasal dari hal-hal kecil dalam pengalaman sehari-harimu, ikuti lima langkah ini untuk menggali inspirasimu hari ini!
 description: Studi mengenai journaling menunjukkan bahwa aktivitas ini tidak hanya meningkatkan kesejahteraan mental tetapi juga membantu menemukan inspirasi dari pengalaman sehari-hari. Penelitian menyoroti efek positif expressive writing dan gratitude journaling terhadap kesehatan psikologis, serta hubungan antara journaling reflektif dengan praktik mindfulness. Artikel ilmiah mengenai hal ini menekankan pentingnya merenungkan momen-momen kecil untuk mengembangkan refleksi diri yang dalam dan meningkatkan kesadaran diri.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Menemukan Inspirasi untuk Journaling"

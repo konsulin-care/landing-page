@@ -1,7 +1,7 @@
 ---
 summary: Luangin waktu buat refleksi akhir tahun. Tulis perjalananmu, capai insight baru, dan persiapkan harapan di Konsulin.
 description: Sebelum tahun berakhir, ambil momen untuk refleksi perjalananmu. Apa yang sudah kamu capai? Tantangan apa yang berhasil kamu lewati? Tulis semuanya dengan tenang dan nikmati prosesnya. Melalui refleksi, kamu bisa lebih mengenali diri sendiri, memahami pengalaman, dan merancang masa depan yang lebih baik. Jangan lupa tambahkan sedikit harapan untuk tahun depan! Mulai refleksi akhir tahun kamu dengan nulis di Konsulin, platform untuk mencatat perjalanan mentalmu dengan nyaman. Yuk, buat tulisanmu jadi ruang aman untuk menutup tahun ini dan memulai yang baru.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Refleksi Tahun 2024"

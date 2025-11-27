@@ -1,7 +1,7 @@
 ---
 summary: Tahukah kamu, journaling bisa meningkatkan kebahagiaan? Mulailah menulis hal-hal positif setiap hari dan raih kebahagiaan dengan Konsulin!
 description: Journaling dapat menjadi kunci kebahagiaanmu. Dengan menulis hal-hal positif setiap hari, kamu bisa meningkatkan mood dan kesejahteraan emosional. Journaling membantu meredakan stres, meningkatkan pemahaman diri, dan melatih otak untuk lebih peka terhadap kebahagiaan. Tidak perlu waktu lama atau kemampuan menulis yang hebat; cukup luangkan beberapa menit setiap hari untuk mencatat hal-hal yang membuatmu bersyukur. Konsulin siap membantu kamu memulai kebiasaan positif ini. Jangan ragu untuk mencoba dan rasakan perubahan positif dalam hidupmu. Raih kebahagiaan dengan Konsulin!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling dan Kebahagiaan"

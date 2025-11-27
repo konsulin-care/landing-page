@@ -1,7 +1,7 @@
 ---
 summary: Mindfulness dan menulis terbukti efektif untuk mengelola kecemasan. Coba tulis apa yang bikin kamu cemas hari ini di Konsulin!
 description: Kecemasan sering dialami banyak orang, namun bisa dikelola dengan metode sederhana seperti mindfulness dan menulis. Mindfulness melatih kamu untuk fokus pada saat ini, mengurangi kecemasan dan stres. Sementara itu, menulis tentang perasaan atau kekhawatiranmu dapat membantu mengurai pikiran yang rumit, membuatnya lebih mudah untuk dipahami dan diatasi. Jika kamu sedang merasa cemas, coba tulis apa yang mengganggumu hari ini. Di Konsulin, kamu bisa memulai langkah kecil untuk lebih memahami dirimu sendiri dan mengelola kecemasan dengan lebih baik.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Menangani Kecemasan"

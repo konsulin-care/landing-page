@@ -1,7 +1,7 @@
 ---
 summary: Journaling meningkatkan pengembangan diri, kebiasaan positif, dan kesejahteraan emosional.
 description: Journaling telah terbukti secara ilmiah meningkatkan pengembangan diri melalui berbagai cara, seperti menulis tujuan hidup dan evaluasi diri. Penelitian menunjukkan bahwa journaling dapat meningkatkan kesejahteraan emosional, membantu dalam pencapaian tujuan, dan memperkuat kebiasaan positif. Dengan menulis secara rutin, seseorang dapat lebih memahami diri sendiri, mengelola emosi, dan membuat keputusan yang lebih baik. Selain itu, journaling juga mendorong refleksi dan kesadaran diri, yang penting untuk pertumbuhan pribadi. Teknik ini sederhana namun efektif dalam membawa perubahan positif dan pencapaian dalam hidup.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Pengembangan Diri Melalui Journaling"

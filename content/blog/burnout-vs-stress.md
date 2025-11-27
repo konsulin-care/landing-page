@@ -1,7 +1,7 @@
 ---
 summary: Stres dan burnout itu beda! Stres bikin kewalahan, burnout bikin kosong. Kenali tandanya dan cari cara mengatasinya sesuai kebutuhanmu.
 description: Stres dan burnout sering dianggap sama, padahal berbeda. Stres terjadi saat kamu merasa terbebani dengan tuntutan yang berlebihan, membuatmu kewalahan. Sementara itu, burnout adalah hasil dari stres yang tidak tertangani dalam jangka panjang, membuatmu merasa hampa dan kehilangan motivasi. Penting untuk memahami perbedaannya agar kamu bisa mengambil langkah yang tepat untuk mengatasinya. Stres biasanya bisa diredakan dengan manajemen waktu dan istirahat, sedangkan burnout butuh perhatian lebih mendalam seperti evaluasi prioritas atau rehat panjang. Mulai kenali dirimu dan ceritakan perasaanmu di Konsulin!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Burnout vs Stress"

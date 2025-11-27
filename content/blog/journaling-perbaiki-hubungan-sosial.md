@@ -1,7 +1,7 @@
 ---
 summary: Journaling membantu memahami diri dan orang lain, memperbaiki hubungan sosial dengan meningkatkan empati dan kesadaran emosional.
 description: Journaling adalah alat yang efektif untuk memperbaiki hubungan sosial dengan meningkatkan pemahaman diri dan orang lain. Menulis tentang interaksi sosial membantu mengidentifikasi pola perilaku, mengembangkan empati, dan mengatasi kecemasan sosial. Dengan merenungkan pengalaman, kamu bisa melihat situasi dari perspektif yang berbeda, yang penting untuk memperkuat relasi. Journaling juga mendukung komunikasi yang lebih efektif dan sehat dalam hubungan. Mulailah journaling untuk mencapai relasi sosial yang lebih bermakna dan harmonis.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling untuk Memperbaiki Hubungan Sosial"

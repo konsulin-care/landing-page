@@ -1,7 +1,7 @@
 ---
 summary: Kecemasan itu normal, tapi kalau udah mengganggu aktivitas sehari-hari, penting buat ditangani. Mulailah dengan menyadari penyebabnya.
 desciption: Kecemasan adalah reaksi normal tubuh terhadap tekanan, tetapi ketika kecemasan mulai mengganggu aktivitas sehari-hari, itu bisa jadi masalah. Mengidentifikasi penyebab kecemasan adalah langkah pertama untuk menghadapinya. Menulis jurnal bisa membantu kamu memahami pemicu kecemasan, sementara teknik pernapasan dalam dan latihan mindfulness efektif untuk meredakan gejala. Jika kecemasan terus mengganggu hidupmu, berbicara dengan profesional seperti psikolog bisa memberi dukungan lebih lanjut. Mengatasi kecemasan membutuhkan langkah-langkah kecil, dan salah satu cara mudah adalah menulis apa yang kamu pikirkan di Konsulin, untuk meringankan beban pikiran.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Mengatasi Kecemasan Yang Mengganggu"

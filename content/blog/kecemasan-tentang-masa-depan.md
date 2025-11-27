@@ -1,7 +1,7 @@
 ---
 summary: Punya kecemasan tentang masa depan itu wajar. Menulis bisa bantu kamu lebih fokus, tenang, dan mengenali langkah kecil yang bisa diambil.
 description: Merasa cemas tentang masa depan itu normal. Tekanan sosial, ketidakpastian ekonomi, atau overthinking bisa bikin pikiran jadi kacau. Tapi jangan biarkan rasa cemas menguasai kamu. Menulis adalah cara sederhana tapi efektif untuk menghadapinya. Dengan menulis, kamu bisa mengenali apa yang bikin kamu cemas, memahami harapan kamu, dan menentukan langkah kecil untuk maju. Menulis bikin pikiran lebih fokus dan hati lebih tenang. Di Konsulin, kamu bisa mencatat semua harapan dan kekhawatiran dengan aman dan rapi. Yuk, mulai menulis untuk masa depan yang lebih cerah!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Kecemasan Tentang Masa Depan"

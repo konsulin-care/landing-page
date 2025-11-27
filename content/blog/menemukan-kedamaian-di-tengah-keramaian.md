@@ -1,7 +1,7 @@
 ---
 summary: Liburan bisa jadi sulit bagi yang berjuang dengan depresi. Tulis perasaanmu dan cari dukungan untuk melewati liburan dengan lebih tenang.
 description: Liburan seringkali membawa tekanan emosional, terutama bagi mereka yang menghadapi depresi. Perasaan kesepian atau tertekan bisa semakin kuat dengan ekspektasi untuk bahagia selama musim liburan. Salah satu cara untuk menghadapinya adalah dengan mencari dukungan atau menulis perasaan, seperti menggunakan aplikasi Konsulin. Ingat, kamu tidak harus ikut serta dalam setiap tradisi atau merayakan dengan cara yang sama seperti orang lain. Fokuslah pada perasaanmu dan temukan cara untuk menghadapi liburan dengan lebih tenang, tanpa merasa terpaksa untuk selalu ceria.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Menemukan Kedamaian di Tengah Keramaian"

@@ -1,7 +1,7 @@
 ---
 summary: Identifikasi dan tuliskan hal-hal yang bikin kamu cemas. Langkah kecil ini bisa bantu kamu mengelola kecemasan sehari-hari dengan lebih baik.
 description: Kecemasan sering kali membuat kita overthinking dan menguras energi. Salah satu cara untuk mengatasinya adalah dengan mengidentifikasi dan menuliskan hal-hal yang menjadi pemicu kecemasan. Menulis memungkinkan kita memproses pikiran dengan lebih terorganisir, mengurangi kecemasan, dan melihat situasi secara lebih objektif. Metode sederhana ini efektif membantu mengenali pola pikiran yang mengganggu dan membuka langkah untuk mengelola kecemasan dengan baik. Dengan bantuan platform seperti Konsulin, kamu bisa memiliki tempat aman untuk curhat dan belajar cara mengatasi kecemasan dengan lebih nyaman.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Mengatasi Kecemasan Sehari Hari"

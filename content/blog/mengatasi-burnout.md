@@ -1,7 +1,7 @@
 ---
 summary: Cegah burnout dengan aktivitas sederhana seperti menulis dan mendengarkan musik untuk bantu recharge energi dan hilangkan stres.
 description: Burnout sering kali membuat kita merasa lelah dan kehilangan motivasi. Untuk mengatasinya, cobalah aktivitas sederhana yang dapat menenangkan pikiran, seperti menulis tentang perasaan atau mendengarkan musik favorit. Aktivitas-aktivitas ini terbukti efektif untuk membantu menghilangkan stres dan mengisi kembali energi yang hilang. Penelitian menunjukkan bahwa melakukan hal-hal yang kita sukai, bahkan dalam waktu singkat, mampu mengurangi efek burnout. Kamu juga bisa mencoba menulis di Konsulin sebagai ruang untuk mengekspresikan perasaan dengan aman. Mulailah sekarang dan rasakan manfaatnya untuk kesehatan mentalmu!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Mengatasi Burnout"

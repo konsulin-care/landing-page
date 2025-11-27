@@ -1,7 +1,7 @@
 ---
 summary: Konsisten melakukan journaling mengurangi stres, meningkatkan kesejahteraan emosional, membantu hadapi depresi serta kecemasan, dan menciptakan ruang pertumbuhan diri.
 description: Konsistensi dalam journaling bukan hanya tentang menulis kata-kata. Ini adalah tentang memberi dirimu kesempatan untuk menggali lebih dalam ke dalam diri sendiri, mengatur pikiran, dan menemukan ketenangan dalam kehidupan yang sibuk. Jadi, jangan ragu untuk mengambil langkah kecil menuju perubahan positif. Mulai sekarang, buat jadwal journaling yang realistis dan patuhi. Efeknya mungkin tidak langsung terasa, tapi seiring waktu, kamu akan menyadari betapa berharganya waktu yang kamu luangkan untuk merawat pikiran dan perasaanmu. Teruslah konsisten, dan nikmati perjalananmu dalam meraih keseimbangan dan kedamaian batin.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Pentingnya Konsisten dalam Journaling"

@@ -1,7 +1,7 @@
 ---
 summary: Tahun baru, waktu yang tepat untuk refleksi dan menyusun rencana mental baru. Yuk, mulai persiapkan mentalmu di Konsulin untuk tahun yang lebih baik!
 description: Tahun baru sering menjadi momen untuk meraih hal-hal baru, namun tanpa persiapan mental yang matang, hal itu bisa sulit dicapai. Melalui refleksi diri dan menulis rencana mental, kita bisa mempersiapkan diri untuk tantangan yang akan datang. Refleksi membantu kita melihat apa yang telah dicapai dan apa yang perlu diperbaiki, sementara menulis rencana mental memberi kita panduan untuk mencapainya. Dengan menggunakan Konsulin, kita bisa lebih mudah menyusun dan melacak rencana mental, memastikan bahwa tahun baru benar-benar menjadi kesempatan untuk meraih tujuan dengan lebih terorganisir dan lebih siap mental.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Persiapan Tahun 2025"

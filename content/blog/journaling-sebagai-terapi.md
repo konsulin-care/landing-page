@@ -1,7 +1,7 @@
 ---
 summary: Journaling bisa jadi terapi pribadi yang efektif. Tuliskan pikiranmu dan rasakan beban berkurang.
 description: Journaling bisa menjadi terapi pribadi yang efektif dengan membantu kamu mengekspresikan pikiran dan perasaan, sehingga mengurangi beban mental. Dengan menulis, kamu dapat memahami dan mengelola emosi lebih baik, mengurangi stres, dan meningkatkan kreativitas serta kesehatan emosional. Mulailah dengan memilih waktu yang tepat, menulis secara bebas, dan konsisten. Journaling juga bisa melengkapi terapi pribadi jika kamu memerlukan dukungan tambahan. Coba Konsulin untuk mendapatkan terapi pribadi yang sesuai kebutuhanmu dan rasakan perbedaannya dalam menjaga kesehatan mentalmu. Terapi pribadi? Coba Konsulin!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling Sebagai Terapi"

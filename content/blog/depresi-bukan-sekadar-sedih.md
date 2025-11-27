@@ -1,7 +1,7 @@
 ---
 summary: Depresi lebih dari sekadar sedih. Mulai langkah kecil dengan menulis perasaan di Konsulin. Kamu nggak sendirian, yuk coba sekarang!
 description: Depresi bukan hanya perasaan sedih yang biasa. Kondisi ini bisa membuat kamu kehilangan minat dan kesulitan menikmati hal-hal menyenangkan. Tapi, kamu nggak sendirian, dan ada langkah kecil yang bisa membantu. Menulis perasaan adalah salah satu cara untuk memulai perjalanan menuju pemulihan. Dengan menulis, kamu bisa mengenali apa yang kamu rasakan dan memahaminya lebih baik. Jika kamu bingung harus mulai dari mana, coba gunakan Konsulin. Platform ini menawarkan ruang aman untuk mencurahkan perasaan tanpa rasa takut. Yuk, mulai menulis dan temukan cara untuk merasa lebih baik!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Depresi Bukan Sekadar Sedih"

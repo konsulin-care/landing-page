@@ -1,7 +1,7 @@
 ---
 summary: Burnout adalah tanda kelelahan mental dan fisik akibat tekanan berlebih. Luangkan waktu untuk istirahat dan refleksi di Konsulin.
 description: Burnout merupakan kondisi kelelahan fisik dan mental akibat tekanan kerja yang berkepanjangan. Tanda-tanda burnout meliputi kelelahan terus-menerus, menurunnya produktivitas, perubahan emosi, kehilangan minat, dan kesulitan berkonsentrasi. Kondisi ini dapat memengaruhi kesehatan mental dan fisik, sehingga penting untuk mengenali gejalanya dan memberikan waktu untuk diri sendiri. Istirahat bukanlah tanda kelemahan, tapi cara efektif untuk memulihkan semangat dan keseimbangan hidup. Salah satu langkah yang bisa kamu coba adalah menulis perasaan di Konsulin untuk lebih memahami emosi kamu.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Mengelola Burnout"

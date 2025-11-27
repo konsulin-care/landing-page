@@ -1,7 +1,7 @@
 ---
 summary: Mengenali depresi sejak dini sangat penting. Perhatikan perubahan mood, minat, atau ketertarikan sosial sebagai tanda awalnya. Coba refleksi di Konsulin.
 description: Depresi seringkali muncul tanpa disadari, dengan gejala seperti perubahan mood yang tiba-tiba, menarik diri dari lingkungan sosial, atau hilangnya minat terhadap aktivitas favorit. Mengenali tanda-tanda ini sejak awal sangat penting untuk menjaga kesehatan mental. Langkah sederhana seperti menuliskan perasaan atau berbicara dengan orang terdekat bisa membantu memahami emosi yang dirasakan. Konsulin menyediakan ruang aman untuk mengekspresikan perasaan dan menemukan cara merefleksikan diri. Mulailah mengenali tanda depresi lebih awal agar kesehatan mental tetap terjaga dan seimbang.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Mengenali Tanda Awal Depresi"

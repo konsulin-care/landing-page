@@ -1,7 +1,7 @@
 ---
 summary: Depresi tidak selalu terlihat sebagai kesedihan. Gejalanya bisa berupa kehilangan minat, merasa cemas, atau menarik diri dari lingkungan sosial.
 description: Depresi bukan sekadar rasa sedih, tapi bisa muncul dalam bentuk hilangnya minat terhadap hal-hal yang dulu menyenangkan. Selain itu, gejala seperti kelelahan emosional, merasa tidak berharga, sulit tidur, dan sulit berkonsentrasi juga sering muncul. Meski sering kali tidak terlihat jelas, depresi adalah kondisi serius yang membutuhkan perhatian. Penting untuk menyadari gejalanya dan tidak merasa sendiri dalam menghadapi perasaan ini. Salah satu cara mengatasi adalah dengan curhat, baik lewat tulisan atau berbicara dengan orang lain. Platform seperti Konsulin dapat membantu kamu mulai mencurahkan perasaan.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Kenali Gejala Depresi"

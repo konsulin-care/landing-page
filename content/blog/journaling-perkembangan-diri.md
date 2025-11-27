@@ -1,7 +1,7 @@
 ---
 summary: Journaling membantu mengukur dan memahami perkembangan diri dengan menetapkan target dan evaluasi rutin.
 description: Journaling adalah alat efektif untuk mengukur dan memahami perkembangan diri. Dengan menetapkan target spesifik dan rutin mengevaluasi pencapaian, kamu dapat melacak kemajuanmu secara jelas. Proses ini membantu dalam refleksi diri, mengidentifikasi pola, dan membuat penyesuaian yang diperlukan untuk mencapai tujuan. Gunakan journaling untuk menetapkan target dalam berbagai aspek kehidupan, dan ulas kemajuanmu secara teratur. Untuk dukungan lebih lanjut dalam mengukur perkembanganmu, Konsulin menawarkan berbagai tools dan ahli yang siap membantumu mencapai tujuan. Mulailah journaling hari ini dan ukur perkembanganmu dengan Konsulin!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling Perkembangan Diri"

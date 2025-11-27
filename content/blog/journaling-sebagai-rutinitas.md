@@ -1,7 +1,7 @@
 ---
 summary: Integrasikan journaling ke rutinitas harianmu, seperti sebelum tidur atau saat sarapan, untuk manfaat kesehatan mental dan produktivitas.
 description: Mengintegrasikan journaling ke dalam rutinitas harianmu bisa memberi manfaat besar bagi kesehatan mental dan produktivitas. Cobalah menulis jurnal sebelum tidur untuk meredakan stres dan menenangkan pikiran, atau saat sarapan untuk memulai hari dengan fokus dan tujuan jelas. Mulailah dengan langkah kecil dan konsisten, seperti menetapkan waktu tetap setiap hari. Pilih tempat yang nyaman dan alat tulis yang menarik, serta jangan terlalu khawatir dengan tata bahasa. Dengan konsistensi, journaling akan menjadi kebiasaan positif yang memperkaya hidupmu. Selamat mencoba dan jadikan journaling bagian dari rutinitas harianmu!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Jadikan Journaling Rutinitas Harianmu"

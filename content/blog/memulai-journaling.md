@@ -1,7 +1,7 @@
 ---
 summary: Mulai journaling dengan mencatat hal positif setiap hari bersama Konsulin. Tingkatkan kesejahteraan emosionalmu sekarang!
 description: Mulailah perjalanan journaling dengan mencatat satu hal positif setiap hari. Ini adalah langkah awal mudah untuk meningkatkan kesejahteraan emosional dan kebahagiaan. Dengan bimbingan dari Konsulin, kamu akan terbiasa dan merasakan manfaatnya secara langsung. Journaling bukan hanya mencatat kejadian, tetapi juga membantu mengelola stres dan meningkatkan kesadaran diri. Referensi dari American Psychological Association dan Harvard Health Publishing menunjukkan manfaat positif dari kegiatan ini. Ayo, jangan ragu untuk memulai sekarang dan rasakan perubahan positif dalam pandangan hidupmu!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Memulai Journaling"

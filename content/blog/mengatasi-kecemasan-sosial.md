@@ -1,7 +1,7 @@
 ---
 summary: Mengelola kecemasan sosial bisa dimulai dengan latihan pelan-pelan dan menulis perasaanmu. Coba sekarang di Konsulin untuk dukungan!
 description: Kecemasan sosial bisa membuat interaksi dengan orang lain terasa sulit. Salah satu cara untuk menghadapinya adalah dengan latihan bertahap, mulai dari percakapan kecil dan memperkenalkan diri di situasi sosial ringan. Selain itu, menulis perasaanmu tentang pengalaman sosial bisa membantu mengidentifikasi pemicu kecemasan dan meredakannya. Menulis memungkinkan kamu untuk melihat situasi dengan perspektif baru. Cobalah menulis pengalaman sosial kamu hari ini di Konsulin untuk mendapatkan dukungan dan berbagi pengalaman dengan orang lain yang merasakan hal yang sama. Setiap langkah kecil berarti dalam mengatasi kecemasan sosial.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Mengatasi Kecemasan Sosial"

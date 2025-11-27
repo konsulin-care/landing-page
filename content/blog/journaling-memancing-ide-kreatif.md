@@ -1,7 +1,7 @@
 ---
 summary: Journaling membantu memancing kreativitas dengan menulis bebas, membersihkan pikiran, dan menangkap ide-ide baru.
 description: Journaling adalah cara efektif untuk memancing kreativitas. Dengan menulis bebas tanpa batasan, kamu bisa menangkap ide-ide tersembunyi dan membersihkan pikiran dari kebisingan yang menghalangi inspirasi. Journaling tidak memerlukan keahlian menulis khusus, dan cukup luangkan 10-15 menit setiap hari untuk menulis apapun yang ada di pikiranmu. Ini dapat membantu menemukan pola, solusi kreatif, atau wawasan baru. Jika ingin mengasah kreativitas lebih lanjut, Konsulin siap membantumu dengan tips dan trik pengembangan diri.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Journaling Memancing Ide Kreatif"

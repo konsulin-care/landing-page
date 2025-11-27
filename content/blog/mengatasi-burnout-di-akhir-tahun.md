@@ -1,7 +1,7 @@
 ---
 summary: Akhir tahun sering bikin burnout. Istirahat, prioritasin diri, dan tulis perasaan kamu di Konsulin untuk recharge energi dan atasi stres.
 description: Akhir tahun bisa menjadi waktu yang penuh tekanan, yang memicu burnout akibat tugas yang menumpuk dan ekspektasi yang tinggi. Untuk mengatasi burnout, penting untuk istirahat yang cukup, menentukan prioritas, dan memberi waktu untuk diri sendiri. Menulis jurnal tentang perasaan juga bisa menjadi cara yang efektif untuk melepaskan stres. Jangan ragu untuk mencari dukungan dari orang terdekat jika merasa kelelahan. Ingat, kamu berhak merasa baik dan seimbang. Coba tulis apa yang bikin kamu capek di akhir tahun ini di Konsulin untuk meredakan burnout dan recharge energi.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Mengatasi Burnout di Akhir Tahun"

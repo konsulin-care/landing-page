@@ -1,7 +1,7 @@
 ---
 summary: Latihan bersyukur tiap hari bantu bangun resiliensi mental, menjaga fokus pada sisi positif hidup, dan meningkatkan ketahanan diri.
 description: Latihan bersyukur setiap hari adalah cara sederhana namun efektif untuk membangun resiliensi. Dengan fokus pada hal-hal positif, bahkan yang kecil, kita dapat mengembangkan pola pikir yang lebih optimis. Rasa syukur membantu kita menghargai setiap aspek hidup, mengurangi stres, dan menguatkan kesehatan mental. Kebiasaan ini melatih otak untuk melihat sisi baik dari setiap situasi, sehingga membuat kita lebih siap menghadapi tantangan. Mulailah menulis tiga hal yang kamu syukuri setiap hari untuk membentuk pola pikir yang lebih tangguh. Praktik ini dapat memperkuat resiliensi dan mengubah perspektif dalam menghadapi masalah.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Tips Membangun Resiliensi"

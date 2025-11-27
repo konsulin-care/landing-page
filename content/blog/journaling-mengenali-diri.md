@@ -1,7 +1,7 @@
 ---
 summary: Journaling membantu meningkatkan kesadaran diri dengan memperluas pemahaman tentang pikiran dan emosi, serta mengarahkan pada pertumbuhan pribadi.
 description: Journaling adalah praktik menulis untuk merefleksikan pengalaman, pemikiran, dan perasaan pribadi. Dengan mengekspresikan diri secara tertulis, seseorang dapat memperdalam pemahaman tentang diri sendiri, mengidentifikasi pola pikiran dan emosi, serta memahami respons terhadap situasi tertentu. Proses ini membuka ruang untuk introspeksi yang mendalam, membantu individu mengenali kekuatan, kelemahan, dan nilai-nilai pribadi yang mendasar. Melalui journaling yang konsisten, seseorang dapat memantau perkembangan diri dan mengambil langkah-langkah konkret menuju pertumbuhan pribadi yang lebih baik, menciptakan hubungan yang lebih jujur dan autentik dengan diri sendiri.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Mengenali Diri Melalui Journaling"

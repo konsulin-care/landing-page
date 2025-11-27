@@ -6,7 +6,7 @@ language: en
 featured_image: ../assets/images/featured/personal-growth.png
 summary: Journaling kesehatan mental adalah langkah kecil dengan dampak besar. Coba gratis journaling dengan Konsulin hari ini dan lihat perubahan positif dalam hidupmu.
 description: Journaling kesehatan mental adalah praktik menulis pikiran dan perasaan secara teratur untuk mengelola stres, meningkatkan kesadaran diri, dan menyelesaikan masalah. Hal ini membantu klinisi dalam menegakkan diagnosis dan menyusun terapi yang efektif. Aplikasi Konsulin menawarkan platform gratis untuk memulai journaling kesehatan mental, memfasilitasi refleksi diri yang mendalam dan penanganan yang lebih baik dari masalah emosional.
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 categories: Feature
 tags: Journaling

@@ -1,7 +1,7 @@
 ---
 summary: Latih resiliensi kamu dengan journaling atau meditasi. Resiliensi bantu kamu bangkit dari stres & tekanan.
 description: Resiliensi adalah kemampuan buat bangkit dari tekanan hidup. Resiliensi bukan bawaan lahir—kamu bisa melatihnya. Hal-hal sederhana seperti journaling atau meditasi bisa bantu membangun resiliensi. Journaling membantu kamu memahami pikiran, sementara meditasi membawa ketenangan. Dengan melatih resiliensi, kamu bisa menghadapi tantangan lebih baik dan menjaga kesehatan mental. Mulai journaling di Konsulin sekarang untuk langkah kecil menuju perubahan besar!
-author: Konsulin
+author: PT Teman Konsulin Sejawat
 authorimage: ../assets/images/global/author.png
 featured_image: ../assets/images/featured/featured-img-placeholder.png
 title: "Resiliensi: Kekuatan dalam Diri"
