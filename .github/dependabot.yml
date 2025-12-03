@@ -9,9 +9,9 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      all-updates:
-        patterns:
-          - "*"
+      update-types:
+        - "minor"
+        - "patch"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
@@ -19,9 +19,9 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      all-updates:
-        patterns:
-          - "*"
+      update-types:
+        - "minor"
+        - "patch"
   
   # Maintain dependencies for go
   - package-ecosystem: "gomod"
@@ -29,6 +29,6 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      all-updates:
-        patterns:
-          - "*"
+      update-types:
+        - "minor"
+        - "patch"
