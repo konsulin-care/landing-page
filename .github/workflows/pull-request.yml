@@ -1,7 +1,9 @@
-name: Render Static Site
+name: Test Render Static Site
 
 on:
   pull_request:
+    branches: [main]
+  push:
     branches: [main]
 
 permissions:
