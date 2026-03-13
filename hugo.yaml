@@ -228,3 +228,9 @@ module:
   hugoVersion:
     extended: true
     min: "0.104.0"
+
+ignoreFiles:
+  - "AGENTS.md"
+  - "layouts/AGENTS.md"
+  - "layouts/partials/AGENTS.md"
+  - "docs/*.md"
