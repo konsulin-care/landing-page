@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   const container = document.getElementById('card-container');
+  
+  // Exit early if container doesn't exist on this page
+  if (!container) return;
+  
   const btnLeft = document.getElementById('scroll-left');
   const btnRight = document.getElementById('scroll-right');
   const cards = Array.from(container.children);

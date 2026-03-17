@@ -101,14 +101,14 @@ params:
     - tes sehat mental
 
   p1:
-    heading: "Mimpi kami"
+    heading: "Cerita di balik Konsulin"
     image: "images/pages/our-mission.png"
-    button: "Lihat fitur"
-    forward: "feature"
+    button: "Mulai di WhatsApp"
+    forward: "https://wa.me/6281234567890"
     content:
-      - text: "Kami memiliki mimpi di mana layanan kesehatan mental dapat diakses oleh semua orang, di mana saja, dan kapan saja. Kami percaya bahwa akses yang mudah dan informasi yang akurat membantu kamu untuk memahami kondisi psikismu."
-      - text: "Untuk mewujudkan mimpi tersebut, Konsulin berdiri sebagai platform kolaborasi antara masyarakat, klinisi, dan akademisi. Dengan Konsulin, kamu dapat mencatat jurnal psikologi harian, melakukan tes kesehatan mental yang hasilnya dipandu oleh psikolog profesional, dan mendapatkan dukungan yang kamu butuhkan."
-      - text: ""
+      - text: "Kebanyakan aplikasi kesehatan tidak terbuka tentang bagaimana data kita digunakan. Kita tidak pernah tahu: infrastruktur apa yang menjaga data kita? Apakah sistem ini aman dan transparan?"
+      - text: "Konsulin beroperasi dengan infrastruktur terbuka. Kamu bisa verifikasi bagaimana sistem kami bekerja untuk memproses datamu."
+      - text: "Dengan Konsulin, kamu bisa gunakan fitur-fiturnya gratis: jurnal harian untuk bercerita, skrining kesehatan untuk memahami kondisimu saat ini, dan menjadwalkan konseling dengan klinisi profesional. Semuanya tanpa ribet, tanpa biaya di awal."
   p2:
     heading: "Kenapa mendirikan Konsulin?"
     image: "images/pages/pricing-plans.png"
