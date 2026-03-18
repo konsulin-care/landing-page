@@ -1,5 +1,8 @@
 /* assets */
 
+/* Alpine.js x-cloak - hide elements until Alpine initializes */
+[x-cloak] { display: none !important; }
+
 /* ! tailwindcss v3.4.4 | MIT License | https://tailwindcss.com */
 
 /*
@@ -1139,6 +1142,10 @@ video {
   top: 2rem;
 }
 
+.top-16 {
+  top: 6rem;
+}
+
 .z-30 {
   z-index: 30;
 }
@@ -2146,7 +2153,6 @@ html {
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1rem;
-  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 9999px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
@@ -2155,8 +2161,7 @@ html {
 }
 
 .scroll-indicator button:hover {
-  background-color: rgba(31, 41, 55, 0.9);
-  color: white;
+  background-color: rgba(10, 189, 195, 1); /* primary-600 */
 }
 
 .scroll-indicator button svg {
@@ -2167,11 +2172,10 @@ html {
 
 .dark .scroll-indicator button {
   background-color: rgba(31, 41, 55, 0.9);
-  color: #f3f4f6;
 }
 
 .dark .scroll-indicator button:hover {
-  background-color: rgba(55, 65, 81, 1);
+  background-color: rgba(42, 237, 244, 1); /* primary-400 */
 }
 
 .dark .scroll-indicator button svg {

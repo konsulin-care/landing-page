@@ -4,16 +4,12 @@
   Accepts a dict with:
   - num: section number (1-5)
   - partial: name of the content partial to include (e.g., "home-header.html")
-  - showUp: boolean to show up indicator
-  - showDown: boolean to show down indicator
   - siteParams: optional site params for conditional content (like Disable_stay_uptodate)
   - context: the original page context for passing to content partials
 */}}
 
 {{ $num := .num }}
 {{ $partial := .partial }}
-{{ $showUp := .showUp }}
-{{ $showDown := .showDown }}
 {{ $siteParams := .siteParams }}
 {{ $context := .context }}
 
@@ -32,14 +28,4 @@
       {{ partial $partial $context }}
     {{ end }}
   </div>
-  
-  {{/* Up scroll indicator */}}
-  {{ if $showUp }}
-    {{ partial "scroll-indicator.html" (dict "direction" "up" "targetSection" (sub $num 1) "currentSection" (sub $num 1)) }}
-  {{ end }}
-  
-  {{/* Down scroll indicator */}}
-  {{ if $showDown }}
-    {{ partial "scroll-indicator.html" (dict "direction" "down" "targetSection" (add $num 1) "currentSection" $num) }}
-  {{ end }}
 </section>

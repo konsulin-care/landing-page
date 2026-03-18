@@ -24,6 +24,7 @@
 
 <div class="scroll-indicator fixed left-1/2 transform -translate-x-1/2 z-50 {{ if eq $direction "up" }}top-8{{ else }}bottom-8{{ end }}">
   <button 
+    id="section-navigator"
     @click="scrollToSection({{ $targetSection }})"
     class="group flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 bg-transparent"
     :class="clickedBtn === {{ $targetSection }} ? 'bg-secondary-600' : (currentSection === {{ $currentSection }} ? 'bg-primary-600' : '')"
