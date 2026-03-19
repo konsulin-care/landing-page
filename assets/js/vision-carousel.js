@@ -52,6 +52,34 @@ document.addEventListener('DOMContentLoaded', function() {
         dot.classList.add('bg-gray-300', 'dark:bg-gray-700');
       }
     });
+    
+    // Sync with Alpine.js scroll-navigation component
+    syncWithAlpine(currentFrame);
+  }
+  
+  // Sync current frame with Alpine.js scroll-navigation component
+  function syncWithAlpine(frame) {
+    // Try to sync with the Alpine component
+    if (window.Alpine) {
+      // Find the main element with scroll-navigation
+      const mainElement = document.querySelector('[x-data*="scrollNavigation"]');
+      if (mainElement && Alpine.$data(mainElement)) {
+        const navComponent = Alpine.$data(mainElement);
+        if (navComponent && typeof navComponent.currentFrame !== 'undefined') {
+          navComponent.currentFrame = frame;
+        }
+      }
+    }
+    
+    // Also try to sync with the globally exposed instance
+    if (window.scrollNavigationInstance) {
+      window.scrollNavigationInstance.currentFrame = frame;
+    }
+    
+    // Dispatch custom event for other listeners
+    window.dispatchEvent(new CustomEvent('carousel-frame-changed', { 
+      detail: { frame: frame, fromCarousel: true }
+    }));
   }
   
   // Update chevron states
@@ -198,13 +226,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Previous button
     var prevBtn = carousel.querySelector('.chevron-left');
     if (prevBtn) {
-      prevBtn.addEventListener('click', prevFrame);
+      prevBtn.addEventListener('click', function() {
+        prevFrame();
+        // Sync with Alpine after click
+        syncWithAlpine(currentFrame);
+      });
     }
     
     // Next button
     var nextBtn = carousel.querySelector('.chevron-right');
     if (nextBtn) {
-      nextBtn.addEventListener('click', nextFrame);
+      nextBtn.addEventListener('click', function() {
+        nextFrame();
+        // Sync with Alpine after click
+        syncWithAlpine(currentFrame);
+      });
     }
     
     // Progress dots
@@ -212,7 +248,25 @@ document.addEventListener('DOMContentLoaded', function() {
     dots.forEach(function(dot, index) {
       dot.addEventListener('click', function() {
         goToFrame(index);
+        // Sync with Alpine after click
+        syncWithAlpine(currentFrame);
       });
+    });
+    
+    // Listen for frame changes from scroll-navigation
+    window.addEventListener('frame-change', function(e) {
+      // Only react if the event didn't originate from this carousel
+      const carouselEvent = new CustomEvent('carousel-frame-changed', { 
+        detail: { frame: currentFrame, fromCarousel: true } 
+      });
+      
+      // Check if we need to update from external source
+      if (e.detail && typeof e.detail.frame !== 'undefined') {
+        // Check if frame differs from our current state
+        if (e.detail.frame !== currentFrame && !e.detail.fromCarousel) {
+          goToFrame(e.detail.frame);
+        }
+      }
     });
   }
   
@@ -226,12 +280,13 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', function() {
     updateChevrons();
   });
-  
+
   // Expose functions globally for potential external use
   window.visionCarousel = {
     next: nextFrame,
     prev: prevFrame,
     goTo: goToFrame,
+    getCurrentFrame: function() { return currentFrame; },
     start: startTimer,
     stop: stopTimer
   };
