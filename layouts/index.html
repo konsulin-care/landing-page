@@ -1,66 +1,14 @@
 {{ define "main" }}
 <main
-  x-data="{
-    currentSection: 1,
-    totalSections: 5,
-    headerHeight: 64,
-    clickedBtn: null,
-    init() {
-      // Use IntersectionObserver to detect current section
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const sectionNum = parseInt(entry.target.id.replace('section-', ''));
-              this.currentSection = sectionNum;
-            }
-          });
-        },
-        {
-          root: null,
-          rootMargin: '-50% 0px -50% 0px', // Trigger when section is in middle of viewport
-          threshold: 0
-        }
-      );
-      
-      document.querySelectorAll('.scroll-snap-section').forEach(section => {
-        observer.observe(section);
-      });
-    },
-    scrollToSection(sectionNum) {
-      this.clickedBtn = sectionNum;
-      const section = document.getElementById('section-' + sectionNum);
-      if (section) {
-        section.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-        this.currentSection = sectionNum;
-      }
-      setTimeout(() => {
-        this.clickedBtn = null;
-      }, 300);
-    },
-    handleKeydown(e) {
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        e.preventDefault();
-        if (this.currentSection < this.totalSections) {
-          this.scrollToSection(this.currentSection + 1);
-        }
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        e.preventDefault();
-        if (this.currentSection > 1) {
-          this.scrollToSection(this.currentSection - 1);
-        }
-      }
-    }
-  }"
+  x-data="scrollNavigation()"
   x-init="init();"
   @keydown.window="handleKeydown($event)"
+  @scroll.window="handleScroll()"
 >
 
   <link rel="stylesheet" href="{{ "css/carousel.css" | relURL }}">
   <script src="{{ "js/carousel.js" | relURL }}"></script>
+  <script src="{{ "js/scroll-navigation.js" | relURL }}"></script>
 
   {{ $sections := slice 
     (dict "num" 1 "partial" "home-header.html" "context" .)

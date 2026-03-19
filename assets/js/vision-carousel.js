@@ -21,15 +21,23 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    // Update right side (text)
+    // Update right side (text) - use active class for smooth transitions
     const textFrames = carousel.querySelectorAll('.text-frame');
     textFrames.forEach(function(frame, index) {
       if (index === currentFrame) {
         frame.style.display = 'block';
-        frame.classList.add('animate-in');
+        // Small delay to allow display:block to apply before adding active class
+        setTimeout(function() {
+          frame.classList.add('active');
+        }, 10);
       } else {
-        frame.style.display = 'none';
-        frame.classList.remove('animate-in');
+        frame.classList.remove('active');
+        // Hide after transition completes
+        setTimeout(function() {
+          if (!frame.classList.contains('active')) {
+            frame.style.display = 'none';
+          }
+        }, 500);
       }
     });
     

@@ -107,41 +107,46 @@
     <!-- Right container - Text content (animated) -->
     <div class="relative max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:px-0 lg:flex lg:justify-center">
       <div class="sm:pt-6 md:pt-12 lg:pt-20">
-        <!-- Frame 0: Title + Paragraph 1 -->
-        <div class="text-frame block">
-          <h2 class="text-3xl font-bold tracking-tight text-primary-600 dark:text-primary-100 sm:text-4xl">
-            {{ .Site.Params.P1.Heading }}
-          </h2>
-          <div class="mt-6 text-gray-900 dark:text-white">
-            {{ range first 1 .Site.Params.P1.Content }}
-            <p class="text-lg text-gray-900 dark:text-white">
-              {{ .text }}
-            </p>
-            {{ end }}
-          </div>
-        </div>
+        <!-- Fixed title - stays in position -->
+        <h2 class="text-3xl font-bold tracking-tight text-primary-600 dark:text-primary-100 sm:text-4xl">
+          {{ .Site.Params.P1.Heading }}
+        </h2>
         
-        <!-- Frame 1: Paragraph 2 -->
-        <div class="text-frame block" style="display: none;">
-          {{ range first 1 (after 1 .Site.Params.P1.Content) }}
-          <p class="text-lg text-gray-900 dark:text-white">
-            {{ .text }}
-          </p>
-          {{ end }}
-        </div>
-        
-        <!-- Frame 2: Paragraph 3 + CTA -->
-        <div class="text-frame block" style="display: none;">
-          {{ range first 1 (after 2 .Site.Params.P1.Content) }}
-          <p class="text-lg text-gray-900 dark:text-white">
-            {{ .text }}
-          </p>
-          {{ end }}
-          <div class="mt-6">
-            <button type="cta2" class="block px-5 py-3 text-base font-medium text-gray-200 bg-gray-700 border border-transparent rounded-md shadow hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-500 sm:px-10" onclick="location.href = '{{ .Site.Params.P1.forward }}'" style="width:200px">
-              {{ .Site.Params.P1.Button }}
-            </button>
+        <!-- Fixed-height container for animated frames -->
+        <div class="relative mt-6" style="min-height: 280px;">
+          
+          <!-- Frame 0: Paragraph 1 -->
+          <div class="text-frame absolute top-0 left-0 w-full active" style="display: block;">
+            <div class="text-lg text-gray-900 dark:text-white">
+              {{ range first 1 .Site.Params.P1.Content }}
+              <p>{{ .text }}</p>
+              {{ end }}
+            </div>
           </div>
+          
+          <!-- Frame 1: Paragraph 2 -->
+          <div class="text-frame absolute top-0 left-0 w-full" style="display: none;">
+            <div class="text-lg text-gray-900 dark:text-white">
+              {{ range first 1 (after 1 .Site.Params.P1.Content) }}
+              <p>{{ .text }}</p>
+              {{ end }}
+            </div>
+          </div>
+          
+          <!-- Frame 2: Paragraph 3 + CTA -->
+          <div class="text-frame absolute top-0 left-0 w-full" style="display: none;">
+            <div class="text-lg text-gray-900 dark:text-white">
+              {{ range first 1 (after 2 .Site.Params.P1.Content) }}
+              <p>{{ .text }}</p>
+              {{ end }}
+            </div>
+            <div class="mt-6">
+              <button type="cta2" class="block px-5 py-3 text-base font-medium text-gray-200 bg-gray-700 border border-transparent rounded-md shadow hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-500 sm:px-10" onclick="location.href = '{{ .Site.Params.P1.forward }}'" style="width:200px">
+                {{ .Site.Params.P1.Button }}
+              </button>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -150,6 +155,24 @@
 </div>
 
 <style>
+  /* Text frame carousel - absolute positioning for fixed title effect */
+  .text-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    visibility: hidden;
+  }
+  
+  .text-frame.active {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+  }
+  
   .feature-frame, .text-frame {
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
   }
