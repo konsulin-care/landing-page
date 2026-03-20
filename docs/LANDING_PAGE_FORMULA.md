@@ -114,7 +114,7 @@ Apply the formula above to each of these section types:
 
 ---
 
-### **Section 2-5: Value Blocks (Repeating)**
+### **Section 2: Value Blocks**
 - **Problem**: Pain point related to one core feature
 - **Visual**: Icon or small illustration (helps with scannability)
 - **Outcome**: What they'll experience after using this feature
@@ -134,40 +134,38 @@ Apply the formula above to each of these section types:
 
 ---
 
-### **Section 6: Social Proof Block**
+### **Section 3: Social Proof Block (Twitter/Threads Embed)**
 - **Problem**: "Why should I trust this?" (implicit)
-- **Visual**: Avatar carousel, testimonials, or research badges
-- **Outcome**: "People like me found this valuable"
-- **Interactivity**: Carousel to browse testimonials, or hover to reveal full quote
-- **Action**: Link to full reviews or research citations
+- **Visual**: Embedded Twitter posts displayed as iframes
+- **Interactivity**: Endless horizontal scroll (automatic, right to left)
+  - Auto-scrolls continuously
+  - Loops back to first post when reaching the end
+- **Content Source**: Reads Twitter post URLs from `hugo.yaml`
+- **Action**: Link to full Twitter profile or research citations
 
 **Placement**: After value blocks, before use case.
 
-**Goal**: Build credibility without being corporate.
+**Goal**: Build credibility through social proof from Twitter.
 
 ---
 
-### **Section 7: Use Case / Narrative Block**
+### **Section 4: Use Case / Narrative Block (Instagram Embed)**
 - **Problem**: "Is this for someone like me?"
-- **Visual**: Screenshot carousel or step-by-step diagram
-- **Outcome**: Narrative showing problem → resolution
-- **Interactivity**: Clickable steps that reveal one at a time
-- **Action**: Primary CTA ("Mulai seperti [nama]" or "Coba sekarang")
+- **Visual**: Embedded Instagram collaborative posts
+- **Interactivity**: Endless horizontal manual carousel navigation (NOT automatic)
+  - User clicks or swipe left/right chevrons to navigate
+  - Desktop: Shows 5 posts at once
+  - Mobile: Shows 1 post at a time
+- **Content Source**: Reads Instagram post URLs from `hugo.yaml`
+- **Action**: Primary CTA ("Mulai di WhatsApp") or secondary link to partner page
 
 **Placement**: Near the bottom, before final CTA.
 
-**Goal**: Make it real—show someone relatable using Konsulin.
-
-**Narrative structure**:
-1. Introduce the person and their problem (relatable)
-2. Show them opening WhatsApp to Konsulin
-3. Show them journaling or screening
-4. Show them seeing the pattern in PWA
-5. Show them feeling better/more aware
+**Goal**: Show collaborative posts from partners—make it real by showing businesses using Konsulin.
 
 ---
 
-### **Section 8: Final CTA Block**
+### **Section 5: Final CTA Block**
 - **Problem**: "Is this really for me?" (implicit, last chance to convince)
 - **Visual**: Optional (could be empty for minimalism)
 - **Outcome**: Urgency-light statement ("Siap memahami kesehatan mental kamu?")
@@ -284,8 +282,9 @@ If any of these fail, the section breaks the formula.
 
 Look for these patterns in `/layouts/partials/`:
 - `home-header.html` – Hero block (problem + CTA)
-- `home-feature.html` – Value blocks (repeating pattern)
-- `home-rationale.html` – Social proof (carousel)
+- `home-vision-mission.html` – Value block (features carousel)
+- `home-rationale.html` – Social proof block (Twitter embed, endless auto-scroll)
+- `home-partners.html` – Use case block (Instagram embed, manual carousel)
 - `home-cta.html` – Final CTA block
 
 Compare these against the formula above to understand the structure in practice.

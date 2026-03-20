@@ -1,52 +1,155 @@
-<!-- The rationale behind Konsulin section -->
+<!-- The rationale behind Konsulin section with Social Proof -->
+{{- $total := len .Site.Params.P2.Social_posts -}}
+{{- $topCount := 5 -}}
+{{- $bottomCount := sub $total $topCount -}}
+{{- $topPosts := first $topCount .Site.Params.P2.Social_posts -}}
+{{- $bottomPosts := after $topCount .Site.Params.P2.Social_posts -}}
+{{- $bottomWrap := first $topCount .Site.Params.P2.Social_posts -}}
+
 <div class="relative my-4">
-  <div class="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
+  <div class="lg:mx-auto lg:max-w-7xl lg:px-8">
     
-    <!-- Left: Text + CTA Button -->
-    <div class="relative max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:px-0">
-      <div class="md:pt-12 sm:pt-6 lg:pt-20">
-        <h2 class="text-3xl font-bold tracking-tight text-primary-600 dark:text-primary-100 sm:text-4xl">
-          {{ .Site.Params.P2.Heading }}
-        </h2>
-        <div class="mt-6 text-gray-900 dark:text-white">
-          <div class="mt-6 space-y-6 text-gray-900 dark:text-white">
-            {{ range .Site.Params.P2.Content }}
-            <p class="text-lg text-gray-900 dark:text-white">
-              {{ .text }}
-            </p>
-            {{ end }}
-            <button type="cta3" class="block px-5 py-3 text-base font-medium text-gray-200 bg-gray-700 border border-transparent rounded-md shadow hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-500 sm:px-10" onclick="location.href = '{{ .Site.Params.P2.forward }}'" style="width:200px">
-              {{ .Site.Params.P2.Button }}
-            </button>
-          </div>
-        </div>
-      </div>
+    <!-- Heading -->
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold tracking-tight text-primary-600 dark:text-primary-100 sm:text-4xl">
+        {{ .Site.Params.P2.Heading }}
+      </h2>
     </div>
     
-    <!-- Right: Image + Background Shape + SVG -->
-    <div class="relative sm:py-8 lg:py-0">
-      <div aria-hidden="true" class="relative w-full h-full">
-        <div class="absolute inset-y-0 right-0 w-1/2 bg-gray-50 dark:bg-gray-900/10 rounded-l-3xl lg:w-3/4"></div>
-        <svg class="absolute top-8 left-1/2 transform -translate-x-1/2 lg:top-12" width="404" height="392" fill="none" viewBox="0 0 404 392" loading="lazy">
-          <defs>
-            <pattern id="02f20b47-fd69-4224-a62a-4c9de5c763f7" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-              <rect x="0" y="0" width="4" height="4" class="text-gray-200 dark:text-gray-900/60" fill="currentcolor"></rect>
-            </pattern>
-          </defs>
-          <rect width="404" height="392" fill="url(#02f20b47-fd69-4224-a62a-4c9de5c763f7)"></rect>
-        </svg>
-      </div>
-      <div class="relative w-full h-auto px-4 py-6 mx-auto sm:max-w-3xl sm:px-6 lg:px-0 lg:py-20">
-        <div class="overflow-hidden shadow-xl rounded-2xl">
-          {{ $p2image := resources.Get .Site.Params.P2.Image }}
-          {{ with $p2image }}
-          {{ with .Resize (printf "%dx%d webp q90" .Width .Height) }}
-          <img imgh src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" class="w-full h-auto" alt="P2" loading="lazy" />
+    <!-- Social Posts Carousel -->
+    <div class="relative">
+      
+      <!-- Top Row: First 5 posts, scroll left to right -->
+      {{ if ge $total $topCount }}
+      <div class="overflow-hidden mb-8">
+        <div class="flex animate-scroll-sync-left">
+          <!-- Original set -->
+          {{ range $topPosts }}
+          <div class="flex-shrink-0 w-72 mx-12">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
           {{ end }}
+          <!-- Duplicate for seamless loop -->
+          {{ range $topPosts }}
+          <div class="flex-shrink-0 w-72 mx-12">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+          <!-- Second duplicate -->
+          {{ range $topPosts }}
+          <div class="flex-shrink-0 w-72 mx-12">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
           {{ end }}
         </div>
       </div>
+      {{ end }}
+      
+      <!-- Bottom Row: Remaining posts + wrap from top, scroll right to left -->
+      {{ if gt $bottomCount 0 }}
+      <div class="overflow-hidden">
+        <div class="flex animate-scroll-sync-right">
+          <!-- Remaining posts -->
+          {{ range $bottomPosts }}
+          <div class="flex-shrink-0 w-72 mx-2">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+          <!-- Wrap from top for continuity -->
+          {{ range $bottomWrap }}
+          <div class="flex-shrink-0 w-72 mx-2">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+          <!-- Duplicate for seamless loop -->
+          {{ range $bottomPosts }}
+          <div class="flex-shrink-0 w-72 mx-2">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+          {{ range $bottomWrap }}
+          <div class="flex-shrink-0 w-72 mx-2">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+          <!-- Second duplicate -->
+          {{ range $bottomPosts }}
+          <div class="flex-shrink-0 w-72 mx-2">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+          {{ range $bottomWrap }}
+          <div class="flex-shrink-0 w-72 mx-2">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ else if gt $total 0 }}
+      <!-- Only one row needed (5 or fewer posts) -->
+      <div class="overflow-hidden">
+        <div class="flex animate-scroll-sync-left">
+          {{ range .Site.Params.P2.Social_posts }}
+          <div class="flex-shrink-0 w-72 mx-2">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+          {{ range .Site.Params.P2.Social_posts }}
+          <div class="flex-shrink-0 w-72 mx-2">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+          {{ range .Site.Params.P2.Social_posts }}
+          <div class="flex-shrink-0 w-72 mx-2">
+            {{ partial "sns.html" (dict "url" .url) }}
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+      
+    </div>
+      
+    </div>
+    
+    <!-- CTA Button -->
+    <div class="text-center mt-8">
+      <button type="cta3" class="px-5 py-3 text-base font-medium text-gray-200 bg-gray-700 border border-transparent rounded-md shadow hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-500 sm:px-10" onclick="location.href = '{{ .Site.Params.forward }}'">
+        {{ .Site.Params.P2.Button }}
+      </button>
     </div>
     
   </div>
 </div>
+
+<style>
+@keyframes scroll-sync-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-scroll-sync-left {
+  animation: scroll-sync-left 40s linear infinite;
+}
+.animate-scroll-sync-left:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-sync-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.animate-scroll-sync-right {
+  animation: scroll-sync-right 40s linear infinite;
+}
+.animate-scroll-sync-right:hover {
+  animation-play-state: paused;
+}
+</style>

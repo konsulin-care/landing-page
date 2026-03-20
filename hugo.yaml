@@ -55,9 +55,9 @@ params:
   og_image: /images/positive-thinking-wide.png
   moto: "Wellness kit in your pocket"
   description: "Buat kamu yang peduli kesehatan mental"
-  long_description: "Pakai Konsulin, kesehatan mental kamu selalu dalam genggaman. Lagi kepingin curhat? Atau mau skrining kesehatan mental? Yuk, Konsulin dulu!"
+  long_description: "Pakai Konsulin, kesehatan kamu selalu dalam genggaman. Lagi kepingin curhat? Atau mau skrining kesehatan? Yuk, Konsulin dulu!"
   button: "Coba sekarang"
-  forward: "https://app.konsulin.care/"
+  forward: "https://wa.me/message/VZLSO2PDYM2YG1"
   disable_theme_toggle: false
   disable_stay_uptodate: false
   keywords:
@@ -101,22 +101,26 @@ params:
     - tes sehat mental
 
   p1:
-    heading: "Cerita di balik Konsulin"
+    heading: "Tahukah kamu...?"
     image: "images/pages/our-mission.png"
     button: "Mulai di WhatsApp"
-    forward: "https://wa.me/6281234567890"
     content:
       - text: "Kebanyakan aplikasi kesehatan tidak terbuka tentang bagaimana data kita digunakan. Kita tidak pernah tahu: infrastruktur apa yang menjaga data kita? Apakah sistem ini aman dan transparan?"
       - text: "Konsulin beroperasi dengan infrastruktur terbuka. Kamu bisa verifikasi bagaimana sistem kami bekerja untuk memproses datamu."
-      - text: "Dengan Konsulin, kamu bisa gunakan fitur-fiturnya gratis: jurnal harian untuk bercerita, skrining kesehatan untuk memahami kondisimu saat ini, dan menjadwalkan konseling dengan klinisi profesional. Semuanya tanpa ribet, tanpa biaya di awal."
+      - text: "Dengan Konsulin, kamu bisa gunakan fitur-fiturnya gratis: jurnal harian untuk bercerita, skrining kesehatan untuk memahami kondisimu saat ini, dan menjadwalkan sesi dengan klinisi profesional. Semuanya tanpa ribet, tanpa biaya di depan."
   p2:
-    heading: "Kenapa mendirikan Konsulin?"
-    image: "images/pages/pricing-plans.png"
-    button: "Layanan premium"
-    forward: "pricing"
+    heading: "Apa kata mereka tentang sehat jiwa?"
+    button: "Mulai di WhatsApp"
     content:
       - text: "Kami mendirikan Konsulin karena kami percaya pentingnya kesehatan mental, terutama bagi para profesional muda yang menghadapi berbagai tekanan dan tantangan dalam kehidupan sehari-hari. Kami melihat banyak orang yang kesulitan mendapatkan akses ke tes kesehatan mental yang kredibel dan berbasis bukti ilmiah, serta dukungan yang mereka butuhkan."
       - text: "Dengan Konsulin, kami ingin membuat kesehatan mental lebih mudah dijangkau oleh semua orang. Konsulin didesain sebagai platform yang menyediakan tes kesehatan mental yang akurat serta memfasilitasi kolaborasi antara masyarakat, klinisi, dan akademisi. Kami ingin setiap orang bisa mendapatkan wawasan yang mendalam tentang kondisi psikologis mereka dan mendapatkan panduan yang tepat dari para ahli."
+    social_posts:
+      - url: "https://www.threads.com/@brindaip/post/C_kNjNaxwNx"
+      - url: "https://www.threads.com/@lightgivers/post/DWDG_AmCQnu"
+      - url: "https://www.threads.com/@biandaspkj/post/DSXgxbbkYWd"
+      - url: "https://www.threads.com/@psikolog.rut/post/DPbfNk-E1FL"
+      - url: "https://www.threads.com/@seandybilla/post/DTVXbK_El76"
+      - url: "https://www.threads.com/@hanaboone/post/DESU-Z0SeUS"
   p3:
     heading: "Mitra Konsulin"
     content:
@@ -133,7 +137,7 @@ params:
       - identifier: d
       - identifier: e
       - identifier: f
-  p4:
+  p5:
     heading: "From the blog"
     content:
       - text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed."
