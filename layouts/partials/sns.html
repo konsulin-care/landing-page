@@ -1,0 +1,22 @@
+{{- $url := .url -}}
+{{- $width := or .width "320" -}}
+{{- $height := or .height "400" -}}
+{{- if $url -}}
+
+  {{- if or (strings.HasPrefix $url "https://x.com/") (strings.HasPrefix $url "https://twitter.com/") -}}
+<div class="threads-embed-container">
+<blockquote class="twitter-tweet" data-theme="dark" data-cards="hidden" data-dnt="true" data-width="{{ $width }}">
+  <a href="{{ $url }}"></a>
+</blockquote>
+</div>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+  {{- else if strings.HasPrefix $url "https://www.threads.com/" -}}
+<div class="threads-embed-container">
+<blockquote class="text-post-media" data-text-post-permalink="{{ $url }}" data-theme="light">
+</blockquote>
+</div>
+<script async src="https://www.threads.com/embed.js"></script>
+
+  {{- end -}}
+{{- end -}}

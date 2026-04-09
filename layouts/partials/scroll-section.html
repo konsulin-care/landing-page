@@ -1,0 +1,31 @@
+{{/*
+  Wrapper partial for scroll snap sections
+  
+  Accepts a dict with:
+  - num: section number (1-5)
+  - partial: name of the content partial to include (e.g., "home-header.html")
+  - siteParams: optional site params for conditional content (like Disable_stay_uptodate)
+  - context: the original page context for passing to content partials
+*/}}
+
+{{ $num := .num }}
+{{ $partial := .partial }}
+{{ $siteParams := .siteParams }}
+{{ $context := .context }}
+
+{{/* Determine background class for section 1 */}}
+{{ $bgClass := "" }}
+{{ if eq $num 1 }}
+  {{ $bgClass = "bg-gray-200 dark:bg-gray-900" }}
+{{ end }}
+
+<section id="section-{{ $num }}" class="scroll-snap-section relative {{ $bgClass }}">
+  <div class="scroll-snap-section__content">
+    {{/* Handle special case for CTA section with site params */}}
+    {{ if and (eq $num 5) $siteParams.Disable_stay_uptodate }}
+      {{/* Don't render CTA if disabled */}}
+    {{ else }}
+      {{ partial $partial $context }}
+    {{ end }}
+  </div>
+</section>
