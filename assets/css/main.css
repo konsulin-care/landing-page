@@ -122,4 +122,35 @@ html {
     color: white !important;
 }
 
+/* SNS Embed Container - consistent sizing */
+.threads-embed-container {
+  width: 100%;
+  max-width: 320px;
+  min-height: 380px;
+  margin: 0 auto;
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Dark mode adjustments */
+.dark .threads-embed-container {
+  background: #2d2d2d;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Twitter embed adjustments */
+.threads-embed-container .twitter-tweet {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Threads embed adjustments */
+.threads-embed-container .text-post-media {
+  width: 100%;
+  min-width: unset !important;
+}
+
 /* Custom CSS end */

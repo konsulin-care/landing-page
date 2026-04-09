@@ -25,20 +25,20 @@
         <div class="flex animate-scroll-sync-left">
           <!-- Original set -->
           {{ range $topPosts }}
-          <div class="flex-shrink-0 w-72 mx-12">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
           <!-- Duplicate for seamless loop -->
           {{ range $topPosts }}
-          <div class="flex-shrink-0 w-72 mx-12">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
           <!-- Second duplicate -->
           {{ range $topPosts }}
-          <div class="flex-shrink-0 w-72 mx-12">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
         </div>
@@ -51,36 +51,36 @@
         <div class="flex animate-scroll-sync-right">
           <!-- Remaining posts -->
           {{ range $bottomPosts }}
-          <div class="flex-shrink-0 w-72 mx-2">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
           <!-- Wrap from top for continuity -->
           {{ range $bottomWrap }}
-          <div class="flex-shrink-0 w-72 mx-2">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
           <!-- Duplicate for seamless loop -->
           {{ range $bottomPosts }}
-          <div class="flex-shrink-0 w-72 mx-2">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
           {{ range $bottomWrap }}
-          <div class="flex-shrink-0 w-72 mx-2">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
           <!-- Second duplicate -->
           {{ range $bottomPosts }}
-          <div class="flex-shrink-0 w-72 mx-2">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
           {{ range $bottomWrap }}
-          <div class="flex-shrink-0 w-72 mx-2">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
         </div>
@@ -90,18 +90,18 @@
       <div class="overflow-hidden">
         <div class="flex animate-scroll-sync-left">
           {{ range .Site.Params.P2.Social_posts }}
-          <div class="flex-shrink-0 w-72 mx-2">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
           {{ range .Site.Params.P2.Social_posts }}
-          <div class="flex-shrink-0 w-72 mx-2">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
           {{ range .Site.Params.P2.Social_posts }}
-          <div class="flex-shrink-0 w-72 mx-2">
-            {{ partial "sns.html" (dict "url" .url) }}
+          <div class="flex-shrink-0 w-80 mx-4">
+            {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
           </div>
           {{ end }}
         </div>
