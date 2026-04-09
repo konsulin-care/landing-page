@@ -22,7 +22,7 @@
       <!-- Top Row: First 5 posts, scroll left to right -->
       {{ if ge $total $topCount }}
       <div class="overflow-hidden mb-8">
-        <div class="flex animate-scroll-sync-left">
+        <div class="flex flex-nowrap animate-scroll-sync-left">
           <!-- Original set -->
           {{ range $topPosts }}
           <div class="flex-shrink-0 w-80 mx-4">
@@ -48,7 +48,7 @@
       <!-- Bottom Row: Remaining posts + wrap from top, scroll right to left -->
       {{ if gt $bottomCount 0 }}
       <div class="overflow-hidden">
-        <div class="flex animate-scroll-sync-right">
+        <div class="flex flex-nowrap animate-scroll-sync-right">
           <!-- Remaining posts -->
           {{ range $bottomPosts }}
           <div class="flex-shrink-0 w-80 mx-4">
@@ -88,7 +88,7 @@
       {{ else if gt $total 0 }}
       <!-- Only one row needed (5 or fewer posts) -->
       <div class="overflow-hidden">
-        <div class="flex animate-scroll-sync-left">
+        <div class="flex flex-nowrap animate-scroll-sync-left">
           {{ range .Site.Params.P2.Social_posts }}
           <div class="flex-shrink-0 w-80 mx-4">
             {{ partial "sns.html" (dict "url" .url "width" "320" "height" "400") }}
@@ -151,5 +151,15 @@
 }
 .animate-scroll-sync-right:hover {
   animation-play-state: paused;
+}
+
+/* Desktop: 10s duration for consistent perceived speed */
+@media (min-width: 1024px) {
+  .animate-scroll-sync-left {
+    animation-duration: 10s;
+  }
+  .animate-scroll-sync-right {
+    animation-duration: 10s;
+  }
 }
 </style>

@@ -137,7 +137,7 @@ params:
       - identifier: d
       - identifier: e
       - identifier: f
-  p5:
+  p4:
     heading: "From the blog"
     content:
       - text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed."
