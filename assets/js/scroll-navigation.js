@@ -16,14 +16,23 @@ function scrollNavigation() {
     currentSection: 1,
     totalSections: 0,
     clickedBtn: null,
+    copied: null,
+    copyTimeout: null,
     lastScrollPosition: 0,
     scrollTimeout: null,
     isScrolling: false,
     observer: null,
     isInitialized: false, // Track if we've seen the first section
 
+    // All scroll-snap sections. Numbers come from element order, never from
+    // the id, so ids stay semantic (e.g. "privacy") and shareable as anchors.
+    getSections() {
+      return Array.from(document.querySelectorAll('.scroll-snap-section'));
+    },
+
     init() {
       // Count sections from the DOM instead of hardcoding a value
+      const sections = this.getSections();
       this.totalSections = document.querySelectorAll('.scroll-snap-section').length;
       if (this.totalSections === 0) this.totalSections = 1;
 
@@ -38,11 +47,24 @@ function scrollNavigation() {
 
       // Set up touch swipe navigation
       this.initTouchTracking();
+
+      // Deep link (e.g. #privacy): jump straight to that section on load with
+      // instant scroll so there is no observer lag or flash of section 1.
+      const hash = window.location.hash.replace(/^#/, '');
+      if (hash) {
+        const targetIndex = sections.findIndex((s) => s.id === hash);
+        if (targetIndex !== -1) {
+          this.currentSection = targetIndex + 1;
+          sections[targetIndex].scrollIntoView({
+            behavior: 'auto',
+            block: 'start'
+          });
+        }
+      }
     },
 
-    // True only on md+ where sections are exact-fit 100svh slides.
-    // Below md sections grow with content and the page scrolls natively,
-    // so scroll-snap and touch-locking must be disabled there.
+    // True only on md+ where sections are exact-fit 100svh slides; below md
+    // sections grow with content and the page scrolls natively.
     isSlideMode() {
       return window.matchMedia('(min-width: 768px)').matches;
     },
@@ -116,11 +138,10 @@ function scrollNavigation() {
         (entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              const sectionNum = parseInt(
-                entry.target.id.replace('section-', '')
-              );
+              const sectionNum = this.getSections().indexOf(entry.target) + 1;
               this.currentSection = sectionNum;
               this.isInitialized = true;
+              this.updateHash(entry.target.id);
             }
           });
         },
@@ -132,9 +153,16 @@ function scrollNavigation() {
       );
 
       // Observe all scroll-snap sections
-      document.querySelectorAll('.scroll-snap-section').forEach(section => {
+      this.getSections().forEach(section => {
         this.observer.observe(section);
       });
+    },
+
+    // Keep the address bar hash in sync with the active section so the URL
+    // stays shareable. replaceState avoids a native hash scroll jump and
+    // does not spam the browser history while reading the page.
+    updateHash(id) {
+      history.replaceState(null, '', '#' + id);
     },
 
     handleScroll() {
@@ -179,7 +207,7 @@ function scrollNavigation() {
       this.isScrolling = true;
       this.clickedBtn = sectionNum;
 
-      const section = document.getElementById('section-' + sectionNum);
+      const section = this.getSections()[sectionNum - 1];
       if (section) {
         section.scrollIntoView({
           behavior: 'smooth',
@@ -195,6 +223,33 @@ function scrollNavigation() {
         // This prevents multiple section changes from one scroll event
         this.lastScrollPosition = window.scrollY;
       }, SCROLL_CONFIG.SCROLL_DURATION);
+    },
+
+    // Copy this section's shareable deep link (e.g. https://konsulin.care/#privacy)
+    // to the clipboard and flash the "Copied" tooltip on the button.
+    async copySectionLink(id) {
+      const url = location.origin + location.pathname + '#' + id;
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch (err) {
+        // Clipboard unavailable (e.g. non-secure context) - fall back to the
+        // legacy execCommand path so sharing still works on http:// hosts.
+        const textArea = document.createElement('textarea');
+        textArea.value = url;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+
+      // Show the copied tooltip for ~1.5s
+      if (this.copyTimeout) clearTimeout(this.copyTimeout);
+      this.copied = id;
+      this.copyTimeout = setTimeout(() => {
+        this.copied = null;
+      }, 1500);
     },
 
     handleKeydown(e) {

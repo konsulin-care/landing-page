@@ -3,11 +3,13 @@
 
   Accepts a dict with:
   - num: section number (1-9)
+  - id: semantic section slug used as the DOM id and URL hash (e.g. "privacy")
   - partial: name of the content partial to include (e.g., "home-hero.html")
   - context: the original page context for passing to content partials
 */}}
 
 {{ $num := .num }}
+{{ $id := .id }}
 {{ $partial := .partial }}
 {{ $context := .context }}
 
@@ -17,8 +19,21 @@
   {{ $bgClass = "bg-gray-200 dark:bg-gray-900" }}
 {{ end }}
 
-<section id="section-{{ $num }}" class="scroll-snap-section relative {{ $bgClass }}">
+<section id="{{ $id }}" class="scroll-snap-section relative {{ $bgClass }}">
   <div class="scroll-snap-section__content">
     {{ partial $partial $context }}
   </div>
+  {{/* Share button: copies this section's deep-link URL */}}
+  <button
+    type="button"
+    @click="copySectionLink('{{ $id }}')"
+    class="absolute bottom-4 right-4 p-2 rounded-full bg-white/80 backdrop-blur shadow-md text-gray-600 hover:text-primary-600 dark:bg-gray-800/80 dark:text-gray-300 dark:hover:text-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+    aria-label="Copy link to this section"
+    title="Share section"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 010 5.656l-4 4a4 4 0 01-5.656-5.656l1.5-1.5M10.172 13.828a4 4 0 010-5.656l4-4a4 4 0 015.656 5.656l-1.5 1.5" />
+    </svg>
+    <span hidden x-show="copied === '{{ $id }}'" class="absolute -top-9 right-0 px-2 py-1 text-xs font-semibold text-white bg-gray-900 rounded shadow dark:bg-white dark:text-gray-900">Copied ✓</span>
+  </button>
 </section>
