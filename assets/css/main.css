@@ -112,22 +112,33 @@ html {
 }
 
 .scroll-snap-section {
-  /* Exact-fit presentation slides */
-  height: 100svh;
+  /* Mobile base: grow with content, never clip */
+  min-height: 100svh;
   /* scroll-snap-align removed - using JavaScript scroll snap instead */
   /* Account for fixed header */
   padding-top: 64px;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 .scroll-snap-section__content {
-  /* Fill the slide (100svh - header) */
-  height: 100%;
+  /* Make content fill available space (100svh - header) */
+  min-height: calc(100svh - 64px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;
+}
+
+/* md+: exact-fit presentation slides */
+@media (min-width: 768px) {
+  .scroll-snap-section {
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  .scroll-snap-section__content {
+    height: 100%;
+    overflow: hidden;
+  }
 }
 
 .scroll-indicator {

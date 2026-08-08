@@ -40,6 +40,13 @@ function scrollNavigation() {
       this.initTouchTracking();
     },
 
+    // True only on md+ where sections are exact-fit 100svh slides.
+    // Below md sections grow with content and the page scrolls natively,
+    // so scroll-snap and touch-locking must be disabled there.
+    isSlideMode() {
+      return window.matchMedia('(min-width: 768px)').matches;
+    },
+
     initTouchTracking() {
       this.touchStartX = 0;
       this.touchStartY = 0;
@@ -66,6 +73,8 @@ function scrollNavigation() {
 
     handleTouchMove(e) {
       if (!this.touchActive || e.touches.length !== 1) return;
+      // Only lock native scroll for exact-fit slides; mobile scrolls freely
+      if (!this.isSlideMode()) return;
       const deltaX = e.touches[0].clientX - this.touchStartX;
       const deltaY = e.touches[0].clientY - this.touchStartY;
       // Lock native scroll for vertical swipes so each slide snaps cleanly
@@ -77,6 +86,8 @@ function scrollNavigation() {
     handleTouchEnd(e) {
       if (!this.touchActive) return;
       this.touchActive = false;
+      // Swipe navigation only in slide mode; native scroll moves the page on mobile
+      if (!this.isSlideMode()) return;
       const touch = e.changedTouches[0];
       if (!touch) return;
 
@@ -127,6 +138,9 @@ function scrollNavigation() {
     },
 
     handleScroll() {
+      // Scroll-snap only applies to exact-fit slides; mobile scrolls natively
+      if (!this.isSlideMode()) return;
+
       // Don't handle scroll if already smoothly scrolling
       if (this.isScrolling) return;
 

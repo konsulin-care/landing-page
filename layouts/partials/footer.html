@@ -1,11 +1,11 @@
 <!-- Footer section -->
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 {{ $js := resources.Get "js/darkmode.js" | js.Build }}
 <script src="{{ $js.RelPermalink }}" defer></script>
 {{ $visionCarousel := resources.Get "js/vision-carousel.js" | js.Build }}
 <script src="{{ $visionCarousel.RelPermalink }}" defer></script>
 {{ $scrollNavigation := resources.Get "js/scroll-navigation.js" | js.Build }}
 <script src="{{ $scrollNavigation.RelPermalink }}" defer></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <footer class="footer bg-gray-900">
   <div class="max-w-md px-4 py-12 mx-auto overflow-hidden sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">

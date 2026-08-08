@@ -479,6 +479,50 @@ test('B11: card grids go 2-up on mobile so slides can fit narrow screens', () =>
   );
 });
 
+test('B12: slides are exact-fit only at md+, mobile sections grow without clipping', () => {
+  const main = read('assets/css/main.css');
+  assert.ok(
+    main.includes('min-height: 100svh'),
+    'mobile base must grow with content via min-height: 100svh',
+  );
+  const mdAt = main.indexOf('@media (min-width: 768px)');
+  assert.notEqual(mdAt, -1, 'exact-fit rules must live in an md+ media query');
+  const mdBlock = main.slice(mdAt);
+  assert.ok(mdBlock.includes('height: 100svh'), 'md+ block must fix the slide height');
+  assert.ok(mdBlock.includes('overflow: hidden'), 'md+ block must clip the slide');
+  assert.ok(
+    !/^\s*\.scroll-snap-section\s*\{[^}]*height: 100svh/s.test(
+      main.slice(0, mdAt),
+    ),
+    'base rule must not force a fixed slide height on mobile',
+  );
+});
+
+test('B13: scroll-navigation gates snap behavior on slide mode (md+)', () => {
+  const js = read('assets/js/scroll-navigation.js');
+  assert.ok(
+    js.includes("matchMedia('(min-width: 768px)')"),
+    'component must detect slide mode via matchMedia',
+  );
+  assert.ok(js.includes('isSlideMode()'), 'component must expose isSlideMode()');
+  assert.ok(
+    js.includes('if (!this.isSlideMode()) return;'),
+    'handleScroll must no-op outside slide mode',
+  );
+});
+
+test('B14: component scripts must load before Alpine so registration precedes start', () => {
+  const footer = read('layouts/partials/footer.html');
+  const scrollNavAt = footer.indexOf('scroll-navigation.js');
+  const alpineAt = footer.indexOf('alpinejs@3');
+  assert.notEqual(scrollNavAt, -1, 'scroll-navigation js.Build tag must exist in footer');
+  assert.notEqual(alpineAt, -1, 'Alpine CDN tag must exist in footer');
+  assert.ok(
+    scrollNavAt < alpineAt,
+    'scroll-navigation.js must load before Alpine: the CDN auto-starts on a microtask, so a component script loaded after it registers too late and scrollNavigation stays undefined',
+  );
+});
+
 test('B10: section vertical rhythm is squeezed so every slide fits the viewport', () => {
   const squeezes = {
     'home-hero.html': ['py-10 mx-auto sm:py-12'],
