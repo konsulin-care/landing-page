@@ -1,7 +1,5 @@
 /* assets */ 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* Set Plus Jakarta Sans as the default font */
 html {

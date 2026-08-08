@@ -165,7 +165,7 @@ test('T2: index.html registers exactly the 9 sections in order', () => {
   const index = read('layouts/index.html');
   let prev = -1;
   for (const name of SECTION_ORDER) {
-    const at = index.indexOf(`"home-${name}.html"`);
+    const at = index.indexOf(`"${name}.html"`);
     assert.ok(at !== -1, `index must register ${name}.html`);
     assert.ok(at > prev, `${name}.html must come after the previous section`);
     prev = at;
@@ -202,14 +202,14 @@ test('T3: scroll-navigation counts sections from the DOM, no hardcoded constants
 
 const PARTIAL_PARAMS = {
   'home-hero.html': ['Params.home.hero', '<h1', 'scrollToSection'],
-  'home-problem.html': ['Params.home.problem', 'Ajukan pertanyaan Anda'],
+  'home-problem.html': ['Params.home.problem', 'micro_cta'],
   'home-participation.html': ['vision-carousel', 'feature-frame', 'text-frame', 'progress-dot', 'chevron'],
   'home-process.html': ['Params.home.process', 'steps'],
   'home-transparency.html': ['Params.home.transparency', 'data_count', 'types', 'contributors', 'updated'],
   'home-privacy.html': ['Params.home.privacy', 'withdrawal'],
   'home-collaboration.html': ['Params.home.collaboration'],
-  'home-impact.html': ['Params.home.impact', 'Lihat hasil penelitian'],
-  'home-cta.html': ['Params.home.cta', 'Ikut Berkontribusi'],
+  'home-impact.html': ['Params.home.impact', 'Params.home.impact.cta'],
+  'home-cta.html': ['Params.home.cta', 'Params.home.cta_section.primary_cta'],
 };
 
 test('T4-T12: each section partial exists and is param-driven with required structure', () => {
@@ -271,14 +271,22 @@ before(async () => {
 });
 
 test('T13b: production build succeeds and renders 9 snap sections', () => {
-  const sections = (publicHtml.match(/scroll-snap-section/g) ?? []).length;
+  const sections = (publicHtml.match(/class="scroll-snap-section/g) ?? []).length;
   assert.equal(sections, 9, 'rendered page must have exactly 9 snap sections');
   assert.ok(!publicHtml.includes('formsubmit.co'), 'no formsubmit network call');
   assert.ok(!publicHtml.includes('wa.me'), 'no WhatsApp links on rendered homepage');
 });
 
-test('T13c: dead static scroll-navigation script tag gone from the page', () => {
-  assert.ok(!publicHtml.includes('/js/scroll-navigation.js'), 'no 404 script tag');
+test('T13c: scroll-navigation ships from Hugo Pipes, not a stale static copy', () => {
+  const footer = read('layouts/partials/footer.html');
+  assert.ok(
+    footer.includes('resources.Get "js/scroll-navigation.js" | js.Build'),
+    'footer must build scroll-navigation via js.Build',
+  );
+  assert.ok(
+    !exists('static/js/scroll-navigation.js'),
+    'no stale static copy of scroll-navigation.js',
+  );
 });
 
 // ---------------------------------------------------------------- T14 docs
@@ -329,7 +337,51 @@ test('V1: rendered section order matches the plan', () => {
 });
 
 test('V2: rendered transparency dashboard shows the static placeholders', () => {
-  assert.ok(publicHtml.includes('12.482'), 'data count 12.482 rendered');
-  assert.ok(publicHtml.includes('1.836'), 'contributors 1.836 rendered');
+  assert.ok(publicHtml.includes('12482'), 'data count 12482 rendered');
+  assert.ok(publicHtml.includes('1836'), 'contributors 1836 rendered');
   assert.ok(publicHtml.includes('Hari ini'), '"Hari ini" rendered');
+});
+
+// ---------------------------------------------------------------- T15 Tailwind build pipeline
+
+const REQUIRED_CSS_CLASSES = [
+  'col-span-7',
+  'col-span-5',
+  'w-8',
+  'h-8',
+  'rounded-xl',
+  'py-20',
+];
+
+test('B1: watch/build scripts route Tailwind v4 through postcss-cli', () => {
+  const pkg = JSON.parse(read('package.json'));
+  assert.ok(
+    pkg.scripts['watch:tw'].startsWith('postcss ') &&
+      pkg.scripts['watch:tw'].includes('--watch'),
+    'watch:tw must invoke postcss-cli in watch mode',
+  );
+  assert.ok(
+    typeof pkg.scripts['build:tw'] === 'string' &&
+      pkg.scripts['build:tw'].startsWith('postcss '),
+    'build:tw must exist and invoke postcss-cli',
+  );
+  assert.ok(
+    pkg.scripts.build.includes('build:tw'),
+    'build must regenerate CSS before running hugo',
+  );
+});
+
+test('B2: main.css imports Tailwind v4 instead of legacy v3 directives', () => {
+  const main = read('assets/css/main.css');
+  assert.ok(main.includes('@import "tailwindcss"'), 'main.css must use the v4 native import');
+  assert.ok(!main.includes('@tailwind base'), 'legacy @tailwind base directive must be gone');
+  assert.ok(!main.includes('@tailwind components'), 'legacy @tailwind components directive must be gone');
+  assert.ok(!main.includes('@tailwind utilities'), 'legacy @tailwind utilities directive must be gone');
+});
+
+test('B3: compiled assets/css/style.css contains every homepage utility class', () => {
+  const css = read('assets/css/style.css');
+  for (const cls of REQUIRED_CSS_CLASSES) {
+    assert.ok(css.includes(`.${cls}`), `assets/css/style.css must contain .${cls}`);
+  }
 });
