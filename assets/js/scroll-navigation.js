@@ -7,6 +7,7 @@ const SCROLL_CONFIG = {
   SCROLL_DURATION: 500,         // Duration of smooth scroll animation
   HEADER_HEIGHT: 64,            // Header offset in pixels
   OBSERVER_MARGIN: '-50% 0px -50% 0px',  // Trigger at viewport center
+  TOUCH_THRESHOLD: 70,          // Pixels of vertical swipe before triggering snap
 };
 
 // Reusable Alpine component for scroll-based section navigation
@@ -34,6 +35,69 @@ function scrollNavigation() {
 
       // Set up IntersectionObserver to detect current section
       this.initIntersectionObserver();
+
+      // Set up touch swipe navigation
+      this.initTouchTracking();
+    },
+
+    initTouchTracking() {
+      this.touchStartX = 0;
+      this.touchStartY = 0;
+      this.touchActive = false;
+      this.touchStartSection = 1;
+
+      // Bind once so listeners can be removed in destroy()
+      this.onTouchStart = this.handleTouchStart.bind(this);
+      this.onTouchMove = this.handleTouchMove.bind(this);
+      this.onTouchEnd = this.handleTouchEnd.bind(this);
+
+      document.addEventListener('touchstart', this.onTouchStart, { passive: true });
+      document.addEventListener('touchmove', this.onTouchMove, { passive: false });
+      document.addEventListener('touchend', this.onTouchEnd, { passive: true });
+    },
+
+    handleTouchStart(e) {
+      if (e.touches.length !== 1) return;
+      this.touchStartX = e.touches[0].clientX;
+      this.touchStartY = e.touches[0].clientY;
+      this.touchActive = true;
+      this.touchStartSection = this.currentSection;
+    },
+
+    handleTouchMove(e) {
+      if (!this.touchActive || e.touches.length !== 1) return;
+      const deltaX = e.touches[0].clientX - this.touchStartX;
+      const deltaY = e.touches[0].clientY - this.touchStartY;
+      // Lock native scroll for vertical swipes so each slide snaps cleanly
+      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
+        e.preventDefault();
+      }
+    },
+
+    handleTouchEnd(e) {
+      if (!this.touchActive) return;
+      this.touchActive = false;
+      const touch = e.changedTouches[0];
+      if (!touch) return;
+
+      const deltaY = touch.clientY - this.touchStartY;
+      const deltaX = touch.clientX - this.touchStartX;
+
+      // Only vertical-dominant swipes past the threshold navigate sections
+      if (
+        Math.abs(deltaY) < SCROLL_CONFIG.TOUCH_THRESHOLD ||
+        Math.abs(deltaY) <= Math.abs(deltaX)
+      ) {
+        return;
+      }
+
+      if (deltaY < 0 && this.touchStartSection < this.totalSections) {
+        // Swipe up - next section
+        this.scrollToSection(this.touchStartSection + 1);
+      } else if (deltaY > 0 && this.touchStartSection > 1) {
+        // Swipe down - previous section
+        this.scrollToSection(this.touchStartSection - 1);
+      }
     },
 
     initIntersectionObserver() {
@@ -141,6 +205,11 @@ function scrollNavigation() {
       }
       if (this.scrollTimeout) {
         clearTimeout(this.scrollTimeout);
+      }
+      if (this.onTouchStart) {
+        document.removeEventListener('touchstart', this.onTouchStart);
+        document.removeEventListener('touchmove', this.onTouchMove);
+        document.removeEventListener('touchend', this.onTouchEnd);
       }
       if (window.scrollNavigationInstance === this) {
         delete window.scrollNavigationInstance;

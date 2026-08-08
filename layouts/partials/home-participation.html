@@ -51,14 +51,14 @@
 
     <!-- Right container - Text content (animated) -->
     <div class="relative max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:px-0 lg:flex lg:justify-center">
-      <div class="sm:pt-6 md:pt-12 lg:pt-20">
+      <div class="sm:pt-6 md:pt-12 lg:pt-10">
         <!-- Fixed title - stays in position -->
-        <h2 class="text-3xl font-bold tracking-tight text-primary-600 dark:text-primary-100 sm:text-4xl">
+        <h2 class="text-3xl font-bold tracking-tight text-primary-800 dark:text-primary-200 sm:text-4xl">
           {{ .Site.Params.home.participation.title }}
         </h2>
 
         <!-- Fixed-height container for animated frames -->
-        <div class="relative mt-6" style="min-height: 280px;">
+        <div class="relative mt-6" style="min-height: 0;">
           {{ range $i, $card := .Site.Params.home.participation.cards }}
           <div class="text-frame absolute top-0 left-0 w-full {{ if eq $i 0 }}active{{ end }}" style="{{ if eq $i 0 }}display: block;{{ else }}display: none;{{ end }}">
             <div class="text-lg text-gray-900 dark:text-white">

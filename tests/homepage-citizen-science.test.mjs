@@ -385,3 +385,116 @@ test('B3: compiled assets/css/style.css contains every homepage utility class', 
     assert.ok(css.includes(`.${cls}`), `assets/css/style.css must contain .${cls}`);
   }
 });
+
+test('B4: main.css migrates the legacy config into v4-native @theme', () => {
+  const main = read('assets/css/main.css');
+  assert.ok(main.includes('@theme'), 'main.css must define a v4 @theme block');
+  assert.ok(main.includes('--color-primary-600'), '@theme must define --color-primary-600');
+  assert.ok(main.includes('--color-primary:'), '@theme must define the bare --color-primary');
+  assert.ok(main.includes('--color-gray-200'), '@theme must define the custom gray-200');
+  assert.ok(
+    main.includes('@custom-variant dark'),
+    'main.css must restore class-based dark mode via @custom-variant',
+  );
+  assert.ok(
+    main.includes('@plugin "@tailwindcss/typography"'),
+    'main.css must load the typography plugin for prose pages',
+  );
+});
+
+test('B5: compiled CSS restores the primary palette and exact-fit slides', () => {
+  const css = read('assets/css/style.css');
+  assert.ok(css.includes('.bg-primary-600'), 'compiled css must contain .bg-primary-600 (CTA buttons)');
+  assert.ok(css.includes('.text-primary-800'), 'compiled css must contain .text-primary-800 (AA accents)');
+  assert.ok(css.includes('height: 100svh'), 'sections must be exact-fit 100svh slides');
+  assert.ok(css.includes('overscroll-behavior: none'), 'html must disable overscroll chaining');
+});
+
+test('B6: legacy tailwind.config.js is removed after the @theme migration', () => {
+  assert.ok(!exists('tailwind.config.js'), 'tailwind.config.js must be deleted after migration');
+});
+
+test('B7: scroll-navigation supports touch swipe navigation', () => {
+  const js = read('assets/js/scroll-navigation.js');
+  assert.ok(js.includes('touchstart'), 'component must track touchstart');
+  assert.ok(js.includes('touchmove'), 'component must track touchmove');
+  assert.ok(js.includes('touchend'), 'component must track touchend');
+  assert.ok(js.includes('TOUCH_THRESHOLD'), 'component must define a swipe threshold constant');
+  assert.ok(js.includes('touchStartSection'), 'component must remember the section at swipe start');
+});
+
+test('B8: legacy v3-only classes are cleaned up', () => {
+  const cta = read('layouts/partials/home-cta.html');
+  const nav = read('layouts/partials/nav.html');
+  assert.ok(!cta.includes('text-opacity-40'), 'home-cta must not use legacy text-opacity-40');
+  assert.ok(cta.includes('text-primary-600/40'), 'home-cta must use v4 opacity syntax');
+  assert.ok(!nav.includes('shadow-outline'), 'nav must not use legacy shadow-outline');
+  assert.ok(!nav.includes('max-w-5'), 'nav must not carry the junk max-w-5 class');
+  assert.ok(!nav.includes('xs:hidden'), 'nav must not carry the junk xs:hidden class');
+});
+
+test('B9: accent text on light backgrounds uses AA-passing text-primary-800', () => {
+  for (const file of [
+    'home-hero.html',
+    'home-problem.html',
+    'home-participation.html',
+    'home-process.html',
+    'home-transparency.html',
+    'home-privacy.html',
+    'home-collaboration.html',
+    'home-impact.html',
+  ]) {
+    const content = read(`layouts/partials/${file}`);
+    assert.ok(
+      content.includes('text-primary-800'),
+      `${file} must use text-primary-800 for light-mode accents`,
+    );
+    assert.ok(
+      content.includes('dark:text-primary-200'),
+      `${file} must pair text-primary-800 with dark:text-primary-200`,
+    );
+  }
+});
+
+test('B11: card grids go 2-up on mobile so slides can fit narrow screens', () => {
+  const problem = read('layouts/partials/home-problem.html');
+  const process = read('layouts/partials/home-process.html');
+  const transparency = read('layouts/partials/home-transparency.html');
+  const privacy = read('layouts/partials/home-privacy.html');
+  const hero = read('layouts/partials/home-hero.html');
+  for (const [file, content] of [
+    ['home-problem.html', problem],
+    ['home-process.html', process],
+    ['home-transparency.html', transparency],
+    ['home-privacy.html', privacy],
+  ]) {
+    assert.ok(
+      content.includes('grid-cols-2'),
+      `${file} must use a 2-column grid as the mobile base`,
+    );
+  }
+  assert.ok(
+    hero.includes('grid grid-cols-2 gap-2 sm:flex'),
+    'hero steps must collapse to a 2x2 grid on mobile',
+  );
+});
+
+test('B10: section vertical rhythm is squeezed so every slide fits the viewport', () => {
+  const squeezes = {
+    'home-hero.html': ['py-10 mx-auto sm:py-12'],
+    'home-problem.html': ['py-12'],
+    'home-participation.html': ['lg:pt-10', 'min-height: 0'],
+    'home-process.html': ['py-12'],
+    'home-transparency.html': ['py-12', 'mt-6'],
+    'home-privacy.html': ['py-12', 'sm:mt-8 sm:p-6'],
+    'home-collaboration.html': ['py-12'],
+    'home-impact.html': ['py-12'],
+    'home-cta.html': ['sm:py-14'],
+  };
+  for (const [file, markers] of Object.entries(squeezes)) {
+    const content = read(`layouts/partials/${file}`);
+    for (const marker of markers) {
+      assert.ok(content.includes(marker), `${file} must contain: ${marker}`);
+    }
+  }
+});

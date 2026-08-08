@@ -1,7 +1,7 @@
 <!-- Transparency section -->
-<div class="max-w-screen-xl px-4 py-20 mx-auto">
+<div class="max-w-screen-xl px-4 py-12 mx-auto">
   <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-3xl font-bold tracking-tight text-primary-600 dark:text-primary-100 sm:text-4xl">
+    <h2 class="text-3xl font-bold tracking-tight text-primary-800 dark:text-primary-200 sm:text-4xl">
       {{ .Site.Params.home.transparency.title }}
     </h2>
     {{ range .Site.Params.home.transparency.copy }}
@@ -16,26 +16,26 @@
   {{ $contributors := .Site.Params.home.transparency.contributors }}
   {{ $updated := .Site.Params.home.transparency.updated }}
 
-  <div class="grid gap-6 mt-12 sm:grid-cols-2 lg:grid-cols-4">
-    <div class="p-8 text-center bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+  <div class="grid gap-4 grid-cols-2 mt-8 lg:grid-cols-4">
+    <div class="p-6 text-center bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <p class="text-sm font-medium text-gray-600 uppercase dark:text-gray-400">{{ .Site.Params.home.transparency.labels.data_count }}</p>
-      <p class="mt-3 text-4xl font-extrabold text-primary-600 dark:text-primary-100">{{ lang.FormatNumberCustom 0 $dataCount ",." }}</p>
+      <p class="mt-3 text-4xl font-extrabold text-primary-800 dark:text-primary-200">{{ lang.FormatNumberCustom 0 $dataCount ",." }}</p>
     </div>
-    <div class="p-8 text-center bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-6 text-center bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <p class="text-sm font-medium text-gray-600 uppercase dark:text-gray-400">{{ .Site.Params.home.transparency.labels.types }}</p>
-      <p class="mt-3 text-4xl font-extrabold text-primary-600 dark:text-primary-100">{{ $types }}</p>
+      <p class="mt-3 text-4xl font-extrabold text-primary-800 dark:text-primary-200">{{ $types }}</p>
     </div>
-    <div class="p-8 text-center bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-6 text-center bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <p class="text-sm font-medium text-gray-600 uppercase dark:text-gray-400">{{ .Site.Params.home.transparency.labels.contributors }}</p>
-      <p class="mt-3 text-4xl font-extrabold text-primary-600 dark:text-primary-100">{{ lang.FormatNumberCustom 0 $contributors ",." }}</p>
+      <p class="mt-3 text-4xl font-extrabold text-primary-800 dark:text-primary-200">{{ lang.FormatNumberCustom 0 $contributors ",." }}</p>
     </div>
-    <div class="p-8 text-center bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-6 text-center bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <p class="text-sm font-medium text-gray-600 uppercase dark:text-gray-400">{{ .Site.Params.home.transparency.labels.updated }}</p>
-      <p class="mt-3 text-4xl font-extrabold text-primary-600 dark:text-primary-100">{{ $updated }}</p>
+      <p class="mt-3 text-4xl font-extrabold text-primary-800 dark:text-primary-200">{{ $updated }}</p>
     </div>
   </div>
 
-  <p class="mt-10 text-center text-base text-gray-700 dark:text-gray-300">
+  <p class="mt-6 text-center text-base text-gray-700 dark:text-gray-300">
     {{ .Site.Params.home.transparency.supporting }}
   </p>
 </div>
