@@ -73,19 +73,16 @@ test('T1e: transparency placeholders live in site params', () => {
 
 const COPY_PHRASES = [
   // Hero
-  'Riset Kesehatan Bersama Masyarakat',
-  'Keseharian Anda bisa menjadi bagian dari riset kesehatan.',
-  'Catat pengalaman Anda. Ajukan pertanyaan. Ikut memahami hasilnya.',
+  'Keseharian Anda merupakan bagian penting dari riset kesehatan.',
   'Konsulin menghubungkan masyarakat dengan peneliti untuk menghasilkan pengetahuan kesehatan bersama.',
   'Ikut Berkontribusi',
-  'Cara kerjanya',
   'Identitas Anda tidak diberikan kepada peneliti.',
   'Data penelitian menggunakan nomor unik yang dibuat secara acak.',
-  'Pengalaman Anda',
-  'Pertanyaan',
-  'Riset',
-  'Temuan',
+  'Catat pengalaman Anda.',
+  'Ajukan pertanyaan.',
+  'Ikut memahami hasilnya.',
   // Problem
+  'Riset',
   'Riset kesehatan dimulai dari pertanyaan nyata.',
   'Banyak pertanyaan kesehatan muncul dari pengalaman sehari-hari.',
   'Pertanyaan tersebut layak dipelajari secara ilmiah.',
@@ -130,6 +127,7 @@ const COPY_PHRASES = [
   'Membawa metode, analisis, dan pengetahuan ilmiah.',
   'Bersama, keduanya membantu menghasilkan riset yang relevan dengan kehidupan masyarakat.',
   // Impact
+  'Temuan',
   'Temuan yang dapat dipakai bersama.',
   'Riset yang baik membantu kita memahami masalah kesehatan dengan lebih baik.',
   'Temuannya dapat menjadi masukan bagi masyarakat, peneliti, dan pembuat kebijakan.',
@@ -198,10 +196,26 @@ test('T3: scroll-navigation counts sections from the DOM, no hardcoded constants
   assert.ok(!js.includes('FRAME_0_BOUNDARY'), 'no FRAME_0_BOUNDARY constant');
 });
 
+test('T3b: hero rotator component ships and registers before Alpine', () => {
+  const js = read('assets/js/hero-rotator.js');
+  assert.ok(js.includes('function heroRotator'), 'hero-rotator.js must define heroRotator()');
+  assert.ok(js.includes("Alpine.data('heroRotator'"), 'component must register via Alpine.data');
+  assert.ok(js.includes('alpine:init'), 'component must register on alpine:init');
+  assert.ok(
+    js.includes("querySelectorAll('[data-hero-rotator-item]')"),
+    'component must count phrases from the DOM',
+  );
+  const footer = read('layouts/partials/footer.html');
+  const heroRotatorAt = footer.indexOf('hero-rotator.js');
+  const alpineAt = footer.indexOf('alpinejs@3');
+  assert.notEqual(heroRotatorAt, -1, 'footer must build hero-rotator.js via js.Build');
+  assert.ok(heroRotatorAt < alpineAt, 'hero-rotator.js must load before Alpine auto-start');
+});
+
 // ---------------------------------------------------------------- T4-T12 partials (structure + params)
 
 const PARTIAL_PARAMS = {
-  'home-hero.html': ['Params.home.hero', '<h1', 'scrollToSection'],
+  'home-hero.html': ['Params.home.hero', '<h1', 'heroRotator', 'hidden lg:block'],
   'home-problem.html': ['Params.home.problem', 'micro_cta'],
   'home-participation.html': ['vision-carousel', 'feature-frame', 'text-frame', 'progress-dot', 'chevron'],
   'home-process.html': ['Params.home.process', 'steps'],
@@ -317,7 +331,7 @@ test('T14b: LANDING_PAGE_FORMULA.md reflects the new 9-section structure', () =>
 
 test('V1: rendered section order matches the plan', () => {
   const order = [
-    'Keseharian Anda bisa menjadi bagian dari riset kesehatan.',
+    'Keseharian Anda merupakan bagian penting dari riset kesehatan.',
     'Riset kesehatan dimulai dari pertanyaan nyata.',
     'Anda bukan hanya sumber data.',
     'Dari pengalaman menjadi pengetahuan.',
@@ -435,7 +449,6 @@ test('B8: legacy v3-only classes are cleaned up', () => {
 
 test('B9: accent text on light backgrounds uses AA-passing text-primary-800', () => {
   for (const file of [
-    'home-hero.html',
     'home-problem.html',
     'home-participation.html',
     'home-process.html',
@@ -461,7 +474,6 @@ test('B11: card grids go 2-up on mobile so slides can fit narrow screens', () =>
   const process = read('layouts/partials/home-process.html');
   const transparency = read('layouts/partials/home-transparency.html');
   const privacy = read('layouts/partials/home-privacy.html');
-  const hero = read('layouts/partials/home-hero.html');
   for (const [file, content] of [
     ['home-problem.html', problem],
     ['home-process.html', process],
@@ -473,10 +485,6 @@ test('B11: card grids go 2-up on mobile so slides can fit narrow screens', () =>
       `${file} must use a 2-column grid as the mobile base`,
     );
   }
-  assert.ok(
-    hero.includes('grid grid-cols-2 gap-2 sm:flex'),
-    'hero steps must collapse to a 2x2 grid on mobile',
-  );
 });
 
 test('B12: slides are exact-fit only at md+, mobile sections grow without clipping', () => {
@@ -521,6 +529,32 @@ test('B14: component scripts must load before Alpine so registration precedes st
     scrollNavAt < alpineAt,
     'scroll-navigation.js must load before Alpine: the CDN auto-starts on a microtask, so a component script loaded after it registers too late and scrollNavigation stays undefined',
   );
+});
+
+test('T5: scroll indicator partial accepts an optional hero-only label', () => {
+  const partial = read('layouts/partials/scroll-indicator.html');
+  assert.ok(partial.includes('labelVisible'), 'partial must accept a labelVisible expression');
+  assert.ok(partial.includes('default "true"'), 'partial must default optional expressions');
+  assert.ok(!partial.includes('rounded-full'), 'plain chevrons must have no circle styling');
+  const index = read('layouts/index.html');
+  assert.ok(index.includes('partial "scroll-indicator.html"'), 'index must use the scroll-indicator partial');
+  assert.ok(!index.includes('scroll-indicator fixed'), 'index must not inline chevron markup');
+  assert.ok(publicHtml.includes('CARA KERJANYA'), 'rendered page must show the scroll label');
+  assert.ok(
+    publicHtml.includes('x-show="currentSection === 1"'),
+    'down chevron label must render only on the hero section',
+  );
+});
+
+test('T6: scroll indicator CSS drops the pill/circle styling', () => {
+  const main = read('assets/css/main.css');
+  const blockStart = main.indexOf('.scroll-indicator');
+  const blockEnd = main.indexOf('/* Hero section animations */');
+  assert.notEqual(blockStart, -1, '.scroll-indicator block must exist');
+  const block = main.slice(blockStart, blockEnd);
+  assert.ok(!block.includes('box-shadow'), 'plain chevron must not cast a shadow');
+  assert.ok(!block.includes('border-radius'), 'plain chevron must not be a circle/pill');
+  assert.ok(block.includes('transparent'), 'chevron button must be transparent');
 });
 
 test('B10: section vertical rhythm is squeezed so every slide fits the viewport', () => {

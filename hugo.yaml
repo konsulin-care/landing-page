@@ -95,21 +95,18 @@ params:
 
   home:
     hero:
-      eyebrow: "Riset Kesehatan Bersama Masyarakat"
-      headline: "Keseharian Anda bisa menjadi bagian dari riset kesehatan."
+      headline: "Keseharian Anda merupakan bagian penting dari riset kesehatan."
       body:
-        - text: "Catat pengalaman Anda. Ajukan pertanyaan. Ikut memahami hasilnya."
         - text: "Konsulin menghubungkan masyarakat dengan peneliti untuk menghasilkan pengetahuan kesehatan bersama."
       primary_cta: "Ikut Berkontribusi"
-      secondary_cta: "Cara kerjanya"
       trust:
         - text: "Identitas Anda tidak diberikan kepada peneliti."
         - text: "Data penelitian menggunakan nomor unik yang dibuat secara acak."
-      steps:
-        - "Pengalaman Anda"
-        - "Pertanyaan"
-        - "Riset"
-        - "Temuan"
+      rotating:
+        - "Catat pengalaman Anda."
+        - "Ajukan pertanyaan."
+        - "Ikut memahami hasilnya."
+      scroll_label: "CARA KERJANYA"
     problem:
       title: "Riset kesehatan dimulai dari pertanyaan nyata."
       copy:
