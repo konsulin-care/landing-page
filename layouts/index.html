@@ -8,14 +8,17 @@
 
   <link rel="stylesheet" href="{{ "css/carousel.css" | relURL }}">
   <script src="{{ "js/carousel.js" | relURL }}"></script>
-  <script src="{{ "js/scroll-navigation.js" | relURL }}"></script>
 
   {{ $sections := slice 
-    (dict "num" 1 "partial" "home-header.html" "context" .)
-    (dict "num" 2 "partial" "home-vision-mission.html" "context" .)
-    (dict "num" 3 "partial" "home-rationale.html" "context" .)
-    (dict "num" 4 "partial" "home-partners.html" "context" .)
-    (dict "num" 5 "partial" "home-cta.html" "siteParams" $.Site.Params "context" .)
+    (dict "num" 1 "partial" "home-hero.html" "context" .)
+    (dict "num" 2 "partial" "home-problem.html" "context" .)
+    (dict "num" 3 "partial" "home-participation.html" "context" .)
+    (dict "num" 4 "partial" "home-process.html" "context" .)
+    (dict "num" 5 "partial" "home-transparency.html" "context" .)
+    (dict "num" 6 "partial" "home-privacy.html" "context" .)
+    (dict "num" 7 "partial" "home-collaboration.html" "context" .)
+    (dict "num" 8 "partial" "home-impact.html" "context" .)
+    (dict "num" 9 "partial" "home-cta.html" "context" .)
   }}
 
   {{ range $sections }}

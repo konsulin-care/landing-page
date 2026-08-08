@@ -1,0 +1,115 @@
+<!-- Participation section with 3-frame carousel (reused vision-carousel contract) -->
+<div id="vision-carousel" class="relative my-4">
+  <div class="lg:mx-auto lg:max-w-7xl lg:grid lg:grid-cols-2 lg:items-center lg:gap-24 lg:px-8">
+
+    <!-- Left container - participation cards (animated) -->
+    <div class="relative sm:py-8 lg:py-0">
+      <div class="relative w-full h-auto px-4 py-6 mx-auto sm:max-w-3xl sm:px-6 lg:px-0 lg:py-0">
+
+        <div class="overflow-visible shadow-xl rounded-2xl relative">
+          <!-- Left Chevron Button -->
+          <button
+            class="chevron-left absolute top-1/2 left-0 -translate-y-1/2 z-30 p-2 rounded-full shadow-lg hover:bg-white dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 backdrop-blur-sm transition-all duration-200"
+            style="background-color: rgba(255, 255, 255, 0.4);"
+            aria-label="Previous"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-6 h-6" style="color: black;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <!-- Right Chevron Button -->
+          <button
+            class="chevron-right absolute top-1/2 right-0 -translate-y-1/2 z-30 p-2 rounded-full shadow-lg hover:bg-white dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 backdrop-blur-sm transition-all duration-200"
+            style="background-color: rgba(255, 255, 255, 0.4);"
+            aria-label="Next"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-6 h-6" style="color: black;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {{ range $i, $card := .Site.Params.home.participation.cards }}
+          <div class="feature-frame relative p-8 bg-gray-50 rounded-2xl dark:bg-gray-900" style="display: {{ if eq $i 0 }}block{{ else }}none{{ end }};">
+            <div class="text-2xl font-black text-gray-900 dark:text-gray-200">{{ $card.title }}</div>
+            <p class="mt-3 text-base text-gray-900 dark:text-gray-300">{{ $card.text }}</p>
+          </div>
+          {{ end }}
+        </div>
+
+        <!-- Progress indicators -->
+        <div class="flex justify-center mt-4 space-x-2">
+          {{ range $i, $card := .Site.Params.home.participation.cards }}
+          <button
+            class="progress-dot w-3 h-3 rounded-full {{ if eq $i 0 }}bg-primary-600{{ else }}bg-gray-300 dark:bg-gray-700{{ end }} transition-colors duration-300"
+            aria-label="Bingkai {{ add $i 1 }}"
+          ></button>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right container - Text content (animated) -->
+    <div class="relative max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:px-0 lg:flex lg:justify-center">
+      <div class="sm:pt-6 md:pt-12 lg:pt-20">
+        <!-- Fixed title - stays in position -->
+        <h2 class="text-3xl font-bold tracking-tight text-primary-600 dark:text-primary-100 sm:text-4xl">
+          {{ .Site.Params.home.participation.title }}
+        </h2>
+
+        <!-- Fixed-height container for animated frames -->
+        <div class="relative mt-6" style="min-height: 280px;">
+          {{ range $i, $card := .Site.Params.home.participation.cards }}
+          <div class="text-frame absolute top-0 left-0 w-full {{ if eq $i 0 }}active{{ end }}" style="{{ if eq $i 0 }}display: block;{{ else }}display: none;{{ end }}">
+            <div class="text-lg text-gray-900 dark:text-white">
+              <p>{{ $card.title }}</p>
+              <p class="mt-2 text-base text-gray-700 dark:text-gray-300">{{ $card.text }}</p>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* Text frame carousel - absolute positioning for fixed title effect */
+  .text-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    visibility: hidden;
+  }
+
+  .text-frame.active {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .feature-frame, .text-frame {
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  }
+
+  .feature-frame.animate-in, .text-frame.animate-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>

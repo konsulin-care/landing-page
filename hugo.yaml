@@ -69,102 +69,131 @@ params:
   chatwoot_url: "{chatwoot_url}"
   chatwoot_token: "{chatwoot_token}"
   og_image: /images/positive-thinking-wide.png
-  moto: "Wellness kit in your pocket"
-  description: "Buat kamu yang peduli kesehatan mental"
-  long_description: "Pakai Konsulin, kesehatan kamu selalu dalam genggaman. Lagi kepingin curhat? Atau mau skrining kesehatan? Yuk, Konsulin dulu!"
-  button: "Coba sekarang"
-  forward: "https://wa.me/message/VZLSO2PDYM2YG1"
+  # Browser/meta alias for the homepage, distinct from the short title.
+  meta_title: "Konsulin — Riset Kesehatan Bersama Masyarakat"
+  description: "Ikut berkontribusi dalam riset kesehatan bersama masyarakat, peneliti, dan akademisi."
+  forward: "https://app.konsulin.care/research"
   disable_theme_toggle: false
-  disable_stay_uptodate: false
   keywords:
+    - riset kesehatan partisipatif
+    - riset kesehatan bersama masyarakat
+    - citizen science
     - kesehatan mental
     - aplikasi kesehatan jiwa
     - dokter psikolog
     - dokter psikiater
     - psikiater
     - psikiatri
-    - konsultasi psikolog online
-    - konsultasi psikologi
-    - psikiater online
     - psikolog online
-    - tes mental
-    - cek depresi
-    - cek kesehatan mental
-    - cek mental
-    - cek mental health
-    - depresi test
-    - kalkulator kesehatan mental
-    - kalkulator kesehatan mental health
-    - kalkulator kesehatan mental online
-    - kalkulator mental
+    - konsultasi psikolog online
     - kesehatan mental
-    - link tes mental health
-    - mental health tes
-    - tes depresi
-    - tes depresi online
-    - tes gangguan mental
-    - tes gangguan jiwa
-    - tes kejiwaan
-    - tes kejiwaan online
     - tes kesehatan mental
-    - tes kesehatan mental online
+    - tes kejiwaan online
+    - tes depresi online
+    - tes kecemasan
     - tes kesehatan mental online gratis
-    - tes kesehatan mental remaja
-    - tes mental
-    - tes mental health
-    - tes mental health gratis
-    - tes psikologi mental
-    - tes sehat mental
 
-  p1:
-    heading: "Tahukah kamu...?"
-    image: "images/pages/our-mission.png"
-    button: "Mulai di WhatsApp"
-    content:
-      - text: "Kebanyakan aplikasi kesehatan tidak terbuka tentang bagaimana data kita digunakan. Kita tidak pernah tahu: infrastruktur apa yang menjaga data kita? Apakah sistem ini aman dan transparan?"
-      - text: "Konsulin beroperasi dengan infrastruktur terbuka. Kamu bisa verifikasi bagaimana sistem kami bekerja untuk memproses datamu."
-      - text: "Dengan Konsulin, kamu bisa gunakan fitur-fiturnya gratis: jurnal harian untuk bercerita, skrining kesehatan untuk memahami kondisimu saat ini, dan menjadwalkan sesi dengan klinisi profesional. Semuanya tanpa ribet, tanpa biaya di depan."
-  p2:
-    heading: "Apa kata mereka tentang sehat jiwa?"
-    button: "Mulai di WhatsApp"
-    content:
-      - text: "Kami mendirikan Konsulin karena kami percaya pentingnya kesehatan mental, terutama bagi para profesional muda yang menghadapi berbagai tekanan dan tantangan dalam kehidupan sehari-hari. Kami melihat banyak orang yang kesulitan mendapatkan akses ke tes kesehatan mental yang kredibel dan berbasis bukti ilmiah, serta dukungan yang mereka butuhkan."
-      - text: "Dengan Konsulin, kami ingin membuat kesehatan mental lebih mudah dijangkau oleh semua orang. Konsulin didesain sebagai platform yang menyediakan tes kesehatan mental yang akurat serta memfasilitasi kolaborasi antara masyarakat, klinisi, dan akademisi. Kami ingin setiap orang bisa mendapatkan wawasan yang mendalam tentang kondisi psikologis mereka dan mendapatkan panduan yang tepat dari para ahli."
-    social_posts:
-      - url: "https://www.threads.com/@brindaip/post/C_kNjNaxwNx"
-      - url: "https://www.threads.com/@lightgivers/post/DWDG_AmCQnu"
-      - url: "https://www.threads.com/@biandaspkj/post/DSXgxbbkYWd"
-      - url: "https://www.threads.com/@psikolog.rut/post/DPbfNk-E1FL"
-      - url: "https://www.threads.com/@seandybilla/post/DTVXbK_El76"
-      - url: "https://www.threads.com/@hanaboone/post/DESU-Z0SeUS"
-  p3:
-    heading: "Mitra Konsulin"
-    content:
-      - text: "Melalui kolaborasi antara klinisi top dan akademisi hebat, Konsulin menawarkan aplikasi kesehatan personal yang didukung ilmu terkini. Yuk, bergabung dengan Konsulin dan rasakan perubahan positif dalam hidup kamu."
-    links:
-      - text: Kenali mitra Konsulin
-        url: "partner"
-    logos:
-      - identifier: a
-        image: "images/global/sample-logo.svg"
-        alt: "a"
-      - identifier: b
-      - identifier: c
-      - identifier: d
-      - identifier: e
-      - identifier: f
-  p4:
-    heading: "From the blog"
-    content:
-      - text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed."
-  p5:
-    heading: "Stay Up to Date"
-    content:
-      - text: "Mau update terbaru dari Konsulin? Silakan masukkan alamat email kamu ya!"
-    action: "https://formsubmit.co/1ce5a3c4a13420eab3f929d03891849a"
-    label: "Email address"
-    placeholder: "Masukkan alamat email kamu"
-    button: "Kabari aku"
+  home:
+    hero:
+      eyebrow: "Riset Kesehatan Bersama Masyarakat"
+      headline: "Keseharian Anda bisa menjadi bagian dari riset kesehatan."
+      body:
+        - text: "Catat pengalaman Anda. Ajukan pertanyaan. Ikut memahami hasilnya."
+        - text: "Konsulin menghubungkan masyarakat dengan peneliti untuk menghasilkan pengetahuan kesehatan bersama."
+      primary_cta: "Ikut Berkontribusi"
+      secondary_cta: "Cara kerjanya"
+      trust:
+        - text: "Identitas Anda tidak diberikan kepada peneliti."
+        - text: "Data penelitian menggunakan nomor unik yang dibuat secara acak."
+      steps:
+        - "Pengalaman Anda"
+        - "Pertanyaan"
+        - "Riset"
+        - "Temuan"
+    problem:
+      title: "Riset kesehatan dimulai dari pertanyaan nyata."
+      copy:
+        - text: "Banyak pertanyaan kesehatan muncul dari pengalaman sehari-hari."
+        - text: "Pertanyaan tersebut layak dipelajari secara ilmiah."
+      questions:
+        - "Mengapa kualitas tidur saya berubah?"
+        - "Apa yang memengaruhi suasana hati?"
+        - "Bagaimana kebiasaan tertentu memengaruhi kesehatan?"
+        - "Apa yang dialami orang lain?"
+      micro_cta: "Ajukan pertanyaan Anda"
+    participation:
+      title: "Anda bukan hanya sumber data."
+      cards:
+        - title: "Ajukan pertanyaan"
+          text: "Sampaikan hal yang ingin Anda pahami."
+        - title: "Bagikan pengalaman"
+          text: "Catat kondisi, kebiasaan, atau pengalaman Anda."
+        - title: "Bantu membaca hasil"
+          text: "Berikan konteks pada temuan dari data bersama."
+    process:
+      title: "Dari pengalaman menjadi pengetahuan."
+      steps:
+        - num: "01"
+          title: "Tentukan pertanyaan"
+          text: "Anda dapat mengusulkan pertanyaan atau hipotesis."
+        - num: "02"
+          title: "Kumpulkan data"
+          text: "Data dikumpulkan sesuai tujuan dan persetujuan Anda."
+        - num: "03"
+          title: "Pelajari bersama"
+          text: "Peneliti membantu menganalisis data secara ilmiah."
+        - num: "04"
+          title: "Pahami hasilnya"
+          text: "Anda dapat melihat pola dan temuan dari data bersama."
+      cta: "Lihat cara kerja Konsulin"
+    transparency:
+      title: "Anda bisa melihat apa yang sedang dikumpulkan."
+      copy:
+        - text: "Konsulin menampilkan data agregat tentang proses pengumpulan."
+        - text: "Anda dapat melihat jumlah data dan jenis data yang terkumpul."
+      labels:
+        data_count: "Data terkumpul"
+        types: "Jenis data"
+        contributors: "Kontributor"
+        updated: "Terakhir diperbarui"
+      data_count: 12482
+      types: 5
+      contributors: 1836
+      updated: "Hari ini"
+      supporting: "Transparansi membantu Anda memahami bagaimana kontribusi Anda digunakan."
+    privacy:
+      title: "Data Anda tetap berada dalam kendali Anda."
+      assurances:
+        - title: "Identitas terlindungi"
+          text: "Identitas Anda tidak diberikan kepada peneliti."
+        - title: "Nomor unik acak"
+          text: "Data penelitian menggunakan nomor unik yang dibuat secara acak."
+        - title: "Persetujuan Anda"
+          text: "Anda mengetahui tujuan penggunaan data sebelum menyetujuinya."
+      withdrawal:
+        title: "Anda dapat menarik persetujuan."
+        text: "Data yang masih dapat dihapus akan dihapus setelah penarikan persetujuan. Data yang telah diproses dapat dikecualikan sesuai ketentuan penelitian."
+      policy_link: "Pelajari kebijakan data"
+    collaboration:
+      title: "Masyarakat dan peneliti membawa keahlian yang berbeda."
+      public_card:
+        title: "Masyarakat"
+        text: "Membawa pengalaman, pertanyaan, dan konteks kehidupan nyata."
+      researcher_card:
+        title: "Peneliti"
+        text: "Membawa metode, analisis, dan pengetahuan ilmiah."
+      connector: "Bersama, keduanya membantu menghasilkan riset yang relevan dengan kehidupan masyarakat."
+    impact:
+      title: "Temuan yang dapat dipakai bersama."
+      copy:
+        - text: "Riset yang baik membantu kita memahami masalah kesehatan dengan lebih baik."
+        - text: "Temuannya dapat menjadi masukan bagi masyarakat, peneliti, dan pembuat kebijakan."
+      cta: "Lihat hasil penelitian"
+    cta_section:
+      title: "Punya pengalaman yang ingin dipahami?"
+      subtitle: "Jadikan pengalaman Anda menjadi bagian dari riset kesehatan."
+      primary_cta: "Ikut Berkontribusi"
+      secondary_cta: "Pelajari cara kerja Konsulin"
 
   social_media:
     github:
@@ -179,7 +208,6 @@ params:
     twitter:
       enabled: true
       url: 'https://x.com/KonsulinCare'
-    
 
 menu:
   main:
