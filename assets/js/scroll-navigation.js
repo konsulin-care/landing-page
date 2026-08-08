@@ -1,30 +1,22 @@
-// Scroll Navigation - Alpine.js component for section-based scrolling
-// Sections are counted from the DOM at init time, so the component stays
-// correct no matter how many scroll-snap sections the homepage defines.
+// Scroll Navigation - Alpine.js component for section-based navigation
+// The hero is an exact-fit slide; sections 2-9 scroll naturally. This
+// component tracks the active section via IntersectionObserver (used to
+// show/hide the hero down-chevron and the section-2 up-chevron) and powers
+// the chevron/keyboard navigation between sections.
 const SCROLL_CONFIG = {
-  SCROLL_THRESHOLD: 100,        // Pixels to scroll before triggering snap
-  SCROLL_TIMEOUT: 150,          // Delay to reset scroll tracking after scroll stops
   SCROLL_DURATION: 500,         // Duration of smooth scroll animation
-  HEADER_HEIGHT: 64,            // Header offset in pixels
   OBSERVER_MARGIN: '-50% 0px -50% 0px',  // Trigger at viewport center
-  TOUCH_THRESHOLD: 70,          // Pixels of vertical swipe before triggering snap
 };
 
-// Reusable Alpine component for scroll-based section navigation
+// Reusable Alpine component for section-based navigation
 function scrollNavigation() {
   return {
     currentSection: 1,
     totalSections: 0,
-    clickedBtn: null,
-    copied: null,
-    copyTimeout: null,
-    lastScrollPosition: 0,
-    scrollTimeout: null,
     isScrolling: false,
     observer: null,
-    isInitialized: false, // Track if we've seen the first section
 
-    // All scroll-snap sections. Numbers come from element order, never from
+    // All homepage sections. Numbers come from element order, never from
     // the id, so ids stay semantic (e.g. "privacy") and shareable as anchors.
     getSections() {
       return Array.from(document.querySelectorAll('.scroll-snap-section'));
@@ -32,12 +24,8 @@ function scrollNavigation() {
 
     init() {
       // Count sections from the DOM instead of hardcoding a value
-      const sections = this.getSections();
       this.totalSections = document.querySelectorAll('.scroll-snap-section').length;
       if (this.totalSections === 0) this.totalSections = 1;
-
-      // Initialize scroll position
-      this.lastScrollPosition = window.scrollY;
 
       // Expose this component instance globally for other components to sync
       window.scrollNavigationInstance = this;
@@ -45,13 +33,11 @@ function scrollNavigation() {
       // Set up IntersectionObserver to detect current section
       this.initIntersectionObserver();
 
-      // Set up touch swipe navigation
-      this.initTouchTracking();
-
       // Deep link (e.g. #privacy): jump straight to that section on load with
       // instant scroll so there is no observer lag or flash of section 1.
       const hash = window.location.hash.replace(/^#/, '');
       if (hash) {
+        const sections = this.getSections();
         const targetIndex = sections.findIndex((s) => s.id === hash);
         if (targetIndex !== -1) {
           this.currentSection = targetIndex + 1;
@@ -63,76 +49,6 @@ function scrollNavigation() {
       }
     },
 
-    // True only on md+ where sections are exact-fit 100svh slides; below md
-    // sections grow with content and the page scrolls natively.
-    isSlideMode() {
-      return window.matchMedia('(min-width: 768px)').matches;
-    },
-
-    initTouchTracking() {
-      this.touchStartX = 0;
-      this.touchStartY = 0;
-      this.touchActive = false;
-      this.touchStartSection = 1;
-
-      // Bind once so listeners can be removed in destroy()
-      this.onTouchStart = this.handleTouchStart.bind(this);
-      this.onTouchMove = this.handleTouchMove.bind(this);
-      this.onTouchEnd = this.handleTouchEnd.bind(this);
-
-      document.addEventListener('touchstart', this.onTouchStart, { passive: true });
-      document.addEventListener('touchmove', this.onTouchMove, { passive: false });
-      document.addEventListener('touchend', this.onTouchEnd, { passive: true });
-    },
-
-    handleTouchStart(e) {
-      if (e.touches.length !== 1) return;
-      this.touchStartX = e.touches[0].clientX;
-      this.touchStartY = e.touches[0].clientY;
-      this.touchActive = true;
-      this.touchStartSection = this.currentSection;
-    },
-
-    handleTouchMove(e) {
-      if (!this.touchActive || e.touches.length !== 1) return;
-      // Only lock native scroll for exact-fit slides; mobile scrolls freely
-      if (!this.isSlideMode()) return;
-      const deltaX = e.touches[0].clientX - this.touchStartX;
-      const deltaY = e.touches[0].clientY - this.touchStartY;
-      // Lock native scroll for vertical swipes so each slide snaps cleanly
-      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
-        e.preventDefault();
-      }
-    },
-
-    handleTouchEnd(e) {
-      if (!this.touchActive) return;
-      this.touchActive = false;
-      // Swipe navigation only in slide mode; native scroll moves the page on mobile
-      if (!this.isSlideMode()) return;
-      const touch = e.changedTouches[0];
-      if (!touch) return;
-
-      const deltaY = touch.clientY - this.touchStartY;
-      const deltaX = touch.clientX - this.touchStartX;
-
-      // Only vertical-dominant swipes past the threshold navigate sections
-      if (
-        Math.abs(deltaY) < SCROLL_CONFIG.TOUCH_THRESHOLD ||
-        Math.abs(deltaY) <= Math.abs(deltaX)
-      ) {
-        return;
-      }
-
-      if (deltaY < 0 && this.touchStartSection < this.totalSections) {
-        // Swipe up - next section
-        this.scrollToSection(this.touchStartSection + 1);
-      } else if (deltaY > 0 && this.touchStartSection > 1) {
-        // Swipe down - previous section
-        this.scrollToSection(this.touchStartSection - 1);
-      }
-    },
-
     initIntersectionObserver() {
       this.observer = new IntersectionObserver(
         (entries) => {
@@ -140,7 +56,6 @@ function scrollNavigation() {
             if (entry.isIntersecting) {
               const sectionNum = this.getSections().indexOf(entry.target) + 1;
               this.currentSection = sectionNum;
-              this.isInitialized = true;
               this.updateHash(entry.target.id);
             }
           });
@@ -152,7 +67,7 @@ function scrollNavigation() {
         }
       );
 
-      // Observe all scroll-snap sections
+      // Observe all sections
       this.getSections().forEach(section => {
         this.observer.observe(section);
       });
@@ -165,47 +80,11 @@ function scrollNavigation() {
       history.replaceState(null, '', '#' + id);
     },
 
-    handleScroll() {
-      // Scroll-snap only applies to exact-fit slides; mobile scrolls natively
-      if (!this.isSlideMode()) return;
-
-      // Don't handle scroll if already smoothly scrolling
-      if (this.isScrolling) return;
-
-      const currentScroll = window.scrollY;
-      const scrollDelta = currentScroll - this.lastScrollPosition;
-
-      // Clear previous timeout
-      if (this.scrollTimeout) {
-        clearTimeout(this.scrollTimeout);
-      }
-
-      // Only snap if scrolled more than threshold
-      if (Math.abs(scrollDelta) > SCROLL_CONFIG.SCROLL_THRESHOLD) {
-        // Determine direction: negative = scrolling up, positive = scrolling down
-        if (scrollDelta > 0 && this.currentSection < this.totalSections) {
-          // Scrolling down - go to next section
-          this.scrollToSection(this.currentSection + 1);
-        } else if (scrollDelta < 0 && this.currentSection > 1) {
-          // Scrolling up - go to previous section
-          this.scrollToSection(this.currentSection - 1);
-        }
-
-        this.lastScrollPosition = currentScroll;
-
-        // Set timeout to reset scroll tracking after scrolling stops
-        this.scrollTimeout = setTimeout(() => {
-          this.lastScrollPosition = window.scrollY;
-        }, SCROLL_CONFIG.SCROLL_TIMEOUT);
-      }
-    },
-
     scrollToSection(sectionNum) {
       // Don't scroll if already scrolling or if already on target section
       if (this.isScrolling || sectionNum === this.currentSection) return;
 
       this.isScrolling = true;
-      this.clickedBtn = sectionNum;
 
       const section = this.getSections()[sectionNum - 1];
       if (section) {
@@ -217,43 +96,12 @@ function scrollNavigation() {
       }
 
       setTimeout(() => {
-        this.clickedBtn = null;
         this.isScrolling = false;
-        // Update lastScrollPosition after smooth scroll completes
-        // This prevents multiple section changes from one scroll event
-        this.lastScrollPosition = window.scrollY;
       }, SCROLL_CONFIG.SCROLL_DURATION);
     },
 
-    // Copy this section's shareable deep link (e.g. https://konsulin.care/#privacy)
-    // to the clipboard and flash the "Copied" tooltip on the button.
-    async copySectionLink(id) {
-      const url = location.origin + location.pathname + '#' + id;
-      try {
-        await navigator.clipboard.writeText(url);
-      } catch (err) {
-        // Clipboard unavailable (e.g. non-secure context) - fall back to the
-        // legacy execCommand path so sharing still works on http:// hosts.
-        const textArea = document.createElement('textarea');
-        textArea.value = url;
-        textArea.style.position = 'fixed';
-        textArea.style.opacity = '0';
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-      }
-
-      // Show the copied tooltip for ~1.5s
-      if (this.copyTimeout) clearTimeout(this.copyTimeout);
-      this.copied = id;
-      this.copyTimeout = setTimeout(() => {
-        this.copied = null;
-      }, 1500);
-    },
-
     handleKeydown(e) {
-      // Default section navigation
+      // Section navigation via keyboard
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
         if (this.currentSection < this.totalSections) {
@@ -271,14 +119,6 @@ function scrollNavigation() {
     destroy() {
       if (this.observer) {
         this.observer.disconnect();
-      }
-      if (this.scrollTimeout) {
-        clearTimeout(this.scrollTimeout);
-      }
-      if (this.onTouchStart) {
-        document.removeEventListener('touchstart', this.onTouchStart);
-        document.removeEventListener('touchmove', this.onTouchMove);
-        document.removeEventListener('touchend', this.onTouchEnd);
       }
       if (window.scrollNavigationInstance === this) {
         delete window.scrollNavigationInstance;

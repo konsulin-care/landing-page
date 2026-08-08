@@ -3,7 +3,6 @@
   x-data="scrollNavigation()"
   x-init="init();"
   @keydown.window="handleKeydown($event)"
-  @scroll.window="handleScroll()"
 >
 
   <link rel="stylesheet" href="{{ "css/carousel.css" | relURL }}">
@@ -25,18 +24,18 @@
     {{ partial "scroll-section.html" . }}
   {{ end }}
 
-  {{/* Global Up Chevron - Show only when not on first section */}}
+  {{/* Up Chevron - Show only on section 2 (back to the hero) */}}
   {{ partial "scroll-indicator.html" (dict
     "direction" "up"
     "targetSection" "currentSection - 1"
-    "show" "currentSection > 1"
+    "show" "currentSection === 2"
   ) }}
 
-  {{/* Global Down Chevron - Show only when not on last section; label only on the hero */}}
+  {{/* Down Chevron - Show only on the hero; label only there too */}}
   {{ partial "scroll-indicator.html" (dict
     "direction" "down"
     "targetSection" "currentSection + 1"
-    "show" "currentSection < totalSections"
+    "show" "currentSection === 1"
     "label" .Site.Params.home.hero.scroll_label
     "labelVisible" "currentSection === 1"
   ) }}

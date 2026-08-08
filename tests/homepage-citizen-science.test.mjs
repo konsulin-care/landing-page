@@ -285,7 +285,9 @@ before(async () => {
 });
 
 test('T13b: production build succeeds and renders 9 snap sections', () => {
-  const sections = (publicHtml.match(/class="scroll-snap-section/g) ?? []).length;
+  // Hugo minifies unquoted single-class attributes (class=scroll-snap-section),
+  // so accept both quoted and unquoted, but exclude the __content divs.
+  const sections = (publicHtml.match(/class=["']?scroll-snap-section(?=\s|["'>])/g) ?? []).length;
   assert.equal(sections, 9, 'rendered page must have exactly 9 snap sections');
   assert.ok(!publicHtml.includes('formsubmit.co'), 'no formsubmit network call');
   assert.ok(!publicHtml.includes('wa.me'), 'no WhatsApp links on rendered homepage');
@@ -416,11 +418,12 @@ test('B4: main.css migrates the legacy config into v4-native @theme', () => {
   );
 });
 
-test('B5: compiled CSS restores the primary palette and exact-fit slides', () => {
+test('B5: compiled CSS restores the primary palette and the hero-only slide', () => {
   const css = read('assets/css/style.css');
   assert.ok(css.includes('.bg-primary-600'), 'compiled css must contain .bg-primary-600 (CTA buttons)');
   assert.ok(css.includes('.text-primary-800'), 'compiled css must contain .text-primary-800 (AA accents)');
-  assert.ok(css.includes('height: 100svh'), 'sections must be exact-fit 100svh slides');
+  assert.ok(css.includes('.scroll-snap-section--slide'), 'compiled css must contain the hero slide modifier');
+  assert.ok(css.includes('calc(100svh - 64px)'), 'hero slide must fit the visible area below the header');
   assert.ok(css.includes('overscroll-behavior: none'), 'html must disable overscroll chaining');
 });
 
@@ -428,13 +431,20 @@ test('B6: legacy tailwind.config.js is removed after the @theme migration', () =
   assert.ok(!exists('tailwind.config.js'), 'tailwind.config.js must be deleted after migration');
 });
 
-test('B7: scroll-navigation supports touch swipe navigation', () => {
+test('B7: scroll-navigation has no snap/touch/share machinery (natural scroll)', () => {
   const js = read('assets/js/scroll-navigation.js');
-  assert.ok(js.includes('touchstart'), 'component must track touchstart');
-  assert.ok(js.includes('touchmove'), 'component must track touchmove');
-  assert.ok(js.includes('touchend'), 'component must track touchend');
-  assert.ok(js.includes('TOUCH_THRESHOLD'), 'component must define a swipe threshold constant');
-  assert.ok(js.includes('touchStartSection'), 'component must remember the section at swipe start');
+  for (const gone of [
+    'isSlideMode',
+    'matchMedia',
+    'touchstart',
+    'touchmove',
+    'touchend',
+    'TOUCH_THRESHOLD',
+    'copySectionLink',
+    'handleScroll',
+  ]) {
+    assert.ok(!js.includes(gone), `scroll-navigation must not contain: ${gone}`);
+  }
 });
 
 test('B8: legacy v3-only classes are cleaned up', () => {
@@ -487,36 +497,38 @@ test('B11: card grids go 2-up on mobile so slides can fit narrow screens', () =>
   }
 });
 
-test('B12: slides are exact-fit only at md+, mobile sections grow without clipping', () => {
+test('B12: hero is an exact-fit slide; other sections flow naturally', () => {
   const main = read('assets/css/main.css');
+  const slideAt = main.indexOf('.scroll-snap-section--slide');
+  assert.notEqual(slideAt, -1, 'slide modifier must exist for the hero');
   assert.ok(
-    main.includes('min-height: 100svh'),
-    'mobile base must grow with content via min-height: 100svh',
+    main.includes('height: calc(100svh - 64px)'),
+    'slide must fit the visible area below the header',
   );
-  const mdAt = main.indexOf('@media (min-width: 768px)');
-  assert.notEqual(mdAt, -1, 'exact-fit rules must live in an md+ media query');
-  const mdBlock = main.slice(mdAt);
-  assert.ok(mdBlock.includes('height: 100svh'), 'md+ block must fix the slide height');
-  assert.ok(mdBlock.includes('overflow: hidden'), 'md+ block must clip the slide');
   assert.ok(
-    !/^\s*\.scroll-snap-section\s*\{[^}]*height: 100svh/s.test(
-      main.slice(0, mdAt),
-    ),
-    'base rule must not force a fixed slide height on mobile',
+    main.includes('.scroll-snap-section--slide .scroll-snap-section__content'),
+    'slide content must be flex-centered',
+  );
+  // Between the base rule and the slide modifier there must be no height,
+  // min-height, or header padding — flow sections keep natural height.
+  const baseStart = main.indexOf('.scroll-snap-section');
+  const baseBlock = main.slice(baseStart, slideAt);
+  assert.ok(!baseBlock.includes('min-height'), 'flow sections must not force min-height');
+  assert.ok(!baseBlock.includes('height:'), 'flow sections must not force a height');
+  assert.ok(!baseBlock.includes('padding-top'), 'flow sections must not add header padding');
+  assert.ok(
+    !main.includes('@media (min-width: 768px)'),
+    'no md+ media query: the slide behavior is uniform',
   );
 });
 
-test('B13: scroll-navigation gates snap behavior on slide mode (md+)', () => {
+test('B13: scroll-navigation keeps observer + scrollToSection, drops auto-snap', () => {
   const js = read('assets/js/scroll-navigation.js');
-  assert.ok(
-    js.includes("matchMedia('(min-width: 768px)')"),
-    'component must detect slide mode via matchMedia',
-  );
-  assert.ok(js.includes('isSlideMode()'), 'component must expose isSlideMode()');
-  assert.ok(
-    js.includes('if (!this.isSlideMode()) return;'),
-    'handleScroll must no-op outside slide mode',
-  );
+  assert.ok(js.includes('initIntersectionObserver'), 'intersection observer must remain');
+  assert.ok(js.includes('scrollToSection('), 'chevron/keyboard navigation must remain');
+  assert.ok(js.includes('history.replaceState'), 'hash sync must remain');
+  assert.ok(!js.includes('isSlideMode'), 'no slide-mode gating');
+  assert.ok(!js.includes('handleScroll'), 'no auto-snap on scroll');
 });
 
 test('B14: component scripts must load before Alpine so registration precedes start', () => {
@@ -557,17 +569,17 @@ test('T6: scroll indicator CSS drops the pill/circle styling', () => {
   assert.ok(block.includes('transparent'), 'chevron button must be transparent');
 });
 
-test('B10: section vertical rhythm is squeezed so every slide fits the viewport', () => {
+test('B10: mobile vertical rhythm is trimmed so the hero fits and flow sections breathe', () => {
   const squeezes = {
-    'home-hero.html': ['py-10 mx-auto sm:py-12'],
-    'home-problem.html': ['py-12'],
-    'home-participation.html': ['lg:pt-10', 'min-height: 0'],
-    'home-process.html': ['py-12'],
-    'home-transparency.html': ['py-12', 'mt-6'],
-    'home-privacy.html': ['py-12', 'sm:mt-8 sm:p-6'],
-    'home-collaboration.html': ['py-12'],
-    'home-impact.html': ['py-12'],
-    'home-cta.html': ['sm:py-14'],
+    'home-hero.html': ['py-6 mx-auto sm:py-12'],
+    'home-problem.html': ['py-6 mx-auto sm:py-12'],
+    'home-participation.html': ['lg:pt-10', 'min-h-36'],
+    'home-process.html': ['py-6 mx-auto sm:py-12'],
+    'home-transparency.html': ['py-6 mx-auto sm:py-12', 'mt-6'],
+    'home-privacy.html': ['py-6 mx-auto sm:py-12', 'sm:mt-8 sm:p-6'],
+    'home-collaboration.html': ['py-6 mx-auto sm:py-12'],
+    'home-impact.html': ['py-6 mx-auto sm:py-12'],
+    'home-cta.html': ['relative pb-8 mt-6', 'sm:py-14'],
   };
   for (const [file, markers] of Object.entries(squeezes)) {
     const content = read(`layouts/partials/${file}`);

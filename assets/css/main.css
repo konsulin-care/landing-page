@@ -111,34 +111,25 @@ html {
   overscroll-behavior: none;
 }
 
+/* Flow sections (2+): plain, natural height — no min-height/centering.
+   The class stays as the DOM hook scroll-navigation.js uses to count
+   sections. */
 .scroll-snap-section {
-  /* Mobile base: grow with content, never clip */
-  min-height: 100svh;
-  /* scroll-snap-align removed - using JavaScript scroll snap instead */
-  /* Account for fixed header */
-  padding-top: 64px;
   box-sizing: border-box;
 }
 
-.scroll-snap-section__content {
-  /* Make content fill available space (100svh - header) */
-  min-height: calc(100svh - 64px);
+/* Hero slide: exactly the visible area below the sticky header */
+.scroll-snap-section--slide {
+  height: calc(100svh - 64px);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.scroll-snap-section--slide .scroll-snap-section__content {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-/* md+: exact-fit presentation slides */
-@media (min-width: 768px) {
-  .scroll-snap-section {
-    height: 100svh;
-    overflow: hidden;
-  }
-
-  .scroll-snap-section__content {
-    height: 100%;
-    overflow: hidden;
-  }
 }
 
 .scroll-indicator {

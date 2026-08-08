@@ -1,10 +1,11 @@
 // Shareable section anchors. Tests map 1:1 to the plan:
 //   S1  layouts/index.html: 9 sections carry semantic ids (hero..join)
-//   S2  layouts/partials/scroll-section.html: id="{{ $id }}", copy-link
-//       button with Alpine feedback (no section-N ids)
+//   S2  layouts/partials/scroll-section.html: id="{{ $id }}", slide
+//       modifier for the hero, no share/copy-link button (no section-N ids)
 //   S3  assets/js/scroll-navigation.js: decoupled lookups, hash sync via
-//       replaceState, deep-link handling on load, copySectionLink()
-//   S4  built HTML: <section id="hero">..<section id="join">, copy buttons
+//       replaceState, deep-link handling on load, chevron/keyboard nav
+//   S4  built HTML: <section id="hero">..<section id="join">, no copy
+//       buttons, chevron x-show rules for hero (down) and section 2 (up)
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -64,20 +65,16 @@ test('S2a: section element uses the semantic id, not section-N', () => {
   );
 });
 
-test('S2b: copy-link button lives inside every scroll section', () => {
+test('S2b: sections carry no copy-link/share button', () => {
   const partial = read('layouts/partials/scroll-section.html');
-  assert.ok(partial.includes("copySectionLink('{{ $id }}')"), 'button must call copySectionLink with the section id');
+  assert.ok(partial.includes('id="{{ $id }}"'), 'wrapper must keep the semantic id');
   assert.ok(
-    partial.includes('aria-label="Copy link to this section"'),
-    'button must carry a descriptive aria-label',
+    !partial.includes('copySectionLink'),
+    'wrapper must not render a copy-link button',
   );
   assert.ok(
-    partial.includes('absolute bottom-4 right-4'),
-    'button must sit unobtrusively in the bottom-right corner',
-  );
-  assert.ok(
-    partial.includes('x-show="copied === \'{{ $id }}\'"'),
-    'button must show the copied state bound to this section id',
+    !partial.includes('aria-label="Copy link to this section"'),
+    'wrapper must not render a share button',
   );
 });
 
@@ -130,25 +127,10 @@ test('S3d: deep link on load jumps instantly to the requested section', () => {
   );
 });
 
-test('S3e: copySectionLink builds a shareable URL and shows feedback', () => {
+test('S3e: copySectionLink is removed with the share button', () => {
   const js = read('assets/js/scroll-navigation.js');
-  assert.ok(js.includes('copySectionLink(id)'), 'copySectionLink must exist');
-  assert.ok(
-    js.includes("location.origin + location.pathname + '#' + id"),
-    'copied url must be origin + path + #id',
-  );
-  assert.ok(
-    js.includes('navigator.clipboard.writeText'),
-    'copy must use the clipboard API',
-  );
-  assert.ok(
-    js.includes('this.copied = id'),
-    'copied state must be set to the section id for feedback',
-  );
-  assert.ok(
-    js.includes('setTimeout'),
-    'feedback must clear after a delay',
-  );
+  assert.ok(!js.includes('copySectionLink'), 'share helper must be removed');
+  assert.ok(!js.includes('navigator.clipboard'), 'no clipboard usage remains');
 });
 
 // ---------------------------------------------------------------- S4 rendered output
@@ -173,15 +155,17 @@ test('S4a: rendered homepage has semantic section ids, no section-N', () => {
   );
 });
 
-test('S4b: every rendered section shows a copy-link button', () => {
-  const buttons = publicHtml.match(/copySectionLink\('/g) ?? [];
-  assert.equal(buttons.length, 9, 'exactly one copy button per section');
+test('S4b: rendered page has no copy-link buttons', () => {
+  assert.ok(!publicHtml.includes('copySectionLink'), 'no copy buttons may be rendered');
 });
 
-test('S4c: section CTAs still call the correct section numbers', () => {
+test('S4c: chevron visibility expressions render for hero and section 2', () => {
   assert.ok(
-    publicHtml.includes('copySectionLink(\'hero\')') &&
-      publicHtml.includes('copySectionLink(\'join\')'),
-    'copy buttons survive rendering with their section ids',
+    publicHtml.includes('x-show="currentSection === 1"'),
+    'down chevron must show only on the hero',
+  );
+  assert.ok(
+    publicHtml.includes('x-show="currentSection === 2"'),
+    'up chevron must show only on section 2',
   );
 });
