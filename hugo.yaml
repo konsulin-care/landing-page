@@ -13,6 +13,22 @@ darkmode_js:
   - assets/js/darkmode.js
 enableInlineShortcodes: true
 
+security:
+  node:
+    permissions:
+      # Tailwind v4 runs through @tailwindcss/postcss; Hugo's node wrapper
+      # blocks these APIs unless postcss is allow-listed (defaults cover
+      # only the tailwindcss binary).
+      allowAddons:
+        - postcss
+        - tailwindcss
+      allowWorker:
+        - postcss
+        - tailwindcss
+      allowChildProcess:
+        - postcss
+        - tailwindcss
+
 markup:
   goldmark:
     extensions:
