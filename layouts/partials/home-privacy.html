@@ -1,0 +1,33 @@
+<!-- Privacy section -->
+<div class="max-w-screen-xl px-4 py-14 mx-auto sm:py-20">
+  <div class="max-w-3xl mx-auto text-center">
+    {{ with .Site.Params.home.privacy.kicker }}
+    <p class="section-kicker">{{ . }}</p>
+    {{ end }}
+    <h2 class="text-3xl font-bold tracking-tight text-primary-800 dark:text-primary-200 sm:text-4xl">
+      {{ .Site.Params.home.privacy.title }}
+    </h2>
+  </div>
+
+  <div class="grid gap-4 grid-cols-1 mt-8 sm:grid-cols-3">
+    {{ range .Site.Params.home.privacy.assurances }}
+    <div class="p-4 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2 text-primary-600 dark:text-primary-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      </svg>
+      <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">{{ .title }}</h3>
+      <p class="mt-1 text-sm text-gray-700 dark:text-gray-300">{{ .text }}</p>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="max-w-3xl mx-auto mt-6 p-4 text-center bg-gray-100 border border-gray-200 rounded-xl sm:mt-8 sm:p-6 dark:bg-gray-800 dark:border-gray-700">
+    <h3 class="text-xl font-bold text-gray-900 sm:text-2xl dark:text-gray-100">{{ .Site.Params.home.privacy.withdrawal.title }}</h3>
+    <p class="mt-3 text-sm text-gray-700 sm:mt-4 sm:text-base dark:text-gray-300">{{ .Site.Params.home.privacy.withdrawal.text }}</p>
+    <div class="mt-4 sm:mt-6">
+      <a href="{{ "privacy" | relURL }}" class="text-base font-semibold text-primary-800 dark:text-primary-200 hover:underline">
+        {{ .Site.Params.home.privacy.policy_link }} &rarr;
+      </a>
+    </div>
+  </div>
+</div>
