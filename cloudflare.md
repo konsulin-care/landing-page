@@ -9,7 +9,7 @@ Version 1 uses old Hugo, Go and Node.js version (0.54.0, 1.14.4 and 12.18.0), yo
 ```sh
 HUGO_VERSION=0.111.3
 GO_VERSION=1.20.3
-NODE_VERSION=18.16.0
+NODE_VERSION=26.0.0
 ```
 
 # Cloudflare Pages v2

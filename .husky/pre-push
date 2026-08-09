@@ -1,0 +1,6 @@
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" >/dev/null 2>&1 && nvm use >/dev/null 2>&1 || true
+if ! npm test; then
+  echo "Tests failed — push blocked." >&2
+  exit 1
+fi
