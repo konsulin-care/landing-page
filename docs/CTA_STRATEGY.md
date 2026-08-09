@@ -2,6 +2,19 @@
 
 This document explains the **dual-CTA architecture** for Konsulin's landing page and when to direct users to WhatsApp vs. the PWA dashboard.
 
+## Current CTA Architecture (Research-first)
+
+The landing page now targets **citizen-science research participation** instead of WhatsApp onboarding. Section CTAs follow this hierarchy:
+
+| Position | CTA | Destination |
+|----------|-----|-------------|
+| **Primary** | "Ikut Berkontribusi" | `https://app.konsulin.care/research` |
+| **Secondary** | Scroll to next section | In-page navigation (`scrollToSection(n)`) |
+
+All primary CTAs route through the shared `params.forward` value in `hugo.yaml`; the final CTA (section 9) repeats "Ikut Berkontribusi" as the conversion close.
+
+The WhatsApp/PWA material below documents the legacy onboarding architecture and is retained for reference only.
+
 ## Strategic Vision
 
 **Primary Goal**: Build long-term habit formation through daily WhatsApp interactions.

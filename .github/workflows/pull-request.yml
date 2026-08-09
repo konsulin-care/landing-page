@@ -17,12 +17,12 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: '16' # Use Node.js 16 to ensure compatibility
+          node-version-file: .nvmrc
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Inject Chatwoot Secrets
         run: |

@@ -281,10 +281,14 @@ If any of these fail, the section breaks the formula.
 ## Examples in the Codebase
 
 Look for these patterns in `/layouts/partials/`:
-- `home-header.html` – Hero block (problem + CTA)
-- `home-vision-mission.html` – Value block (features carousel)
-- `home-rationale.html` – Social proof block (Twitter embed, endless auto-scroll)
-- `home-partners.html` – Use case block (Instagram embed, manual carousel)
+- `home-hero.html` – Hero block (problem statement + 4-step diagram + CTA)
+- `home-problem.html` – Problem section with example research questions
+- `home-participation.html` – Participation carousel (recycled vision-carousel contract)
+- `home-process.html` – Process block (question → data → analysis)
+- `home-transparency.html` – Transparency dashboard (aggregated data cards)
+- `home-privacy.html` – Privacy assurance cards + withdrawal callout
+- `home-collaboration.html` – Community/peneliti collaboration block
+- `home-impact.html` – Impact block
 - `home-cta.html` – Final CTA block
 
 Compare these against the formula above to understand the structure in practice.

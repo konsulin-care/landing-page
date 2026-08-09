@@ -1,5 +1,5 @@
 <title itemprop="name">
-  {{if .IsHome}} {{ $.Site.Params.description }} | {{ .Title }} {{else}} {{ .Title }} | {{ .Site.Title }} {{end}}
+  {{if .IsHome}} {{ $.Site.Params.meta_title }} {{else}} {{ .Title }} | {{ .Site.Title }} {{end}}
 </title>
 
 <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
