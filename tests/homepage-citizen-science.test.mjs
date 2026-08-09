@@ -213,6 +213,33 @@ test('T6c: citizen-morph.js ships with the required behaviors', () => {
   assert.ok(!js.includes('setInterval'), 'morph must not rely on setInterval for the loop');
 });
 
+test('T6e: morph stage holds the visible phrase statically and dissolves out/in', () => {
+  const js = read('assets/js/citizen-morph.js');
+  // A) Visible phase: drawBlocks supports a staticMode that paints every block
+  //    at full size/opacity, and tick() uses it for the readable hold.
+  assert.ok(js.includes('staticMode'), 'drawBlocks must accept a static hold mode');
+  assert.ok(
+    js.includes('drawBlocks(current, elapsed, false, true)'),
+    'visible phase must draw the current phrase statically',
+  );
+  // B) Morph phase: alpha follows progress so the outgoing phrase fades out
+  //    and the incoming phrase fades in (no double fade-in overlap).
+  assert.ok(
+    js.includes('const alpha = progress;'),
+    'alpha must follow progress (out fades out, in fades in)',
+  );
+  assert.ok(
+    !js.includes('const alpha = isNext ? progress : 1 - progress;'),
+    'outgoing phrase must not fade in',
+  );
+  // Fully-visible blocks must be painted, never skipped by the guard.
+  assert.ok(
+    js.includes('if (progress <= 0) continue;'),
+    'only fully-hidden blocks may be skipped',
+  );
+  assert.ok(!js.includes('progress >= 1'), 'fully-visible blocks must not be skipped');
+});
+
 test('T6d: footer builds citizen-morph.js via Hugo Pipes before Alpine', () => {
   const footer = read('layouts/partials/footer.html');
   const morphAt = footer.indexOf('resources.Get "js/citizen-morph.js" | js.Build');

@@ -133,16 +133,21 @@
     return Math.abs(Math.cos(progress * Math.PI));
   }
 
-  function drawBlocks(blocks, elapsed, isNext) {
+  function drawBlocks(blocks, elapsed, isNext, staticMode) {
     const dpr = window.devicePixelRatio || 1;
     ctx.save();
     ctx.fillStyle = inkColor();
     for (const block of blocks) {
+      if (staticMode) {
+        // Visible "hold": every block at full size and opacity — readable text.
+        ctx.fillRect(block.x * dpr, block.y * dpr, block.s * dpr, block.s * dpr);
+        continue;
+      }
       const t = clamp((elapsed - block.d) / (MORPH_MS - 260), 0, 1);
-      const progress = isNext ? t : 1 - t;
-      if (progress <= 0 || progress >= 1) continue;
+      const progress = isNext ? t : 1 - t; // in: 0→1, out: 1→0
+      if (progress <= 0) continue;
 
-      const alpha = isNext ? progress : 1 - progress;
+      const alpha = progress; // in: fades in, out: fades out
       const scaleY = flip(progress);
       const cx = block.x + block.s / 2;
       const cy = block.y + block.s / 2;
@@ -176,7 +181,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (phase === 'visible') {
-      drawBlocks(current, elapsed, false);
+      drawBlocks(current, elapsed, false, true); // static readable phrase
       if (elapsed >= VISIBLE_MS) startMorph();
     } else {
       drawBlocks(current, elapsed, false); // dissolving out
