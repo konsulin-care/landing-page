@@ -73,6 +73,8 @@ params:
   meta_title: "Konsulin — Riset Kesehatan Bersama Masyarakat"
   description: "Ikut berkontribusi dalam riset kesehatan bersama masyarakat, peneliti, dan akademisi."
   forward: "https://app.konsulin.care/research"
+  # Nav login button: auth entry that returns the user to the research page.
+  auth: "https://app.konsulin.care/auth?redirectToPath=/research"
   disable_theme_toggle: false
   keywords:
     - riset kesehatan partisipatif
@@ -95,39 +97,25 @@ params:
 
   home:
     hero:
-      headline: "Keseharian Anda merupakan bagian penting dari riset kesehatan."
+      headline: "Jadi bagian dari riset kesehatan."
       body:
-        - text: "Konsulin menghubungkan masyarakat dengan peneliti untuk menghasilkan pengetahuan kesehatan bersama."
+        - text: "Bagikan pengalaman Anda dan bantu menghasilkan pengetahuan kesehatan bersama."
       primary_cta: "Ikut Berkontribusi"
       trust:
         - text: "Identitas Anda tidak diberikan kepada peneliti."
-        - text: "Data penelitian menggunakan nomor unik yang dibuat secara acak."
-      rotating:
-        - "Catat pengalaman Anda."
-        - "Ajukan pertanyaan."
-        - "Ikut memahami hasilnya."
-      scroll_label: "CARA KERJANYA"
-    problem:
-      title: "Riset kesehatan dimulai dari pertanyaan nyata."
-      copy:
-        - text: "Banyak pertanyaan kesehatan muncul dari pengalaman sehari-hari."
-        - text: "Pertanyaan tersebut layak dipelajari secara ilmiah."
-      questions:
-        - "Mengapa kualitas tidur saya berubah?"
-        - "Apa yang memengaruhi suasana hati?"
-        - "Bagaimana kebiasaan tertentu memengaruhi kesehatan?"
-        - "Apa yang dialami orang lain?"
-      micro_cta: "Ajukan pertanyaan Anda"
-    participation:
-      title: "Anda bukan hanya sumber data."
-      cards:
-        - title: "Ajukan pertanyaan"
-          text: "Sampaikan hal yang ingin Anda pahami."
-        - title: "Bagikan pengalaman"
-          text: "Catat kondisi, kebiasaan, atau pengalaman Anda."
-        - title: "Bantu membaca hasil"
-          text: "Berikan konteks pada temuan dari data bersama."
+    citizen_science:
+      kicker: "Partisipasi warga"
+      title: "Ikut ambil bagian dalam riset."
+      frames:
+        - title: "Ceritakan."
+          text: "Bagikan pengalaman kesehatan Anda."
+        - title: "Tanyakan."
+          text: "Ajukan pertanyaan yang ingin Anda pahami."
+        - title: "Pahami."
+          text: "Ikuti hasil penelitian yang Anda bantu."
+      cta: "Ikut Berkontribusi"
     process:
+      kicker: "Proses"
       title: "Dari pengalaman menjadi pengetahuan."
       steps:
         - num: "01"
@@ -142,8 +130,9 @@ params:
         - num: "04"
           title: "Pahami hasilnya"
           text: "Anda dapat melihat pola dan temuan dari data bersama."
-      cta: "Lihat cara kerja Konsulin"
+      cta: "Ikut Berkontribusi"
     transparency:
+      kicker: "Transparansi"
       title: "Anda bisa melihat apa yang sedang dikumpulkan."
       copy:
         - text: "Konsulin menampilkan data agregat tentang proses pengumpulan."
@@ -159,6 +148,7 @@ params:
       updated: "Hari ini"
       supporting: "Transparansi membantu Anda memahami bagaimana kontribusi Anda digunakan."
     privacy:
+      kicker: "Privasi"
       title: "Data Anda tetap berada dalam kendali Anda."
       assurances:
         - title: "Identitas terlindungi"
@@ -172,6 +162,7 @@ params:
         text: "Data yang masih dapat dihapus akan dihapus setelah penarikan persetujuan. Data yang telah diproses dapat dikecualikan sesuai ketentuan penelitian."
       policy_link: "Pelajari kebijakan data"
     collaboration:
+      kicker: "Kolaborasi"
       title: "Masyarakat dan peneliti membawa keahlian yang berbeda."
       public_card:
         title: "Masyarakat"
@@ -181,12 +172,14 @@ params:
         text: "Membawa metode, analisis, dan pengetahuan ilmiah."
       connector: "Bersama, keduanya membantu menghasilkan riset yang relevan dengan kehidupan masyarakat."
     impact:
+      kicker: "Dampak"
       title: "Temuan yang dapat dipakai bersama."
       copy:
         - text: "Riset yang baik membantu kita memahami masalah kesehatan dengan lebih baik."
         - text: "Temuannya dapat menjadi masukan bagi masyarakat, peneliti, dan pembuat kebijakan."
-      cta: "Lihat hasil penelitian"
+      cta: "Ikut Berkontribusi"
     cta_section:
+      kicker: "Bergabung"
       title: "Punya pengalaman yang ingin dipahami?"
       subtitle: "Jadikan pengalaman Anda menjadi bagian dari riset kesehatan."
       primary_cta: "Ikut Berkontribusi"

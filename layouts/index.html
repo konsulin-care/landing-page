@@ -1,44 +1,20 @@
 {{ define "main" }}
-<main
-  x-data="scrollNavigation()"
-  x-init="init();"
-  @keydown.window="handleKeydown($event)"
->
+<main>
 
-  <link rel="stylesheet" href="{{ "css/carousel.css" | relURL }}">
-  <script src="{{ "js/carousel.js" | relURL }}"></script>
-
-  {{ $sections := slice 
+  {{ $sections := slice
     (dict "num" 1 "id" "hero" "partial" "home-hero.html" "context" .)
-    (dict "num" 2 "id" "problem" "partial" "home-problem.html" "context" .)
-    (dict "num" 3 "id" "participation" "partial" "home-participation.html" "context" .)
-    (dict "num" 4 "id" "process" "partial" "home-process.html" "context" .)
-    (dict "num" 5 "id" "transparency" "partial" "home-transparency.html" "context" .)
-    (dict "num" 6 "id" "privacy" "partial" "home-privacy.html" "context" .)
-    (dict "num" 7 "id" "collaboration" "partial" "home-collaboration.html" "context" .)
-    (dict "num" 8 "id" "impact" "partial" "home-impact.html" "context" .)
-    (dict "num" 9 "id" "join" "partial" "home-cta.html" "context" .)
+    (dict "num" 2 "id" "citizen-science" "partial" "home-citizen-science.html" "context" .)
+    (dict "num" 3 "id" "privacy" "partial" "home-privacy.html" "context" .)
+    (dict "num" 4 "id" "transparency" "partial" "home-transparency.html" "context" .)
+    (dict "num" 5 "id" "process" "partial" "home-process.html" "context" .)
+    (dict "num" 6 "id" "collaboration" "partial" "home-collaboration.html" "context" .)
+    (dict "num" 7 "id" "impact" "partial" "home-impact.html" "context" .)
+    (dict "num" 8 "id" "join" "partial" "home-cta.html" "context" .)
   }}
 
   {{ range $sections }}
     {{ partial "scroll-section.html" . }}
   {{ end }}
-
-  {{/* Up Chevron - Show only on section 2 (back to the hero) */}}
-  {{ partial "scroll-indicator.html" (dict
-    "direction" "up"
-    "targetSection" "currentSection - 1"
-    "show" "currentSection === 2"
-  ) }}
-
-  {{/* Down Chevron - Show only on the hero; label only there too */}}
-  {{ partial "scroll-indicator.html" (dict
-    "direction" "down"
-    "targetSection" "currentSection + 1"
-    "show" "currentSection === 1"
-    "label" .Site.Params.home.hero.scroll_label
-    "labelVisible" "currentSection === 1"
-  ) }}
 
 </main>
 {{ end }}

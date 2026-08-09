@@ -1,12 +1,8 @@
 <!-- Footer section -->
 {{ $js := resources.Get "js/darkmode.js" | js.Build }}
 <script src="{{ $js.RelPermalink }}" defer></script>
-{{ $visionCarousel := resources.Get "js/vision-carousel.js" | js.Build }}
-<script src="{{ $visionCarousel.RelPermalink }}" defer></script>
-{{ $scrollNavigation := resources.Get "js/scroll-navigation.js" | js.Build }}
-<script src="{{ $scrollNavigation.RelPermalink }}" defer></script>
-{{ $heroRotator := resources.Get "js/hero-rotator.js" | js.Build }}
-<script src="{{ $heroRotator.RelPermalink }}" defer></script>
+{{ $morph := resources.Get "js/citizen-morph.js" | js.Build }}
+<script src="{{ $morph.RelPermalink }}" defer></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <footer class="footer bg-gray-900">

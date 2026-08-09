@@ -1,0 +1,52 @@
+<!-- Citizen-science section: animated Ceritakan/Tanyakan/Pahami stage -->
+<div class="relative max-w-3xl px-4 py-14 mx-auto text-center sm:py-20">
+  {{ with .Site.Params.home.citizen_science.kicker }}
+  <p class="section-kicker">{{ . }}</p>
+  {{ end }}
+  <h2 class="text-3xl font-bold tracking-tight text-primary-800 sm:text-4xl dark:text-primary-200">
+    {{ .Site.Params.home.citizen_science.title }}
+  </h2>
+
+  {{/* Morph stage: canvas renders the active phrase; the static list is the
+       prefers-reduced-motion / no-JS fallback; the hidden spans feed the
+       script (citizen-morph.js) with config-driven phrases. */}}
+  <div class="relative mt-10">
+    <canvas class="cs-morph-canvas mx-auto" aria-hidden="true"></canvas>
+
+    <div class="cs-morph-static">
+      {{ range .Site.Params.home.citizen_science.frames }}
+      <div class="mb-6">
+        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ .title }}</p>
+        <p class="mt-1 text-lg text-gray-700 dark:text-gray-300">{{ .text }}</p>
+      </div>
+      {{ end }}
+    </div>
+
+    <div class="cs-morph-phrases" hidden>
+      {{ range .Site.Params.home.citizen_science.frames }}
+      <span data-cs-phrase data-cs-title="{{ .title }}">{{ .text }}</span>
+      {{ end }}
+    </div>
+
+    <p role="status" aria-live="polite" class="sr-only" data-cs-live></p>
+  </div>
+
+  {{/* Quiet conversion link below the stage */}}
+  <a
+    href="{{ .Site.Params.forward }}"
+    class="inline-flex items-center justify-center px-6 py-3 mt-8 text-base font-semibold text-primary-800 border border-primary-600 rounded-md dark:text-primary-100 hover:bg-primary-50 dark:hover:bg-gray-800"
+  >
+    {{ .Site.Params.home.citizen_science.cta }}
+  </a>
+
+  {{/* Up chevron: plain anchor back to the hero */}}
+  <a
+    href="#hero"
+    class="absolute top-6 left-1/2 -translate-x-1/2 text-primary-700 hover:text-primary-500 dark:text-primary-300"
+    aria-label="Kembali ke atas"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  </a>
+</div>
