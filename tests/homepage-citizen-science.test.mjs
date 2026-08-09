@@ -213,14 +213,18 @@ test('T6c: citizen-morph.js ships with the required behaviors', () => {
   assert.ok(!js.includes('setInterval'), 'morph must not rely on setInterval for the loop');
 });
 
-test('T6e: morph stage holds the visible phrase statically and dissolves out/in', () => {
+test('T6e: morph stage holds the visible phrase as crisp text and dissolves out/in', () => {
   const js = read('assets/js/citizen-morph.js');
-  // A) Visible phase: drawBlocks supports a staticMode that paints every block
-  //    at full size/opacity, and tick() uses it for the readable hold.
-  assert.ok(js.includes('staticMode'), 'drawBlocks must accept a static hold mode');
+  // A) Visible phase: the hold draws crisp text via drawPhrase() sharing
+  //    geometry with the block sampler, so the phrase is readable text.
+  assert.ok(js.includes('phraseGeometry'), 'drawPhrase and sample must share geometry');
   assert.ok(
-    js.includes('drawBlocks(current, elapsed, false, true)'),
-    'visible phase must draw the current phrase statically',
+    js.includes('fillText(phrase.title'),
+    'visible hold must render the title as crisp text',
+  );
+  assert.ok(
+    js.includes('drawPhrase(phrases[index])'),
+    'visible phase must draw the current phrase as crisp text',
   );
   // B) Morph phase: alpha follows progress so the outgoing phrase fades out
   //    and the incoming phrase fades in (no double fade-in overlap).

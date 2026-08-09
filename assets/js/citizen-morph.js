@@ -1,9 +1,10 @@
 // Citizen-science pixel morph stage.
-// Vanilla canvas mosaic: the active phrase is drawn as monochrome ink and
-// sampled into a coarse block grid; on each cycle the blocks dissolve, flip,
-// and resolve into the next phrase while the words stay in the same physical
-// position. Respects prefers-reduced-motion (static fallback), re-renders on
-// resize and theme change, and announces the active phrase via aria-live.
+// Vanilla canvas: the active phrase is held as crisp, fully readable text;
+// on each cycle the text is rasterized into a coarse block grid, the blocks
+// dissolve, flip, and resolve into the next phrase while the words stay in
+// the same physical position. Respects prefers-reduced-motion (static
+// fallback), re-renders on resize and theme change, and announces the active
+// phrase via aria-live.
 (function () {
   'use strict';
 
@@ -61,27 +62,53 @@
     return 56;
   }
 
-  // Rasterize the phrase and extract coarse ink blocks.
-  function sample(phrase) {
-    const cssW = canvas.clientWidth || 320;
+  // Shared text geometry: single source of truth so the crisp hold text and
+  // the sampled morph blocks always occupy the same canvas positions.
+  function phraseGeometry() {
     const dpr = window.devicePixelRatio || 1;
+    const cssW = canvas.clientWidth || 320;
     const W = Math.max(1, Math.round(cssW * dpr));
     const H = Math.max(1, Math.round(STAGE_H * dpr));
+    const titlePx = Math.round(titleSize() * dpr);
+    return {
+      dpr,
+      W,
+      H,
+      titlePx,
+      textPx: Math.round(titlePx * 0.42),
+      cx: W / 2,
+      titleY: H * 0.4,
+      textY: H * 0.68,
+    };
+  }
+
+  // Draw the phrase as crisp, fully readable text on the stage canvas.
+  function drawPhrase(phrase) {
+    const { titlePx, textPx, cx, titleY, textY } = phraseGeometry();
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = inkColor();
+    ctx.font = `600 ${titlePx}px ${fontFamily()}`;
+    ctx.fillText(phrase.title, cx, titleY);
+    ctx.font = `400 ${textPx}px ${fontFamily()}`;
+    ctx.fillText(phrase.text, cx, textY);
+    ctx.restore();
+  }
+
+  // Rasterize the phrase and extract coarse ink blocks.
+  function sample(phrase) {
+    const { dpr, W, H, titlePx, textPx, cx, titleY, textY } = phraseGeometry();
 
     const off = document.createElement('canvas');
     off.width = W;
     off.height = H;
     const octx = off.getContext('2d');
 
-    const titlePx = Math.round(titleSize() * dpr);
-    const textPx = Math.round(titlePx * 0.42);
     octx.textAlign = 'center';
     octx.textBaseline = 'middle';
     octx.fillStyle = inkColor();
 
-    const cx = W / 2;
-    const titleY = H * 0.4;
-    const textY = H * 0.68;
     octx.font = `600 ${titlePx}px ${fontFamily()}`;
     octx.fillText(phrase.title, cx, titleY);
     octx.font = `400 ${textPx}px ${fontFamily()}`;
@@ -133,16 +160,11 @@
     return Math.abs(Math.cos(progress * Math.PI));
   }
 
-  function drawBlocks(blocks, elapsed, isNext, staticMode) {
+  function drawBlocks(blocks, elapsed, isNext) {
     const dpr = window.devicePixelRatio || 1;
     ctx.save();
     ctx.fillStyle = inkColor();
     for (const block of blocks) {
-      if (staticMode) {
-        // Visible "hold": every block at full size and opacity — readable text.
-        ctx.fillRect(block.x * dpr, block.y * dpr, block.s * dpr, block.s * dpr);
-        continue;
-      }
       const t = clamp((elapsed - block.d) / (MORPH_MS - 260), 0, 1);
       const progress = isNext ? t : 1 - t; // in: 0→1, out: 1→0
       if (progress <= 0) continue;
@@ -181,7 +203,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (phase === 'visible') {
-      drawBlocks(current, elapsed, false, true); // static readable phrase
+      drawPhrase(phrases[index]); // crisp readable hold
       if (elapsed >= VISIBLE_MS) startMorph();
     } else {
       drawBlocks(current, elapsed, false); // dissolving out
