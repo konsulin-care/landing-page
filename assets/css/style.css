@@ -98,6 +98,7 @@
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --animate-bounce: bounce 1s infinite;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -369,6 +370,9 @@
   }
   .right-1\/2 {
     right: calc(1/2 * 100%);
+  }
+  .bottom-6 {
+    bottom: calc(var(--spacing) * 6);
   }
   .bottom-full {
     bottom: 100%;
@@ -1096,6 +1100,9 @@
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .animate-bounce {
+    animation: var(--animate-bounce);
   }
   .cursor-help {
     cursor: help;
@@ -2817,18 +2824,31 @@ html {
   scroll-padding-top: 64px;
   overscroll-behavior: none;
 }
+.scroll-snap-container {
+  scroll-snap-type: y mandatory;
+}
 .scroll-snap-section {
   box-sizing: border-box;
 }
 .scroll-snap-section--slide {
-  min-height: calc(100svh - 64px);
+  height: 100svh;
+  scroll-snap-align: start;
+  overflow: hidden;
   box-sizing: border-box;
 }
 .scroll-snap-section--slide .scroll-snap-section__content {
-  min-height: calc(100svh - 64px);
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+@media (max-width: 319px) {
+  .hero-image-wrapper {
+    display: none;
+  }
+  .scroll-snap-section--slide .md\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
 }
 .section-kicker {
   display: block;
@@ -3106,6 +3126,16 @@ html {
 @property --tw-drop-shadow-size {
   syntax: "*";
   inherits: false;
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
 }
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {

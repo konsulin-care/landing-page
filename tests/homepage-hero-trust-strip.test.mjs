@@ -29,7 +29,11 @@ test('T1b: trust items contain the new text values', () => {
 
 test('T2a: no SVG icons in the trust strip area', () => {
   const hero = read('layouts/partials/home-hero.html');
-  assert.ok(!hero.includes('<svg'), 'hero trust strip must not contain SVG icons');
+  // Extract trust section (between Desktop comment and Down chevron comment)
+  const trustStart = hero.indexOf('{{/* Desktop: all items inline */}}');
+  const trustEnd = hero.indexOf('{{/* Down chevron');
+  const trustSection = hero.slice(trustStart, trustEnd > 0 ? trustEnd : hero.length);
+  assert.ok(!trustSection.includes('<svg'), 'hero trust strip must not contain SVG icons');
 });
 
 test('T2b: old ul/li trust structure is removed', () => {

@@ -79,11 +79,15 @@ test('T3b: hero trust uses Alpine carousel for mobile', () => {
   );
 });
 
-test('T3c: hero trust has no SVG icons', () => {
+test('T3c: hero trust section has no SVG icons', () => {
   const hero = read('layouts/partials/home-hero.html');
+  // Extract trust section (between Desktop comment and closing div)
+  const trustStart = hero.indexOf('{{/* Desktop: all items inline */}}');
+  const trustEnd = hero.indexOf('{{/* Down chevron');
+  const trustSection = hero.slice(trustStart, trustEnd > 0 ? trustEnd : hero.length);
   assert.ok(
-    !hero.includes('<svg'),
-    'hero trust must not contain SVG icons (plain text only)',
+    !trustSection.includes('<svg'),
+    'hero trust section must not contain SVG icons (plain text only)',
   );
 });
 

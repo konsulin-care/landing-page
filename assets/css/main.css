@@ -111,24 +111,40 @@ html {
   overscroll-behavior: none;
 }
 
+/* Scroll-snap container */
+.scroll-snap-container {
+  scroll-snap-type: y mandatory;
+}
+
 /* Flow sections (2+): plain, natural height — no min-height/centering */
 .scroll-snap-section {
   box-sizing: border-box;
 }
 
-/* Hero: fills the visible area below the sticky header but grows
-   naturally when the content is taller than the viewport, so the CTA
-   is never clipped. */
+/* Hero: strict viewport fit with snap */
 .scroll-snap-section--slide {
-  min-height: calc(100svh - 64px);
+  height: 100svh;
+  scroll-snap-align: start;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
 .scroll-snap-section--slide .scroll-snap-section__content {
-  min-height: calc(100svh - 64px);
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Remove image on very small screens (smaller than iPhone SE 320px) */
+@media (max-width: 319px) {
+  .hero-image-wrapper {
+    display: none;
+  }
+
+  .scroll-snap-section--slide .md\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Section eyebrow label: gives each block a readable boundary so
