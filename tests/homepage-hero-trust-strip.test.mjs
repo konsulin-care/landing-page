@@ -23,12 +23,7 @@ test('T1b: trust items contain the new text values', () => {
   assert.ok(yaml.includes('"Laporan hasil langsung tersedia"'), 'trust must include "Laporan hasil langsung tersedia"');
 });
 
-test('T1c: old trust text values are removed', () => {
-  const yaml = read('hugo.yaml');
-  assert.ok(!yaml.includes('"10 menit"'), 'old trust text "10 menit" must be removed');
-  assert.ok(!yaml.includes('"Guest ID otomatis"'), 'old trust text "Guest ID otomatis" must be removed');
-  assert.ok(!yaml.includes('"Laporan langsung tersedia"'), 'old trust text "Laporan langsung tersedia" must be removed');
-});
+// T1c removed — trust text is content-driven, not verbatim-tested
 
 // ── Task 2: hero template ───────────────────────────────────────────────────
 

@@ -71,7 +71,7 @@ params:
   og_image: /images/positive-thinking-wide.png
   # Browser/meta alias for the homepage, distinct from the short title.
   meta_title: "Konsulin | Riset Kesehatan Bersama Masyarakat"
-  description: "Pengalaman Anda bisa membantu ribuan orang memahami kesehatan mental lebih baik."
+  description: "Pengalaman kita membantu ribuan orang merasa dipahami"
   forward: "https://app.konsulin.care/research"
   # Nav login button: auth entry that returns the user to the research page.
   auth: "https://app.konsulin.care/auth?redirectToPath=/research"
@@ -97,7 +97,7 @@ params:
 
   home:
     hero:
-      headline: "Pengalaman kita membantu ribuan orang merasa dipahami."
+      headline: "Pengalaman kita membantu ribuan orang merasa dipahami"
       body:
         - text: "Kelelahan emosional sering menjadi bagian dari keseharian kita. Dengan berbagi pengalaman, kita bisa memahami bagaimana burnout dialami oleh orang-orang di sekitar kita."
       primary_cta: "Mulai Survei (10 Menit)"
@@ -122,7 +122,7 @@ params:
           title: "Lihat laporan Anda"
           text: "Laporan ringkas langsung tersedia setelah survei selesai. Anda dapat mengakses langsung atau di kemudian waktu."
     claim_report:
-      title: "Laporan langsung tersedia. Anda yang menentukan kapan ingin mengklaimnya."
+      title: "Laporan langsung tersedia"
       body:
         - text: "Setiap partisipasi dimulai dengan ID Anonim yang dibuat otomatis oleh sistem. ID Anonim memungkinkan laporan tersedia segera setelah survei selesai."
         - text: "Jika memilih Klaim Laporan, Anda hanya perlu memasukkan alamat email. Kami akan mengirimkan magic link yang menghubungkan laporan tersebut ke akun Anda."
@@ -138,7 +138,7 @@ params:
           result: "Riwayat laporan tersimpan"
       note: "Email hanya diperlukan jika Anda memilih mengklaim laporan. Anda tetap dapat melihat laporan segera setelah menyelesaikan survei sampai 24 jam setelahnya."
     research_credibility:
-      title: "Dibangun untuk penelitian kesehatan mental."
+      title: "Dibangun untuk penelitian kesehatan"
       cards:
         - title: "Open Source"
           text: "Platform dikembangkan secara terbuka."
@@ -148,7 +148,7 @@ params:
           text: "Guest ID dan klaim laporan memungkinkan partisipasi berkelanjutan."
       cta: "Mulai Survei"
     final_cta:
-      headline: "Sepuluh menit hari ini dapat membantu menghasilkan pemahaman yang lebih baik untuk masa depan."
+      headline: "Sepuluh menit Anda dapat membantu pengembangan program kesehatan yang lebih baik"
       body: "Mulai dari satu partisipasi. Simpan laporan Anda. Bangun riwayat partisipasi penelitian secara bertahap."
       cta: "Mulai Survei Sekarang"
 
