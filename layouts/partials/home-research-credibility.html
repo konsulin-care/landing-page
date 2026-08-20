@@ -1,0 +1,26 @@
+<!-- Research Credibility section -->
+<div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
+  <h2 class="text-3xl font-semibold text-center text-gray-900 dark:text-gray-50">
+    {{ .Site.Params.home.research_credibility.title }}
+  </h2>
+
+  <div class="grid gap-6 mt-12 md:grid-cols-3">
+    {{ range .Site.Params.home.research_credibility.cards }}
+    <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ .title }}</h3>
+      <p class="mt-3 text-base leading-7 text-gray-700 dark:text-gray-300">
+        {{ .text }}
+      </p>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="mt-12 text-center">
+    <a
+      href="{{ .Site.Params.forward }}"
+      class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white rounded-3xl bg-primary-700 shadow-sm hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+    >
+      {{ .Site.Params.home.research_credibility.cta }}
+    </a>
+  </div>
+</div>

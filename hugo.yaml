@@ -70,8 +70,8 @@ params:
   chatwoot_token: "{chatwoot_token}"
   og_image: /images/positive-thinking-wide.png
   # Browser/meta alias for the homepage, distinct from the short title.
-  meta_title: "Konsulin — Riset Kesehatan Bersama Masyarakat"
-  description: "Ikut berkontribusi dalam riset kesehatan bersama masyarakat, peneliti, dan akademisi."
+  meta_title: "Konsulin | Riset Kesehatan Bersama Masyarakat"
+  description: "Pengalaman Anda bisa membantu ribuan orang memahami kesehatan mental lebih baik."
   forward: "https://app.konsulin.care/research"
   # Nav login button: auth entry that returns the user to the research page.
   auth: "https://app.konsulin.care/auth?redirectToPath=/research"
@@ -97,93 +97,63 @@ params:
 
   home:
     hero:
-      headline: "Jadi bagian dari riset kesehatan."
+      headline: "Pengalaman kita membantu ribuan orang merasa dipahami."
       body:
-        - text: "Bagikan pengalaman Anda dan bantu menghasilkan pengetahuan kesehatan bersama."
-      primary_cta: "Ikut Berkontribusi"
+        - text: "Kelelahan emosional sering menjadi bagian dari keseharian kita. Dengan berbagi pengalaman, kita bisa memahami bagaimana burnout dialami oleh orang-orang di sekitar kita."
+      primary_cta: "Mulai Survei (10 Menit)"
       trust:
-        - text: "Identitas Anda tidak diberikan kepada peneliti."
-    citizen_science:
-      kicker: "Partisipasi warga"
-      title: "Ikut ambil bagian dalam riset."
-      frames:
-        - title: "Ceritakan."
-          text: "Bagikan pengalaman kesehatan Anda."
-        - title: "Tanyakan."
-          text: "Ajukan pertanyaan yang ingin Anda pahami."
-        - title: "Pahami."
-          text: "Ikuti hasil penelitian yang Anda bantu."
-      cta: "Ikut Berkontribusi"
-    process:
-      kicker: "Proses"
-      title: "Dari pengalaman menjadi pengetahuan."
+        - icon: clock
+          text: "10 menit"
+        - icon: fingerprint
+          text: "Guest ID otomatis"
+        - icon: file
+          text: "Laporan langsung tersedia"
+    why_it_matters:
+      title: "Kenapa penelitian ini penting?"
+      body: "Banyak pengalaman sehari hari tentang kesehatan mental belum cukup terwakili dalam penelitian. Ketika ribuan pengalaman dikumpulkan melalui platform ini, peneliti dapat menemukan pola yang membantu mengembangkan layanan yang lebih tepat bagi masyarakat Indonesia."
+      cta: "Mulai Survei"
+    how_it_works:
+      title: "Cara kerjanya"
       steps:
-        - num: "01"
-          title: "Tentukan pertanyaan"
-          text: "Anda dapat mengusulkan pertanyaan atau hipotesis."
-        - num: "02"
-          title: "Kumpulkan data"
-          text: "Data dikumpulkan sesuai tujuan dan persetujuan Anda."
-        - num: "03"
-          title: "Pelajari bersama"
-          text: "Peneliti membantu menganalisis data secara ilmiah."
-        - num: "04"
-          title: "Pahami hasilnya"
-          text: "Anda dapat melihat pola dan temuan dari data bersama."
-      cta: "Ikut Berkontribusi"
-    transparency:
-      kicker: "Transparansi"
-      title: "Anda bisa melihat apa yang sedang dikumpulkan."
-      copy:
-        - text: "Konsulin menampilkan data agregat tentang proses pengumpulan."
-        - text: "Anda dapat melihat jumlah data dan jenis data yang terkumpul."
-      labels:
-        data_count: "Data terkumpul"
-        types: "Jenis data"
-        contributors: "Kontributor"
-        updated: "Terakhir diperbarui"
-      data_count: 12482
-      types: 5
-      contributors: 1836
-      updated: "Hari ini"
-      supporting: "Transparansi membantu Anda memahami bagaimana kontribusi Anda digunakan."
-    privacy:
-      kicker: "Privasi"
-      title: "Data Anda tetap berada dalam kendali Anda."
-      assurances:
-        - title: "Identitas terlindungi"
-          text: "Identitas Anda tidak diberikan kepada peneliti."
-        - title: "Nomor unik acak"
-          text: "Data penelitian menggunakan nomor unik yang dibuat secara acak."
-        - title: "Persetujuan Anda"
-          text: "Anda mengetahui tujuan penggunaan data sebelum menyetujuinya."
-      withdrawal:
-        title: "Anda dapat menarik persetujuan."
-        text: "Data yang masih dapat dihapus akan dihapus setelah penarikan persetujuan. Data yang telah diproses dapat dikecualikan sesuai ketentuan penelitian."
-      policy_link: "Pelajari kebijakan data"
-    collaboration:
-      kicker: "Kolaborasi"
-      title: "Masyarakat dan peneliti membawa keahlian yang berbeda."
-      public_card:
-        title: "Masyarakat"
-        text: "Membawa pengalaman, pertanyaan, dan konteks kehidupan nyata."
-      researcher_card:
-        title: "Peneliti"
-        text: "Membawa metode, analisis, dan pengetahuan ilmiah."
-      connector: "Bersama, keduanya membantu menghasilkan riset yang relevan dengan kehidupan masyarakat."
-    impact:
-      kicker: "Dampak"
-      title: "Temuan yang dapat dipakai bersama."
-      copy:
-        - text: "Riset yang baik membantu kita memahami masalah kesehatan dengan lebih baik."
-        - text: "Temuannya dapat menjadi masukan bagi masyarakat, peneliti, dan pembuat kebijakan."
-      cta: "Ikut Berkontribusi"
-    cta_section:
-      kicker: "Bergabung"
-      title: "Punya pengalaman yang ingin dipahami?"
-      subtitle: "Jadikan pengalaman Anda menjadi bagian dari riset kesehatan."
-      primary_cta: "Ikut Berkontribusi"
-      secondary_cta: "Pelajari cara kerja Konsulin"
+        - num: "1"
+          title: "Ikuti survei"
+          text: "Jawab pertanyaan selama sekitar 10 menit."
+        - num: "2"
+          title: "Dapatkan ID Anonim"
+          text: "Setelah survei selesai, sistem otomatis membuat ID Anonim sebagai identitas partisipasi penelitian Anda."
+        - num: "3"
+          title: "Lihat laporan Anda"
+          text: "Laporan ringkas langsung tersedia setelah survei selesai. Anda dapat mengakses langsung atau di kemudian waktu."
+    claim_report:
+      title: "Laporan langsung tersedia. Anda yang menentukan kapan ingin mengklaimnya."
+      body:
+        - text: "Setiap partisipasi dimulai dengan ID Anonim yang dibuat otomatis oleh sistem. ID Anonim memungkinkan laporan tersedia segera setelah survei selesai."
+        - text: "Jika memilih Klaim Laporan, Anda hanya perlu memasukkan alamat email. Kami akan mengirimkan magic link yang menghubungkan laporan tersebut ke akun Anda."
+        - text: "Pada partisipasi berikutnya, laporan baru akan tersimpan dalam riwayat yang sama sehingga Anda dapat mengumpulkan dan mengakses kembali laporan dari berbagai penelitian yang Anda ikuti."
+      flow:
+        - step: "Survei selesai"
+          result: "ID Anonim dibuat otomatis"
+        - step: "Laporan tersedia"
+          result: "Langsung bisa dibaca"
+        - step: "Klaim laporan"
+          result: "Masukkan email"
+        - step: "Magic link"
+          result: "Riwayat laporan tersimpan"
+      note: "Email hanya diperlukan jika Anda memilih mengklaim laporan. Anda tetap dapat melihat laporan segera setelah menyelesaikan survei sampai 24 jam setelahnya."
+    research_credibility:
+      title: "Dibangun untuk penelitian kesehatan mental."
+      cards:
+        - title: "Open Source"
+          text: "Platform dikembangkan secara terbuka."
+        - title: "Research Focus"
+          text: "Dirancang untuk mendukung penelitian kesehatan mental."
+        - title: "Longitudinal Participation"
+          text: "Guest ID dan klaim laporan memungkinkan partisipasi berkelanjutan."
+      cta: "Mulai Survei"
+    final_cta:
+      headline: "Sepuluh menit hari ini dapat membantu menghasilkan pemahaman yang lebih baik untuk masa depan."
+      body: "Mulai dari satu partisipasi. Simpan laporan Anda. Bangun riwayat partisipasi penelitian secara bertahap."
+      cta: "Mulai Survei Sekarang"
 
   social_media:
     github:
