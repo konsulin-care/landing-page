@@ -165,12 +165,8 @@ test('R6b: claim-report config has the step-by-step flow', () => {
   }
 });
 
-test('R6c: claim-report partial renders flow table and note', () => {
+test('R6c: claim-report partial renders note (flow table removed)', () => {
   const partial = read('layouts/partials/home-claim-report.html');
-  assert.ok(
-    partial.includes('.Site.Params.home.claim_report.flow'),
-    'claim-report must iterate over flow steps',
-  );
   assert.ok(
     partial.includes('.Site.Params.home.claim_report.note'),
     'claim-report must render the note about email being optional',

@@ -6,29 +6,10 @@
     </h2>
 
     {{ range .Site.Params.home.claim_report.body }}
-    <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-8 text-justify text-gray-700 dark:text-gray-300">
+    <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-justify text-gray-700 dark:text-gray-300">
       {{ .text }}
     </p>
     {{ end }}
-  </div>
-
-  <div class="max-w-3xl mx-auto mt-12 overflow-hidden bg-white border border-slate-200 rounded-3xl shadow-sm">
-    <table class="w-full text-left">
-      <thead>
-        <tr class="border-b border-slate-200">
-          <th class="px-6 py-4 text-sm font-semibold text-gray-900 dark:text-gray-100">Langkah</th>
-          <th class="px-6 py-4 text-sm font-semibold text-gray-900 dark:text-gray-100">Hasil</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{ range .Site.Params.home.claim_report.flow }}
-        <tr class="border-b border-slate-100 last:border-0">
-          <td class="px-6 py-4 text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 dark:text-gray-300">{{ .step }}</td>
-          <td class="px-6 py-4 text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 dark:text-gray-300">{{ .result }}</td>
-        </tr>
-        {{ end }}
-      </tbody>
-    </table>
   </div>
 
   <div class="max-w-3xl mx-auto mt-8 p-6 text-center bg-slate-50 border border-slate-200 rounded-3xl dark:bg-gray-800">
