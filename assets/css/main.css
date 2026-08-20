@@ -136,8 +136,34 @@ html {
   justify-content: center;
 }
 
-/* Remove image on very small screens (smaller than iPhone SE 320px) */
-@media (max-width: 319px) {
+/* Height-based breakpoints for small screens */
+
+/* Screens with height < 700px: disable snap, reduce padding, hide chevron */
+@media (max-height: 699px) {
+  .scroll-snap-container {
+    scroll-snap-type: none;
+  }
+
+  .scroll-snap-section--slide {
+    height: auto;
+    min-height: 100svh;
+    scroll-snap-align: none;
+  }
+
+  /* Reduce hero padding */
+  .scroll-snap-section--slide > div {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  /* Hide chevron */
+  .scroll-snap-section--slide > a {
+    display: none;
+  }
+}
+
+/* Screens with height < 400px: also hide hero image */
+@media (max-height: 399px) {
   .hero-image-wrapper {
     display: none;
   }

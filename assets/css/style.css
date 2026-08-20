@@ -2842,7 +2842,24 @@ html {
   flex-direction: column;
   justify-content: center;
 }
-@media (max-width: 319px) {
+@media (max-height: 699px) {
+  .scroll-snap-container {
+    scroll-snap-type: none;
+  }
+  .scroll-snap-section--slide {
+    height: auto;
+    min-height: 100svh;
+    scroll-snap-align: none;
+  }
+  .scroll-snap-section--slide > div {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .scroll-snap-section--slide > a {
+    display: none;
+  }
+}
+@media (max-height: 399px) {
   .hero-image-wrapper {
     display: none;
   }
