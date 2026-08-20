@@ -19,26 +19,37 @@
         {{ .Site.Params.home.hero.primary_cta }}
       </a>
 
-      <ul class="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm text-gray-600 dark:text-gray-400">
-        {{ range .Site.Params.home.hero.trust }}
-        <li class="flex items-center gap-2">
-          {{ if eq .icon "clock" }}
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary-600 dark:text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          {{ else if eq .icon "fingerprint" }}
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary-600 dark:text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2m4 0c0 1.657-1.343 3-3 3m5-1a7 7 0 01-7 7m10-10a3 3 0 11-6 0 3 3 0 016 0zm-4 7a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          {{ else if eq .icon "file" }}
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary-600 dark:text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-          {{ end }}
-          <span>{{ .text }}</span>
-        </li>
+      {{/* Desktop: all items inline */}}
+      <p class="hidden md:block mt-6 text-sm text-gray-600 dark:text-gray-400">
+        {{ range $i, $item := .Site.Params.home.hero.trust }}{{ if $i }} <span class="mx-2">·</span> {{ end }}{{ . }}{{ end }}
+      </p>
+
+      {{/* Mobile: Alpine.js carousel, slide right-to-left */}}
+      <div
+        x-data="{
+          current: 0,
+          items: {{ .Site.Params.home.hero.trust | jsonify }},
+          init() {
+            this._timer = setInterval(() => {
+              if (!document.hidden) this.current = (this.current + 1) % this.items.length;
+            }, 3000);
+          }
+        }"
+        class="relative h-6 overflow-hidden mt-6 md:hidden"
+      >
+        {{ range $i, $item := .Site.Params.home.hero.trust }}
+        <span
+          x-show="current === {{ $i }}"
+          x-transition:enter="transition ease-out duration-400"
+          x-transition:enter-start="opacity-0 translate-x-full"
+          x-transition:enter-end="opacity-100 translate-x-0"
+          x-transition:leave="transition ease-in duration-400"
+          x-transition:leave-start="opacity-100 translate-x-0"
+          x-transition:leave-end="opacity-0 -translate-x-full"
+          class="absolute inset-0 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400"
+        >{{ . }}</span>
         {{ end }}
-      </ul>
+      </div>
     </div>
 
     <div class="hidden md:block">

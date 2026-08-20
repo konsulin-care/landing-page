@@ -102,12 +102,9 @@ params:
         - text: "Kelelahan emosional sering menjadi bagian dari keseharian kita. Dengan berbagi pengalaman, kita bisa memahami bagaimana burnout dialami oleh orang-orang di sekitar kita."
       primary_cta: "Mulai Survei (10 Menit)"
       trust:
-        - icon: clock
-          text: "10 menit"
-        - icon: fingerprint
-          text: "Guest ID otomatis"
-        - icon: file
-          text: "Laporan langsung tersedia"
+        - "Privasi terjaga"
+        - "Untuk penelitian"
+        - "Laporan hasil langsung tersedia"
     why_it_matters:
       title: "Kenapa penelitian ini penting?"
       body: "Banyak pengalaman sehari hari tentang kesehatan mental belum cukup terwakili dalam penelitian. Ketika ribuan pengalaman dikumpulkan melalui platform ini, peneliti dapat menemukan pola yang membantu mengembangkan layanan yang lebih tepat bagi masyarakat Indonesia."

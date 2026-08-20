@@ -59,43 +59,39 @@ test('T2d: hero headline scales up at lg breakpoint', () => {
   );
 });
 
-// Task 3: Hero trust items have distinct icons (not generic checkmarks)
-test('T3a: hero trust config items have icon field', () => {
+// Task 3: Hero trust items are plain text (no icons), Alpine carousel for mobile
+test('T3a: hero trust config items are plain strings (no icon field)', () => {
   const config = read('hugo.yaml');
-  // Find the hero.trust section - config uses YAML indentation
   const heroIdx = config.indexOf('hero:');
   const trustIdx = config.indexOf('trust:', heroIdx);
   const heroSection = config.slice(trustIdx, trustIdx + 200);
   assert.ok(
-    heroSection.includes('icon:'),
-    'hero.trust items must include icon field',
+    !heroSection.includes('icon:'),
+    'hero.trust items must not include icon field (plain strings only)',
   );
 });
 
-test('T3b: hero trust items include clock icon', () => {
+test('T3b: hero trust uses Alpine carousel for mobile', () => {
   const hero = read('layouts/partials/home-hero.html');
-  // Should have icon switch with clock SVG, not a single checkmark for all
   assert.ok(
-    hero.includes('clock') || hero.includes('M12 8v4l3 3'),
-    'hero trust must include clock icon for "10 menit"',
+    hero.includes('x-data') && hero.includes('x-show'),
+    'hero trust must use Alpine.js x-data and x-show for mobile carousel',
   );
 });
 
-test('T3c: hero trust items include fingerprint icon', () => {
+test('T3c: hero trust has no SVG icons', () => {
   const hero = read('layouts/partials/home-hero.html');
   assert.ok(
-    hero.includes('fingerprint') || hero.includes('fingerprint'),
-    'hero trust must include fingerprint icon for "Guest ID"',
+    !hero.includes('<svg'),
+    'hero trust must not contain SVG icons (plain text only)',
   );
 });
 
-test('T3d: hero trust uses icon switch, not generic checkmark', () => {
+test('T3d: hero trust desktop uses inline middot separator', () => {
   const hero = read('layouts/partials/home-hero.html');
-  // The old pattern had a single checkmark SVG for all items
-  // New pattern should have conditional icon rendering
   assert.ok(
-    hero.includes('{{ if eq .icon') || hero.includes('switch') || hero.includes('eq .icon'),
-    'hero trust must use icon switch pattern ({{ if eq .icon ... }}), not single checkmark',
+    hero.includes('hidden md:block') && hero.includes('·'),
+    'hero trust desktop must use hidden md:block with middot separator',
   );
 });
 
