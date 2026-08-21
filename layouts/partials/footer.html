@@ -34,12 +34,21 @@
 </script>
 
 <!-- Footer section -->
+{{ if hugo.IsServer }}
+{{ $js := resources.Get "js/darkmode.js" | js.Build }}
+<script src="{{ $js.RelPermalink }}" defer></script>
+{{ $morph := resources.Get "js/citizen-morph.js" | js.Build }}
+<script src="{{ $morph.RelPermalink }}" defer></script>
+{{ $alpine := resources.Get "js/alpine.min.js" }}
+<script defer src="{{ $alpine.RelPermalink }}"></script>
+{{ else }}
 {{ $js := resources.Get "js/darkmode.js" | js.Build | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ $morph := resources.Get "js/citizen-morph.js" | js.Build | minify | fingerprint }}
 <script src="{{ $morph.RelPermalink }}" integrity="{{ $morph.Data.Integrity }}" defer></script>
 {{ $alpine := resources.Get "js/alpine.min.js" | fingerprint }}
 <script defer src="{{ $alpine.RelPermalink }}" integrity="{{ $alpine.Data.Integrity }}"></script>
+{{ end }}
 
 <footer class="footer bg-gray-900">
   <div class="max-w-md px-4 py-12 mx-auto overflow-hidden sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
