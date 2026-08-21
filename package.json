@@ -18,13 +18,14 @@
     "tailwindcss": "^4.1.11"
   },
   "scripts": {
-    "start": "concurrently npm:watch:*",
+    "copy:alpine": "mkdir -p assets/js && cp node_modules/alpinejs/dist/cdn.min.js assets/js/alpine.min.js",
+    "start": "npm run copy:alpine && concurrently npm:watch:*",
     "watch:tw": "postcss ./assets/css/main.css -o ./assets/css/style.css --watch",
     "watch:hugo": "hugo server",
     "build:tw": "postcss ./assets/css/main.css -o ./assets/css/style.css",
-    "build": "npm run build:tw && hugo --minify",
+    "build": "npm run copy:alpine && npm run build:tw && hugo --minify",
     "prepare": "husky",
-    "test": "node --test"
+    "test": "node --test --test-concurrency=1"
   },
   "repository": {
     "type": "git",

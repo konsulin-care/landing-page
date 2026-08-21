@@ -1,13 +1,15 @@
 <!-- Defer Chatwoot SDK until browser is idle -->
 <script>
   function loadChatwoot() {
+    var BASE_URL={{ .Site.Params.chatwoot_url }};
+    // Skip if secrets weren't injected (placeholder still present)
+    if (!BASE_URL || BASE_URL.charAt(0) === '{') return;
     window.chatwootSettings = {
       position: "right",
       type: "expanded_bubble",
       launcherTitle: "Tanya Lyna"
     };
     (function(d,t) {
-      var BASE_URL={{ .Site.Params.chatwoot_url }};
       var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
       g.src=BASE_URL+"/packs/js/sdk.js";
       g.defer = true;
@@ -32,11 +34,12 @@
 </script>
 
 <!-- Footer section -->
-{{ $js := resources.Get "js/darkmode.js" | js.Build }}
-<script src="{{ $js.RelPermalink }}" defer></script>
-{{ $morph := resources.Get "js/citizen-morph.js" | js.Build }}
-<script src="{{ $morph.RelPermalink }}" defer></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{{ $js := resources.Get "js/darkmode.js" | js.Build | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ $morph := resources.Get "js/citizen-morph.js" | js.Build | minify | fingerprint }}
+<script src="{{ $morph.RelPermalink }}" integrity="{{ $morph.Data.Integrity }}" defer></script>
+{{ $alpine := resources.Get "js/alpine.min.js" | fingerprint }}
+<script defer src="{{ $alpine.RelPermalink }}" integrity="{{ $alpine.Data.Integrity }}"></script>
 
 <footer class="footer bg-gray-900">
   <div class="max-w-md px-4 py-12 mx-auto overflow-hidden sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">

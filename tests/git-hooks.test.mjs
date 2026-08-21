@@ -16,9 +16,9 @@ const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 const exists = (rel) => fs.existsSync(path.join(ROOT, rel));
 const isExecutable = (rel) => (fs.statSync(path.join(ROOT, rel)).mode & 0o111) !== 0;
 
-test('H1: npm test runs the real suite via node --test', () => {
+test('H1: npm test runs the real suite via node --test (serial to avoid Hugo build races)', () => {
   const pkg = JSON.parse(read('package.json'));
-  assert.equal(pkg.scripts.test, 'node --test');
+  assert.equal(pkg.scripts.test, 'node --test --test-concurrency=1');
 });
 
 test('H2: prepare activates husky on every install', () => {
