@@ -1,0 +1,17 @@
+<!-- Final CTA section: single conversion action -->
+<div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
+  <div class="max-w-4xl mx-auto text-center px-8 py-16 bg-primary-700 rounded-3xl shadow-lg">
+    <h2 class="text-3xl font-semibold text-white md:text-4xl">
+      {{ .Site.Params.home.final_cta.headline }}
+    </h2>
+    <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-justify text-primary-100">
+      {{ .Site.Params.home.final_cta.body }}
+    </p>
+    <a
+      href="{{ .Site.Params.forward }}"
+      class="inline-flex items-center justify-center px-8 py-4 mt-10 text-base font-semibold text-primary-800 bg-white rounded-3xl shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-700"
+    >
+      {{ .Site.Params.home.final_cta.cta }}
+    </a>
+  </div>
+</div>

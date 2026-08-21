@@ -1,15 +1,13 @@
 {{ define "main" }}
-<main>
+<main class="scroll-snap-container">
 
   {{ $sections := slice
     (dict "num" 1 "id" "hero" "partial" "home-hero.html" "context" .)
-    (dict "num" 2 "id" "citizen-science" "partial" "home-citizen-science.html" "context" .)
-    (dict "num" 3 "id" "privacy" "partial" "home-privacy.html" "context" .)
-    (dict "num" 4 "id" "transparency" "partial" "home-transparency.html" "context" .)
-    (dict "num" 5 "id" "process" "partial" "home-process.html" "context" .)
-    (dict "num" 6 "id" "collaboration" "partial" "home-collaboration.html" "context" .)
-    (dict "num" 7 "id" "impact" "partial" "home-impact.html" "context" .)
-    (dict "num" 8 "id" "join" "partial" "home-cta.html" "context" .)
+    (dict "num" 2 "id" "why-this-research-matters" "partial" "home-why-it-matters.html" "context" .)
+    (dict "num" 3 "id" "how-it-works" "partial" "home-how-it-works.html" "context" .)
+    (dict "num" 4 "id" "claim-report" "partial" "home-claim-report.html" "context" .)
+    (dict "num" 5 "id" "research-credibility" "partial" "home-research-credibility.html" "context" .)
+    (dict "num" 6 "id" "final-cta" "partial" "home-final-cta.html" "context" .)
   }}
 
   {{ range $sections }}
@@ -17,4 +15,18 @@
   {{ end }}
 
 </main>
+
+<script>
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    const hero = document.getElementById('hero');
+    const nextSection = hero?.nextElementSibling;
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+});
+</script>
+
 {{ end }}
