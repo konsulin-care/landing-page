@@ -137,24 +137,24 @@ test('R5b: how-it-works partial iterates over steps', () => {
 });
 
 // ---------------------------------------------------------------- R6 claim-report
-test('R6a: claim-report config explains magic link flow', () => {
+test('R6a: claim-report config explains claim flow via cards', () => {
   const config = read('hugo.yaml');
   assert.ok(
     config.includes('magic link'),
     'claim_report config must mention "magic link"',
   );
   assert.ok(
-    config.includes('Jika memilih Klaim Laporan'),
+    config.includes('Email bersifat opsional'),
     'claim_report config must state email is optional',
   );
 });
 
-test('R6b: claim-report config has the step-by-step flow', () => {
+test('R6b: claim-report config has cards with icons', () => {
   const config = read('hugo.yaml');
-  for (const step of ['Survei selesai', 'Klaim laporan', 'Magic link']) {
+  for (const icon of ['fingerprint-pattern', 'mail-badge', 'scroll-text']) {
     assert.ok(
-      config.includes(step),
-      `claim_report flow must contain "${step}"`,
+      config.includes(icon),
+      `claim_report cards must contain icon "${icon}"`,
     );
   }
 });
