@@ -1,3 +1,36 @@
+<!-- Defer Chatwoot SDK until browser is idle -->
+<script>
+  function loadChatwoot() {
+    window.chatwootSettings = {
+      position: "right",
+      type: "expanded_bubble",
+      launcherTitle: "Tanya Lyna"
+    };
+    (function(d,t) {
+      var BASE_URL={{ .Site.Params.chatwoot_url }};
+      var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=BASE_URL+"/packs/js/sdk.js";
+      g.defer = true;
+      g.async = true;
+      s.parentNode.insertBefore(g,s);
+      g.onload=function(){
+        window.chatwootSDK.run({
+          websiteToken: {{ .Site.Params.chatwoot_token }},
+          baseUrl: BASE_URL
+        })
+      }
+    })(document,"script");
+  }
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadChatwoot, { timeout: 5000 });
+  } else {
+    window.addEventListener('load', function() {
+      setTimeout(loadChatwoot, 1000);
+    });
+  }
+</script>
+
 <!-- Footer section -->
 {{ $js := resources.Get "js/darkmode.js" | js.Build }}
 <script src="{{ $js.RelPermalink }}" defer></script>
