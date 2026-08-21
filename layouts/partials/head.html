@@ -4,9 +4,7 @@
 <link rel="icon" type="image/png" href="/favicon/favicon.png" />
 <link rel="manifest" href="/favicon/site.webmanifest" />
 <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
+
 <meta name="msapplication-TileColor" content="#da532c" />
 <meta name="theme-color" content="#ffffff" />
 {{ partial "meta" . }}
@@ -19,27 +17,7 @@
     document.documentElement.classList.remove("dark");
   }
 
-  // Chatwoot live chat
-  window.chatwootSettings = {
-    "position": "right",
-    "type": "expanded_bubble",
-    "launcherTitle": "Tanya Lyna"
-  };
 
-  (function(d,t) {
-    var BASE_URL={{ .Site.Params.chatwoot_url }};
-    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=BASE_URL+"/packs/js/sdk.js";
-    g.defer = true;
-    g.async = true;
-    s.parentNode.insertBefore(g,s);
-    g.onload=function(){
-      window.chatwootSDK.run({
-        websiteToken: {{ .Site.Params.chatwoot_token }},
-        baseUrl: BASE_URL
-      })
-    }
-  })(document,"script");
 </script>
 {{ $styles := resources.Get "/css/style.css" | postCSS }} {{ if hugo.IsServer }}
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />

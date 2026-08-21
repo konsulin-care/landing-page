@@ -68,7 +68,7 @@ params:
   authorimage: ../assets/images/global/author.svg
   chatwoot_url: "{chatwoot_url}"
   chatwoot_token: "{chatwoot_token}"
-  og_image: /images/positive-thinking-wide.png
+
   # Browser/meta alias for the homepage, distinct from the short title.
   meta_title: "Konsulin | Riset Kesehatan Bersama Masyarakat"
   description: "Pengalaman kita membantu ribuan orang merasa dipahami"

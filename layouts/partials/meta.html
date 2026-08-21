@@ -12,6 +12,9 @@
 <meta property="og:site_name" content="{{ .Site.Title }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
 <meta property="og:locale" content="en" />
-<meta property="og:image" content="{{ if .Params.featured_image }}{{ .Params.featured_image | relURL }}{{ else }}{{ .Site.Params.og_image | relURL }}{{ end }}" />
-<meta property="og:image:secure_url" content="{{ if .Params.featured_image }}{{ .Params.featured_image | absURL }}{{ else }}{{ .Site.Params.og_image | absURL }}{{ end }}" />
+{{/* OG image: use Hugo image processing for WebP conversion */}}
+{{ $ogImg := resources.Get "images/pages/positive-thinking-wide.png" }}
+{{ $ogImgWebp := $ogImg.Resize "1200x630 webp q80" }}
+<meta property="og:image" content="{{ $ogImgWebp.RelPermalink | absURL }}" />
+<meta property="og:image:secure_url" content="{{ $ogImgWebp.RelPermalink | absURL }}" />
 <meta property="og:type" content="{{if .IsHome}}website{{else}}article{{end}}" />
