@@ -1,0 +1,613 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "pss10",
+  "meta": {
+    "versionId": "1662",
+    "lastUpdated": "2025-09-08T23:22:06.562Z",
+    "profile": [
+      "http://hl7.org/fhir/4.0/StructureDefinition/Questionnaire"
+    ]
+  },
+  "contained": [
+    {
+      "resourceType": "ValueSet",
+      "id": "code",
+      "status": "active",
+      "date": "2025-09-08T12:00:10.092Z",
+      "expansion": {
+        "timestamp": "2025-09-08T12:00:05.766Z",
+        "contains": [
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10",
+            "code": "0",
+            "display": "Tidak pernah"
+          },
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10",
+            "code": "1",
+            "display": "Sangat jarang (1-2x)"
+          },
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10",
+            "code": "2",
+            "display": "Jarang (3-4x)"
+          },
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10",
+            "code": "3",
+            "display": "Sering (5-6x)"
+          },
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10",
+            "code": "4",
+            "display": "Sangat sering (>6x)"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "ValueSet",
+      "id": "code-inverted",
+      "status": "active",
+      "date": "2025-09-08T23:12:04.853Z",
+      "expansion": {
+        "timestamp": "2025-09-08T23:12:02.549Z",
+        "contains": [
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10-inverted",
+            "code": "4",
+            "display": "Tidak pernah"
+          },
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10-inverted",
+            "code": "3",
+            "display": "Sangat jarang (1-2x)"
+          },
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10-inverted",
+            "code": "2",
+            "display": "Jarang (3-4x)"
+          },
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10-inverted",
+            "code": "1",
+            "display": "Sering (5-6x)"
+          },
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/pss-10-inverted",
+            "code": "0",
+            "display": "Sangat sering (>6x)"
+          }
+        ]
+      }
+    }
+  ],
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation",
+      "valueCode": "independent-root-or-child"
+    }
+  ],
+  "url": "https://app.konsulin.care/assessments/pss10",
+  "version": "v1.0.0",
+  "name": "PSS 10",
+  "title": "Perceived Stress Scale-10",
+  "status": "active",
+  "subjectType": [
+    "Practitioner",
+    "Patient",
+    "Person"
+  ],
+  "publisher": "Konsulin",
+  "contact": [
+    {
+      "name": "Aly Lamuri",
+      "telecom": [
+        {
+          "system": "email",
+          "value": "lamuri.aly8@gmail.com"
+        }
+      ]
+    }
+  ],
+  "description": "Perceived Stress Scale-10 (PSS-10) adalah instrumen klasik untuk mengukur tingkat stres yang dirasakan individu terhadap pengalaman hidup sehari-hari. Dikembangkan pertama kali pada tahun 1983, skala ini tetap banyak digunakan untuk memahami bagaimana berbagai situasi memengaruhi perasaan dan persepsi stres seseorang. PSS-10 terdiri dari 10 butir pertanyaan yang menilai pikiran dan perasaan individu dalam satu bulan terakhir, dengan responden diminta menunjukkan frekuensi munculnya pengalaman tertentu. Instrumen ini sederhana dan dapat membantu memberikan gambaran subjektif tentang tingkat stres yang dialami individu.",
+  "useContext": [
+    {
+      "code": {
+        "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+        "code": "focus",
+        "display": "Clinical Focus"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://api.konsulin.care/fhir/CodeSystem/assessment-context",
+            "code": "regular"
+          }
+        ]
+      }
+    }
+  ],
+  "code": [
+    {
+      "system": "http://loinc.org",
+      "code": "106875-8",
+      "display": "Perceived stress scale-10 [PSS-10]"
+    }
+  ],
+  "item": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "header",
+                "display": "Header"
+              }
+            ]
+          }
+        }
+      ],
+      "linkId": "500741370783",
+      "text": "Instruksi",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "683549053345",
+          "text": "Dalam 1 bulan terakhir, seberapa sering Anda merasakan hal-hal berikut?",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "page",
+                "display": "Page"
+              }
+            ]
+          }
+        }
+      ],
+      "linkId": "189303827748",
+      "type": "group",
+      "repeats": false,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "table",
+                    "display": "Vertical Answer Table"
+                  }
+                ]
+              }
+            }
+          ],
+          "linkId": "page1",
+          "type": "group",
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "q1",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66821-0"
+                }
+              ],
+              "text": "Marah karena sesuatu yang tidak terduga",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "q2",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66822-8"
+                }
+              ],
+              "text": "Tidak mampu mengontrol hal-hal penting dalam hidup saya",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "q3",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66823-6"
+                }
+              ],
+              "text": "Gelisah dan tertekan",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "952780766632",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66824-4"
+                }
+              ],
+              "text": "Yakin terhadap kemampuan diri untuk mengatasi masalah pribadi saya",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code-inverted"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "661991679140",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66825-1"
+                }
+              ],
+              "text": "Segala sesuatu terjadi sesuai dengan harapan saya",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code-inverted"
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "table",
+                    "display": "Vertical Answer Table"
+                  }
+                ]
+              }
+            }
+          ],
+          "linkId": "page2",
+          "type": "group",
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "134850178829",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66826-9"
+                }
+              ],
+              "text": "Tidak mampu menyelesaikan hal-hal yang harus dikerjakan",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "241331024176",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66827-7"
+                }
+              ],
+              "text": "Mampu mengendalikan rasa mudah tersinggung dalam hidup saya",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code-inverted"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "227261888143",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66828-5"
+                }
+              ],
+              "text": "Mampu mengatasi masalah jika dibandingkan dengan orang lain",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code-inverted"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "331430344208",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66829-3"
+                }
+              ],
+              "text": "Marah karena adanya masalah yang tidak dapat saya kendalikan",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "635080737750",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "66830-1"
+                }
+              ],
+              "text": "Merasakan masalah yang menumpuk sehingga saya tidak mampu untuk mengatasinya",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "#code"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "footer",
+                "display": "Footer"
+              }
+            ]
+          }
+        }
+      ],
+      "linkId": "interpretation",
+      "text": "Laporan ringkas",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "score-dimension",
+          "type": "group",
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": false
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.item.item.where(linkId = 'page1' or linkId = 'page2')\n  .item.answer.valueCoding.code.aggregate($this.toInteger() + $total, 0)"
+                  }
+                }
+              ],
+              "linkId": "score",
+              "code": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "106860-0"
+                }
+              ],
+              "text": "Skor total",
+              "type": "integer",
+              "readOnly": true
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": false
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "40"
+                  }
+                }
+              ],
+              "linkId": "reference",
+              "text": "Referensi maksimal",
+              "type": "integer",
+              "enableBehavior": "all",
+              "readOnly": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

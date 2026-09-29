@@ -1,0 +1,600 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soap",
+  "meta": {
+    "versionId": "1504",
+    "lastUpdated": "2025-08-07T18:35:51.692Z"
+  },
+  "url": "https://app.konsulin.care/assessments/soap",
+  "name": "soap",
+  "title": "SOAP Notes",
+  "status": "active",
+  "subjectType": [
+    "Practitioner"
+  ],
+  "description": "SOAP notes adalah format dokumentasi medis terstruktur yang membantu klinisi mencatat informasi pasien secara sistematis: keluhan subjektif (Subjective/S), temuan objektif (Objective/O), analisis/diagnosis (Assessment/A), dan rencana tindakan (Plan/P).",
+  "useContext": [
+    {
+      "code": {
+        "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+        "code": "focus",
+        "display": "Clinical Focus"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://blaze.konsulin.care/fhir/CodeSystem/assessment-context",
+            "code": "regular"
+          }
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "linkId": "subjective",
+      "text": "Subjective",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "135731436260",
+          "text": "Riwayat Penyakit Sekarang",
+          "type": "group",
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                }
+              ],
+              "linkId": "chief-complaint",
+              "code": [
+                {
+                  "system": "https://loinc.org/",
+                  "code": "46239-0",
+                  "display": "Chief complaint+Reason for visit Narrative"
+                }
+              ],
+              "text": "Keluhan Utama",
+              "type": "text",
+              "required": true,
+              "repeats": false
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-preferredTerminologyServer",
+                  "valueUrl": "https://snowstorm.ihtsdotools.org/fhir"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "gtable",
+                        "display": "Group Table"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "history-present-illness",
+              "text": "Keluhan Penyerta",
+              "type": "group",
+              "repeats": true,
+              "item": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "autocomplete",
+                            "display": "Auto-complete"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "current-illness",
+                  "code": [
+                    {
+                      "system": "https://loinc.org/",
+                      "code": "8684-3",
+                      "display": "Histoy of present illness"
+                    }
+                  ],
+                  "text": "Keluhan",
+                  "type": "open-choice",
+                  "answerValueSet": "http://snomed.info/sct/900000000000207008?fhir_vs=ecl%2F%3C%3C+404684003+MINUS+%3C%3C+64572001"
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "d",
+                        "display": "Day(s)"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "wk",
+                        "display": "Week(s)"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "mo",
+                        "display": "Month(s)"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "a",
+                        "display": "Year(s)"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "s",
+                        "display": "Second(s)"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "min",
+                        "display": "Minute(s)"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "hour",
+                        "display": "Hour(s)"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "illness-duration",
+                  "code": [
+                    {
+                      "system": "https://loinc.org/",
+                      "code": "77977-7",
+                      "display": "Illness duration"
+                    }
+                  ],
+                  "text": "Durasi",
+                  "type": "quantity",
+                  "item": [
+                    {
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                          "valueCodeableConcept": {
+                            "coding": [
+                              {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "help",
+                                "display": "Help-Button"
+                              }
+                            ],
+                            "text": "Help-Button"
+                          }
+                        }
+                      ],
+                      "linkId": "duration_helpText",
+                      "text": "Durasi terjadinya keluhan yang dimaksud",
+                      "type": "display"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                }
+              ],
+              "linkId": "medical-problem",
+              "code": [
+                {
+                  "system": "https://loinc.org/",
+                  "code": "44100-6",
+                  "display": "Medical problem"
+                }
+              ],
+              "text": "Catatan",
+              "type": "text",
+              "required": false,
+              "repeats": true,
+              "item": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "help",
+                            "display": "Help-Button"
+                          }
+                        ],
+                        "text": "Help-Button"
+                      }
+                    }
+                  ],
+                  "linkId": "916537940209",
+                  "text": "Catatan lengkap keluhan dan riwayat penyakit pasien.",
+                  "type": "display"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/terminology-server",
+              "valueUrl": "https://clinicaltables.nlm.nih.gov/fhir/R4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "autocomplete",
+                    "display": "Auto-complete"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            }
+          ],
+          "linkId": "past-medical-history",
+          "code": [
+            {
+              "system": "https://loinc.org/",
+              "code": "11329-0",
+              "display": "History general narrative - reported"
+            }
+          ],
+          "text": "Riwayat Penyakit Dahulu",
+          "type": "open-choice",
+          "repeats": true,
+          "answerValueSet": "https://clinicaltables.nlm.nih.gov/fhir/R4/ValueSet/icd10cm"
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/terminology-server",
+              "valueUrl": "https://clinicaltables.nlm.nih.gov/fhir/R4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "autocomplete",
+                    "display": "Auto-complete"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            }
+          ],
+          "linkId": "family-history-panel",
+          "code": [
+            {
+              "system": "https://loinc.org/",
+              "code": "71423-8",
+              "display": "CMS - family history panel"
+            }
+          ],
+          "text": "Riwayat Penyakit Keluarga",
+          "type": "open-choice",
+          "repeats": true,
+          "answerValueSet": "https://clinicaltables.nlm.nih.gov/fhir/R4/ValueSet/icd10cm"
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            }
+          ],
+          "linkId": "allergy-history",
+          "code": [
+            {
+              "system": "https://loinc.org/",
+              "code": "68628-7",
+              "display": "Allergy and Immunology History and physical note"
+            }
+          ],
+          "text": "Riwayat Alergi",
+          "type": "string",
+          "repeats": true
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "check-box",
+                    "display": "Check-box"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            }
+          ],
+          "linkId": "lifestyle",
+          "code": [
+            {
+              "system": "https://loinc.org/",
+              "code": "29762-2",
+              "display": "Social history Narrative"
+            }
+          ],
+          "text": "Gaya Hidup",
+          "type": "open-choice",
+          "repeats": true,
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "https://loinc.org/",
+                "code": "81229-7",
+                "display": "Merokok"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://loinc.org/",
+                "code": "62543-4",
+                "display": "Konsumsi alkohol"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://loinc.org/",
+                "code": "87705-0",
+                "display": "Gaya hidup sedenter"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "573995987690",
+      "text": "Objective",
+      "type": "group",
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-preferredTerminologyServer",
+              "valueUrl": "https://snowstorm.ihtsdotools.org/fhir"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "autocomplete",
+                    "display": "Auto-complete"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            }
+          ],
+          "linkId": "objective",
+          "code": [
+            {
+              "system": "https://loinc.org/",
+              "code": "61149-1",
+              "display": "Objective Narrative"
+            }
+          ],
+          "text": "Temuan Klinis",
+          "type": "open-choice",
+          "repeats": true,
+          "answerValueSet": "http://snomed.info/sct/900000000000207008?fhir_vs=ecl%2F%3C64572001"
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            }
+          ],
+          "linkId": "571116191388",
+          "code": [
+            {
+              "system": "https://loinc.org/",
+              "code": "61149-1",
+              "display": "Objective Narrative"
+            }
+          ],
+          "text": "Catatan",
+          "type": "text",
+          "required": false,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "help",
+                        "display": "Help-Button"
+                      }
+                    ],
+                    "text": "Help-Button"
+                  }
+                }
+              ],
+              "linkId": "260585914402",
+              "text": "Catatan lengkap keluhan dan riwayat penyakit pasien.",
+              "type": "display"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "663661609636",
+      "text": "Assessment",
+      "type": "group",
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/terminology-server",
+              "valueUrl": "https://clinicaltables.nlm.nih.gov/fhir/R4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "autocomplete",
+                    "display": "Auto-complete"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            }
+          ],
+          "linkId": "assessment",
+          "code": [
+            {
+              "system": "https://loinc.org/",
+              "code": "55752-0",
+              "display": "Clinical information"
+            }
+          ],
+          "text": "ICD-10 Diagnosis",
+          "type": "choice",
+          "repeats": true,
+          "answerValueSet": "https://clinicaltables.nlm.nih.gov/fhir/R4/ValueSet/icd10cm"
+        }
+      ]
+    },
+    {
+      "linkId": "593782603563",
+      "text": "Plan",
+      "type": "group",
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/terminology-server",
+              "valueUrl": "https://clinicaltables.nlm.nih.gov/fhir/R4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "autocomplete",
+                    "display": "Auto-complete"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            }
+          ],
+          "linkId": "plan",
+          "code": [
+            {
+              "system": "https://loinc.org/",
+              "code": "51847-2",
+              "display": "Evaluation + Plan note"
+            }
+          ],
+          "text": "Rencana Terapi",
+          "type": "open-choice",
+          "repeats": true,
+          "answerValueSet": "https://clinicaltables.nlm.nih.gov/fhir/R4/ValueSet/icd9cm-sg"
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            }
+          ],
+          "linkId": "evaluation-plan-note",
+          "code": [
+            {
+              "system": "https://loinc.org/",
+              "code": "67855-7",
+              "display": "Outpatient Education note"
+            }
+          ],
+          "text": "Catatan Edukasi Pasien",
+          "type": "text",
+          "required": true,
+          "repeats": true
+        }
+      ]
+    }
+  ]
+}
