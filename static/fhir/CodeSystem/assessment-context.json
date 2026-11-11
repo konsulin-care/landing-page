@@ -1,0 +1,34 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "assessment-context",
+  "meta": {
+    "versionId": "197",
+    "lastUpdated": "2025-02-11T14:45:35.465Z"
+  },
+  "url": "http://blaze.konsulin.care/fhir/CodeSystem/assessment-context",
+  "version": "1.0.0",
+  "name": "AssessmentContext",
+  "title": "Assessment Context Code System",
+  "status": "active",
+  "date": "2024-12-08",
+  "publisher": "Konsulin",
+  "description": "A code system to represent contexts related to assessment purposes.",
+  "content": "complete",
+  "concept": [
+    {
+      "code": "research",
+      "display": "Research",
+      "definition": "Use for questionnaires or resources focused on research purposes."
+    },
+    {
+      "code": "popular",
+      "display": "Popular",
+      "definition": "Use for questionnaires or resources focused on popular assessments."
+    },
+    {
+      "code": "regular",
+      "display": "Regular",
+      "definition": "Use for questionnaires or resources focused on regular assessment."
+    }
+  ]
+}

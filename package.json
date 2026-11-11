@@ -9,13 +9,13 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
-    "alpinejs": "^3.16.3",
+    "alpinejs": "^3.17.4",
     "autoprefixer": "^10.6.1",
     "concurrently": "^10.0.5",
     "husky": "^9.1.7",
-    "postcss": "^8.5.6",
-    "postcss-cli": "^12.0.0",
-    "tailwindcss": "^4.1.11"
+    "postcss": "^8.5.28",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.3.3"
   },
   "scripts": {
     "copy:alpine": "mkdir -p assets/js && cp node_modules/alpinejs/dist/cdn.min.js assets/js/alpine.min.js",
