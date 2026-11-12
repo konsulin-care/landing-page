@@ -1,7 +1,7 @@
 # Deploying to cloudflare pages
 Use `Hugo` preset and change the command to:
 ```sh
-npm install && hugo --gc --minify
+pnpm install && hugo --gc --minify
 ```
 
 # Cloudflare Pages v1
