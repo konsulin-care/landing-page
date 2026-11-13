@@ -16,13 +16,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.18.0
+
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Inject Chatwoot Secrets
         run: |
@@ -36,4 +41,4 @@ jobs:
           extended: true # Ensure the extended version is used
 
       - name: Build the site
-        run: npm run build
+        run: pnpm run build

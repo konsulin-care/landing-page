@@ -2,7 +2,7 @@
 // landing page repo. Each test maps 1:1 to a definition of done in the
 // implementation plan:
 //   U1 .nvmrc pins Node 26
-//   U2 workflows read .nvmrc and install via lockfile (npm ci)
+//   U2 workflows read .nvmrc and install via pnpm frozen lockfile
 //   U3 package.json declares the Node engines floor
 //   U4 cloudflare.md aligns to Node 26, no stale 18.16.0 anywhere
 //   U5 dependabot.yml covers npm + github-actions, monthly
@@ -26,7 +26,7 @@ test('U1: .nvmrc pins Node major version 26', () => {
   assert.equal(read('.nvmrc'), '26\n', 'exactly "26" with trailing newline');
 });
 
-test('U2: workflows read .nvmrc and install with npm ci', () => {
+test('U2: workflows read .nvmrc and install with pnpm frozen lockfile', () => {
   const workflows = [
     '.github/workflows/render.yml',
     '.github/workflows/pull-request.yml',
@@ -43,12 +43,19 @@ test('U2: workflows read .nvmrc and install with npm ci', () => {
       `${wf} must not hardcode node-version:`,
     );
     assert.ok(
-      content.includes('run: npm ci'),
-      `${wf} must install with npm ci`,
+      content.includes('run: pnpm install --frozen-lockfile'),
+      `${wf} must install with pnpm install --frozen-lockfile`,
     );
     assert.ok(
-      !content.includes('npm install'),
-      `${wf} must not use npm install`,
+      content.includes('run: pnpm run build'),
+      `${wf} must build with pnpm run build`,
+    );
+    // Note: never assert absence of the bare "npm install" text here —
+    // "pnpm install" contains it as a substring. Assert on the step
+    // prefix instead: no step may run an npm command.
+    assert.ok(
+      !content.includes('run: npm'),
+      `${wf} must contain no "run: npm" steps`,
     );
   }
 });
