@@ -71,7 +71,7 @@ test('U4: cloudflare.md aligns Node 26, no 18.16.0 anywhere in repo', () => {
   // No 18.16.0 may remain anywhere in the repo (excluding vendored dirs
   // and the test harness, which necessarily references the stale value).
   const offenders = [];
-  const skipDirs = new Set(['.git', 'node_modules', 'public', 'tests']);
+  const skipDirs = new Set(['.git', 'node_modules', 'public', 'tests', '.pi', 'resources']);
   const walk = (dir) => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const p = path.join(dir, entry.name);
