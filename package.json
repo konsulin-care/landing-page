@@ -25,7 +25,8 @@
     "build:tw": "postcss ./assets/css/main.css -o ./assets/css/style.css",
     "build": "npm run copy:alpine && npm run build:tw && hugo --minify",
     "prepare": "husky",
-    "test": "node --test --test-concurrency=1"
+    "test": "node scripts/clear-hugo-lock.mjs && node --test --test-concurrency=1",
+    "posttest": "node scripts/clear-hugo-lock.mjs"
   },
   "repository": {
     "type": "git",

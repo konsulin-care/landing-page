@@ -18,7 +18,7 @@ const isExecutable = (rel) => (fs.statSync(path.join(ROOT, rel)).mode & 0o111) !
 
 test('H1: npm test runs the real suite via node --test (serial to avoid Hugo build races)', () => {
   const pkg = JSON.parse(read('package.json'));
-  assert.equal(pkg.scripts.test, 'node --test --test-concurrency=1');
+  assert.equal(pkg.scripts.test, 'node scripts/clear-hugo-lock.mjs && node --test --test-concurrency=1');
 });
 
 test('H2: prepare activates husky on every install', () => {
