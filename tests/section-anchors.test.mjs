@@ -80,7 +80,7 @@ test('S3b: sections carry no copy-link/share button', () => {
 // ---------------------------------------------------------------- S4 rendered output
 let publicHtml = '';
 before(async () => {
-  execFileSync('hugo', ['--minify'], { cwd: ROOT, stdio: 'pipe' });
+  execFileSync('hugo', ['--minify'], { cwd: ROOT, stdio: 'pipe', timeout: 60000 });
   publicHtml = read('public/index.html');
 });
 

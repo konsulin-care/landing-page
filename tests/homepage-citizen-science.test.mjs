@@ -14,7 +14,7 @@ const exists = (rel) => fs.existsSync(path.join(ROOT, rel));
 
 let publicHtml = '';
 before(async () => {
-  execFileSync('hugo', ['--minify'], { cwd: ROOT, stdio: 'pipe' });
+  execFileSync('hugo', ['--minify'], { cwd: ROOT, stdio: 'pipe', timeout: 60000 });
   publicHtml = read('public/index.html');
 });
 

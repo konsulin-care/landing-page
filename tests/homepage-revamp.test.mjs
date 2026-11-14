@@ -281,7 +281,7 @@ test('R11a: no em dash or en dash in partials or config copy', () => {
 
 // ---------------------------------------------------------------- R12 single h1
 test('R12a: rendered homepage has exactly one h1', () => {
-  execFileSync('hugo', ['--minify'], { cwd: ROOT, stdio: 'pipe' });
+  execFileSync('hugo', ['--minify'], { cwd: ROOT, stdio: 'pipe', timeout: 60000 });
   const html = read('public/index.html');
   const h1Count = (html.match(/<h1[\s>]/g) ?? []).length;
   assert.equal(h1Count, 1, 'homepage must have exactly one h1');
