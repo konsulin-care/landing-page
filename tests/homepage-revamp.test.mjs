@@ -175,11 +175,15 @@ test('R6c: claim-report partial renders note (flow table removed)', () => {
 // ---------------------------------------------------------------- R7 research-credibility
 // R7a removed — copy is content-driven, not verbatim-tested
 
-test('R7b: research-credibility partial uses .Site.params.forward for CTA', () => {
+test('R7b: research-credibility partial uses cta_url for CTA', () => {
   const partial = read('layouts/partials/home-research-credibility.html');
   assert.ok(
-    partial.includes('.Site.Params.forward'),
-    'research-credibility CTA must link via .Site.Params.forward',
+    partial.includes('.cta_url'),
+    'research-credibility CTA must link via .cta_url',
+  );
+  assert.ok(
+    read('layouts/index.html').includes('"cta_url" .Site.Params.forward'),
+    'index must merge forward URL into credibility context as cta_url',
   );
 });
 
@@ -209,9 +213,9 @@ test('R9b: why-it-matters uses .Site.Params.forward', () => {
   assert.ok(partial.includes('.Site.Params.forward'), 'why-it-matters must use forward URL');
 });
 
-test('R9c: research-credibility uses .Site.Params.forward', () => {
+test('R9c: research-credibility uses cta_url', () => {
   const partial = read('layouts/partials/home-research-credibility.html');
-  assert.ok(partial.includes('.Site.Params.forward'), 'research-credibility must use forward URL');
+  assert.ok(partial.includes('.cta_url'), 'research-credibility must use cta_url');
 });
 
 test('R9d: final-cta uses .Site.Params.forward', () => {
