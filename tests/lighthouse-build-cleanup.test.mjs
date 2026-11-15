@@ -6,7 +6,14 @@ import path from 'node:path';
 
 const ROOT = path.join(import.meta.dirname, '..');
 
-test('public/css/ contains style.css', () => {
+test('head.html has no postCSS pipe and keeps fingerprint and integrity', () => {
+  const head = fs.readFileSync(path.join(ROOT, 'layouts', 'partials', 'head.html'), 'utf8');
+  assert.doesNotMatch(head, /\|\s*postCSS/);
+  assert.ok(head.includes('fingerprint'));
+  assert.ok(head.includes('integrity='));
+});
+
+test('public/css/ contains a fingerprinted style.min.<hash>.css', () => {
   const cssDir = path.join(ROOT, 'public', 'css');
   
   // Skip if public/css doesn't exist (not built yet)
@@ -16,8 +23,8 @@ test('public/css/ contains style.css', () => {
   
   const files = fs.readdirSync(cssDir);
   assert.ok(
-    files.includes('style.css'),
-    'public/css/ must contain style.css',
+    files.some(f => /^style\.min\.[0-9a-f]+\.css$/.test(f)),
+    'public/css/ must contain a fingerprinted style.min.<hash>.css',
   );
 });
 
