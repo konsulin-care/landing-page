@@ -74,8 +74,8 @@ test('CR2a: partial has md:grid-cols-3 for 3-column layout', () => {
 
 test('CR2b: partial iterates over cards array', () => {
   assert.ok(
-    partial.includes('.Site.Params.home.claim_report.cards'),
-    'partial must iterate over .Site.Params.home.claim_report.cards',
+    partial.includes('range .cards'),
+    'partial must iterate over .cards',
   );
 });
 
@@ -125,14 +125,14 @@ test('CR3d: partial renders SVG elements with stroke="currentColor"', () => {
 // ── CR4 HTML partial renders note box ──────────────────────────────
 test('CR4a: partial renders note title from config', () => {
   assert.ok(
-    partial.includes('.Site.Params.home.claim_report.note.title'),
+    partial.includes('.note.title'),
     'partial must render note.title from config',
   );
 });
 
 test('CR4b: partial renders note text from config', () => {
   assert.ok(
-    partial.includes('.Site.Params.home.claim_report.note.text'),
+    partial.includes('.note.text'),
     'partial must render note.text from config',
   );
 });

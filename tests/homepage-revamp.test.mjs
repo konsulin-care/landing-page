@@ -127,8 +127,12 @@ test('R5a: how-it-works config has 3 steps with ID Anonim', () => {
 test('R5b: how-it-works partial iterates over steps', () => {
   const partial = read('layouts/partials/home-how-it-works.html');
   assert.ok(
-    partial.includes('.Site.Params.home.how_it_works.steps'),
+    partial.includes('range .steps'),
     'how-it-works must iterate over steps',
+  );
+  assert.ok(
+    read('layouts/index.html').includes('"context" .Site.Params.home.how_it_works'),
+    'index must pass how_it_works params as context',
   );
   assert.ok(
     partial.includes('.num') && partial.includes('.title') && partial.includes('.text'),
@@ -162,7 +166,8 @@ test('R6b: claim-report config has cards with icons', () => {
 test('R6c: claim-report partial renders note (flow table removed)', () => {
   const partial = read('layouts/partials/home-claim-report.html');
   assert.ok(
-    partial.includes('.Site.Params.home.claim_report.note'),
+    partial.includes('.note.title') && partial.includes('.note.text') &&
+      read('layouts/index.html').includes('"context" .Site.Params.home.claim_report'),
     'claim-report must render the note about email being optional',
   );
 });
