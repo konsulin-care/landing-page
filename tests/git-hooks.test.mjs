@@ -31,19 +31,19 @@ test('H3: husky is a devDependency', () => {
   assert.ok(pkg.devDependencies?.husky, 'husky must be a devDependency');
 });
 
-test('H4: pre-commit hook exists, is executable, and gates on npm test', () => {
+test('H4: pre-commit hook exists, is executable, and gates on pnpm test', () => {
   assert.ok(exists('.husky/pre-commit'), '.husky/pre-commit must exist');
   assert.ok(isExecutable('.husky/pre-commit'), '.husky/pre-commit must be executable');
   const hook = read('.husky/pre-commit');
-  assert.ok(hook.includes('npm test'), 'hook must run npm test');
+  assert.ok(hook.includes('pnpm test'), 'hook must run pnpm test');
   assert.ok(hook.includes('commit blocked'), 'hook must report commit blocked');
 });
 
-test('H5: pre-push hook exists, is executable, and gates on npm test', () => {
+test('H5: pre-push hook exists, is executable, and gates on pnpm test', () => {
   assert.ok(exists('.husky/pre-push'), '.husky/pre-push must exist');
   assert.ok(isExecutable('.husky/pre-push'), '.husky/pre-push must be executable');
   const hook = read('.husky/pre-push');
-  assert.ok(hook.includes('npm test'), 'hook must run npm test');
+  assert.ok(hook.includes('pnpm test'), 'hook must run pnpm test');
   assert.ok(hook.includes('push blocked'), 'hook must report push blocked');
 });
 

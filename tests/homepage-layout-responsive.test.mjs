@@ -213,6 +213,6 @@ test('L7d: final-cta paragraph has text-justify', () => {
 
 // ── L8 Build succeeds ──────────────────────────────────────────────
 test('L8: production build succeeds', () => {
-  execFileSync('npm', ['run', 'build'], { cwd: ROOT, stdio: 'pipe', timeout: 60000 });
+  execFileSync('pnpm', ['run', 'build'], { cwd: ROOT, stdio: 'pipe', timeout: 60000 });
   assert.ok(fs.existsSync(path.join(ROOT, 'public/index.html')), 'public/index.html must exist after build');
 });

@@ -19,11 +19,11 @@
   },
   "scripts": {
     "copy:alpine": "mkdir -p assets/js && cp node_modules/alpinejs/dist/cdn.min.js assets/js/alpine.min.js",
-    "start": "npm run copy:alpine && concurrently npm:watch:*",
+    "start": "pnpm run copy:alpine && concurrently \"pnpm run watch:tw\" \"pnpm run watch:hugo\"",
     "watch:tw": "postcss ./assets/css/main.css -o ./assets/css/style.css --watch",
     "watch:hugo": "hugo server",
     "build:tw": "postcss ./assets/css/main.css -o ./assets/css/style.css",
-    "build": "npm run copy:alpine && npm run build:tw && hugo --minify",
+    "build": "pnpm run copy:alpine && pnpm run build:tw && hugo --minify",
     "prepare": "husky",
     "test": "node scripts/clear-hugo-lock.mjs && node --test --test-concurrency=1",
     "posttest": "node scripts/clear-hugo-lock.mjs"
