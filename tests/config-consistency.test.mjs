@@ -132,6 +132,28 @@ test('T3: site language is Indonesian', () => {
   assert.ok(read('layouts/partials/meta.html').includes('og:locale" content="id_ID"'));
 });
 
+test('T4: SEO keywords are clean', () => {
+  const cfg = read('hugo.yaml');
+  const block = cfg.match(/^ {2}keywords:\n((?: {4}- .*\n)+)/m);
+  assert.ok(block, 'keywords list must exist');
+  const kws = block[1].split('\n').filter(Boolean).map((l) => l.replace(/^ +- /, '').trim());
+  for (const bad of [
+    'dokter psikolog',
+    'dokter psikiater',
+    'psikiater',
+    'psikiatri',
+    'psikolog online',
+    'konsultasi psikolog online',
+    'aplikasi kesehatan jiwa',
+  ]) {
+    assert.ok(!kws.includes(bad), `keywords must not include ${bad}`);
+  }
+  assert.equal(kws.filter((k) => k === 'kesehatan mental').length, 1);
+  for (const good of ['resiliensi', 'ketangguhan psikologis', 'JadiTangguh', 'citizen science', 'riset kesehatan partisipatif']) {
+    assert.ok(kws.includes(good), `keywords must include ${good}`);
+  }
+});
+
 test('U5: dependabot.yml covers npm + github-actions at monthly', () => {
   const file = '.github/dependabot.yml';
   assert.ok(exists(file), `${file} must exist`);
