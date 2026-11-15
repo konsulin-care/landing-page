@@ -1,8 +1,8 @@
 baseURL: 'https://konsulin.care/'
 csURL: 'https://cs.konsulin.care'
 title: Konsulin
-languageCode: en-us
-DefaultContentLanguage: en
+locale: id-ID
+DefaultContentLanguage: id
 enableEmoji: true
 enableGitInfo: true
 enableRobotsTXT: true

@@ -120,6 +120,18 @@ test('U2b: hugo allows postcss native addons and workers under node permission m
   );
 });
 
+test('T3: site language is Indonesian', () => {
+  const cfg = read('hugo.yaml');
+  assert.match(cfg, /^locale: id-ID$/m);
+  assert.match(cfg, /^DefaultContentLanguage: id$/m);
+  assert.ok(!/^\s*languageCode\s*:/m.test(cfg), 'no languageCode key');
+  const en = read('i18n/en.toml');
+  const id = read('i18n/id.toml');
+  assert.ok(en.includes('[wordCount]') && id.includes('[wordCount]'));
+  assert.match(id, /^other = "\{\{ \.WordCount \}\} kata"$/m);
+  assert.ok(read('layouts/partials/meta.html').includes('og:locale" content="id_ID"'));
+});
+
 test('U5: dependabot.yml covers npm + github-actions at monthly', () => {
   const file = '.github/dependabot.yml';
   assert.ok(exists(file), `${file} must exist`);
