@@ -1,17 +1,15 @@
 {{ define "main" }}
 {{ $p := .Params }}
+{{ $extra := "" }}
+{{ with $p.ethics_status }}{{ $extra = printf `<p class="text-muted-foreground" data-ethics-status>%s</p>` (. | htmlEscape) }}{{ end }}
 <main>
-  <header class="px-6 py-16 bg-gray-200 dark:bg-gray-900">
-    <h1 class="text-4xl font-black text-center text-primary-600 dark:text-primary-300">{{ .Title }}</h1>
-    {{ with $p.description }}<p class="max-w-2xl mx-auto mt-4 text-center text-gray-700 dark:text-gray-300">{{ . }}</p>{{ end }}
-    {{ with $p.ethics_status }}<p class="max-w-2xl mx-auto mt-4 text-center text-gray-700 dark:text-gray-300" data-ethics-status>{{ . }}</p>{{ end }}
-  </header>
-  <article class="max-w-3xl px-6 mx-auto my-12 space-y-10 text-gray-700 dark:text-gray-300">
-    {{ with $p.summary }}<section data-section="summary"><h2 class="text-2xl font-bold text-gray-900 dark:text-white">Ringkasan</h2><p class="mt-2">{{ . }}</p></section>{{ end }}
-    {{ with $p.question }}<section data-section="question"><h2 class="text-2xl font-bold text-gray-900 dark:text-white">Pertanyaan penelitian</h2><p class="mt-2">{{ . }}</p></section>{{ end }}
-    {{ with $p.team }}<section data-section="team"><h2 class="text-2xl font-bold text-gray-900 dark:text-white">Tim peneliti</h2><p class="mt-2">{{ . }}</p></section>{{ end }}
+  {{ partial "page-header.html" (dict "title" .Title "description" $p.description "extra" $extra) }}
+  <article class="max-w-3xl px-6 mx-auto my-12 space-y-10 text-muted-foreground">
+    {{ partial "summary-card.html" (dict "page" . "variant" "research") }}
+    {{ with $p.question }}<section data-section="question"><h2 class="text-2xl font-bold text-foreground">Pertanyaan penelitian</h2><p class="mt-2">{{ . }}</p></section>{{ end }}
+    {{ with $p.team }}<section data-section="team"><h2 class="text-2xl font-bold text-foreground">Tim peneliti</h2><p class="mt-2">{{ . }}</p></section>{{ end }}
     {{ if or $p.eligibility $p.duration }}
-    <section data-section="participation"><h2 class="text-2xl font-bold text-gray-900 dark:text-white">Partisipasi</h2>
+    <section data-section="participation"><h2 class="text-2xl font-bold text-foreground">Partisipasi</h2>
       <ul class="mt-2 space-y-1">
         {{ with $p.eligibility }}<li><strong>Kelayakan:</strong> {{ . }}</li>{{ end }}
         {{ with $p.duration }}<li><strong>Durasi:</strong> {{ . }}</li>{{ end }}
@@ -19,14 +17,14 @@
     </section>
     {{ end }}
     {{ with $p.steps }}
-    <section data-section="steps"><h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ .title }}</h2>
+    <section data-section="steps"><h2 class="text-2xl font-bold text-foreground">{{ .title }}</h2>
       <ol class="mt-2 space-y-3">
         {{ range .steps }}<li><strong>{{ .num }}. {{ .title }}</strong><p>{{ .text }}</p></li>{{ end }}
       </ol>
     </section>
     {{ end }}
     {{ with $p.report }}
-    <section data-section="report"><h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ .title }}</h2>
+    <section data-section="report"><h2 class="text-2xl font-bold text-foreground">{{ .title }}</h2>
       {{ with .subtitle }}<p class="mt-2">{{ . }}</p>{{ end }}
       <ul class="mt-4 space-y-3">
         {{ range .cards }}<li><strong>{{ .title }}</strong><p>{{ .text }}</p></li>{{ end }}
@@ -36,19 +34,19 @@
     </section>
     {{ end }}
     {{ with $p.data_handling }}
-    <section data-section="data-handling"><h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ .title }}</h2>
+    <section data-section="data-handling"><h2 class="text-2xl font-bold text-foreground">{{ .title }}</h2>
       <ul class="mt-2 space-y-3">
         {{ range .cards }}<li><strong>{{ .title }}</strong><p>{{ .text }}</p></li>{{ end }}
       </ul>
     </section>
     {{ end }}
     {{ with $p.findings }}
-    <section data-section="findings"><h2 class="text-2xl font-bold text-gray-900 dark:text-white">Temuan</h2>
+    <section data-section="findings"><h2 class="text-2xl font-bold text-foreground">Temuan</h2>
       <ul class="mt-2 list-disc ps-6">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
     </section>
     {{ end }}
     {{ with $p.cta_url }}
-    <p class="text-center"><a href="{{ . }}" class="inline-block px-6 py-3 font-semibold text-white rounded-lg bg-primary-600 hover:bg-primary-700" data-study-cta>{{ with $p.data_handling }}{{ .cta | default "Ikut studi" }}{{ else }}Ikut studi{{ end }}</a></p>
+    <div class="text-center" data-study-cta>{{ partial "button.html" (dict "href" . "label" (cond (isset $p "data_handling") ($p.data_handling.cta | default "Ikut studi") "Ikut studi")) }}</div>
     {{ end }}
   </article>
 </main>
