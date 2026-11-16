@@ -44,20 +44,14 @@ test('L1c: hero text div has order-2 for mobile-first ordering', () => {
   );
 });
 
-test('L1d: hero text div has text-center for mobile centering', () => {
+test('L1d: hero text div is left-aligned (no text-center)', () => {
   const hero = read('layouts/partials/home-hero.html');
-  assert.ok(
-    hero.includes('text-center'),
-    'hero text div must include "text-center" for mobile centering',
-  );
+  assert.ok(!hero.includes('text-center'), 'hero must not include "text-center"');
 });
 
-test('L1e: hero paragraphs have text-justify', () => {
+test('L1e: hero has no text-justify', () => {
   const hero = read('layouts/partials/home-hero.html');
-  assert.ok(
-    hero.includes('text-justify'),
-    'hero paragraphs must include "text-justify"',
-  );
+  assert.ok(!hero.includes('text-justify'), 'hero must not include "text-justify"');
 });
 
 // ── L2 Hero desktop layout unchanged ──────────────────────────────

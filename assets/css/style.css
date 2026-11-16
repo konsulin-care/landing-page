@@ -1142,6 +1142,9 @@
   .justify-center {
     justify-content: center;
   }
+  .justify-start {
+    justify-content: flex-start;
+  }
   .gap-0 {
     gap: 0px;
   }
@@ -1583,6 +1586,9 @@
   }
   .text-blue-600 {
     color: var(--color-blue-600);
+  }
+  .text-charcoal-700 {
+    color: var(--color-charcoal-700);
   }
   .text-foreground {
     color: var(--color-foreground);

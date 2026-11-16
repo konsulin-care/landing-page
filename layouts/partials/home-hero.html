@@ -1,27 +1,24 @@
 <!-- Hero section: purpose, 10-minute duration, ID Anonim, report availability, CTA -->
 <div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8">
   <div class="grid gap-10 md:grid-cols-2 md:items-center">
-    <div class="order-2 md:order-1 text-center md:text-left">
-      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-gray-900 dark:text-gray-50">
+    <div class="order-2 md:order-1 text-left">
+      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground">
         {{ .Site.Params.home.hero.headline }}
       </h1>
 
       {{ range .Site.Params.home.hero.body }}
-      <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-justify text-gray-700 dark:text-gray-300">
+      <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-charcoal-700">
         {{ .text }}
       </p>
       {{ end }}
 
-      <a
-        href="{{ .Site.Params.forward }}"
-        class="inline-flex items-center justify-center px-8 py-4 mt-8 text-base font-semibold text-white rounded-3xl bg-primary-700 shadow-sm hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-      >
-        {{ .Site.Params.home.hero.primary_cta }}
-      </a>
+      <div class="mt-8">
+        {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta) }}
+      </div>
 
       {{/* Desktop: all items inline */}}
       <div class="hidden md:block mt-6">
-        <p class="text-sm text-gray-600 dark:text-gray-400">
+        <p class="text-sm text-muted-foreground">
           {{ range $i, $item := .Site.Params.home.hero.trust }}{{ if $i }} <span class="mx-2">·</span> {{ end }}{{ . }}{{ end }}
         </p>
       </div>
@@ -48,7 +45,7 @@
           x-transition:leave="transition ease-in duration-400"
           x-transition:leave-start="opacity-100 translate-x-0"
           x-transition:leave-end="opacity-0 -translate-x-full"
-          class="absolute inset-0 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400"
+          class="absolute inset-0 flex items-center justify-start text-sm text-muted-foreground"
         >{{ . }}</span>
         {{ end }}
       </div>
@@ -63,7 +60,7 @@
         alt="Ilustrasi partisipasi penelitian kesehatan mental"
         width="{{ $webp.Width }}"
         height="{{ $webp.Height }}"
-        class="rounded-3xl object-cover w-full"
+        class="rounded-lg object-cover w-full"
         fetchpriority="high"
       />
       {{ end }}
@@ -73,7 +70,7 @@
   {{/* Down chevron: plain anchor inviting the visitor to discover section 2 */}}
   <a
     href="#why-this-research-matters"
-    class="absolute bottom-6 left-1/2 -translate-x-1/2 text-primary-700 hover:text-primary-500 dark:text-primary-300"
+    class="absolute bottom-6 left-1/2 -translate-x-1/2 text-turquoise-deep"
     aria-label="Lanjut ke bagian berikutnya"
   >
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-6 h-6 animate-bounce">

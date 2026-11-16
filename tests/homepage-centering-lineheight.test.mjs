@@ -10,12 +10,10 @@ const ROOT = path.join(import.meta.dirname, '..');
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
 // ── M1 Centering is mobile-only ────────────────────────────────────
-test('M1a: hero text div has text-center md:text-left', () => {
+test('M1a: hero text div has text-left and no text-center', () => {
   const hero = read('layouts/partials/home-hero.html');
-  assert.ok(
-    hero.includes('text-center md:text-left'),
-    'hero text div must use "text-center md:text-left" (centered on mobile, left on desktop)',
-  );
+  assert.ok(/order-2 md:order-1 text-left/.test(hero), 'hero text div must use text-left');
+  assert.ok(!hero.includes('text-center'), 'hero must not use text-center');
 });
 
 test('M1b: why-it-matters text div has text-center md:text-left', () => {
