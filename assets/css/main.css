@@ -1,9 +1,8 @@
-/* assets */ 
+/* assets */
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Restore class-based dark mode (v4 defaults to prefers-color-scheme) */
-@custom-variant dark (&:where(.dark, .dark *));
+/* Mirrors the Konsulin frontend globals.css token set (light-only). */
 
 /* Self-hosted Plus Jakarta Sans (variable font, latin subset) */
 @font-face {
@@ -23,110 +22,80 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7, U+02CC, U+02CE, U+02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* v4-native theme — migrated from the deleted tailwind.config.js */
 @theme {
-  /* Brand palettes */
-  --color-primary: #08979c;
-  --color-primary-50: #b2f9fb;
-  --color-primary-100: #9ff7fa;
-  --color-primary-200: #78f4f8;
-  --color-primary-300: #51f1f6;
-  --color-primary-400: #2aedf4;
-  --color-primary-500: #0ce2ea;
-  --color-primary-600: #0abdc3;
-  --color-primary-700: #08979c;
-  --color-primary-800: #056367;
-  --color-primary-900: #033031;
+  /* Frontend tokens */
+  --color-charcoal-900: #161C26;
+  --color-charcoal-700: #484D54;
+  --color-charcoal-600: #686C72;
+  --color-charcoal-400: #8D8F93;
+  --color-charcoal-200: #DADBDB;
+  --color-charcoal-100: #ECEDEB;
+  --color-paper: #FAFAF8;
+  --color-surface: #FFFFFF;
+  --color-turquoise: #0ABDC3;
+  --color-turquoise-tint: #D8F1F1;
+  --color-turquoise-deep: #0F7981;
+  --color-danger: #B3261E;
+  --color-danger-tint: #FBEAE8;
+  --color-warning: #F2B705;
+  --color-warning-deep: #7A5200;
+  --color-warning-tint: #FDF3D7;
 
-  --color-secondary: #5e81ac;
-  --color-secondary-50: #f2f5f8;
-  --color-secondary-100: #e5eaf1;
-  --color-secondary-200: #cad5e4;
-  --color-secondary-300: #afc0d6;
-  --color-secondary-400: #94abc8;
-  --color-secondary-500: #7996ba;
-  --color-secondary-600: #5e81ac;
-  --color-secondary-700: #47668a;
-  --color-secondary-800: #344a65;
-  --color-secondary-900: #212f40;
-
-  --color-neutral: #6b7280;
-  --color-neutral-50: #cdd0d5;
-  --color-neutral-100: #c2c5cc;
-  --color-neutral-200: #acb0ba;
-  --color-neutral-300: #969ba7;
-  --color-neutral-400: #7f8694;
-  --color-neutral-500: #6b7280;
-  --color-neutral-600: #515761;
-  --color-neutral-700: #383c43;
-  --color-neutral-800: #1e2024;
-  --color-neutral-900: #050506;
-
-  --color-gray-50: #eceff4;
-  --color-gray-100: #e5e9f0;
-  --color-gray-200: #dae0ea;
-  --color-gray-300: #b7c2d5;
-  --color-gray-400: #93a4c1;
-  --color-gray-500: #7086ac;
-  --color-gray-600: #536a90;
-  --color-gray-700: #3f506d;
-  --color-gray-800: #212f40;
-  --color-gray-900: #161c26;
+  /* Semantic aliases */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-charcoal-900);
+  --color-card: var(--color-surface);
+  --color-muted: var(--color-charcoal-100);
+  --color-muted-foreground: var(--color-charcoal-600);
+  --color-accent: var(--color-turquoise-tint);
+  --color-accent-foreground: var(--color-charcoal-900);
+  --color-border: var(--color-charcoal-200);
+  --color-input: var(--color-charcoal-400);
+  --color-ring: var(--color-turquoise-deep);
 
   /* Typography */
-  --font-sans: "Plus Jakarta Sans", Roboto, "Open Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
 
-  /* Line heights from the legacy config */
   --leading-extra-loose: 2.5;
   --leading-12: 3rem;
 
-  /* Prose overrides — ported from tailwind.config.js typography block */
-  --tw-prose-body: var(--color-zinc-800);
-  --tw-prose-headings: var(--color-zinc-900);
-  --tw-prose-lead: var(--color-zinc-700);
-  --tw-prose-links: var(--color-zinc-900);
-  --tw-prose-bold: var(--color-zinc-900);
-  --tw-prose-counters: var(--color-zinc-600);
-  --tw-prose-bullets: var(--color-zinc-400);
-  --tw-prose-hr: var(--color-zinc-300);
-  --tw-prose-quotes: var(--color-zinc-900);
-  --tw-prose-quote-borders: var(--color-zinc-300);
-  --tw-prose-captions: var(--color-zinc-700);
-  --tw-prose-code: var(--color-indigo-500);
-  --tw-prose-pre-code: var(--color-indigo-300);
-  --tw-prose-pre-bg: var(--color-gray-900);
-  --tw-prose-th-borders: var(--color-zinc-300);
-  --tw-prose-td-borders: var(--color-zinc-200);
-  --tw-prose-invert-body: var(--color-zinc-200);
-  --tw-prose-invert-headings: #fff;
-  --tw-prose-invert-lead: var(--color-zinc-300);
-  --tw-prose-invert-links: var(--color-indigo-400);
-  --tw-prose-invert-bold: #fff;
-  --tw-prose-invert-counters: var(--color-zinc-400);
-  --tw-prose-invert-bullets: var(--color-zinc-200);
-  --tw-prose-invert-hr: var(--color-zinc-500);
-  --tw-prose-invert-quotes: var(--color-zinc-100);
-  --tw-prose-invert-quote-borders: var(--color-zinc-700);
-  --tw-prose-invert-captions: var(--color-zinc-400);
-  --tw-prose-invert-code: var(--color-indigo-400);
-  --tw-prose-invert-pre-code: var(--color-indigo-300);
-  --tw-prose-invert-pre-bg: var(--color-gray-900);
-  --tw-prose-invert-th-borders: var(--color-zinc-100);
-  --tw-prose-invert-td-borders: var(--color-zinc-500);
+  /* Prose */
+  --tw-prose-body: var(--color-charcoal-700);
+  --tw-prose-headings: var(--color-charcoal-900);
+  --tw-prose-lead: var(--color-charcoal-600);
+  --tw-prose-links: var(--color-turquoise-deep);
+  --tw-prose-bold: var(--color-charcoal-900);
+  --tw-prose-counters: var(--color-charcoal-600);
+  --tw-prose-bullets: var(--color-charcoal-400);
+  --tw-prose-hr: var(--color-charcoal-200);
+  --tw-prose-quotes: var(--color-charcoal-900);
+  --tw-prose-quote-borders: var(--color-turquoise);
+  --tw-prose-captions: var(--color-charcoal-600);
+  --tw-prose-code: var(--color-turquoise-deep);
+  --tw-prose-pre-code: var(--color-charcoal-100);
+  --tw-prose-pre-bg: var(--color-charcoal-900);
+  --tw-prose-th-borders: var(--color-charcoal-200);
+  --tw-prose-td-borders: var(--color-charcoal-100);
 }
 
-/* Set Plus Jakarta Sans as the default font */
-html {
-  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";
-}
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    scroll-padding-top: 64px;
+    overscroll-behavior: none;
+  }
 
-/* Custom CSS */
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
 
-/* Smooth anchor scrolling and sticky-header offset for section anchors */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 64px;
-  overscroll-behavior: none;
+  *,
+  ::after,
+  ::before {
+    border-color: var(--color-border);
+  }
 }
 
 /* Scroll-snap container */
@@ -134,7 +103,6 @@ html {
   scroll-snap-type: y mandatory;
 }
 
-/* Flow sections (2+): plain, natural height — no min-height/centering */
 .scroll-snap-section {
   box-sizing: border-box;
 }
@@ -154,9 +122,6 @@ html {
   justify-content: center;
 }
 
-/* Height-based breakpoints for small screens */
-
-/* Screens with height < 700px: disable snap, reduce padding, hide chevron */
 @media (max-height: 699px) {
   .scroll-snap-container {
     scroll-snap-type: none;
@@ -168,19 +133,16 @@ html {
     scroll-snap-align: none;
   }
 
-  /* Reduce hero padding */
   .scroll-snap-section--slide > div {
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
 
-  /* Hide chevron */
   .scroll-snap-section--slide > a {
     display: none;
   }
 }
 
-/* Screens with height < 400px: also hide hero image */
 @media (max-height: 399px) {
   .hero-image-wrapper {
     display: none;
@@ -191,25 +153,16 @@ html {
   }
 }
 
-/* Section eyebrow label: gives each block a readable boundary so
-   headings do not appear out of nowhere. */
+/* Section eyebrow label */
 .section-kicker {
   display: block;
   margin-bottom: 0.75rem;
   font-size: 0.75rem;
+  line-height: 1rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-primary-600);
-}
-
-.dark .section-kicker {
-  color: var(--color-primary-100);
-}
-
-/* Kicker on the teal final-CTA card must stay readable */
-.bg-primary-500 .section-kicker {
-  color: var(--color-gray-900);
+  color: var(--color-turquoise-deep);
 }
 
 /* Citizen-science morph stage */
@@ -223,7 +176,6 @@ html {
   display: none;
 }
 
-/* Reduced-motion: show all three phrases statically, no canvas */
 @media (prefers-reduced-motion: reduce) {
   .cs-morph-canvas {
     display: none;
@@ -246,17 +198,15 @@ html {
   }
 }
 
-.hero-text {
-  animation: slideUpFade 0.8s ease-out forwards;
-}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-text {
+    animation: slideUpFade 0.8s ease-out forwards;
+  }
 
-.hero-image {
-  opacity: 0;
-  animation: slideUpFade 0.8s ease-out 0.3s forwards;
-}
-
-.prose :where(h1):not(:where([class~="not-prose"] *)) {
-    color: white !important;
+  .hero-image {
+    opacity: 0;
+    animation: slideUpFade 0.8s ease-out 0.3s forwards;
+  }
 }
 
 /* SNS Embed Container - consistent sizing */
@@ -265,29 +215,18 @@ html {
   max-width: 320px;
   min-height: 380px;
   margin: 0 auto;
-  background: #1a1a1a;
+  background: var(--color-surface);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border);
 }
 
-/* Dark mode adjustments */
-.dark .threads-embed-container {
-  background: #2d2d2d;
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Twitter embed adjustments */
 .threads-embed-container .twitter-tweet {
   max-width: 100% !important;
   width: 100% !important;
 }
 
-/* Threads embed adjustments */
 .threads-embed-container .text-post-media {
   width: 100%;
   min-width: unset !important;
 }
-
-/* Custom CSS end */

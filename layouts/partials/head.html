@@ -8,17 +8,6 @@
 <meta name="msapplication-TileColor" content="#da532c" />
 <meta name="theme-color" content="#ffffff" />
 {{ partial "meta" . }}
-<script>
-  // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-  document.documentElement.classList.remove("dark");
-  if (localStorage.getItem("color-theme") === "dark" || (!("color-theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-
-
-</script>
 {{ $styles := resources.Get "/css/style.css" }} {{ if hugo.IsServer }}
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
 {{ else }} {{ $styles := $styles | minify | fingerprint | resources.PostProcess }}
