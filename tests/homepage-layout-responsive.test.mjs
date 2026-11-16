@@ -173,11 +173,11 @@ test('L7a: how-it-works has no text-justify', () => {
   assert.ok(!partial.includes('text-justify'), 'must not include text-justify');
 });
 
-test('L7b: claim-report body paragraphs have text-justify', () => {
+test('L7b: claim-report has no text-justify', () => {
   const partial = read('layouts/partials/home-claim-report.html');
   assert.ok(
-    partial.includes('text-justify'),
-    'claim-report body paragraphs must include "text-justify"',
+    !partial.includes('text-justify'),
+    'claim-report must not include "text-justify"',
   );
 });
 

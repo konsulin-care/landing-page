@@ -99,6 +99,7 @@
     --color-background: var(--color-paper);
     --color-foreground: var(--color-charcoal-900);
     --color-card: var(--color-surface);
+    --color-muted: var(--color-charcoal-100);
     --color-muted-foreground: var(--color-charcoal-600);
     --color-accent: var(--color-turquoise-tint);
     --color-accent-foreground: var(--color-charcoal-900);
@@ -1348,6 +1349,9 @@
   }
   .bg-gray-900 {
     background-color: var(--color-gray-900);
+  }
+  .bg-muted {
+    background-color: var(--color-muted);
   }
   .bg-slate-50 {
     background-color: var(--color-slate-50);

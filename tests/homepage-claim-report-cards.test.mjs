@@ -79,17 +79,17 @@ test('CR2b: partial iterates over cards array', () => {
   );
 });
 
-test('CR2c: partial has card container with rounded-xl shadow-sm', () => {
+test('CR2c: cards use border-border rounded-lg', () => {
   assert.ok(
-    partial.includes('rounded-xl shadow-sm'),
-    'cards must use rounded-xl shadow-sm styling',
+    partial.includes('border-border') && partial.includes('rounded-lg'),
+    'cards must use border-border rounded-lg',
   );
 });
 
-test('CR2d: partial has dark mode card styling', () => {
+test('CR2d: no shadow- or dark: classes', () => {
   assert.ok(
-    partial.includes('dark:bg-gray-800'),
-    'cards must have dark:bg-gray-800 for dark mode',
+    !partial.includes('shadow-') && !partial.includes('dark:'),
+    'no shadow-/dark: classes',
   );
 });
 
@@ -137,10 +137,10 @@ test('CR4b: partial renders note text from config', () => {
   );
 });
 
-test('CR4c: note box has bg-slate-50 background', () => {
+test('CR4c: note box has bg-muted background', () => {
   assert.ok(
-    partial.includes('bg-slate-50'),
-    'note box must have bg-slate-50 background',
+    partial.includes('bg-muted'),
+    'note box must have bg-muted background',
   );
 });
 

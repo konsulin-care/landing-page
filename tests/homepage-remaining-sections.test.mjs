@@ -45,7 +45,7 @@ test('F3: claim-report title uses text-lg sm:text-xl md:text-2xl lg:text-3xl', (
 test('F4: claim-report note paragraph uses leading-6 md:leading-8', () => {
   const partial = read('layouts/partials/home-claim-report.html');
   // The note is inside a div with bg-slate-50
-  const noteMatch = partial.match(/bg-slate-50[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/);
+  const noteMatch = partial.match(/bg-muted[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/);
   assert.ok(noteMatch, 'claim-report must have a note paragraph');
   assert.ok(
     noteMatch[0].includes('leading-6 md:leading-8'),
