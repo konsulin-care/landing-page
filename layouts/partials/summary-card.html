@@ -1,0 +1,48 @@
+{{/*
+  summary-card: dict params
+  - page (Page, required)
+  - variant (string, required): "blog" or "research"
+*/}}
+{{ $page := .page }}
+<aside data-section="summary" class="bg-card border border-border rounded-lg p-6 not-prose">
+  <p class="section-kicker mb-3">Ringkasan</p>
+  {{ with $page.Params.featured_image }}
+    {{ with resources.Get . }}
+      {{ $img := .Resize "800x webp" }}
+      <img class="w-full h-auto rounded-lg mb-4" src="{{ $img.RelPermalink }}" alt="" loading="lazy">
+    {{ end }}
+  {{ end }}
+  {{ with $page.Params.summary }}<p class="text-base text-foreground">{{ . }}</p>{{ end }}
+
+  {{ if eq .variant "blog" }}
+    <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+      {{ with $page.Params.author }}
+        <span class="inline-flex items-center gap-2">
+          {{ with $page.Params.authorimage }}
+            {{ with resources.Get . }}
+              <img class="w-10 h-10 rounded-full" src="{{ (.Resize "80x webp").RelPermalink }}" alt="">
+            {{ end }}
+          {{ end }}
+          <span class="font-semibold text-foreground">{{ . }}</span>
+        </span>
+      {{ end }}
+      <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2 January 2006" }}</time>
+      <span>{{ div (countwords $page.Plain) 220 | add 1 }} menit baca</span>
+    </div>
+  {{ else if eq .variant "research" }}
+    <dl class="mt-4 space-y-3 text-sm">
+      {{ with $page.Params.status }}
+        <div class="flex items-center gap-2">
+          <dt class="sr-only">Status</dt>
+          <dd class="inline-flex items-center px-3 py-1 rounded-lg bg-accent text-accent-foreground font-semibold border border-turquoise-deep">{{ if eq . "open" }}Terbuka{{ else if eq . "closed" }}Selesai{{ else }}{{ . }}{{ end }}</dd>
+        </div>
+      {{ end }}
+      {{ with $page.Params.eligibility }}
+        <div><dt class="text-xs font-semibold text-muted-foreground">Kriteria peserta</dt><dd class="text-foreground">{{ . }}</dd></div>
+      {{ end }}
+      {{ with $page.Params.duration }}
+        <div><dt class="text-xs font-semibold text-muted-foreground">Durasi</dt><dd class="text-foreground">{{ . }}</dd></div>
+      {{ end }}
+    </dl>
+  {{ end }}
+</aside>

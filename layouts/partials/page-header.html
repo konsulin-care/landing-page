@@ -1,0 +1,15 @@
+{{/*
+  page-header: dict params
+  - title (string, required)
+  - description (string, optional)
+  - kicker (string, optional)
+  - extra (safeHTML, optional)
+*/}}
+<header class="border-b border-border bg-background">
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    {{ with .kicker }}<p class="section-kicker mb-3">{{ . }}</p>{{ end }}
+    <h1 class="text-3xl md:text-4xl font-bold text-foreground">{{ .title }}</h1>
+    {{ with .description }}<p class="mt-4 text-muted-foreground max-w-2xl">{{ . }}</p>{{ end }}
+    {{ with .extra }}<div class="mt-6">{{ . | safeHTML }}</div>{{ end }}
+  </div>
+</header>
