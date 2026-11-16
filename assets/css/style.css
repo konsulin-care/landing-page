@@ -1432,6 +1432,9 @@
   .whitespace-nowrap {
     white-space: nowrap;
   }
+  .text-\[Npx\] {
+    color: Npx;
+  }
   .text-accent-foreground {
     color: var(--color-accent-foreground);
   }
