@@ -181,20 +181,14 @@ test('L7b: claim-report has no text-justify', () => {
   );
 });
 
-test('L7c: research-credibility card paragraphs have text-justify', () => {
+test('L7c: research-credibility has no text-justify', () => {
   const partial = read('layouts/partials/home-research-credibility.html');
-  assert.ok(
-    partial.includes('text-justify'),
-    'research-credibility card paragraphs must include "text-justify"',
-  );
+  assert.ok(!partial.includes('text-justify'), 'must not include text-justify');
 });
 
-test('L7d: final-cta paragraph has text-justify', () => {
+test('L7d: final-cta has no text-justify', () => {
   const partial = read('layouts/partials/home-final-cta.html');
-  assert.ok(
-    partial.includes('text-justify'),
-    'final-cta paragraph must include "text-justify"',
-  );
+  assert.ok(!partial.includes('text-justify'), 'must not include text-justify');
 });
 
 // ── L8 Build succeeds ──────────────────────────────────────────────

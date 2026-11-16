@@ -1213,9 +1213,6 @@
   .rounded-2xl {
     border-radius: var(--radius-2xl);
   }
-  .rounded-3xl {
-    border-radius: var(--radius-3xl);
-  }
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }
@@ -1289,9 +1286,6 @@
   }
   .border-gray-900 {
     border-color: var(--color-gray-900);
-  }
-  .border-slate-200 {
-    border-color: var(--color-slate-200);
   }
   .border-transparent {
     border-color: transparent;
@@ -1804,9 +1798,6 @@
     }
     .hover\:bg-gray-100:hover {
       background-color: var(--color-gray-100);
-    }
-    .hover\:bg-slate-100:hover {
-      background-color: var(--color-slate-100);
     }
     .hover\:text-black:hover {
       color: var(--color-black);
