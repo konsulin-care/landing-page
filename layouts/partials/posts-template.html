@@ -1,35 +1,34 @@
-<div class="mx-auto text-gray-900 max-w-7xl dark:text-gray-50">
+<div class="mx-auto max-w-6xl text-foreground">
   <div class="px-4 not-prose">
-    <div class="grid gap-4 mx-auto mt-12 mb-4 lg:max-w-none md:grid-cols-3">
+    <div class="grid gap-4 mx-auto mt-12 mb-4 md:grid-cols-3">
       {{ range .Paginator.Pages }}
-      <div class="flex flex-col overflow-hidden rounded-lg shadow-lg bg-gray-50 dark:bg-gray-900">
+      <div class="flex flex-col overflow-hidden rounded-lg bg-card border border-border">
         <a href="{{.Permalink}}">
           {{ with .Params.featured_image }}
           {{ with resources.Get . }}
           {{ $postimage := (.Resize "500x webp q90").RelPermalink }}
-          <img src="{{ $postimage }}" class="object-fill overflow-hidden rounded-t-lg" width="100%" height=""
+          <img src="{{ $postimage }}" class="object-fill overflow-hidden" width="100%" height=""
              loading="lazy" alt="{{ .Title }}" />
-
           {{ end }}
           {{ end }}
         </a>
         <div class="p-6">
           <div class="flex-1">
             <a href="{{.Permalink}}"
-              class="block mt-2 text-2xl font-black text-gray-900 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-500 hover:underline">
+              class="block mt-2 text-2xl font-bold text-turquoise-deep hover:underline">
               {{.Title}}
             </a>
-            <p class="mt-3 text-base text-gray-900 dark:text-gray-300">
+            <p class="mt-3 text-base text-muted-foreground">
               {{ .Params.summary }}
             </p>
           </div>
-          <div class="flex pt-6 font-medium text-primary-600 dark:text-primary-100 text-md">
-            <span class="pr-2 font-black">Tags:</span>
+          <div class="flex pt-6 font-medium text-sm">
+            <span class="pr-2 font-bold">Tags:</span>
             <span>
             {{ range $elem_index, $elem_val := (.GetTerms "tags") }}
             {{- if gt $elem_index 0 }}, {{ end -}}
             <a href="{{ .Permalink }}"
-              class="inline-flex items-center rounded-md bg-gray-300 dark:bg-gray-800 hover:bg-primary-200 hover:text-black px-2.5 py-0.5 text-sm font-medium text-gray-900 capitalize">{{ .LinkTitle }}</a>
+              class="inline-flex items-center rounded-md bg-accent px-2.5 py-0.5 text-sm font-medium text-accent-foreground capitalize hover:underline">{{ .LinkTitle }}</a>
             {{- end -}}
             </span>
           </div>
@@ -44,10 +43,10 @@
               {{ end }}
             </div>
             <div class="pt-1 ml-3">
-              <p class="text-sm font-medium text-gray-900 dark:text-white">
+              <p class="text-sm font-medium text-foreground">
                 {{ .Params.author }}
               </p>
-              <div class="flex space-x-1 text-sm text-gray-500 dark:text-white">
+              <div class="flex space-x-1 text-sm text-muted-foreground">
                 <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2006-01-02" }}</time>
                 <span aria-hidden="true">&middot;</span>
                 <span>{{ math.Round (div (countwords .Content) 220.0) }} min read</span>
