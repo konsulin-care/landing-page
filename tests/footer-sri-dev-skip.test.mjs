@@ -80,7 +80,8 @@ test('all three JS scripts are inside the conditional (not partially conditional
   const footer = read('layouts/partials/footer.html');
 
   // Each script should have BOTH a dev and prod variant inside the if/else
-  const scripts = ['darkmode.js', 'citizen-morph.js', 'alpine.min.js'];
+  const scripts = ['citizen-morph.js', 'alpine.min.js'];
+  assert.ok(!footer.includes('darkmode.js'), 'footer must not reference darkmode.js');
 
   for (const script of scripts) {
     const regex = new RegExp(script, 'g');

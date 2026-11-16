@@ -10,20 +10,6 @@ function read(rel) {
   return fs.readFileSync(path.join(ROOT, rel), 'utf8');
 }
 
-test('footer.html fingerprints darkmode.js with minify and integrity', () => {
-  const footer = read('layouts/partials/footer.html');
-  // Must pipeline: js.Build | minify | fingerprint
-  assert.ok(
-    footer.includes('js/darkmode.js') && footer.includes('| minify | fingerprint'),
-    'darkmode.js must be piped through minify | fingerprint',
-  );
-  // Must output integrity attribute
-  assert.ok(
-    footer.includes('$js.Data.Integrity') || footer.includes('$js.Data.integrity'),
-    'darkmode.js script tag must include integrity attribute',
-  );
-});
-
 test('footer.html fingerprints citizen-morph.js with minify and integrity', () => {
   const footer = read('layouts/partials/footer.html');
   assert.ok(
@@ -44,12 +30,6 @@ test('footer.html does not reference unminified/unfingerprinted JS filenames dir
   for (const line of lines) {
     // Skip the resource.Get line itself
     if (line.includes('resources.Get')) continue;
-    if (line.includes('darkmode.js') && line.includes('<script')) {
-      assert.ok(
-        line.includes('RelPermalink'),
-        'darkmode.js script tag must use RelPermalink (not hardcoded path)',
-      );
-    }
     if (line.includes('citizen-morph.js') && line.includes('<script')) {
       assert.ok(
         line.includes('RelPermalink'),

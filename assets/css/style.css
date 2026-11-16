@@ -15,8 +15,6 @@
     --color-blue-700: oklch(48.8% 0.243 264.376);
     --color-blue-800: oklch(42.4% 0.199 265.638);
     --color-slate-50: oklch(98.4% 0.003 247.858);
-    --color-slate-100: oklch(96.8% 0.007 247.896);
-    --color-slate-200: oklch(92.9% 0.013 255.508);
     --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-200: oklch(92.8% 0.006 264.531);
@@ -1597,9 +1595,6 @@
   .text-gray-200 {
     color: var(--color-gray-200);
   }
-  .text-gray-400 {
-    color: var(--color-gray-400);
-  }
   .text-gray-500 {
     color: var(--color-gray-500);
   }
@@ -1807,9 +1802,6 @@
     }
     .hover\:text-blue-800:hover {
       color: var(--color-blue-800);
-    }
-    .hover\:text-gray-300:hover {
-      color: var(--color-gray-300);
     }
     .hover\:text-white:hover {
       color: var(--color-white);
