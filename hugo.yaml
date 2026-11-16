@@ -9,8 +9,6 @@ enableRobotsTXT: true
 canonifyURLs: true
 pagination:
   pagerSize: 3
-darkmode_js:
-  - assets/js/darkmode.js
 enableInlineShortcodes: true
 
 security:
@@ -75,7 +73,6 @@ params:
   forward: "https://app.konsulin.care/research"
   # Nav login button: auth entry that returns the user to the research page.
   auth: "https://app.konsulin.care/auth?redirectToPath=/research"
-  disable_theme_toggle: false
   keywords:
     - riset kesehatan partisipatif
     - riset kesehatan bersama masyarakat
@@ -163,22 +160,26 @@ params:
 
 menu:
   main:
-    - identifier: feature
-      name: Feature
-      url: /feature/
+    - identifier: home
+      name: Home
+      url: /
       weight: 1
-    - identifier: pricing
-      name: Pricing
-      url: /pricing/
+    - identifier: research
+      name: Research
+      url: /research/
       weight: 10
+    - identifier: faq
+      name: FAQ
+      url: /faq/
+      weight: 20
     - identifier: about
       name: About
       url: /about/
-      weight: 20
+      weight: 30
     - identifier: blog
-      name: Blogs
+      name: Blog
       url: /blog/
-      weight: 20
+      weight: 40
   footer:
     - identifier: feature
       name: Feature
