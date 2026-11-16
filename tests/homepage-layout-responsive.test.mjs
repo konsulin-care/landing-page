@@ -90,20 +90,15 @@ test('L3b: why-it-matters text div has md:order-2 for desktop (text right)', () 
 });
 
 // ── L4 Why-it-matters mobile layout ────────────────────────────────
-test('L4a: why-it-matters text div has text-center for mobile centering', () => {
+test('L4a: why-it-matters has text-left and no text-center', () => {
   const partial = read('layouts/partials/home-why-it-matters.html');
-  assert.ok(
-    partial.includes('text-center'),
-    'why-it-matters text div must include "text-center" for mobile centering',
-  );
+  assert.ok(partial.includes('text-left'), 'must include text-left');
+  assert.ok(!partial.includes('text-center'), 'must not include text-center');
 });
 
-test('L4b: why-it-matters paragraph has text-justify', () => {
+test('L4b: why-it-matters has no text-justify', () => {
   const partial = read('layouts/partials/home-why-it-matters.html');
-  assert.ok(
-    partial.includes('text-justify'),
-    'why-it-matters paragraph must include "text-justify"',
-  );
+  assert.ok(!partial.includes('text-justify'), 'must not include text-justify');
 });
 
 // ── L5 Responsive font scale ───────────────────────────────────────
@@ -173,12 +168,9 @@ test('L6f: final-cta paragraph uses text-sm sm:text-base md:text-lg lg:text-xl',
 });
 
 // ── L7 All paragraphs have text-justify ────────────────────────────
-test('L7a: how-it-works card paragraphs have text-justify', () => {
+test('L7a: how-it-works has no text-justify', () => {
   const partial = read('layouts/partials/home-how-it-works.html');
-  assert.ok(
-    partial.includes('text-justify'),
-    'how-it-works card paragraphs must include "text-justify"',
-  );
+  assert.ok(!partial.includes('text-justify'), 'must not include text-justify');
 });
 
 test('L7b: claim-report body paragraphs have text-justify', () => {

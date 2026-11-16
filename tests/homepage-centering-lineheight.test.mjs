@@ -16,12 +16,10 @@ test('M1a: hero text div has text-left and no text-center', () => {
   assert.ok(!hero.includes('text-center'), 'hero must not use text-center');
 });
 
-test('M1b: why-it-matters text div has text-center md:text-left', () => {
+test('M1b: why-it-matters has text-left and no text-center', () => {
   const partial = read('layouts/partials/home-why-it-matters.html');
-  assert.ok(
-    partial.includes('text-center md:text-left'),
-    'why-it-matters text div must use "text-center md:text-left" (centered on mobile, left on desktop)',
-  );
+  assert.ok(partial.includes('text-left'), 'must use text-left');
+  assert.ok(!partial.includes('text-center'), 'must not use text-center');
 });
 
 // ── M2 Responsive line-height ──────────────────────────────────────

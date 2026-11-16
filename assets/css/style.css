@@ -2056,9 +2056,6 @@
     .md\:pb-16 {
       padding-bottom: calc(var(--spacing) * 16);
     }
-    .md\:text-left {
-      text-align: left;
-    }
     .md\:text-2xl {
       font-size: var(--text-2xl);
       line-height: var(--tw-leading, var(--text-2xl--line-height));
