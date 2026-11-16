@@ -11,7 +11,7 @@ Use `pnpm` as the package manager (the repo has migrated from npm).
 
 ## Site Map
 
-Five main items: Beranda, Riset, FAQ, Tentang, Blog. Help, privacy, contact and services live in the footer.
+Five main items (nav labels): Home, Research, FAQ, About, Blog. Help, privacy, contact and services live in the footer.
 
 ## Single Call to Action
 
@@ -41,7 +41,8 @@ Use Alpine.js (expand/collapse, tabs, carousel, scroll-reveal). No external libr
 ## Styling
 
 - TailwindCSS core utilities only (plus @tailwindcss/typography for content)
-- Dark mode via `dark:` utilities on every template
+- Design tokens in `docs/DESIGN_TOKENS.md` (charcoal/paper/surface/turquoise); no dark mode, no `dark:` utilities
+- Swiss rules: hairline borders, `rounded-lg`, ragged-right (left-aligned) text, one accent
 - Mobile-first; check 375px, 640px and 768px
 
 ## Testing & QA
