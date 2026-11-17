@@ -57,11 +57,38 @@ test("button.html supports size values default, sm and lg", () => {
   const html = read("layouts/partials/button.html");
   assert.match(html, /\.size/, "reads the size param");
   assert.match(html, /default "default"/, "size defaults to default");
-  assert.match(html, /"px-6"/, "default size renders px-6");
+  assert.match(html, /"px-7"/, "default size renders px-7");
   assert.match(html, /if eq \$size "sm"[\s\S]{0,120}?px-4 text-sm/,
     "sm renders px-4 text-sm");
-  assert.match(html, /else if eq \$size "lg"[\s\S]{0,120}?px-8 py-4 text-base/,
-    "lg renders px-8 py-4 text-base");
+  assert.match(html, /else if eq \$size "lg"[\s\S]{0,120}?px-9 py-4 text-base/,
+    "lg renders px-9 py-4 text-base");
+});
+
+test("button.html is a pill: rounded-full and no rounded-lg", () => {
+  const html = read("layouts/partials/button.html");
+  assert.match(html, /rounded-full/);
+  assert.doesNotMatch(html, /rounded-lg/);
+});
+
+test("button.html default size uses px-7 and lg uses px-9, never px-6 or px-8", () => {
+  const html = read("layouts/partials/button.html");
+  assert.match(html, /\$sizeClass := "px-7"/);
+  assert.match(html, /else if eq \$size "lg"[\s\S]{0,120}?px-9/);
+  assert.doesNotMatch(html, /px-6|px-8/);
+});
+
+test("button.html tone param: default keeps turquoise-deep hover, on-dark hovers to background", () => {
+  const html = read("layouts/partials/button.html");
+  assert.match(html, /\.tone/, "reads the tone param");
+  assert.match(html, /eq \$tone "on-dark"/, "branches on the on-dark tone");
+  const onDark = html.match(/eq \$tone "on-dark"([\s\S]*?)\{\{-?\s*end/);
+  assert.ok(onDark, "on-dark branch exists");
+  assert.match(onDark[1], /hover:bg-background hover:text-foreground/);
+  assert.match(onDark[1], /outline-background/);
+  assert.doesNotMatch(onDark[1], /turquoise-deep/);
+  assert.match(html, /hover:bg-turquoise-deep hover:text-background/);
+  assert.match(html, /outline-ring/);
+  assert.match(html, /bg-cta text-foreground/);
 });
 
 test("button.html emits the label with no whitespace before </a>", () => {

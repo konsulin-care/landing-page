@@ -1292,8 +1292,14 @@
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
   }
+  .px-7 {
+    padding-inline: calc(var(--spacing) * 7);
+  }
   .px-8 {
     padding-inline: calc(var(--spacing) * 8);
+  }
+  .px-9 {
+    padding-inline: calc(var(--spacing) * 9);
   }
   .py-0\.5 {
     padding-block: calc(var(--spacing) * 0.5);
@@ -1614,6 +1620,9 @@
     --tw-prose-invert-td-borders: oklch(37.1% 0 none);
   }
   @media (hover: hover) {
+    .hover\:bg-background:hover {
+      background-color: var(--color-background);
+    }
     .hover\:bg-blue-700:hover {
       background-color: var(--color-blue-700);
     }
@@ -1637,6 +1646,9 @@
     }
     .hover\:text-blue-800:hover {
       color: var(--color-blue-800);
+    }
+    .hover\:text-foreground:hover {
+      color: var(--color-foreground);
     }
     .hover\:underline:hover {
       text-decoration-line: underline;
@@ -1670,6 +1682,9 @@
   }
   .focus-visible\:outline-offset-2:focus-visible {
     outline-offset: 2px;
+  }
+  .focus-visible\:outline-background:focus-visible {
+    outline-color: var(--color-background);
   }
   .focus-visible\:outline-ring:focus-visible {
     outline-color: var(--color-ring);

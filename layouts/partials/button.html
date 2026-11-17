@@ -1,18 +1,24 @@
 {{/*
-  button: dict params
+  button: dict params (primary CTA, always a pill)
   - href (string, required when type is not set)
   - label (string, required)
-  - size (string, optional: default | sm | lg; default px-6, sm px-4 text-sm, lg px-8 py-4 text-base)
+  - size (string, optional: default | sm | lg; default px-7, sm px-4 text-sm, lg px-9 py-4 text-base)
+  - tone (string, optional: default | on-dark; on-dark is for charcoal bands, hover flips to paper)
   - type (string, optional: when set, renders <button type="..."> instead of <a href>)
 */}}
 {{- $size := .size | default "default" -}}
-{{- $sizeClass := "px-6" -}}
+{{- $tone := .tone | default "default" -}}
+{{- $sizeClass := "px-7" -}}
 {{- if eq $size "sm" -}}
   {{- $sizeClass = "px-4 text-sm" -}}
 {{- else if eq $size "lg" -}}
-  {{- $sizeClass = "px-8 py-4 text-base" -}}
+  {{- $sizeClass = "px-9 py-4 text-base" -}}
 {{- end -}}
-{{- $class := printf "inline-flex items-center justify-center min-h-11 %s rounded-lg font-semibold bg-cta text-foreground hover:bg-turquoise-deep hover:text-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring" $sizeClass -}}
+{{- $toneClass := "hover:bg-turquoise-deep hover:text-background focus-visible:outline-ring" -}}
+{{- if eq $tone "on-dark" -}}
+  {{- $toneClass = "hover:bg-background hover:text-foreground focus-visible:outline-background" -}}
+{{- end -}}
+{{- $class := printf "inline-flex items-center justify-center min-h-11 %s rounded-full font-semibold bg-cta text-foreground %s focus-visible:outline-2 focus-visible:outline-offset-2" $sizeClass $toneClass -}}
 {{- if .type -}}
 <button type="{{ .type }}" class="{{ $class }}">{{ .label }}</button>
 {{- else -}}
