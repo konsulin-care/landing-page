@@ -1036,6 +1036,9 @@
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
   .flex-col {
     flex-direction: column;
   }
@@ -1754,6 +1757,12 @@
     .md\:order-2 {
       order: 2;
     }
+    .md\:col-span-4 {
+      grid-column: span 4 / span 4;
+    }
+    .md\:col-span-8 {
+      grid-column: span 8 / span 8;
+    }
     .md\:mt-12 {
       margin-top: calc(var(--spacing) * 12);
     }
@@ -1777,6 +1786,9 @@
     }
     .md\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .md\:grid-cols-12 {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
     }
     .md\:flex-row {
       flex-direction: row;
