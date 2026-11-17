@@ -1,56 +1,30 @@
 # Konsulin.care – Home of #JadiTangguh
 
-This is a Hugo + Alpine.js + TailwindCSS site. It is the home of #JadiTangguh, a citizen science movement on psychological resilience led by Konsulin. It is not a product landing page.
+Hugo + Alpine.js + TailwindCSS site. Home of #JadiTangguh, a citizen science movement on psychological resilience led by Konsulin. Not a product landing page.
 
-## Project Setup
+## Setup
 
-Use `pnpm` as the package manager (the repo has migrated from npm).
+Package manager is `pnpm`.
 
-- `pnpm run start` – Starts Hugo server + TailwindCSS watcher concurrently
-- `pnpm run build` – Builds production-ready site with minification
+- `pnpm run start` – Hugo server + TailwindCSS watcher
+- `pnpm run build` – production build with minification
+- `pnpm test` – test suite; run it and the build before merging
 
-## Site Map
+## Read first
 
-Five main items (nav labels): Home, Research, FAQ, About, Blog. Help, privacy, contact and services live in the footer.
+- `docs/DESIGN.md` – visual language, radius policy, 8/4 rail, bands. Follows the redesign in https://github.com/konsulin-care/konsulin-app
+- `docs/UI.md` – partials, params, class recipes, banned classes, CSS rebuild
+- `docs/UX.md` – journey, voice, honesty, safety, behaviour
+- `docs/DESIGN_TOKENS.md` – token values and roles
 
-## Single Call to Action
+## Non-negotiables
 
-Taking part in a study. Every page points to this one action; do not add competing CTAs.
+- One CTA: taking part in a study. No competing CTAs.
+- Site map: Home, Research, FAQ, About, Blog. Help, privacy, contact and services in the footer.
+- Copy is Indonesian. Reader is "Anda"; Konsulin speaks as "saya". Soften the tagline; no outcome promises.
+- No unconfirmed counts; use a visible `TODO(maintainer)`. Never state or imply ethics approval; render the front matter ethics string verbatim. Screening is not diagnosis.
+- Help resources stay reachable.
+- Tailwind core utilities, design tokens and Alpine.js only. No dark mode. Mobile-first at 375, 640 and 768px.
+- `assets/css/style.css` is a committed build; run `pnpm run build:tw` after adding classes.
 
-## Voice Rules
-
-- All visitor-facing copy is Indonesian.
-- Address the reader as "Anda".
-- Konsulin speaks as "saya" where a personal voice is needed; keep it warm, conversational, not clinical.
-- Soften the tagline: never promise outcomes or frame resilience as a duty or a cure.
-
-## Honesty Rules
-
-- No unconfirmed counts (participants, studies, results). Leave a visible `TODO(maintainer)` placeholder instead of inventing copy.
-- Never state or imply ethics approval. Render the ethics status from front matter verbatim: "Persetujuan etik sedang dalam proses pengajuan."
-- Screening is not diagnosis. Say so wherever screening appears.
-
-## Safety Rule
-
-Help resources must stay reachable (footer and wherever distress may be discussed). Never hide or bury them.
-
-## Interactive Elements
-
-Use Alpine.js (expand/collapse, tabs, carousel, scroll-reveal). No external libraries like AOS or Gsap. See `docs/ALPINE_PATTERNS.md`.
-
-## Styling
-
-- TailwindCSS core utilities only (plus @tailwindcss/typography for content)
-- Design tokens in `docs/DESIGN_TOKENS.md` (charcoal/paper/surface/turquoise); no dark mode, no `dark:` utilities
-- Swiss rules: hairline borders, `rounded-lg`, ragged-right (left-aligned) text, one accent
-- Mobile-first; check 375px, 640px and 768px
-
-## Testing & QA
-
-Before committing: verify mobile responsiveness, Alpine.js interactions and that CTAs go to the right URLs. Run `pnpm run build` before merging.
-
-## File Structure Hints
-
-- Content: `content/`; layouts: `layouts/`; Tailwind: `assets/css/main.css`; docs: `docs/`
-
-Don't document file paths in detail; explore the project structure.
+Explore the project structure instead of documenting file paths here.

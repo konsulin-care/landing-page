@@ -1,6 +1,6 @@
 # Design Tokens
 
-This mirrors the Konsulin frontend design tokens. Values are pending confirmation against the frontend repo's `globals.css`; re-verify once it is available. Source of truth in this repo: `assets/css/main.css`.
+Values mirror the app redesign in https://github.com/konsulin-care/konsulin-app. Source of truth in this repo: the `@theme` block in `assets/css/main.css`. Language and layout: `docs/DESIGN.md`. Build recipes: `docs/UI.md`.
 
 ## Tokens
 
@@ -28,15 +28,20 @@ Semantic aliases: background, foreground, card, muted, muted-foreground, accent,
 
 ## Primary button
 
+- Shape: pill (`rounded-full`), `px-7` default and `px-9` for `lg`.
 - Background `bg-cta`, text `text-foreground` (dark text — white on turquoise fails contrast).
 - Hover: `hover:bg-turquoise-deep hover:text-background`.
 - Focus: keep the `focus-visible` outline-ring.
+- `tone` param `on-dark` is for charcoal bands: same turquoise fill, hover `hover:bg-background hover:text-foreground`, focus `outline-background`.
+- Deliberate exception: konsulin-app fills solid turquoise on the FAB only. Here the turquoise `bg-cta` primary button is intended, because it is the single call to action.
 - Optional `size` param (`default`, `sm`, `lg`) and `type` param (when `type` is set, render a `<button>` instead of an `<a>`).
 
 ## Rules
 
 - No dark mode and no `dark:` utilities.
 - Swiss Modernism, softened: hairline borders (1px), `rounded-lg`, left-aligned ragged-right text (no justify), one accent color.
+- Radius: `rounded-lg` for cards, inputs, images and notes. Pill (`rounded-full`) for the primary CTA only.
+- Bands: section backgrounds are paper (`bg-background`), surface (`bg-card border-y border-border`) or charcoal (`bg-foreground text-background`). Never `turquoise-tint` or `muted` as a section background.
 - Use only palette classes; the guard test blocks off-palette classes (blue, gray, slate, zinc, etc.).
 - Tailwind core utilities and Alpine.js only.
 

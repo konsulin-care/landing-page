@@ -1,10 +1,9 @@
 # Partials guidance
 
-Site is the #JadiTangguh movement home (citizen science on psychological resilience). Package manager: pnpm (`pnpm run build`).
+Site is the #JadiTangguh movement home. Package manager: `pnpm` (`pnpm run build`; `pnpm run build:tw` after adding classes).
 
-- Home section partials (how-it-works, claim-report, research-credibility) take one flat dict: the homepage passes site params, the study page passes front-matter-derived dicts.
-- Nav labels: Home, Research, FAQ, About, Blog. Shared partials: page-header, summary-card, button, card; use them on all pages.
-- Single CTA: taking part in a study. Copy is Indonesian, reader is "Anda", Konsulin speaks as "saya".
-- Honesty: no unconfirmed counts, no ethics approval claims (render the ethics string verbatim), screening is not diagnosis. Missing copy stays as `TODO(maintainer)`.
-- Help resources must always stay reachable.
-- Alpine.js and Tailwind core utilities only; design tokens only, no `dark:` utilities; mobile-first at 375/640/768px.
+- Partial catalogue and params (button, card, page-header, summary-card, scroll-section, section-kicker): `docs/UI.md`
+- Band tones, 8/4 rail, pill CTA rule: `docs/DESIGN.md`
+- Copy, honesty and safety rules: `docs/UX.md`
+
+Reminders: home section partials take one flat dict and read the visible section number with `page.Store.Get "sectionNum"`. Use the shared partials on all pages. Single CTA, Indonesian copy ("Anda"), no unconfirmed counts, help resources reachable, design tokens only, no `dark:` utilities.
