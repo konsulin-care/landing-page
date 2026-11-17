@@ -3,8 +3,10 @@
   <article>
     {{ partial "page-header.html" (dict "title" .Title) }}
     {{ with .Content }}
-    <div class="max-w-2xl px-6 mx-auto mt-6 prose">
-      {{- . -}}
+    <div class="max-w-6xl px-6 mx-auto mt-6">
+      <div class="max-w-2xl prose">
+        {{- . -}}
+      </div>
     </div>
     {{ end }} {{ partial "pricings-template.html" . }}
   </article>

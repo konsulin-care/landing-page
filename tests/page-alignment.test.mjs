@@ -93,3 +93,30 @@ test("pricing/single.html header stays max-w-6xl and inner prose is left-aligned
   assert.ok(prose, "pricing must keep an inner max-w-2xl prose block");
   assert.ok(!prose[0].includes("mx-auto"), "inner max-w-2xl prose must not have mx-auto");
 });
+
+const listLayouts = {
+  "_default/list.html": read("layouts/_default/list.html"),
+  "feature/list.html": read("layouts/feature/list.html"),
+  "pricing/list.html": read("layouts/pricing/list.html"),
+};
+
+for (const [name, src] of Object.entries(listLayouts)) {
+  test(`${name} wraps intro content in a max-w-6xl px-6 mx-auto outer div`, () => {
+    assert.match(
+      src,
+      /<div class="max-w-6xl px-6 mx-auto mt-6">/,
+      "outer intro wrapper must be max-w-6xl px-6 mx-auto mt-6"
+    );
+  });
+
+  test(`${name} intro inner prose is max-w-2xl without mx-auto`, () => {
+    const nested = src.match(
+      /<div class="max-w-6xl px-6 mx-auto mt-6">\s*<div class="(max-w-2xl[^"]*prose[^"]*)">/
+    );
+    assert.ok(
+      nested,
+      "outer max-w-6xl wrapper must directly contain an inner max-w-2xl prose div"
+    );
+    assert.ok(!nested[1].includes("mx-auto"), "inner prose must not have mx-auto");
+  });
+}
