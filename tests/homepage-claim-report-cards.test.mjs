@@ -65,10 +65,14 @@ test('CR1f: claim_report has note object with title and text', () => {
 });
 
 // ── CR2 HTML partial renders 3-column card grid ────────────────────
-test('CR2a: partial has md:grid-cols-3 for 3-column layout', () => {
+test('CR2a: cards are stacked in the 8-column rail column, not a 3-column grid', () => {
   assert.ok(
-    partial.includes('md:grid-cols-3'),
-    'partial must use md:grid-cols-3 for 3-column card grid',
+    partial.includes('md:col-span-8'),
+    'cards must sit in the md:col-span-8 content column',
+  );
+  assert.ok(
+    !partial.includes('md:grid-cols-3'),
+    'cards must not use md:grid-cols-3 inside the 8-column area',
   );
 });
 

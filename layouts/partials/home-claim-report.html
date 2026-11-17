@@ -1,6 +1,8 @@
-<!-- Claim Your Report section -->
+<!-- Claim Your Report section, 8/4 rail on desktop (sits on a surface band, so cards use bg-background) -->
 <div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
-  <div class="max-w-3xl mx-auto">
+  <div class="grid gap-10 md:grid-cols-12">
+  <div class="md:col-span-4 text-left">
+    {{ partial "section-kicker.html" (dict "label" .kicker "num" (page.Store.Get "sectionNum")) }}
     <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-foreground">
       {{ .title }}
     </h2>
@@ -9,9 +11,10 @@
     </p>
   </div>
 
-  <div class="grid gap-6 mt-12 md:grid-cols-3">
+  <div class="md:col-span-8">
+  <div class="grid gap-6">
     {{ range .cards }}
-    <div class="flex flex-col p-6 bg-card border border-border rounded-lg">
+    <div class="flex flex-col p-6 bg-background border border-border rounded-lg">
       <div class="flex items-center justify-center w-10 h-10 mb-4 text-turquoise-deep">
         {{ if eq .icon "fingerprint-pattern" }}
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" /><path d="M14 13.12c0 2.38 0 6.38-1 8.88" /><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02" /><path d="M2 12a10 10 0 0 1 18-6" /><path d="M2 16h.01" /><path d="M21.8 16c.2-2 .131-5.354 0-6" /><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2" /><path d="M8.65 22c.21-.66.45-1.32.57-2" /><path d="M9 6.8a6 6 0 0 1 9 5.2v2" /></svg>
@@ -29,8 +32,10 @@
     {{ end }}
   </div>
 
-  <div class="max-w-3xl mx-auto mt-8 p-6 bg-muted border border-border rounded-lg">
+  <div class="mt-6 p-6 bg-muted border border-border rounded-lg">
     <p class="text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 font-medium text-foreground">{{ .note.title }}</p>
     <p class="mt-1 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-muted-foreground">{{ .note.text }}</p>
+  </div>
+  </div>
   </div>
 </div>

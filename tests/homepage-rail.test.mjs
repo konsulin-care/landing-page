@@ -13,7 +13,9 @@ const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
 // partial -> [section id, expected rendered kicker]
 const RAIL = {
+  'home-why-it-matters': ['why-this-research-matters', '01 · Latar belakang'],
   'home-how-it-works': ['how-it-works', '02 · Tiga langkah'],
+  'home-claim-report': ['claim-report', '03 · Laporan'],
   'home-research-credibility': ['research-credibility', '04 · Di balik survei'],
 };
 
@@ -55,6 +57,22 @@ test('RL1c: rail partials render the kicker through section-kicker.html with the
     assert.match(partial, /partial\s+"section-kicker\.html"/, `${name} calls section-kicker.html`);
     assert.match(partial, /page\.Store\.Get\s+"sectionNum"/, `${name} reads the section number`);
   }
+});
+
+// ── RL3 cards on a surface band ────────────────────────────────────
+test('RL3a: claim-report cards use bg-background with border-border and rounded-lg, not bg-card', () => {
+  const partial = read('layouts/partials/home-claim-report.html');
+  assert.ok(!partial.includes('bg-card'), 'claim-report partial must not use bg-card');
+  const card = partial.match(/<div class="([^"]*flex flex-col p-6[^"]*)"/);
+  assert.ok(card, 'claim-report card wrapper exists');
+  for (const c of ['bg-background', 'border', 'border-border', 'rounded-lg']) {
+    assert.ok(card[1].split(/\s+/).includes(c), `card needs ${c}`);
+  }
+});
+
+test('RL3b: rendered claim-report section has no bg-card card inside the surface band', () => {
+  const section = sectionHtml('claim-report').replace(/^[^>]*>/, '');
+  assert.ok(!/class="[^"]*\bbg-card\b/.test(section), 'no bg-card inside claim-report');
 });
 
 // ── RL2 rendered ───────────────────────────────────────────────────
