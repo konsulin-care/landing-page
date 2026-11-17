@@ -120,11 +120,11 @@ params:
 menu:
   main:
     - identifier: home
-      name: Home
+      name: Beranda
       url: /
       weight: 1
     - identifier: research
-      name: Research
+      name: Riset
       url: /research/
       weight: 10
     - identifier: faq
@@ -132,7 +132,7 @@ menu:
       url: /faq/
       weight: 20
     - identifier: about
-      name: About
+      name: Tentang
       url: /about/
       weight: 30
     - identifier: blog
@@ -140,20 +140,20 @@ menu:
       url: /blog/
       weight: 40
   footer:
-    - identifier: feature
-      name: Feature
-      url: /feature/
+    - identifier: faq
+      name: FAQ
+      url: /faq/
       weight: 1
-    - identifier: pricing
-      name: Pricing
-      url: /pricing/
+    - identifier: research
+      name: Riset
+      url: /research/
       weight: 10
     - identifier: about
-      name: About
+      name: Tentang
       url: /about/
       weight: 20
     - identifier: contact
-      name: Contact
+      name: Kontak
       url: /contact/
       weight: 50
 

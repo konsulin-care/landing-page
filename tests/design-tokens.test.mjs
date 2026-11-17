@@ -53,9 +53,9 @@ test("all page layouts call page-header and blog and research single layouts cal
   }
 });
 
-test("hugo.yaml main menu labels are Home, Research, FAQ, About, Blog in that order", () => {
+test("hugo.yaml main menu labels are Beranda, Riset, FAQ, Tentang, Blog in that order", () => {
   const y = read("hugo.yaml");
   const block = y.split(/^menu:\n {2}main:\n/m)[1].split(/^ {2}footer:/m)[0];
   const names = [...block.matchAll(/^\s+name:\s*(.+)$/gm)].map((m) => m[1].trim());
-  assert.deepEqual(names, ["Home", "Research", "FAQ", "About", "Blog"]);
+  assert.deepEqual(names, ["Beranda", "Riset", "FAQ", "Tentang", "Blog"]);
 });
