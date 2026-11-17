@@ -112,32 +112,48 @@ test("no layouts/*.html file combines bg-foreground with text-background hover:b
   }
 });
 
-test("nav.html, home-why-it-matters.html and contact/single.html call partial button.html", () => {
+test("nav.html and contact/single.html call partial button.html", () => {
   for (const p of [
     "layouts/partials/nav.html",
-    "layouts/partials/home-why-it-matters.html",
     "layouts/contact/single.html",
   ]) {
     assert.match(read(p), /partial\s+"button\.html"/, `${p} must call partial button.html`);
   }
 });
 
-test("the three CTAs pass the expected params to button.html", () => {
+test("the remaining CTAs pass the expected params to button.html", () => {
   assert.match(
     read("layouts/partials/nav.html"),
     /partial\s+"button\.html"[^\n]*"size"\s+"sm"/,
     "nav Login uses size sm",
   );
   assert.match(
-    read("layouts/partials/home-why-it-matters.html"),
-    /partial\s+"button\.html"[^\n]*"size"\s+"lg"/,
-    "why-it-matters CTA uses size lg",
-  );
-  assert.match(
     read("layouts/contact/single.html"),
     /partial\s+"button\.html"[^\n]*"type"\s+"submit"/,
     "contact submit uses type submit",
   );
+});
+
+test("the orphaned study partials are gone and unreferenced", () => {
+  const orphans = [
+    "home-why-it-matters.html",
+    "home-how-it-works.html",
+    "home-claim-report.html",
+    "home-research-credibility.html",
+  ];
+  const layoutFiles = walk(join(root, "layouts")).filter((f) => f.endsWith(".html"));
+  for (const name of orphans) {
+    assert.ok(
+      !layoutFiles.some((f) => f.endsWith(join("partials", name))),
+      `layouts/partials/${name} must not exist`,
+    );
+    for (const f of layoutFiles) {
+      assert.ok(
+        !readFileSync(f, "utf8").includes(name),
+        `${f} still references ${name}`,
+      );
+    }
+  }
 });
 
 test("nav.html mobile-menu toggle button is still present", () => {
