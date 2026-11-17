@@ -1,7 +1,30 @@
 {{ define "main" }}
+{{ $helpItems := slice }}
+{{ range .Params.groups }}
+  {{ range .items }}
+    {{ if .help }}{{ $helpItems = $helpItems | append . }}{{ end }}
+  {{ end }}
+{{ end }}
+{{ $questions := slice }}
+{{ range .Params.groups }}
+  {{ range .items }}
+    {{ $questions = $questions | append (dict
+      "@type" "Question"
+      "name" .q
+      "acceptedAnswer" (dict "@type" "Answer" "text" (.a | markdownify | plainify))
+    ) }}
+  {{ end }}
+{{ end }}
+{{ $faq := dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $questions }}
 <main>
   {{ partial "page-header.html" (dict "title" .Title "description" .Params.description "width" "max-w-3xl") }}
   <div class="max-w-3xl px-6 py-12 mx-auto space-y-12">
+    {{ with index $helpItems 0 }}
+    <section id="bantuan" data-faq-help class="p-6 border rounded-lg border-turquoise-deep bg-card">
+      <h2 class="text-2xl font-bold text-foreground">{{ .q }}</h2>
+      <div class="mt-3 text-muted-foreground">{{ .a | markdownify }}</div>
+    </section>
+    {{ end }}
     {{ range .Params.groups }}
     {{ $groupId := .id }}
     <section aria-labelledby="{{ $groupId }}">
@@ -10,10 +33,6 @@
         {{ $n := 0 }}
         {{ range .items }}
         {{ if .help }}
-        <div id="bantuan" data-faq-help class="p-5 border rounded-lg border-border bg-card">
-          <p class="font-semibold text-foreground">{{ .q }}</p>
-          <div class="mt-2 text-muted-foreground">{{ .a | markdownify }}</div>
-        </div>
         {{ else }}
         {{ $n = add $n 1 }}
         {{ $answerId := printf "faq-%s-%d" $groupId $n }}
@@ -40,5 +59,6 @@
     </section>
     {{ end }}
   </div>
+  <script type="application/ld+json">{{ $faq | jsonify | safeJS }}</script>
 </main>
 {{ end }}

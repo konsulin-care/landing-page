@@ -78,6 +78,63 @@ test("faq renders 32 question buttons wired to answers present in the source", (
   assert.ok(!/x-cloak/.test(html), "answers must stay readable without JS");
 });
 
+test("faq renders the help item once, above the groups, and not inside a collapsible", () => {
+  const html = faqHtml();
+  const visible = html.replace(/<script[\s\S]*?<\/script>/gi, "");
+  const question = "Saya butuh bantuan sekarang. Ke mana?";
+  const occurrences = visible.split(question).length - 1;
+  assert.equal(occurrences, 1, "help question must appear exactly once");
+
+  const helpSection = visible.match(
+    /<section[^>]*\sid="?bantuan"?[^>]*>[\s\S]*?<\/section>/,
+  );
+  assert.ok(helpSection, "missing section#bantuan");
+  assert.ok(helpSection[0].includes(question), helpSection[0]);
+  assert.ok(helpSection[0].includes("119 ekstensi 8"), helpSection[0]);
+  assert.ok(
+    !/x-show|x-data|x-cloak/.test(helpSection[0]),
+    "help answer must be fully visible",
+  );
+
+  const helpIndex = visible.search(/id=["']?bantuan[\s"'>]/);
+  const firstGroupIndex = visible.search(/id=["']?tentang-gerakan[\s"'>]/);
+  assert.ok(helpIndex >= 0, "missing id=bantuan");
+  assert.ok(firstGroupIndex >= 0, "missing first group heading");
+  assert.ok(
+    helpIndex < firstGroupIndex,
+    "help section must be placed before the first group",
+  );
+});
+
+test("faq emits a valid FAQPage JSON-LD block with all 33 questions", () => {
+  const html = faqHtml();
+  const match = html.match(
+    /<script[^>]*type="?application\/ld\+json"?[^>]*>([\s\S]*?)<\/script>/,
+  );
+  assert.ok(match, "missing application/ld+json script");
+
+  const data = JSON.parse(match[1]);
+  assert.equal(data["@context"], "https://schema.org");
+  assert.equal(data["@type"], "FAQPage");
+  assert.ok(Array.isArray(data.mainEntity), "mainEntity must be an array");
+  assert.equal(data.mainEntity.length, 33);
+
+  const questions = data.mainEntity.map((entry) => {
+    assert.equal(entry["@type"], "Question");
+    assert.equal(typeof entry.name, "string");
+    assert.ok(entry.name.length > 0);
+    assert.equal(entry.acceptedAnswer["@type"], "Answer");
+    assert.equal(typeof entry.acceptedAnswer.text, "string");
+    assert.ok(entry.acceptedAnswer.text.length > 0);
+    return entry.name;
+  });
+  assert.ok(
+    questions.includes("Saya butuh bantuan sekarang. Ke mana?"),
+    "help question must be included in the structured data",
+  );
+  assert.equal(new Set(questions).size, 33);
+});
+
 test("faq source has no bracket placeholders and renders the real contacts", () => {
   const source = fs.readFileSync(path.join(ROOT, "content/faq.md"), "utf8");
   const withoutLinks = source.replace(/\[[^\]]*\]\([^)]*\)/g, "");
