@@ -2,12 +2,12 @@
 <main class="scroll-snap-container">
 
   {{ $sections := slice
-    (dict "num" 1 "id" "hero" "partial" "home-hero.html" "context" .)
-    (dict "num" 2 "id" "why-this-research-matters" "partial" "home-why-it-matters.html" "context" .)
-    (dict "num" 3 "id" "how-it-works" "partial" "home-how-it-works.html" "context" .Site.Params.home.how_it_works)
-    (dict "num" 4 "id" "claim-report" "partial" "home-claim-report.html" "context" .Site.Params.home.claim_report)
-    (dict "num" 5 "id" "research-credibility" "partial" "home-research-credibility.html" "context" (merge .Site.Params.home.research_credibility (dict "cta_url" .Site.Params.forward)))
-    (dict "num" 6 "id" "final-cta" "partial" "home-final-cta.html" "context" .)
+    (dict "num" 1 "tone" "paper" "id" "hero" "partial" "home-hero.html" "context" .)
+    (dict "num" 2 "tone" "surface" "id" "why-this-research-matters" "partial" "home-why-it-matters.html" "context" .)
+    (dict "num" 3 "tone" "paper" "id" "how-it-works" "partial" "home-how-it-works.html" "context" .Site.Params.home.how_it_works)
+    (dict "num" 4 "tone" "surface" "id" "claim-report" "partial" "home-claim-report.html" "context" .Site.Params.home.claim_report)
+    (dict "num" 5 "tone" "paper" "id" "research-credibility" "partial" "home-research-credibility.html" "context" (merge .Site.Params.home.research_credibility (dict "cta_url" .Site.Params.forward)))
+    (dict "num" 6 "tone" "charcoal" "id" "final-cta" "partial" "home-final-cta.html" "context" .)
   }}
 
   {{ range $sections }}

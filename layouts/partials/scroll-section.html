@@ -6,6 +6,10 @@
   - id: semantic section slug used as the DOM id and URL hash (e.g. "privacy")
   - partial: name of the content partial to include (e.g., "home-hero.html")
   - context: the original page context for passing to content partials
+  - tone: band tone (paper | surface | charcoal, default paper)
+      paper    => bg-background
+      surface  => bg-card border-y border-border (hairlines separate it from paper)
+      charcoal => bg-foreground text-background
 
   Section 1 renders as an exact-fit slide (scroll-snap-section--slide);
   sections 2-9 flow naturally with the page.
@@ -22,10 +26,13 @@
 {{/* Section 1 is the hero slide */}}
 {{ $slide := eq $num 1 }}
 
-{{/* Determine background class for section 1 */}}
-{{ $bgClass := "" }}
-{{ if eq $num 1 }}
-  {{ $bgClass = "bg-background" }}
+{{/* Map the tone to the full-bleed band classes */}}
+{{ $tone := .tone | default "paper" }}
+{{ $bgClass := "bg-background" }}
+{{ if eq $tone "surface" }}
+  {{ $bgClass = "bg-card border-y border-border" }}
+{{ else if eq $tone "charcoal" }}
+  {{ $bgClass = "bg-foreground text-background" }}
 {{ end }}
 
 {{ page.Store.Set "sectionNum" (sub $num 1) }}
