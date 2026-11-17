@@ -1,10 +1,17 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
 const read = (p) => readFileSync(join(root, p), "utf8");
+
+function walk(dir) {
+  return readdirSync(dir).flatMap((n) => {
+    const p = join(dir, n);
+    return statSync(p).isDirectory() ? walk(p) : [p];
+  });
+}
 
 test("main.css @theme defines --color-cta: var(--color-turquoise)", () => {
   const css = read("assets/css/main.css");
@@ -61,4 +68,53 @@ test("button.html emits the label with no whitespace before </a>", () => {
   const html = read("layouts/partials/button.html");
   assert.match(html, />\{\{ \.label \}\}<\/a>/);
   assert.match(html, />\{\{ \.label \}\}<\/button>/);
+});
+
+test("no layouts/*.html file combines bg-foreground with text-background hover:bg-charcoal-700", () => {
+  const htmlFiles = walk(join(root, "layouts")).filter((f) => f.endsWith(".html"));
+  for (const f of htmlFiles) {
+    const src = readFileSync(f, "utf8");
+    const combines =
+      /bg-foreground/.test(src) &&
+      /text-background/.test(src) &&
+      /hover:bg-charcoal-700/.test(src);
+    assert.ok(
+      !combines,
+      `${f} combines bg-foreground with text-background hover:bg-charcoal-700`,
+    );
+  }
+});
+
+test("nav.html, home-why-it-matters.html and contact/single.html call partial button.html", () => {
+  for (const p of [
+    "layouts/partials/nav.html",
+    "layouts/partials/home-why-it-matters.html",
+    "layouts/contact/single.html",
+  ]) {
+    assert.match(read(p), /partial\s+"button\.html"/, `${p} must call partial button.html`);
+  }
+});
+
+test("the three CTAs pass the expected params to button.html", () => {
+  assert.match(
+    read("layouts/partials/nav.html"),
+    /partial\s+"button\.html"[^\n]*"size"\s+"sm"/,
+    "nav Login uses size sm",
+  );
+  assert.match(
+    read("layouts/partials/home-why-it-matters.html"),
+    /partial\s+"button\.html"[^\n]*"size"\s+"lg"/,
+    "why-it-matters CTA uses size lg",
+  );
+  assert.match(
+    read("layouts/contact/single.html"),
+    /partial\s+"button\.html"[^\n]*"type"\s+"submit"/,
+    "contact submit uses type submit",
+  );
+});
+
+test("nav.html mobile-menu toggle button is still present", () => {
+  const nav = read("layouts/partials/nav.html");
+  assert.match(nav, /<button[^>]*@click="open = !open"/);
+  assert.match(nav, /aria-controls="menuItems"/);
 });

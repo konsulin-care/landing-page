@@ -24,7 +24,7 @@
       >{{ .Name }}</a>
       {{ end }}
       {{ if .Site.Params.auth }}
-      <a href="{{ .Site.Params.auth }}" class="inline-flex items-center min-h-11 px-4 text-sm font-semibold rounded-lg bg-foreground text-background hover:bg-charcoal-700 md:ml-2">Login</a>
+      <span class="md:ml-2">{{ partial "button.html" (dict "href" .Site.Params.auth "label" "Login" "size" "sm") }}</span>
       {{ end }}
     </nav>
   </div>

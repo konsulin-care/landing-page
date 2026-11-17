@@ -8,12 +8,9 @@
       <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-muted-foreground">
         {{ .Site.Params.home.why_it_matters.body }}
       </p>
-      <a
-        href="{{ .Site.Params.forward }}"
-        class="inline-flex items-center justify-center px-8 py-4 mt-8 text-base font-semibold text-background rounded-lg bg-foreground hover:bg-charcoal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-      >
-        {{ .Site.Params.home.why_it_matters.cta }}
-      </a>
+      <div class="mt-8">
+        {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.why_it_matters.cta "size" "lg") }}
+      </div>
     </div>
 
     <div class="order-1 md:order-1">

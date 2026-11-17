@@ -59,12 +59,7 @@
           <input type="hidden" name="_autoresponse" value="Terima kasih sudah menghubungi Konsulin, tim kami akan segera merespon email kamu ya!">
 
           <div class="mt-6 lg:pb-16">
-            <button
-              type="submit"
-              class="px-5 py-3 font-bold text-center rounded-lg bg-foreground text-background hover:bg-charcoal-700 focus-visible:outline-2 focus-visible:outline-ring"
-            >
-              Kirim pesan
-            </button>
+            {{ partial "button.html" (dict "type" "submit" "label" "Kirim pesan") }}
           </div>
 
         </form>
