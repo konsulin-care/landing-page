@@ -120,3 +120,20 @@ test('S4c: no scroll-snap navigation JS renders', () => {
   assert.ok(!html.includes('scrollNavigation'), 'no scrollNavigation in output');
   assert.ok(!html.includes('x-show="currentSection'), 'no currentSection expressions');
 });
+
+test('S4d: every registered section renders with class home-section', () => {
+  const sections = parseSections();
+  const matches = html.match(/\bhome-section\b/g) ?? [];
+  assert.equal(
+    matches.length,
+    sections.length,
+    'rendered home-section count must equal registered section count',
+  );
+});
+
+test('S4e: no scroll-snap remnants in source or rendered output', () => {
+  for (const rel of ['layouts/index.html', 'layouts/partials/scroll-section.html']) {
+    assert.ok(!read(rel).includes('scroll-snap'), `${rel} must not contain scroll-snap`);
+  }
+  assert.ok(!html.includes('scroll-snap'), 'rendered homepage must not contain scroll-snap');
+});

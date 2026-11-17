@@ -1,5 +1,5 @@
 {{ define "main" }}
-<main class="scroll-snap-container">
+<main>
 
   {{ $sections := slice
     (dict "num" 1 "tone" "paper" "id" "hero" "partial" "home-hero.html" "context" .)
@@ -11,18 +11,5 @@
   {{ end }}
 
 </main>
-
-<script>
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    const hero = document.getElementById('hero');
-    const nextSection = hero?.nextElementSibling;
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-});
-</script>
 
 {{ end }}

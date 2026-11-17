@@ -11,8 +11,8 @@
       surface  => bg-card border-y border-border (hairlines separate it from paper)
       charcoal => bg-foreground text-background
 
-  Section 1 renders as an exact-fit slide (scroll-snap-section--slide);
-  sections 2-9 flow naturally with the page.
+  All sections flow naturally with the page; the homepage is a normal
+  scrolling reading page with no snap or exact-fit slides.
 
   Visible section number: the hero has no kicker, so content partials read
   `page.Store.Get "sectionNum"` (num minus 1) and pass it to section-kicker.html.
@@ -22,9 +22,6 @@
 {{ $id := .id }}
 {{ $partial := .partial }}
 {{ $context := .context }}
-
-{{/* Section 1 is the hero slide */}}
-{{ $slide := eq $num 1 }}
 
 {{/* Map the tone to the full-bleed band classes */}}
 {{ $tone := .tone | default "paper" }}
@@ -39,9 +36,9 @@
 
 <section
   id="{{ $id }}"
-  class="relative scroll-snap-section {{ if $slide }}scroll-snap-section--slide{{ end }} {{ $bgClass }}"
+  class="relative home-section {{ $bgClass }}"
 >
-  <div class="scroll-snap-section__content">
+  <div class="home-section__content">
     {{ partial $partial $context }}
   </div>
 </section>
