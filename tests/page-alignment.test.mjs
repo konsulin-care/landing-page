@@ -100,6 +100,26 @@ const listLayouts = {
   "pricing/list.html": read("layouts/pricing/list.html"),
 };
 
+const cardGridTemplates = {
+  "posts-template": read("layouts/partials/posts-template.html"),
+  "features-template": read("layouts/partials/features-template.html"),
+  "pricings-template": read("layouts/partials/pricings-template.html"),
+};
+
+for (const [name, src] of Object.entries(cardGridTemplates)) {
+  test(`${name} card grid wrapper uses px-6 not-prose to match the header`, () => {
+    assert.match(
+      src,
+      /<div class="px-6 not-prose">/,
+      "outer padding wrapper must be px-6 not-prose"
+    );
+    assert.ok(
+      !src.includes('class="px-4 not-prose"'),
+      "px-4 not-prose wrapper must be replaced by px-6 not-prose"
+    );
+  });
+}
+
 for (const [name, src] of Object.entries(listLayouts)) {
   test(`${name} wraps intro content in a max-w-6xl px-6 mx-auto outer div`, () => {
     assert.match(
