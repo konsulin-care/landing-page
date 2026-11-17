@@ -19,7 +19,19 @@ This mirrors the Konsulin frontend design tokens. Values are pending confirmatio
 | turquoise-deep | #0F7981 | Links, kickers, focus ring |
 | danger / warning (+tint, deep) | see main.css | Status only |
 
-Semantic aliases: background, foreground, card, muted, muted-foreground, accent, accent-foreground, border, input, ring.
+Semantic aliases: background, foreground, card, muted, muted-foreground, accent, accent-foreground, cta, border, input, ring.
+
+### CTA token
+
+- `cta` = `var(--color-turquoise)` (#0ABDC3). Reserved for the primary CTA (taking part in a study).
+- `accent` stays `var(--color-turquoise-tint)` and is only the accent background; do not use it for buttons.
+
+## Primary button
+
+- Background `bg-cta`, text `text-foreground` (dark text — white on turquoise fails contrast).
+- Hover: `hover:bg-turquoise-deep hover:text-background`.
+- Focus: keep the `focus-visible` outline-ring.
+- Optional `size` param (`default`, `sm`, `lg`) and `type` param (when `type` is set, render a `<button>` instead of an `<a>`).
 
 ## Rules
 
