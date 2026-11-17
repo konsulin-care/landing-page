@@ -3,7 +3,7 @@
 {{ $extra := "" }}
 {{ with $p.ethics_status }}{{ $extra = printf `<p class="text-muted-foreground" data-ethics-status>%s</p>` (. | htmlEscape) }}{{ end }}
 <main>
-  {{ partial "page-header.html" (dict "title" .Title "description" $p.description "extra" $extra) }}
+  {{ partial "page-header.html" (dict "title" .Title "description" $p.description "extra" $extra "width" "max-w-3xl") }}
   <article class="max-w-3xl px-6 mx-auto my-12 space-y-10 text-muted-foreground">
     {{ partial "summary-card.html" (dict "page" . "variant" "research") }}
     {{ with $p.question }}<section data-section="question"><h2 class="text-2xl font-bold text-foreground">Pertanyaan penelitian</h2><p class="mt-2">{{ . }}</p></section>{{ end }}

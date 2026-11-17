@@ -7,6 +7,22 @@ const root = new URL("..", import.meta.url).pathname;
 const read = (p) => readFileSync(join(root, p), "utf8");
 
 const header = read("layouts/partials/page-header.html");
+const defaultSingle = read("layouts/_default/single.html");
+const researchSingle = read("layouts/research/single.html");
+const contactSingle = read("layouts/contact/single.html");
+const pricingSingle = read("layouts/pricing/single.html");
+
+/** Extract the width param passed to page-header.html, or null. */
+const headerWidth = (src) => {
+  const m = src.match(/partial\s+"page-header\.html"[^}]*"width"\s+"([^"]+)"/);
+  return m ? m[1] : null;
+};
+
+/** Extract the max-w class of the main body wrapper (first div/article). */
+const bodyMaxWidth = (src) => {
+  const m = src.match(/<(?:div|article)\s+class="(max-w-[a-z0-9-]+)/);
+  return m ? m[1] : null;
+};
 
 test("page-header.html inner wrapper defaults to max-w-6xl when no width is passed", () => {
   assert.match(
@@ -30,4 +46,50 @@ test("page-header.html description paragraph keeps max-w-2xl", () => {
     /<p class="mt-4 text-muted-foreground max-w-2xl">/,
     "description paragraph must keep max-w-2xl"
   );
+});
+
+test("_default/single passes a header width equal to its body wrapper max-w class", () => {
+  assert.equal(headerWidth(defaultSingle), "max-w-2xl", "must pass width max-w-2xl");
+  assert.equal(
+    headerWidth(defaultSingle),
+    bodyMaxWidth(defaultSingle),
+    "header width must equal the body wrapper width"
+  );
+});
+
+test("research/single passes a header width equal to its body wrapper max-w class", () => {
+  assert.equal(headerWidth(researchSingle), "max-w-3xl", "must pass width max-w-3xl");
+  assert.equal(
+    headerWidth(researchSingle),
+    bodyMaxWidth(researchSingle),
+    "header width must equal the body wrapper width"
+  );
+});
+
+test("contact/single passes a header width equal to its body wrapper max-w class", () => {
+  assert.equal(headerWidth(contactSingle), "max-w-2xl", "must pass width max-w-2xl");
+  assert.equal(
+    headerWidth(contactSingle),
+    bodyMaxWidth(contactSingle),
+    "header width must equal the body wrapper width"
+  );
+});
+
+test("contact/single.html has no nested max-w-screen-md or max-w-xl wrapper", () => {
+  assert.ok(
+    !contactSingle.includes("max-w-screen-md"),
+    "nested max-w-screen-md wrapper must be removed"
+  );
+  assert.ok(!contactSingle.includes("max-w-xl"), "max-w-xl image wrapper must be removed");
+});
+
+test("pricing/single.html header stays max-w-6xl and inner prose is left-aligned", () => {
+  assert.equal(
+    headerWidth(pricingSingle),
+    null,
+    "pricing must not pass a width param (header stays max-w-6xl)"
+  );
+  const prose = pricingSingle.match(/<div class="max-w-2xl[^"]*prose[^"]*">/);
+  assert.ok(prose, "pricing must keep an inner max-w-2xl prose block");
+  assert.ok(!prose[0].includes("mx-auto"), "inner max-w-2xl prose must not have mx-auto");
 });

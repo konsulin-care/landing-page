@@ -1,6 +1,6 @@
 {{define "main"}}
 <article>
-  {{ partial "page-header.html" (dict "title" .Title) }}
+  {{ partial "page-header.html" (dict "title" .Title "width" "max-w-2xl") }}
   <div class="max-w-2xl px-6 pt-8 pb-16 mx-auto">
     {{ if .Params.summary }}
     <div class="mb-8">{{ partial "summary-card.html" (dict "page" . "variant" "blog") }}</div>

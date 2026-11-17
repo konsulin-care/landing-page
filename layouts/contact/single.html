@@ -1,71 +1,61 @@
 {{define "main"}}
 <article>
-  {{ partial "page-header.html" (dict "title" .Title) }}
-  <div class="max-w-xl mx-auto">
-    <div class="px-6">
-      {{ with .Params.featured_image }}
-        {{ with resources.Get . }}
-          {{ $small := (.Resize "300x webp q80").RelPermalink }}
-          {{ $medium := (.Resize "450x webp q80").RelPermalink }}
-          {{ $large := (.Resize "600x webp q80").RelPermalink }}
-          {{ $featuredimage := (.Resize "800x webp q80").RelPermalink }}
-          <img
-            src="{{ $featuredimage }}"
-            srcset="
-            {{- with $small -}}, {{.}} 300w{{- end -}}
-            {{- with $medium -}}, {{.}} 450w{{- end -}}
-            {{- with $large -}}, {{.}} 600w{{- end -}}
-            {{- with $featuredimage -}}, {{.}} 800w{{- end -}}"
-            class="object-fill overflow-hidden border rounded-lg border-border"
-            width="100%"
-            alt="{{ .Params.title }}"
-          />
-        {{ end }}
-      {{ end }}
-    </div>
-  </div>
-
+  {{ partial "page-header.html" (dict "title" .Title "width" "max-w-2xl") }}
   <div class="max-w-2xl px-6 pt-6 pb-16 mx-auto">
-    <section class="lg:pb-24">
-      <div class="max-w-screen-md px-4 mx-auto">
+    {{ with .Params.featured_image }}
+      {{ with resources.Get . }}
+        {{ $small := (.Resize "300x webp q80").RelPermalink }}
+        {{ $medium := (.Resize "450x webp q80").RelPermalink }}
+        {{ $large := (.Resize "600x webp q80").RelPermalink }}
+        {{ $featuredimage := (.Resize "800x webp q80").RelPermalink }}
+        <img
+          src="{{ $featuredimage }}"
+          srcset="
+          {{- with $small -}}, {{.}} 300w{{- end -}}
+          {{- with $medium -}}, {{.}} 450w{{- end -}}
+          {{- with $large -}}, {{.}} 600w{{- end -}}
+          {{- with $featuredimage -}}, {{.}} 800w{{- end -}}"
+          class="object-fill overflow-hidden border rounded-lg border-border"
+          width="100%"
+          alt="{{ .Params.title }}"
+        />
+      {{ end }}
+    {{ end }}
 
-        <div class="mb-8 text-muted-foreground prose">
-          {{ .Content }}
-        </div>
+    <div class="mt-6 mb-8 text-muted-foreground prose">
+      {{ .Content }}
+    </div>
 
-        <form name="contact" action="https://formsubmit.co/1ce5a3c4a13420eab3f929d03891849a" method="POST" class="space-y-8">
+    <form name="contact" action="https://formsubmit.co/1ce5a3c4a13420eab3f929d03891849a" method="POST" class="space-y-8">
 
-          <div class="my-4">
-            <input
-              type="email"
-              name="email"
-              class="block w-full p-2.5 border rounded-lg bg-card border-border text-foreground focus-visible:outline-2 focus-visible:outline-ring"
-              placeholder="Masukkan alamat email kamu"
-              required
-            />
-          </div>
-
-          <div class="my-4 sm:col-span-2">
-            <textarea
-              id="message"
-              name="message"
-              rows="6"
-              class="block w-full p-2.5 border rounded-lg bg-card border-border text-foreground focus-visible:outline-2 focus-visible:outline-ring"
-              placeholder="Silakan tinggalkan komentar"
-            ></textarea>
-          </div>
-
-          <input type="text" name="_honey" style="display:none">
-          <input type="hidden" name="_autoresponse" value="Terima kasih sudah menghubungi Konsulin, tim kami akan segera merespon email kamu ya!">
-
-          <div class="mt-6 lg:pb-16">
-            {{ partial "button.html" (dict "type" "submit" "label" "Kirim pesan") }}
-          </div>
-
-        </form>
-
+      <div class="my-4">
+        <input
+          type="email"
+          name="email"
+          class="block w-full p-2.5 border rounded-lg bg-card border-border text-foreground focus-visible:outline-2 focus-visible:outline-ring"
+          placeholder="Masukkan alamat email kamu"
+          required
+        />
       </div>
-    </section>
+
+      <div class="my-4 sm:col-span-2">
+        <textarea
+          id="message"
+          name="message"
+          rows="6"
+          class="block w-full p-2.5 border rounded-lg bg-card border-border text-foreground focus-visible:outline-2 focus-visible:outline-ring"
+          placeholder="Silakan tinggalkan komentar"
+        ></textarea>
+      </div>
+
+      <input type="text" name="_honey" style="display:none">
+      <input type="hidden" name="_autoresponse" value="Terima kasih sudah menghubungi Konsulin, tim kami akan segera merespon email kamu ya!">
+
+      <div class="mt-6 lg:pb-16">
+        {{ partial "button.html" (dict "type" "submit" "label" "Kirim pesan") }}
+      </div>
+
+    </form>
   </div>
 
 </article>
