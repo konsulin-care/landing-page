@@ -1,7 +1,7 @@
 ---
 title: "JadiTangguh"
 description: "Studi sains warga tentang ketangguhan psikologis."
-status: open
+status: upcoming
 summary: "TODO(maintainer): ringkasan studi."
 question: "TODO(maintainer): pertanyaan penelitian."
 team: "TODO(maintainer): tim peneliti."

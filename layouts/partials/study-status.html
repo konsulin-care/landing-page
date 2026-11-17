@@ -1,0 +1,15 @@
+{{/*
+  study-status: renders the study status badge.
+  - status (string): open | upcoming | closed
+  Labels: open -> "Terbuka", upcoming -> "Segera dibuka", closed -> "Selesai".
+*/}}
+{{- $status := . -}}
+{{- $label := $status -}}
+{{- if eq $status "open" -}}
+  {{- $label = "Terbuka" -}}
+{{- else if eq $status "upcoming" -}}
+  {{- $label = "Segera dibuka" -}}
+{{- else if eq $status "closed" -}}
+  {{- $label = "Selesai" -}}
+{{- end -}}
+<span data-study-status class="inline-block px-3 py-1 text-xs font-semibold rounded-lg bg-accent text-accent-foreground">{{ $label }}</span>

@@ -4,6 +4,7 @@
 {{ with $p.ethics_status }}{{ $extra = printf `<p class="text-muted-foreground" data-ethics-status>%s</p>` (. | htmlEscape) }}{{ end }}
 <main>
   {{ partial "page-header.html" (dict "title" .Title "description" $p.description "extra" $extra "width" "max-w-3xl") }}
+  {{ with $p.status }}<div class="max-w-3xl px-6 mx-auto mt-6">{{ partial "study-status.html" . }}</div>{{ end }}
   <article class="max-w-3xl px-6 mx-auto my-12 space-y-10 text-muted-foreground">
     {{ partial "summary-card.html" (dict "page" . "variant" "research") }}
     {{ with $p.question }}<section data-section="question"><h2 class="text-2xl font-bold text-foreground">Pertanyaan penelitian</h2><p class="mt-2">{{ . }}</p></section>{{ end }}
@@ -45,8 +46,8 @@
       <ul class="mt-2 list-disc ps-6">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
     </section>
     {{ end }}
-    {{ with $p.cta_url }}
-    <div class="text-center" data-study-cta>{{ partial "button.html" (dict "href" . "label" (cond (isset $p "data_handling") ($p.data_handling.cta | default "Ikut studi") "Ikut studi")) }}</div>
+    {{ if and (eq $p.status "open") $p.cta_url }}
+    <div class="text-center" data-study-cta>{{ partial "button.html" (dict "href" $p.cta_url "label" (cond (isset $p "data_handling") ($p.data_handling.cta | default "Ikut studi") "Ikut studi")) }}</div>
     {{ end }}
   </article>
 </main>
