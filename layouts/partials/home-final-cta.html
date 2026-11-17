@@ -1,14 +1,15 @@
-<!-- Final CTA section: single conversion action -->
+<!-- Final CTA section: single conversion action, content block on the charcoal band -->
 <div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
-  <div class="max-w-4xl mx-auto text-left px-8 py-16 bg-card border border-border rounded-lg">
-    <h2 class="text-3xl font-semibold text-foreground md:text-4xl">
+  <div class="max-w-4xl text-left [&_.section-kicker]:!text-background">
+    {{ partial "section-kicker.html" (dict "label" .Site.Params.home.final_cta.kicker) }}
+    <h2 class="text-3xl font-semibold text-background md:text-4xl">
       {{ .Site.Params.home.final_cta.headline }}
     </h2>
-    <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-muted-foreground">
+    <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-background">
       {{ .Site.Params.home.final_cta.body }}
     </p>
     <div class="mt-10">
-      {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.final_cta.cta) }}
+      {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.final_cta.cta "tone" "on-dark") }}
     </div>
   </div>
 </div>

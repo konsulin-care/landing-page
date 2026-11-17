@@ -2007,6 +2007,9 @@
       }
     }
   }
+  .\[\&_\.section-kicker\]\:\!text-background .section-kicker {
+    color: var(--color-background) !important;
+  }
 }
 @font-face {
   font-family: "Plus Jakarta Sans";
