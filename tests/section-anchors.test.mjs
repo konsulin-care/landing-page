@@ -1,68 +1,89 @@
-// 6-section homepage architecture (trust strip removed). Tests map 1:1 to the plan:
-//   S1  layouts/index.html registers exactly 6 sections in order
-//       (hero, why-this-research-matters, how-it-works,
-//       claim-report, research-credibility, final-cta)
-//   S2  JS scroll-snap machinery is gone: no scrollNavigation bindings,
-//       no scroll-indicator partial, no carousel assets
-//   S3  layouts/partials/scroll-section.html keeps semantic ids
-//   S4  built HTML: 6 sections, no currentSection expressions
+// Homepage section registry, derived from layouts/index.html.
+//   S1  index.html registers only the hero and final-cta sections
+//   S2  the retired study sections are gone from the rendered homepage
+//   S3  scroll-section.html still emits semantic ids
+//   S4  every registered section renders, with unique ids and ascending nums
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 
 const ROOT = path.join(import.meta.dirname, '..');
-const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
-const exists = (rel) => fs.existsSync(path.join(ROOT, rel));
+const read = (rel) => fs.readFileSync(path.isAbsolute(rel) ? rel : path.join(ROOT, rel), 'utf8');
 
-// ---------------------------------------------------------------- S1 ids in index.html
+const RETIRED_IDS = [
+  'why-this-research-matters',
+  'how-it-works',
+  'claim-report',
+  'research-credibility',
+];
 
-// num -> (partial, id)
-const SECTION_IDS = {
-  1: ['home-hero', 'hero'],
-  2: ['home-why-it-matters', 'why-this-research-matters'],
-  3: ['home-how-it-works', 'how-it-works'],
-  4: ['home-claim-report', 'claim-report'],
-  5: ['home-research-credibility', 'research-credibility'],
-  6: ['home-final-cta', 'final-cta'],
-};
-
-test('S1a: each section dict in index.html carries a semantic id', () => {
+/** Parses the section dicts registered in layouts/index.html. */
+function parseSections() {
   const index = read('layouts/index.html');
-  for (const [num, [partial, id]] of Object.entries(SECTION_IDS)) {
-    assert.ok(
-      index.includes(`"id" "${id}"`) && index.includes(`"partial" "${partial}.html"`),
-      `section ${num} must map id "${id}" to ${partial}.html`,
-    );
+  return index
+    .split('\n')
+    .filter((line) => /\(dict\s+"num"/.test(line))
+    .map((line) => ({
+      num: Number(line.match(/"num"\s+(\d+)/)?.[1]),
+      tone: line.match(/"tone"\s+"([^"]+)"/)?.[1],
+      id: line.match(/"id"\s+"([^"]+)"/)?.[1],
+      partial: line.match(/"partial"\s+"([^"]+)"/)?.[1],
+      key: line.match(/"key"\s+"([^"]+)"/)?.[1],
+    }));
+}
+
+let html = '';
+let dest = '';
+
+before(() => {
+  dest = path.resolve(fs.mkdtempSync(path.join(os.tmpdir(), 'section-anchors-')));
+  const r = spawnSync('hugo', ['--minify', '--destination', dest], {
+    cwd: ROOT,
+    encoding: 'utf8',
+    timeout: 60000,
+  });
+  assert.equal(r.status, 0, `${r.stdout}${r.stderr}`);
+  html = read(path.join(dest, 'index.html'));
+});
+
+// ── S1 source ──────────────────────────────────────────────────────
+test('S1a: index.html registers only hero and final-cta', () => {
+  const sections = parseSections();
+  assert.equal(sections.length, 2, 'index.html must define exactly 2 sections');
+  assert.deepEqual(
+    sections.map((s) => s.id),
+    ['hero', 'final-cta'],
+  );
+  assert.deepEqual(
+    sections.map((s) => s.partial),
+    ['home-hero.html', 'home-final-cta.html'],
+  );
+});
+
+test('S1b: hero uses paper and final-cta uses charcoal', () => {
+  const sections = parseSections();
+  assert.equal(sections.find((s) => s.id === 'hero')?.tone, 'paper');
+  assert.equal(sections.find((s) => s.id === 'final-cta')?.tone, 'charcoal');
+});
+
+// ── S2 retired sections are gone ───────────────────────────────────
+test('S2a: index.html no longer registers the retired study sections', () => {
+  const index = read('layouts/index.html');
+  for (const id of RETIRED_IDS) {
+    assert.ok(!index.includes(`"id" "${id}"`), `index.html must not register ${id}`);
   }
 });
 
-test('S1b: section ids are registered in ascending order', () => {
-  const index = read('layouts/index.html');
-  let prev = -1;
-  for (const [num, [, id]] of Object.entries(SECTION_IDS)) {
-    const pos = index.indexOf(`"id" "${id}"`);
-    assert.ok(pos > prev, `section ${num} ("${id}") must appear after previous section`);
-    prev = pos;
+test('S2b: rendered homepage contains none of the retired ids', () => {
+  for (const id of RETIRED_IDS) {
+    assert.ok(!html.includes(`id="${id}"`), `rendered page must not contain id="${id}"`);
   }
 });
 
-test('S1c: index.html registers exactly 6 section partials', () => {
-  const index = read('layouts/index.html');
-  const matches = index.match(/"partial" "[^"]+"/g) ?? [];
-  assert.equal(matches.length, 6, 'index.html must define exactly 6 sections');
-});
-
-// ---------------------------------------------------------------- S2 dead assets removed
-test('S2a: index.html carries no scroll-snap bindings or dead assets', () => {
-  const index = read('layouts/index.html');
-  assert.ok(!index.includes('scrollNavigation'), 'no scrollNavigation in index.html');
-  assert.ok(!index.includes('scroll-indicator'), 'no scroll-indicator in index.html');
-  assert.ok(!index.includes('hero-rotator'), 'no hero-rotator in index.html');
-});
-
-// ---------------------------------------------------------------- S3 semantic ids
+// ── S3 semantic ids ────────────────────────────────────────────────
 test('S3a: section element uses the semantic id, not section-N', () => {
   const partial = read('layouts/partials/scroll-section.html');
   assert.ok(
@@ -77,31 +98,25 @@ test('S3b: sections carry no copy-link/share button', () => {
   assert.ok(!partial.includes('copySectionLink'), 'no copy-link button');
 });
 
-// ---------------------------------------------------------------- S4 rendered output
-let publicHtml = '';
-before(async () => {
-  execFileSync('hugo', ['--minify'], { cwd: ROOT, stdio: 'pipe', timeout: 60000 });
-  publicHtml = read('public/index.html');
-});
-
-test('S4a: rendered homepage has 6 semantic section ids', () => {
-  for (const [num, [, id]] of Object.entries(SECTION_IDS)) {
-    assert.ok(
-      publicHtml.includes(`<section id="${id}"`) || publicHtml.includes(`<section id=${id} `),
-      `rendered page must contain <section id="${id}"> (section ${num})`,
-    );
+// ── S4 rendered output ─────────────────────────────────────────────
+test('S4a: each registered section renders as a semantic <section id>', () => {
+  const sections = parseSections();
+  for (const section of sections) {
+    const re = new RegExp(`<section\\s+[^>]*id="?${section.id}"?[^>]*>`);
+    assert.ok(re.test(html), `rendered page must contain <section id="${section.id}">`);
   }
 });
 
-test('S4b: rendered page has exactly 6 snap-section elements', () => {
-  const sections = (publicHtml.match(/scroll-snap-section(?=\s|["'>])/g) ?? []).length;
-  assert.equal(sections, 6, 'rendered page must have exactly 6 snap sections');
+test('S4b: section ids are unique and section nums ascend', () => {
+  const sections = parseSections();
+  const ids = sections.map((s) => s.id);
+  assert.equal(new Set(ids).size, ids.length, 'section ids must be unique');
+  const nums = sections.map((s) => s.num);
+  const sorted = [...nums].sort((a, b) => a - b);
+  assert.deepEqual(nums, sorted, 'section nums must ascend');
 });
 
-test('S4c: no currentSection expressions in rendered output', () => {
-  assert.ok(
-    !publicHtml.includes('x-show="currentSection'),
-    'no currentSection visibility expressions may render',
-  );
-  assert.ok(!publicHtml.includes('scrollNavigation'), 'no scrollNavigation in output');
+test('S4c: no scroll-snap navigation JS renders', () => {
+  assert.ok(!html.includes('scrollNavigation'), 'no scrollNavigation in output');
+  assert.ok(!html.includes('x-show="currentSection'), 'no currentSection expressions');
 });
