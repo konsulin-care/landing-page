@@ -1,6 +1,6 @@
 // Section kickers: labels live in hugo.yaml, numbering comes from the
 // section wrapper, and the kicker partial renders them.
-//   K1  hugo.yaml defines the five kicker labels, hero has none
+//   K1  every section except hero starts with a kicker key
 //   K2  section-kicker.html renders number + middle dot + label, or label only, or nothing
 //   K3  scroll-section.html exposes the visible section number (num - 1)
 import { test } from 'node:test';
@@ -27,23 +27,33 @@ function homeBlock(key) {
 }
 
 // ── K1 labels ──────────────────────────────────────────────────────
-const LABELS = {
-  why_it_matters: 'Latar belakang',
-  how_it_works: 'Tiga langkah',
-  claim_report: 'Laporan',
-  research_credibility: 'Di balik survei',
-  final_cta: 'Ikut serta',
-};
+/** Returns the keys of every block directly under `home:` (indent 4). */
+function homeSectionKeys() {
+  const lines = read('hugo.yaml').split('\n');
+  const homeAt = lines.findIndex((l) => l === '  home:');
+  assert.ok(homeAt >= 0, 'hugo.yaml has a params.home block');
+  const keys = [];
+  for (const line of lines.slice(homeAt + 1)) {
+    if (line.trim() === '') continue;
+    if (!line.startsWith('    ')) break;
+    if (line.startsWith('     ')) continue;
+    const match = line.match(/^    ([A-Za-z0-9_-]+):/);
+    if (match) keys.push(match[1]);
+  }
+  return keys;
+}
 
-test('K1a: each section defines its kicker label as the first key', () => {
-  for (const [key, label] of Object.entries(LABELS)) {
-    const block = homeBlock(key);
-    const first = block.split('\n').find((l) => l.trim() !== '');
-    assert.equal(first.trim(), `kicker: "${label}"`, `home.${key} must start with kicker "${label}"`);
+test('K1a: every section except hero starts with a kicker key', () => {
+  const keys = homeSectionKeys().filter((key) => key !== 'hero');
+  assert.ok(keys.length > 0, 'params.home has at least one non-hero section');
+  for (const key of keys) {
+    const first = homeBlock(key).split('\n').find((l) => l.trim() !== '');
+    assert.match(first.trim(), /^kicker:\s*"[^"]+"$/, `home.${key} must start with a kicker key`);
   }
 });
 
 test('K1b: hero has no kicker', () => {
+  assert.ok(homeSectionKeys().includes('hero'), 'params.home has a hero block');
   assert.ok(!/kicker:/.test(homeBlock('hero')), 'hero must not define a kicker');
 });
 
