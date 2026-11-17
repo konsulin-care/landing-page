@@ -93,6 +93,7 @@
     --color-accent-foreground: var(--color-charcoal-900);
     --color-border: var(--color-charcoal-200);
     --color-ring: var(--color-turquoise-deep);
+    --color-cta: var(--color-turquoise);
     --tw-prose-body: var(--color-charcoal-700);
     --tw-prose-headings: var(--color-charcoal-900);
     --tw-prose-lead: var(--color-charcoal-600);
@@ -1217,6 +1218,9 @@
   .bg-card {
     background-color: var(--color-card);
   }
+  .bg-cta {
+    background-color: var(--color-cta);
+  }
   .bg-foreground {
     background-color: var(--color-foreground);
   }
@@ -1618,6 +1622,12 @@
     }
     .hover\:bg-gray-100:hover {
       background-color: var(--color-gray-100);
+    }
+    .hover\:bg-turquoise-deep:hover {
+      background-color: var(--color-turquoise-deep);
+    }
+    .hover\:text-background:hover {
+      color: var(--color-background);
     }
     .hover\:text-black:hover {
       color: var(--color-black);
