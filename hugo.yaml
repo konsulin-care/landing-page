@@ -98,10 +98,12 @@ params:
         - "Untuk penelitian"
         - "Laporan hasil langsung tersedia"
     why_it_matters:
+      kicker: "Latar belakang"
       title: "Kenapa penelitian ini penting?"
       body: "Banyak pengalaman sehari hari tentang kesehatan mental belum cukup terwakili dalam penelitian. Ketika ribuan pengalaman dikumpulkan melalui platform ini, peneliti dapat menemukan pola yang membantu mengembangkan layanan yang lebih tepat bagi masyarakat Indonesia."
       cta: "Mulai Survei"
     how_it_works:
+      kicker: "Tiga langkah"
       title: "Cara kerjanya"
       steps:
         - num: "1"
@@ -114,6 +116,7 @@ params:
           title: "Lihat Laporan Anda"
           text: "Laporan ringkas langsung tersedia setelah survei selesai. Jika nanti ingin menyimpannya, Anda bisa mengklaim laporan menggunakan email melalui magic link."
     claim_report:
+      kicker: "Laporan"
       title: "Laporan Anda langsung tersedia"
       subtitle: "Setelah menyelesaikan survei, Anda langsung mendapatkan laporan. Jika ingin menyimpannya untuk nanti, Anda bisa mengklaimnya kapan saja."
       cards:
@@ -130,6 +133,7 @@ params:
         title: "Email bersifat opsional"
         text: "Anda tetap dapat melihat laporan segera setelah survei selesai hingga 24 jam. Email hanya diperlukan jika ingin menyimpannya ke akun."
     research_credibility:
+      kicker: "Di balik survei"
       title: "Dibangun untuk penelitian kesehatan"
       cards:
         - title: "Pemrosesan ID Anonim"
@@ -140,6 +144,7 @@ params:
           text: "Klaim laporan kapan saja menggunakan magic link tanpa mengubah partisipasi Anda."
       cta: "Mulai Survei"
     final_cta:
+      kicker: "Ikut serta"
       headline: "Sepuluh menit Anda berharga"
       body: "Dalam sepuluh menit, Anda dapat membantu pengembangan program kesehatan yang lebih baik. Mulai dari satu partisipasi, dan simpan laporan Anda. Bangun riwayat partisipasi penelitian secara bertahap."
       cta: "Mulai Survei Sekarang"

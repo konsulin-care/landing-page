@@ -9,6 +9,9 @@
 
   Section 1 renders as an exact-fit slide (scroll-snap-section--slide);
   sections 2-9 flow naturally with the page.
+
+  Visible section number: the hero has no kicker, so content partials read
+  `page.Store.Get "sectionNum"` (num minus 1) and pass it to section-kicker.html.
 */}}
 
 {{ $num := .num }}
@@ -24,6 +27,8 @@
 {{ if eq $num 1 }}
   {{ $bgClass = "bg-background" }}
 {{ end }}
+
+{{ page.Store.Set "sectionNum" (sub $num 1) }}
 
 <section
   id="{{ $id }}"
