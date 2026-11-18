@@ -122,6 +122,17 @@ params:
       note: "Ini bukan daftar untuk mendiagnosis diri. Ini cara untuk saling mengenali."
       closing: "Kalau Anda mengenali salah satunya, Anda nggak sendirian. #JadiTangguh itu nggak harus sendirian."
       help_label: "Kalau terasa berat sekarang, lihat bantuan"
+    meaning:
+      kicker: "Makna tangguh"
+      title: "Tangguh bukan berarti kuat terus"
+      lead: "Menjadi tangguh artinya berani mengakui apa yang melemahkan kita, lalu tetap menemukan jalan untuk melangkah."
+      cards:
+        - muted: "Bukan nggak pernah capek"
+          strong: "Tapi tahu kapan perlu berhenti sebentar"
+        - muted: "Bukan ditahan-tahan"
+          strong: "Tapi dilatih, sedikit demi sedikit"
+        - muted: "Bukan sendirian"
+          strong: "Tapi saling jaga"
     final_cta:
       kicker: "Ikut serta"
       headline: "Sepuluh menit Anda berharga"
