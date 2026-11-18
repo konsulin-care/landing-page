@@ -64,16 +64,26 @@ The page content width is `max-w-6xl` with `px-6 md:px-8`.
 
 # Band rhythm
 
-`scroll-section.html` owns a full-bleed tone per section. Hairlines separate
-paper from surface because their contrast is only 1.05.
+`scroll-section.html` owns a full-bleed tone per section. The band utilities
+`band-paper` and `band-surface` set the band background and swap the colour
+tokens inside it: `band-paper` maps `--color-background` to paper and
+`--color-card` to surface, while `band-surface` maps `--color-background` to
+surface and `--color-card` to paper. So inside a band `bg-background` is the
+band colour and `bg-card` is the contrasting colour, and cards always use
+`bg-card` (never `bg-background`) to stay legible on any band. Charcoal is not a
+band utility; it stays `bg-foreground text-background`. Hairlines separate paper
+from surface because their contrast is only 1.05, hence `border-y border-border`
+on surface bands.
+
+The homepage band order is surface, paper, surface, paper, surface, charcoal.
 
 | # | Section id | Tone | Classes |
 | --- | --- | --- | --- |
-| 1 | `hero` | paper | `bg-background` |
-| 2 | `why-this-research-matters` | surface | `bg-card border-y border-border` |
-| 3 | `how-it-works` | paper | `bg-background` |
-| 4 | `claim-report` | surface | `bg-card border-y border-border` |
-| 5 | `research-credibility` | paper | `bg-background` |
+| 1 | `hero` | surface | `band-surface border-y border-border` |
+| 2 | `kenali-tandanya` | paper | `band-paper` |
+| 3 | `makna-tangguh` | surface | `band-surface border-y border-border` |
+| 4 | `kenapa-dicatat` | paper | `band-paper` |
+| 5 | `kalau-ikut` | surface | `band-surface border-y border-border` |
 | 6 | `final-cta` | charcoal | `bg-foreground text-background` |
 
 Kickers number the sections 01 to 04 (hero excluded). The final CTA kicker has

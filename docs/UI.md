@@ -23,9 +23,14 @@ number with `page.Store.Get "sectionNum"`.
 
 Band (set by `tone` in `layouts/index.html`, never by hand in a partial):
 
-- paper: `bg-background`
-- surface: `bg-card border-y border-border`
+- paper: `band-paper`
+- surface: `band-surface border-y border-border`
 - charcoal: `bg-foreground text-background`
+
+Inside a band, `bg-background` resolves to the band colour and `bg-card` to the
+contrasting colour: `band-paper` sets `--color-background` to paper and
+`--color-card` to surface, while `band-surface` swaps the two. Charcoal is not a
+band utility; it keeps `bg-foreground text-background`.
 
 Rail (inside `max-w-6xl mx-auto px-6 py-24 md:px-8`):
 
@@ -38,10 +43,11 @@ Rail (inside `max-w-6xl mx-auto px-6 py-24 md:px-8`):
 
 Always prefix `grid-cols-12` and `col-span-*` with `md:`.
 
-Cards by band:
+Cards always use `bg-card`, never `bg-background`:
 
-- On paper: `bg-card border border-border rounded-lg`
-- On surface: `bg-background border border-border rounded-lg`
+- On any band: `bg-card border border-border rounded-lg`
+- Do not hard-code the contrasting colour per band; `band-paper` and
+  `band-surface` redefine `--color-card` so `bg-card` always contrasts.
 - Note on a surface band: `bg-muted border border-border rounded-lg`
 
 Kicker on charcoal: `.section-kicker` is turquoise-deep, which is too dark on
