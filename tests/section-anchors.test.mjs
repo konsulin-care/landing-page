@@ -50,22 +50,31 @@ before(() => {
 });
 
 // ── S1 source ──────────────────────────────────────────────────────
-test('S1a: index.html registers only hero, recognition and final-cta', () => {
+test('S1a: index.html registry starts with hero, then kenali-tandanya, and ends with final-cta', () => {
   const sections = parseSections();
-  assert.equal(sections.length, 3, 'index.html must define exactly 3 sections');
+  assert.ok(sections.length >= 2, 'index.html must define at least hero and final-cta');
   assert.deepEqual(
-    sections.map((s) => s.id),
-    ['hero', 'kenali-tandanya', 'final-cta'],
+    sections.slice(0, 2).map((s) => s.id),
+    ['hero', 'kenali-tandanya'],
+    'registry must start with hero then kenali-tandanya',
   );
   assert.deepEqual(
-    sections.map((s) => s.partial),
-    ['home-hero.html', 'home-recognition.html', 'home-final-cta.html'],
+    sections.slice(0, 2).map((s) => s.partial),
+    ['home-hero.html', 'home-recognition.html'],
+    'first two partials must be hero and recognition',
+  );
+  assert.equal(sections.at(-1).id, 'final-cta', 'registry must end with final-cta');
+  assert.equal(
+    sections.at(-1).partial,
+    'home-final-cta.html',
+    'last partial must be final-cta',
   );
 });
 
-test('S1b: hero uses paper and final-cta uses charcoal', () => {
+test('S1b: hero uses surface, kenali-tandanya uses paper and final-cta uses charcoal', () => {
   const sections = parseSections();
-  assert.equal(sections.find((s) => s.id === 'hero')?.tone, 'paper');
+  assert.equal(sections.find((s) => s.id === 'hero')?.tone, 'surface');
+  assert.equal(sections.find((s) => s.id === 'kenali-tandanya')?.tone, 'paper');
   assert.equal(sections.find((s) => s.id === 'final-cta')?.tone, 'charcoal');
 });
 

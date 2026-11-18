@@ -14,7 +14,7 @@
     <div class="mt-12 md:col-span-8 md:mt-0">
       <ul class="grid gap-4 sm:grid-cols-2">
         {{ range .Site.Params.home.recognition.signals }}
-        <li class="rounded-lg border border-border bg-background p-6">
+        <li class="rounded-lg border border-border bg-card p-6">
           <h3 class="text-base font-semibold text-foreground">{{ .label }}</h3>
           <p class="mt-2 text-sm leading-6 text-charcoal-700">{{ .text | markdownify }}</p>
         </li>
