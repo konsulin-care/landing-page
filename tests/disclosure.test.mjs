@@ -81,3 +81,24 @@ test('D5a: the rendered /privacy/ page links both disclosure files', () => {
     assert.match(html, pattern, `/privacy/ links ${target}`);
   }
 });
+
+// ── U1 protocol version ────────────────────────────────────────────
+const SUPERSEDED_SHA = 'b6cff0829f0c933347973f1c3e1124a203e99c7d';
+
+test('U1a: the protocol declares version 1.1.0', () => {
+  assert.equal(frontMatter('disclosure/protocol.md', 'version'), '1.1.0');
+});
+
+test('U1b: the protocol supersedes the previous version by permalink', () => {
+  assert.equal(
+    frontMatter('disclosure/protocol.md', 'supersedes'),
+    `https://github.com/konsulin-care/landing-page/blob/${SUPERSEDED_SHA}/static/disclosure/protocol.md`,
+  );
+});
+
+test('U1c: the revision history lists 1.0.0 and 1.1.0', () => {
+  const protocol = read(path.join(dest, 'disclosure/protocol.md'));
+  const history = protocol.slice(protocol.indexOf('## 14. Revision history'));
+  assert.match(history, /^- 1\.0\.0/m, '1.0.0 is recorded');
+  assert.match(history, /^- 1\.1\.0/m, '1.1.0 is recorded');
+});

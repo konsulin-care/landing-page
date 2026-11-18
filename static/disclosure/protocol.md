@@ -1,11 +1,11 @@
 ---
 title: "Data Disclosure and Handling Protocol #JadiTangguh"
-version: "1.0.0"
+version: "1.1.0"
 status: frozen
 effective_date: "TODO(maintainer)"
 steward: "Aly Lamuri"
 reviewer: "Haykal Hafidzul Arifin (Scientist, Biro Psikologi Attentive)"
-supersedes: null
+supersedes: "https://github.com/konsulin-care/landing-page/blob/b6cff0829f0c933347973f1c3e1124a203e99c7d/static/disclosure/protocol.md"
 ---
 
 # Data Disclosure and Handling Protocol #JadiTangguh
@@ -118,6 +118,7 @@ TODO(maintainer)
 ## 14. Revision history
 
 - 1.0.0, initial version, frozen.
+- 1.1.0, protection basis changed. The baseline now covers every baseline participant rather than a 70 per cent subsample, scores are published only as instrument bands, complete item-level files move to the restricted tier, and later waves are published only as aggregates. A non-composition rule forbids releasing a derived score together with its items.
 
 ## References
 
