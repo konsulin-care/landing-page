@@ -138,3 +138,20 @@ test('U3c: the synthetic item file is labelled synthetic and holds no real recor
   assert.match(text, /synthetic item file, labelled synthetic in its filename and front matter/);
   assert.match(text, /contains no real participant records/);
 });
+
+// ── U4 aggregate-only later waves ──
+test('U4a: subsequent waves are aggregate tables only, with no microdata', () => {
+  const text = protocolText();
+  assert.match(text, /Subsequent waves are published as aggregate tables only/);
+  assert.match(text, /with no microdata/);
+});
+
+test('U4b: aggregate counts are rounded to a base of 5', () => {
+  assert.match(protocolText(), /Aggregate counts are rounded to a base of 5/);
+});
+
+test('U4c: a marginal budget fixes the tables and bars a complete cross-tabulation set', () => {
+  const text = protocolText();
+  assert.match(text, /marginal budget fixes which tables each wave releases/);
+  assert.match(text, /complete cross-tabulation set is forbidden/);
+});
