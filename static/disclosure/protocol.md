@@ -90,9 +90,11 @@ This document specifies how data collected through the #JadiTangguh citizen-scie
 
 - Restricted data comprise complete item-level response files, regency or city of residence, wave-linked longitudinal data and referral edges.
 - Requests are submitted to hello@konsulin.care and assessed case by case by the steward and the second reviewer. Grounds for refusal are recorded.
-- The Data Use Agreement prohibits re-identification and linkage attempts, onward sharing, and any use beyond the approved purpose. It further specifies security requirements, retention and destruction, incident reporting, publication rules and audit rights.
+- Access runs through a single Data Use Agreement with a confidentiality annex rather than a separate non-disclosure agreement, so that one instrument carries every obligation a recipient accepts. A second, narrower instrument would leave purpose limitation and audit rights uncovered.
+- The agreement requires purpose limitation, a prohibition on linking public releases to restricted data, a prohibition on onward sharing, security requirements, incident reporting, retention and destruction, publication review and audit rights. This protocol likewise prohibits linking public releases to restricted data, because the public baseline covers the whole cohort and would otherwise serve as a lookup key for the restricted panel.
+- The public demographic key maps many-to-one, so a join between the public baseline and the restricted panel is not deterministic. The observed join rate is measured and reported before each release.
 - Access is granted by controlled download.
-- Recipients are recorded in the public register at /disclosure/data-access-register.md The Data Use Agreement template is available on request.
+- Recipients are recorded in the public register at /disclosure/data-access-register.md. The Data Use Agreement template is published at /disclosure/data-use-agreement.md
 - Restricted data are described by a metadata-only record carrying a DOI and containing no data files, so that the dataset remains findable while access stays conditional.
 
 ## 10. Withdrawal

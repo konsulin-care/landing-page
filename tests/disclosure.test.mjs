@@ -170,3 +170,22 @@ test('U5c: each aggregate wave publishes a codebook and a retention table', () =
   assert.match(text, /publishes a codebook listing its variables/);
   assert.match(text, /retention table/);
 });
+
+// ── U6 restricted access ────
+test('U6a: access runs through one agreement with a confidentiality annex', () => {
+  assert.match(
+    protocolText(),
+    /single Data Use Agreement with a confidentiality annex rather than a separate non-disclosure agreement/,
+  );
+});
+
+test('U6b: the protocol prohibits linking public releases to restricted data', () => {
+  assert.match(protocolText(), /prohibits? linking public releases to restricted data/);
+});
+
+test('U6c: the agreement template is published at a disclosure path', () => {
+  assert.match(
+    protocolText(),
+    /template is published at \/disclosure\/data-use-agreement\.md/,
+  );
+});
