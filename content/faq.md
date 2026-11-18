@@ -1,6 +1,6 @@
 ---
 title: "Pertanyaan yang sering ditanyakan"
-description: "Karena menjadi tangguh itu dimulai dari kita"
+description: "Karena menjadi tangguh itu dijalani bersama"
 type: faq
 groups:
   - title: "Tentang gerakan"
@@ -8,13 +8,13 @@ groups:
     items:
       - q: 'Apa itu #JadiTangguh?'
         a: >-
-          #JadiTangguh adalah gerakan warga untuk mengenal lebih dekat ketangguhan psikologis, atau resiliensi, dan perannya dalam kesehatan mental kita. Kita semua pernah melewati hari-hari yang berat, dan cara kita bangkit dari sana layak dipahami bersama. Lewat gerakan ini, kita belajar tentang ketangguhan dari pengalaman sehari-hari, bukan cuma dari buku teks.
+          #JadiTangguh adalah gerakan riset warga untuk memahami resiliensi psikologis dan perannya dalam kesehatan mental kita. Resiliensi bukan soal tidak pernah jatuh. Resiliensi adalah cara kita beradaptasi saat hidup sedang sulit, dan itu layak dipahami bersama. Lewat gerakan ini, kita belajar dari pengalaman sehari-hari, bukan cuma dari buku teks.
       - q: 'Kenapa "tangguh"? Bukannya itu nyuruh orang kuat terus?'
         a: >-
-          Justru sebaliknya. Tangguh adalah bagian dari resiliensi, dan menjadi tangguh bukan berarti harus kuat terus. Menjadi tangguh artinya berani mengakui sisi lemah kita dan apa saja yang melemahkan kita, lalu tetap menemukan jalan untuk melangkah. Capek, sedih, dan butuh bantuan adalah bagian dari prosesnya.
+          Justru sebaliknya. Tangguh adalah nama kampanyenya. Dalam penelitian, kita menyebutnya resiliensi psikologis, yaitu proses belajar beradaptasi, menemukan cara menghadapi kesulitan, dan mengembangkan sumber daya yang membantu kita menjaga atau memulihkan kesehatan mental. Capek, sedih, dan butuh bantuan adalah bagian dari prosesnya, dan mencari dukungan termasuk cara beradaptasi. Resiliensi juga bukan tanggung jawab individu semata, karena keluarga, komunitas, dan layanan yang tersedia ikut berperan.
       - q: 'Apa visi dan misinya?'
         a: >-
-          Visi kami adalah membantu masyarakat Indonesia menjadi lebih resilien, supaya setiap orang punya ruang untuk mewujudkan potensi dirinya. Misi kami adalah menjadikan latihan resiliensi bagian dari kurikulum sekolah dasar. Kami percaya ketangguhan bisa dilatih sejak kecil, sama seperti membaca dan berhitung.
+          Visi kami adalah masyarakat Indonesia yang lebih mampu beradaptasi dan saling mendukung saat menghadapi kesulitan, supaya setiap orang punya ruang untuk mewujudkan potensi dirinya. Misi kami adalah mendorong pembelajaran keterampilan menghadapi kesulitan, seperti mengenali emosi dan mencari dukungan, menjadi bagian dari kurikulum sekolah dasar. Kami percaya keterampilan ini bisa dipelajari sejak kecil, sama seperti membaca dan berhitung, selama anak punya lingkungan yang mendukung.
       - q: 'Apa maksudnya "gerakan warga" atau citizen science?'
         a: >-
           Citizen science, atau riset warga, adalah riset yang berangkat dari warga dan melibatkan warga di setiap tahapnya. Anda bukan sekadar responden. Warga bisa ikut merumuskan pertanyaan, merancang penelitian, mengumpulkan dan menganalisis data, sampai menyusun laporan dan menyuarakan hasilnya. Ilmu tentang hidup kita dikerjakan bersama kita.
@@ -35,25 +35,25 @@ groups:
           Semua orang dewasa, berusia 18 tahun ke atas, boleh ikut. Anda tidak perlu punya latar belakang atau kondisi tertentu. Pengalaman sehari-hari Anda sudah cukup.
       - q: 'Berapa lama, dan harus berapa kali?'
         a: >-
-          Satu sesi hanya sekitar 10 menit. Anda bisa ikut lagi di gelombang berikutnya, dan itu sangat membantu karena kita jadi bisa melihat perubahan dari waktu ke waktu. Ikut satu kali pun tetap berharga.
+          Satu sesi hanya sekitar 10 menit. Anda bisa ikut lagi di gelombang berikutnya, dan itu sangat membantu karena peneliti jadi bisa memahami perubahan dan cara orang beradaptasi dari waktu ke waktu. Ikut satu kali pun tetap berharga.
       - q: 'Apakah bayar?'
         a: >-
           Tidak. Sepenuhnya gratis.
       - q: 'Apa yang saya dapat?'
         a: >-
-          Begitu selesai, Anda langsung mendapat laporan hasil skor Anda. Jika Anda mendaftar, laporan itu tersimpan di akun Anda dan riwayat skor Anda terbuka, sehingga Anda bisa melihat perubahannya dari waktu ke waktu. Anda juga menjadi yang pertama kami kabari saat laporan penelitian selesai atau datanya sudah tersedia.
+          Begitu selesai, Anda langsung mendapat laporan ringkas dari jawaban Anda. Jika Anda mendaftar, laporan itu tersimpan di akun dan riwayatnya terbuka, sehingga Anda bisa melihat perubahannya dari waktu ke waktu. Satu bulan setelah pengumpulan data ditutup, Anda akan menerima email berisi hasil agregat. Kami juga akan mengabari Anda saat hasilnya terbit sebagai publikasi, preprint, atau makalah kebijakan yang diterima. Email ini dikirim otomatis oleh sistem, dan peneliti tidak melihat alamat email peserta.
       - q: 'Perlu daftar atau kasih email?'
         a: >-
-          Tidak perlu, tetapi kami sangat menganjurkannya. Anda bisa mengklaim data Anda dengan email dalam 24 jam setelah mengisi. Tanpa klaim, data Anda tersimpan anonim: tidak bisa dihubungkan dengan pengisian berikutnya, dan tidak bisa ditarik atau dihapus karena kami tidak tahu mana milik Anda. Dengan mendaftar, pengisian berikutnya terhubung ke akun Anda, dan Anda bisa menarik atau menghapus partisipasi Anda kapan saja. Peneliti tetap hanya melihat ID peserta acak, bukan identitas Anda.
+          Tidak perlu, tetapi kami sangat menganjurkannya. Anda bisa mengklaim data Anda dengan email dalam 24 jam setelah mengisi. Tanpa klaim, data Anda tersimpan anonim, tidak bisa dihubungkan dengan pengisian berikutnya, dan tidak bisa ditarik atau dihapus karena kami tidak tahu mana milik Anda. Dengan mendaftar, pengisian berikutnya terhubung ke akun Anda, dan Anda bisa menarik atau menghapus partisipasi Anda kapan saja. Peneliti tetap hanya melihat ID peserta acak, bukan identitas Anda. Email Anda disimpan oleh sistem dan hanya Anda yang bisa melihatnya. Peneliti tidak punya akses ke email maupun identitas Anda.
       - q: 'Boleh berhenti kapan saja?'
         a: >-
-          Boleh, kapan saja. Partisipasi Anda sepenuhnya sukarela. Jika Anda sudah mendaftar, Anda juga bisa menghapus data Anda dengan menghapus akun.
+          Boleh, kapan saja. Partisipasi Anda sepenuhnya sukarela, dan berhenti di tengah jalan tidak apa-apa. Anda bisa menarik data kapan saja sebelum tanggal rilis. Kami mengumumkan tanggal rilis sedikitnya 14 hari sebelumnya, lewat email untuk peserta yang mendaftar dan di situs ini. Penarikan sebelum tanggal rilis dihormati untuk semua rilis yang belum terbit. Data yang sudah terbit tidak dapat ditarik kembali, dan data yang belum diklaim tidak bisa dikenali sehingga tidak bisa ditarik.
   - title: "Data dan privasi"
     id: data-dan-privasi
     items:
       - q: 'Apakah jawaban saya anonim? Apa itu ID Anonim?'
         a: >-
-          Ya. Jawaban Anda disimpan dengan ID acak, bukan nama Anda. ID Anonim ini berlaku 24 jam dan dipakai jika Anda ingin mengklaim data Anda. Setelah diklaim, jawaban terhubung ke akun Anda dalam bentuk pseudonim. Peneliti hanya melihat ID peserta acak dan tidak dapat mengakses identitas pribadi Anda.
+          Jawaban Anda disimpan dengan ID acak, bukan nama Anda, dan peneliti hanya melihat ID itu. ID Anonim berlaku 24 jam dan dipakai jika Anda ingin mengklaim data. Setelah diklaim, jawaban tertaut ke akun Anda dalam bentuk pseudonim. Tautan itu disimpan di jaringan privat yang hanya bisa diakses sistem backend, dengan pembatasan akses berdasarkan peran dan pengamanan lainnya. Peneliti tidak bisa melihatnya.
       - q: 'Data apa saja yang dikumpulkan?'
         a: >-
           Data demografis dan jawaban Anda pada instrumen psikometri, yaitu kuesioner terstandar untuk mengukur kondisi psikologis. Sistem juga mencatat persetujuan dan waktu pengisian Anda. Jika Anda datang lewat tautan undangan teman, pola rujukan itu ikut dicatat, hanya untuk mempelajari struktur komunitas penelitian.
@@ -65,10 +65,10 @@ groups:
           Tidak. Konsulin tidak menjual data apa pun. Data ini dikumpulkan oleh publik dan kembali untuk publik.
       - q: '"Data terbuka" itu artinya jawaban saya jadi publik?'
         a: >-
-          Tidak. Yang dipublikasikan hanya jawaban yang sudah dianonimkan dan disamarkan, sehingga tidak bisa dilacak ke partisipan mana pun.
+          Tidak. Data baru dibuka setelah diolah supaya tidak ada jawaban yang bisa ditelusuri ke satu orang pun. Data publik dirilis per gelombang tanpa ID yang menghubungkan antargelombang, dan hanya memuat sebagian peserta yang dipilih acak. Data seperti usia dan lokasi dibuat lebih umum, setiap kombinasi data diri harus dimiliki sedikitnya sebelas peserta, dan sebagian kecil data dipertukarkan antarpeserta yang mirip. Cara ini dirancang untuk menekan risiko pelacakan sekecil mungkin. Rinciannya ada di [protokol pengungkapan data](/disclosure/protocol.md).
       - q: 'Bisa minta data saya dihapus?'
         a: >-
-          Bisa, jika Anda sudah mengklaim data Anda. Anda dapat menghapus akun kapan saja, dan jawaban Anda ikut terhapus. Data yang tidak diklaim tersimpan anonim, jadi tidak ada cara untuk mengenali mana milik Anda dan menghapusnya. Ini salah satu alasan kami menganjurkan klaim.
+          Bisa, jika Anda sudah mengklaim data Anda. Anda dapat menghapus akun kapan saja, dan jawaban Anda tidak akan masuk ke rilis berikutnya. Data yang sudah terbit tidak dapat ditarik kembali. Data yang tidak diklaim tersimpan anonim, jadi tidak ada cara untuk mengenali mana milik Anda dan menghapusnya. Ini salah satu alasan kami menganjurkan klaim.
   - title: "Risetnya"
     id: risetnya
     items:
@@ -80,10 +80,10 @@ groups:
           Saat ini persetujuan etik sedang dalam proses pengajuan. Kami akan memperbarui jawaban ini begitu ada keputusan.
       - q: 'Kenapa harus diisi berulang, bukan sekali saja?'
         a: >-
-          Karena resiliensi itu dinamis. Ia bisa naik dan turun mengikuti apa yang sedang kita hadapi. Satu kali pengisian ibarat satu foto, sedangkan pengisian berulang membantu kita melihat ceritanya secara utuh.
+          Karena resiliensi itu dinamis. Ia bisa naik dan turun mengikuti apa yang sedang kita hadapi. Satu kali pengisian ibarat satu foto yang menangkap satu momen. Pengisian berulang membantu peneliti memahami perubahan, cara kita beradaptasi, dan hal-hal yang mendukung kesehatan mental dari waktu ke waktu.
       - q: 'Hasilnya dipakai untuk apa, dan di mana saya bisa lihat?'
         a: >-
-          Hasilnya dipakai untuk publikasi ilmiah dan untuk advokasi program kesehatan kepada pemangku kebijakan. Datanya akan dipublikasikan di RIN Dataverse dan Harvard Dataverse. Jika Anda mendaftar, kami kabari begitu laporan selesai.
+          Hasilnya dipakai untuk publikasi ilmiah dan untuk advokasi program kesehatan kepada pemangku kebijakan. Data publik akan dipublikasikan di Harvard Dataverse. Peserta yang mendaftar menerima email hasil agregat satu bulan setelah pengumpulan data ditutup, dan kabar lanjutan saat ada publikasi.
   - title: "Konsulin"
     id: konsulin
     items:
@@ -123,5 +123,5 @@ groups:
           Banyak caranya. Anda bisa membantu menyiapkan penelitian Konsulin berikutnya, berdiskusi dan terlibat aktif bersama peneliti, atau ikut menganalisis data dan menyusun laporan. Kirim email ke [aly.lamuri@ui.ac.id](mailto:aly.lamuri@ui.ac.id) dan ceritakan apa yang ingin Anda kerjakan.
       - q: 'Saya peneliti/jurnalis. Bisa pakai datanya?'
         a: >-
-          Bisa. Data akan dipublikasikan di RIN Dataverse dan Harvard Dataverse, sehingga terbuka untuk siapa pun yang ingin memakainya.
+          Bisa. Data publik per gelombang akan dipublikasikan di Harvard Dataverse dan terbuka untuk siapa pun. Data itu sudah dianonimkan, termasuk pertukaran sebagian data, sehingga barisnya bukan data mentah. Data longitudinal dan data yang lebih rinci tersedia lewat akses terbatas dengan perjanjian penggunaan data. Ajukan permintaan ke [hello@konsulin.care](mailto:hello@konsulin.care).
 ---
