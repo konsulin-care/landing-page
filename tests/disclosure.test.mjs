@@ -223,3 +223,32 @@ test('U7c: the template states eligibility, timeline, refusal grounds and appeal
     assert.match(text, pattern, `the template states ${pattern}`);
   }
 });
+
+// ── U8 variable disclosure table ────────────
+const variableTable = () => {
+  const file = path.join(dest, 'disclosure/variable-disclosure-table.md');
+  assert.ok(fs.existsSync(file), 'the built site contains disclosure/variable-disclosure-table.md');
+  return read(file);
+};
+
+test('U8a: the build emits disclosure/variable-disclosure-table.md', () => {
+  assert.match(variableTable(), /^title:/m);
+});
+
+test('U8b: the table uses the four release classifications', () => {
+  const text = variableTable();
+  for (const label of [
+    'Public at full resolution',
+    'Public coarsened',
+    'Sufficient statistics or synthetic',
+    'Restricted',
+  ]) {
+    assert.match(text, new RegExp(`\\| ${label} \\|`), `the table classifies ${label}`);
+  }
+});
+
+test('U8c: item-level responses are restricted and scores are coarsened public bands', () => {
+  const text = variableTable();
+  assert.match(text, /^\| Item-level responses \| Restricted \|/m);
+  assert.match(text, /^\| Instrument scores \| Public coarsened \|/m);
+});
