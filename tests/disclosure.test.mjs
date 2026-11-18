@@ -189,3 +189,37 @@ test('U6c: the agreement template is published at a disclosure path', () => {
     /template is published at \/disclosure\/data-use-agreement\.md/,
   );
 });
+
+// ── U7 data use agreement template ────────────
+const agreementText = () => {
+  const file = path.join(dest, 'disclosure/data-use-agreement.md');
+  assert.ok(fs.existsSync(file), 'the built site contains disclosure/data-use-agreement.md');
+  return read(file);
+};
+
+test('U7a: the build emits disclosure/data-use-agreement.md', () => {
+  assert.match(agreementText(), /^title:/m);
+});
+
+test('U7b: the template carries purpose, linking, sharing, security, incident, destruction and audit terms', () => {
+  const text = agreementText();
+  const required = [
+    /purpose limitation/i,
+    /must not link public releases to restricted data/i,
+    /must not share the data onward/i,
+    /security/i,
+    /incident reporting/i,
+    /destruction/i,
+    /audit/i,
+  ];
+  for (const pattern of required) {
+    assert.match(text, pattern, `the template states ${pattern}`);
+  }
+});
+
+test('U7c: the template states eligibility, timeline, refusal grounds and appeal', () => {
+  const text = agreementText();
+  for (const pattern of [/eligibility/i, /working days/i, /refusal/i, /appeal/i]) {
+    assert.match(text, pattern, `the template states ${pattern}`);
+  }
+});
