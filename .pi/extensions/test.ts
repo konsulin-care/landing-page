@@ -17,7 +17,7 @@
 
 /** Detected test suites (label + argv + routing scope/cwd), frozen at generation time. */
 const SUITES = [
-  { "label": "javascript (pnpm run test)", "argv": ["pnpm","run","test"] }
+  { "label": "config (node --test --test-concurrency=1)", "argv": ["node","--test","--test-concurrency=1"], "scope": "files" }
 ];
 
 /** Per-suite wall clock budget: PI_TEST_TIMEOUT_MS, 300000ms default. */
