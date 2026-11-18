@@ -53,15 +53,15 @@ This document specifies how data collected through the #JadiTangguh citizen-scie
 
 ## 6. Processing of public-use data
 
-- Wave files are released at the beginning of the following wave, at an interval of approximately three months.
 - Public wave files are cross-sectional. No identifier links a participant across waves.
-- Each wave file contains an independent random subsample of approximately 70 per cent of that wave's participants, accompanied by post-stratification weights (age by sex, based on Statistics Indonesia population figures).
+- The baseline public file covers every baseline participant. Complete coverage is acceptable because the cohort is itself a self-selected sample of the population rather than a sample drawn from a frame, and because the key variables are generalised enough that no record stands alone.
+- Instrument scores are published only as the bands defined by each instrument's manual. l-diversity is computed on the banded score, since a continuous score leaves l-diversity undefined.
+- Non-composition rule. A release may never carry a derived score together with the items from which it is computed, because item responses regenerate the total arithmetically and turn the two files into one identified record. Cross-instrument rows are never published, since each added instrument multiplies the number of near-unique profiles.
+- Each wave file carries post-stratification weights (age by sex, based on Statistics Indonesia population figures). Baseline weights equal one, because the baseline covers the whole cohort.
 - The random per-wave identifier is generated within the release pipeline and is not derived from the Patient ID. The mapping is destroyed after release, and identifiers are regenerated for every version so that successive versions cannot be differenced.
-- Public demographics are limited to age in three bands, sex and island group. Remaining demographic variables appear only in publication-specific extracts or in restricted data.
-- Instrument total scores are released unbanded, protected by targeted record swapping among similar classes. Swapping is performed independently for each wave.
-- Item-level responses are released as a separate file carrying neither an identifier nor a total score, with an independent row shuffle. Because a total score can be reconstructed from its items, publishing both in the same file would permit a deterministic join.
+- Public demographics are limited to age in three bands, sex and island group, which keeps the demographic key mapping many-to-one. Remaining demographic variables appear only in publication-specific extracts or in restricted data.
+- Banded scores are protected by targeted record swapping among similar classes. Swapping is performed independently for each wave.
 - Quasi-identifiers in public files satisfy k ≥ 11, with an internal target cell size of 20 so that attrition and class transitions do not push a released class below the threshold. Banded sensitive scores satisfy l ≥ 2.
-- The representativeness adjustment is applied through weights. No resampling is used.
 - Timestamps are reduced to the wave number. Row order is shuffled and file metadata is stripped.
 - Referral edges are never published; only aggregates are. Free text is never published.
 

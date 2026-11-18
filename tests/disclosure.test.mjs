@@ -102,3 +102,24 @@ test('U1c: the revision history lists 1.0.0 and 1.1.0', () => {
   assert.match(history, /^- 1\.0\.0/m, '1.0.0 is recorded');
   assert.match(history, /^- 1\.1\.0/m, '1.1.0 is recorded');
 });
+
+// ── U2 baseline coverage and non-composition ───────────────────────
+const protocolText = () => read(path.join(dest, 'disclosure/protocol.md'));
+
+test('U2a: the baseline public file covers every baseline participant', () => {
+  const text = protocolText();
+  assert.match(text, /The baseline public file covers every baseline participant/);
+  assert.doesNotMatch(text, /approximately 70 per cent of that wave/, 'the subsample basis is gone');
+});
+
+test('U2b: scores are published as instrument bands with l-diversity on bands', () => {
+  const text = protocolText();
+  assert.match(text, /bands defined by each instrument's manual/);
+  assert.match(text, /l-diversity is computed on the banded score/);
+});
+
+test('U2c: the non-composition rule forbids scores with their items and cross-instrument rows', () => {
+  const text = protocolText();
+  assert.match(text, /never carry a derived score together with the items/);
+  assert.match(text, /cross-instrument rows are never published/i);
+});
