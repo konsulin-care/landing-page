@@ -252,3 +252,15 @@ test('U8c: item-level responses are restricted and scores are coarsened public b
   assert.match(text, /^\| Item-level responses \| Restricted \|/m);
   assert.match(text, /^\| Instrument scores \| Public coarsened \|/m);
 });
+
+// ── U9 register links the published agreement ────
+test('U9a: the register links the published agreement template', () => {
+  const register = read(path.join(dest, 'disclosure/data-access-register.md'));
+  assert.match(register, /\/disclosure\/data-use-agreement\.md/);
+});
+
+test('U9b: the register presents the agreement as published, not on request', () => {
+  const register = read(path.join(dest, 'disclosure/data-access-register.md'));
+  assert.doesNotMatch(register, /on request/i);
+  assert.match(register, /terms an applicant accepts are published/);
+});

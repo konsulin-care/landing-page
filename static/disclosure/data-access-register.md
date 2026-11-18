@@ -11,4 +11,4 @@ This register records the parties granted access to restricted data from the #Ja
 
 No access has been granted to date.
 
-The conditions governing access are specified in the [Data Disclosure and Handling Protocol](/disclosure/protocol.md).
+The conditions governing access are specified in the [Data Disclosure and Handling Protocol](/disclosure/protocol.md). The terms an applicant accepts are published at [Data Use Agreement](/disclosure/data-use-agreement.md), so applicants can read the full conditions before applying. Requests are submitted to hello@konsulin.care
