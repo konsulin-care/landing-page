@@ -41,13 +41,12 @@ function configValue(key) {
   return m[1].trim();
 }
 
-/** Returns the span tag that wraps the given line text. */
-function spanTagFor(text) {
-  const at = hero.indexOf(text);
-  assert.ok(at >= 0, `line "${text}" is rendered`);
-  const spanAt = hero.lastIndexOf('<span', at);
-  assert.ok(spanAt >= 0, `line "${text}" sits in a span`);
-  return hero.slice(spanAt, hero.indexOf('>', spanAt) + 1);
+/** Returns every line span rendered inside the h1 grid cell. */
+function lineSpans() {
+  const grid = hero.match(/<span[^>]*class="?grid"?[^>]*>/);
+  assert.ok(grid, 'the h1 declares a grid cell for the rotating lines');
+  const block = hero.slice(hero.indexOf(grid[0]));
+  return [...block.matchAll(/<span\b[^>]*\bcol-start-1\b[^>]*>/g)].map((m) => m[0]);
 }
 
 // ── H1 anchor ──────────────────────────────────────────────────────
@@ -69,23 +68,14 @@ test('H1: the h1 anchor links to hashtag_url in a new tab and is styled as the t
 });
 
 // ── H2 lines ───────────────────────────────────────────────────────
-test('H2: the three lines render in config order with only line 2 visible', () => {
-  const lines = [
-    'bukan berarti nggak pernah capek.',
-    'itu nggak harus sendirian.',
-    'itu dilatih, bukan ditahan-tahan.',
-  ];
-  const positions = lines.map((line) => {
-    const at = hero.indexOf(line);
-    assert.ok(at >= 0, `line "${line}" is rendered`);
-    return at;
-  });
-  assert.ok(positions[0] < positions[1] && positions[1] < positions[2], 'lines follow config order');
+test('H2: the h1 grid holds three line spans and only the second starts visible', () => {
+  const spans = lineSpans();
+  assert.equal(spans.length, 3, 'three line spans render in the grid');
 
   const hidden = (tag) => /invisible/.test(tag) && /opacity-0/.test(tag);
-  assert.ok(hidden(spanTagFor(lines[0])), 'line 1 starts hidden');
-  assert.ok(!hidden(spanTagFor(lines[1])), 'line 2 starts visible');
-  assert.ok(hidden(spanTagFor(lines[2])), 'line 3 starts hidden');
+  assert.ok(hidden(spans[0]), 'line 1 starts hidden');
+  assert.ok(!hidden(spans[1]), 'line 2 starts visible');
+  assert.ok(hidden(spans[2]), 'line 3 starts hidden');
 
   assert.ok(!/aria-live/.test(hero), 'the h1 has no aria-live attribute');
 });

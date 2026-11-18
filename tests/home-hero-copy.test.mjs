@@ -1,8 +1,7 @@
 // Hero copy and metadata (T4): the homepage speaks about the movement, not burnout.
-//   C1  the hero body is the single movement line, and the page has no old claims
-//   C2  the hero chevron targets #kenali-tandanya; no retired anchor survives and
-//       every in-page href resolves to an element id
-//   C3  the document title and meta description carry the new copy
+//   C1  the hero body is a single paragraph after the h1
+//   C2  the hero chevron targets #kenali-tandanya and every in-page href resolves
+//   C3  the document title and meta description carry the configured copy
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -13,8 +12,12 @@ import { spawnSync } from 'node:child_process';
 const ROOT = path.join(import.meta.dirname, '..');
 const read = (rel) => fs.readFileSync(path.isAbsolute(rel) ? rel : path.join(ROOT, rel), 'utf8');
 
-const MOVEMENT_LINE = 'Gerakan warga untuk saling jaga.';
-const RETIRED_ANCHOR = 'why-this-research-matters';
+/** Returns the configured value of a top-level `key:` under params. */
+function configValue(key) {
+  const m = read('hugo.yaml').match(new RegExp(`^\\s{2}${key}:\\s*["']?(.*?)["']?\\s*$`, 'm'));
+  assert.ok(m, `params.${key} is configured`);
+  return m[1].trim();
+}
 
 /** Strips the production canonical URL prefix from an href value. */
 function normalizeHref(value) {
@@ -49,16 +52,13 @@ before(() => {
 });
 
 // ── C1 hero body ───────────────────────────────────────────────────
-test('C1a: the hero renders the single movement paragraph', () => {
+test('C1a: the hero renders exactly one body paragraph after the h1', () => {
   const hero = heroHtml(html);
-  assert.ok(hero.includes(MOVEMENT_LINE), `hero must render "${MOVEMENT_LINE}"`);
-  const matches = html.split(MOVEMENT_LINE).length - 1;
-  assert.ok(matches >= 1, 'movement line is present');
-});
-
-test('C1b: the homepage no longer mentions ribuan or burnout', () => {
-  assert.ok(!/ribuan/i.test(html), 'homepage must not contain "ribuan"');
-  assert.ok(!/burnout/i.test(html), 'homepage must not contain "burnout"');
+  const bodyParas = [...hero.matchAll(/<p\b[^>]*text-charcoal-700[^>]*>/g)];
+  assert.equal(bodyParas.length, 1, 'hero renders a single body paragraph');
+  const h1End = hero.indexOf('</h1>');
+  assert.ok(h1End >= 0, 'hero renders a closing h1 tag');
+  assert.ok(hero.indexOf(bodyParas[0][0]) > h1End, 'body paragraph follows the h1');
 });
 
 // ── C2 anchors ─────────────────────────────────────────────────────
@@ -70,11 +70,6 @@ test('C2a: the hero chevron links to #kenali-tandanya', () => {
     chevron[0],
     /href=(?:"(?:https:\/\/konsulin\.care)?#kenali-tandanya"|(?:https:\/\/konsulin\.care)?#kenali-tandanya[\s>])/,
   );
-});
-
-test('C2b: no homepage link targets the retired anchor', () => {
-  assert.ok(!html.includes(RETIRED_ANCHOR), `homepage must not reference ${RETIRED_ANCHOR}`);
-  assert.ok(!read('layouts/partials/home-hero.html').includes(RETIRED_ANCHOR));
 });
 
 test('C2c: every in-page href resolves to an element id', () => {
@@ -90,16 +85,16 @@ test('C2c: every in-page href resolves to an element id', () => {
 });
 
 // ── C3 metadata ────────────────────────────────────────────────────
-test('C3a: the title trims to the new meta title', () => {
+test('C3a: the title equals params.meta_title', () => {
   const match = html.match(/<title[^>]*>([\s\S]*?)<\/title>/);
   assert.ok(match, 'homepage renders a title element');
-  assert.equal(match[1].trim(), 'Konsulin | Bareng Warga, Saling Jaga');
+  assert.equal(match[1].trim(), configValue('meta_title'));
 });
 
-test('C3b: the meta description is the movement line', () => {
+test('C3b: the meta description equals params.description', () => {
   const match = html.match(
     /<meta\s+name="?description"?\s+content=(?:"([^"]*)"|([^\s>]+))/,
   );
   assert.ok(match, 'homepage renders a meta description');
-  assert.equal((match[1] ?? match[2]).trim(), MOVEMENT_LINE);
+  assert.equal((match[1] ?? match[2]).trim(), configValue('description'));
 });

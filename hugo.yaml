@@ -69,7 +69,7 @@ params:
 
   # Browser/meta alias for the homepage, distinct from the short title.
   meta_title: "Konsulin | Bareng Warga, Saling Jaga"
-  description: "Gerakan warga untuk saling jaga."
+  description: "#JadiTangguh adalah gerakan riset warga tentang resiliensi psikologis dan kesehatan mental. Ikut survei 10 menit, gratis, dan bantu kita saling memahami."
   forward: "https://app.konsulin.care/research"
   # Nav login button: auth entry that returns the user to the research page.
   auth: "https://app.konsulin.care/auth?redirectToPath=/research"
@@ -92,16 +92,16 @@ params:
     hero:
       hashtag: "#JadiTangguh"
       lines:
-        - "bukan berarti nggak pernah capek."
-        - "itu nggak harus sendirian."
-        - "itu dilatih, bukan ditahan-tahan."
+        - "bukan berarti nggak pernah rapuh."
+        - "bukan berarti harus menghadapi semuanya sendiri."
+        - "artinya belajar beradaptasi, sedikit demi sedikit."
       body:
-        - text: "Gerakan warga untuk saling jaga."
+        - text: "Gerakan riset warga untuk memahami kesehatan mental bersama-sama."
       primary_cta: "Mulai Survei (10 Menit)"
       trust:
-        - "Privasi terjaga"
-        - "Untuk penelitian"
-        - "Laporan hasil langsung tersedia"
+        - "Peneliti tidak melihat identitas Anda"
+        - "Untuk riset, bukan diagnosis"
+        - "Laporan ringkas langsung tersedia"
     recognition:
       kicker: "Kenali tandanya"
       title: "Stres jarang datang dengan nama"
