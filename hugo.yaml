@@ -68,8 +68,8 @@ params:
   chatwoot_token: "{chatwoot_token}"
 
   # Browser/meta alias for the homepage, distinct from the short title.
-  meta_title: "Konsulin | Riset Kesehatan Bersama Masyarakat"
-  description: "Pengalaman kita membantu ribuan orang merasa dipahami"
+  meta_title: "Konsulin | Bareng Warga, Saling Jaga"
+  description: "Gerakan warga untuk saling jaga."
   forward: "https://app.konsulin.care/research"
   # Nav login button: auth entry that returns the user to the research page.
   auth: "https://app.konsulin.care/auth?redirectToPath=/research"
@@ -96,7 +96,7 @@ params:
         - "itu nggak harus sendirian."
         - "itu dilatih, bukan ditahan-tahan."
       body:
-        - text: "Kelelahan emosional sering menjadi bagian dari keseharian kita. Dengan saling berbagi pengalaman, kita bisa memahami bagaimana burnout dialami oleh orang-orang di sekitar kita."
+        - text: "Gerakan warga untuk saling jaga."
       primary_cta: "Mulai Survei (10 Menit)"
       trust:
         - "Privasi terjaga"
