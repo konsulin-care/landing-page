@@ -1,0 +1,37 @@
+<!-- Recognition section: everyday signs of strain, not a diagnostic checklist -->
+<div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
+  <div class="md:grid md:grid-cols-12 md:gap-12">
+    <div class="md:col-span-4">
+      {{ partial "section-kicker.html" (dict "label" .Site.Params.home.recognition.kicker "num" (page.Store.Get "sectionNum")) }}
+      <h2 class="text-3xl font-semibold leading-tight text-foreground md:text-4xl">
+        {{ .Site.Params.home.recognition.title }}
+      </h2>
+      <p class="mt-6 text-base leading-7 text-charcoal-700 md:text-lg md:leading-8">
+        {{ .Site.Params.home.recognition.lead }}
+      </p>
+    </div>
+
+    <div class="mt-12 md:col-span-8 md:mt-0">
+      <ul class="grid gap-4 sm:grid-cols-2">
+        {{ range .Site.Params.home.recognition.signals }}
+        <li class="rounded-lg border border-border bg-background p-6">
+          <h3 class="text-base font-semibold text-foreground">{{ .label }}</h3>
+          <p class="mt-2 text-sm leading-6 text-charcoal-700">{{ .text | markdownify }}</p>
+        </li>
+        {{ end }}
+      </ul>
+
+      <p class="mt-8 text-sm leading-6 text-muted-foreground">
+        {{ .Site.Params.home.recognition.note }}
+      </p>
+      <p class="mt-4 text-base font-medium text-foreground md:text-lg">
+        {{ .Site.Params.home.recognition.closing }}
+      </p>
+      <p class="mt-6">
+        <a href="/faq/#bantuan" class="text-sm font-semibold text-turquoise-deep underline underline-offset-4">
+          {{ .Site.Params.home.recognition.help_label }}
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

@@ -97,6 +97,26 @@ params:
         - "Privasi terjaga"
         - "Untuk penelitian"
         - "Laporan hasil langsung tersedia"
+    recognition:
+      kicker: "Kenali tandanya"
+      title: "Stres jarang datang dengan nama"
+      lead: "Banyak dari kita nggak menyebutnya masalah kesehatan mental. Kita menyebutnya hari yang panjang, atau sekadar capek."
+      signals:
+        - label: "Tubuh"
+          text: "Perut mulas setiap menjelang *deadline*."
+        - label: "Tidur"
+          text: "Bangun tidur masih terasa kurang istirahat."
+        - label: "Pikiran"
+          text: "Banyak *pikiran*, bahkan saat mau istirahat."
+        - label: "Uang"
+          text: "Cemas tiap cek saldo di akhir bulan."
+        - label: "Hubungan"
+          text: "Mudah marah dengan orang terdekat, lalu menyesal."
+        - label: "Diam"
+          text: 'Bilang "nggak apa-apa", padahal ada yang nggak beres.'
+      note: "Ini bukan daftar untuk mendiagnosis diri. Ini cara untuk saling mengenali."
+      closing: "Kalau Anda mengenali salah satunya, Anda nggak sendirian. #JadiTangguh itu nggak harus sendirian."
+      help_label: "Kalau terasa berat sekarang, lihat bantuan"
     final_cta:
       kicker: "Ikut serta"
       headline: "Sepuluh menit Anda berharga"

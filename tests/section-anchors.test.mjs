@@ -1,5 +1,5 @@
 // Homepage section registry, derived from layouts/index.html.
-//   S1  index.html registers only the hero and final-cta sections
+//   S1  index.html registers only the hero, recognition and final-cta sections
 //   S2  the retired study sections are gone from the rendered homepage
 //   S3  scroll-section.html still emits semantic ids
 //   S4  every registered section renders, with unique ids and ascending nums
@@ -50,16 +50,16 @@ before(() => {
 });
 
 // ── S1 source ──────────────────────────────────────────────────────
-test('S1a: index.html registers only hero and final-cta', () => {
+test('S1a: index.html registers only hero, recognition and final-cta', () => {
   const sections = parseSections();
-  assert.equal(sections.length, 2, 'index.html must define exactly 2 sections');
+  assert.equal(sections.length, 3, 'index.html must define exactly 3 sections');
   assert.deepEqual(
     sections.map((s) => s.id),
-    ['hero', 'final-cta'],
+    ['hero', 'kenali-tandanya', 'final-cta'],
   );
   assert.deepEqual(
     sections.map((s) => s.partial),
-    ['home-hero.html', 'home-final-cta.html'],
+    ['home-hero.html', 'home-recognition.html', 'home-final-cta.html'],
   );
 });
 
