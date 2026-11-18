@@ -139,6 +139,22 @@ params:
       lead: "Kebijakan yang baik butuh data yang baik. Untuk menjawab masalah yang benar-benar kita alami, peneliti perlu mendengarnya langsung dari kita."
       quote: "Satu kali pengisian ibarat satu foto. Pengisian berulang membantu kita melihat ceritanya secara utuh."
       closing: "Ini riset warga: dikumpulkan oleh publik, kembali untuk publik."
+    if_join:
+      kicker: "Kalau Anda ikut"
+      title: "Sepuluh menit, tanpa nama"
+      steps:
+        - title: "Isi Survei."
+          text: "Jawab pertanyaan tentang apa yang sehari-hari Anda rasakan. Tidak ada jawaban benar atau salah."
+        - title: "Dapatkan ID Anonim."
+          text: "Begitu selesai, sistem otomatis membuat ID Anonim, sehingga partisipasi Anda tidak memakai nama Anda."
+        - title: "Lihat Laporan Anda."
+          text: "Laporan ringkas langsung tersedia. Email hanya diperlukan jika Anda ingin menyimpannya."
+      assurances:
+        - "Gratis"
+        - "Boleh berhenti kapan saja"
+        - "Data tidak dijual"
+        - "Bukan diagnosis"
+      link_label: "Baca detail studi dan janji kami"
     final_cta:
       kicker: "Ikut serta"
       headline: "Sepuluh menit Anda berharga"
