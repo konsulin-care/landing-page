@@ -27,6 +27,13 @@ Halaman ini menjelaskan bagaimana Konsulin mengumpulkan, menggunakan, dan melind
 - Konsulin tidak menjual data apa pun.
 - Sebelum dibuka untuk publik di Harvard Dataverse, data dianonimkan dan diolah agar tidak bisa ditelusuri ke peserta mana pun.
 
+## Rilis data
+
+- Data dasar akan kami publikasikan secara lengkap di Harvard Dataverse, tanpa nama dan tanpa ID yang bisa dilacak. Isinya data demografis yang sudah dibuat umum dan skor tiap instrumen dalam bentuk kategori, bukan angka mentah.
+- Gelombang berikutnya tidak dipublikasikan sebagai data per orang, melainkan sebagai tabel ringkasan. Tabel itu memakai kelompok yang sama di setiap gelombang dan hanya ditampilkan jika isinya sedikitnya sebelas peserta.
+- Jawaban per butir pertanyaan tidak pernah dipublikasikan bersama skornya, karena jawaban itu bisa dipakai untuk menghitung ulang skor. Semuanya hanya tersedia lewat akses terbatas dengan perjanjian penggunaan data.
+- Sebelum data dasar terbit, Anda punya masa untuk memilih tidak ikut rilis publik, terpisah dari permintaan berhenti ikut studi. Tanggal rilisnya kami umumkan sedikitnya 14 hari sebelumnya. Sesudah terbit, data tidak bisa ditarik kembali.
+
 ## Hak Anda
 
 - Berhenti kapan saja.

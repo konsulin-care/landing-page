@@ -264,3 +264,17 @@ test('U9b: the register presents the agreement as published, not on request', ()
   assert.doesNotMatch(register, /on request/i);
   assert.match(register, /terms an applicant accepts are published/);
 });
+
+// ── U10 privacy page release facts ────
+const privacyHtml = () => read(path.join(dest, 'privacy/index.html'));
+
+test('U10a: the privacy page states the baseline is published in full and later waves as aggregates', () => {
+  const html = privacyHtml();
+  assert.match(html, /publikasikan secara lengkap/, 'baseline completeness is stated');
+  assert.match(html, /sebagai tabel ringkasan/, 'the aggregate tier is stated');
+});
+
+test('U10b: the privacy page states the opt-out window before the baseline release', () => {
+  assert.match(privacyHtml(), /memilih tidak ikut rilis publik/);
+  assert.match(privacyHtml(), /sebelum data dasar terbit/i);
+});
