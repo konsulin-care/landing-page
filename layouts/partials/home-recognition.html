@@ -24,8 +24,10 @@
       <p class="mt-8 text-sm leading-6 text-muted-foreground">
         {{ .Site.Params.home.recognition.note }}
       </p>
+      {{ $url := .Site.Params.hashtag_url | default .Site.Params.social_media.instagram.url }}
+      {{ $link := printf `<a href="%s" target="_blank" rel="noopener" class="font-semibold text-turquoise-deep hover:underline">#JadiTangguh</a>` $url }}
       <p class="mt-4 text-base font-medium text-foreground md:text-lg">
-        {{ .Site.Params.home.recognition.closing }}
+        {{ replace .Site.Params.home.recognition.closing "#JadiTangguh" $link | safeHTML }}
       </p>
       <p class="mt-6">
         <a href="/faq/#bantuan" class="text-sm font-semibold text-turquoise-deep underline underline-offset-4">

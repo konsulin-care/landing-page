@@ -80,12 +80,25 @@ test('R3a: the non-diagnosis note is rendered', () => {
 });
 
 test('R3b: the closing line renders the #JadiTangguh verbatim', () => {
-  assert.ok(
-    section.includes(
-      'Kalau Anda mengenali salah satunya, Anda nggak sendirian. #JadiTangguh itu nggak harus sendirian.',
-    ),
-    section,
+  const closing = section.slice(section.indexOf('Kalau Anda mengenali salah satunya'));
+  const text = closing.slice(0, closing.indexOf('</p>')).replace(/<[^>]*>/g, '');
+  assert.equal(
+    text.trim(),
+    'Kalau Anda mengenali salah satunya, Anda nggak sendirian. #JadiTangguh itu nggak harus sendirian.',
   );
+});
+
+test('R3d: #JadiTangguh links to the hashtag URL in the closing line', () => {
+  const closing = section.slice(section.indexOf('Kalau Anda mengenali salah satunya'));
+  const link = closing.slice(0, closing.indexOf('</p>'));
+  const anchor = link.match(/<a\b[^>]*>#JadiTangguh<\/a>/);
+  assert.ok(anchor, 'the closing #JadiTangguh is an anchor');
+  assert.match(
+    anchor[0],
+    /href="?(https:\/\/konsulin\.care)?\/?[^"\s>]*instagram[^"\s>]*"?/,
+  );
+  assert.match(anchor[0], /target="?_blank"?/);
+  assert.match(anchor[0], /rel="?noopener"?/);
 });
 
 test('R3c: the help link points to /faq/#bantuan', () => {
