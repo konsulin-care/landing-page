@@ -55,27 +55,18 @@ test('research pages contain no TODO(maintainer) placeholders', () => {
   assert.ok(!study.includes('TODO(maintainer)'), study);
 });
 
-test('study page renders the new summary, question and team copy', () => {
+test('study page renders the summary, question and team from front matter', () => {
+  const source = fs.readFileSync(path.join(ROOT, 'content/research/jadi-tangguh.md'), 'utf8');
+  const field = (key) => {
+    const m = source.match(new RegExp(`^${key}:\\s*"(.*)"$`, 'm'));
+    assert.ok(m, `${key} should be set in front matter`);
+    return m[1];
+  };
   const { dest } = build();
   const html = fs.readFileSync(path.join(dest, 'research/jadi-tangguh/index.html'), 'utf8');
-  assert.ok(
-    html.includes(
-      'Studi jangka panjang tentang kesehatan mental dan kesejahteraan di Indonesia. Peserta mengisi check-in singkat, menerima laporan pribadi, dan kembali mengisi dari waktu ke waktu.',
-    ),
-    html,
-  );
-  assert.ok(
-    html.includes(
-      'Bagaimana stres yang berkepanjangan memengaruhi kesehatan mental kita, dan apa yang membantu orang tetap tangguh?',
-    ),
-    html,
-  );
-  assert.ok(
-    html.includes(
-      'Aly Lamuri, kandidat doktor bidang Kesehatan Masyarakat dan Ekonomi Kesehatan di University of Groningen, sebagai peneliti utama, bersama peneliti dari Universitas Indonesia dan BINUS University.',
-    ),
-    html,
-  );
+  for (const key of ['summary', 'question', 'team']) {
+    assert.ok(html.includes(field(key)), `${key} renders on the study page`);
+  }
 });
 
 test('study page renders the ethics status verbatim', () => {

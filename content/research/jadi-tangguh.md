@@ -1,9 +1,9 @@
 ---
 title: "JadiTangguh"
-description: "Studi sains warga tentang ketangguhan psikologis."
+description: "Studi sains warga tentang resiliensi psikologis."
 status: upcoming
 summary: "Studi jangka panjang tentang kesehatan mental dan kesejahteraan di Indonesia. Peserta mengisi check-in singkat, menerima laporan pribadi, dan kembali mengisi dari waktu ke waktu."
-question: "Bagaimana stres yang berkepanjangan memengaruhi kesehatan mental kita, dan apa yang membantu orang tetap tangguh?"
+question: "Bagaimana stres yang berkepanjangan memengaruhi kesehatan mental kita, dan apa yang membantu orang beradaptasi?"
 team: "Aly Lamuri, kandidat doktor bidang Kesehatan Masyarakat dan Ekonomi Kesehatan di University of Groningen, sebagai peneliti utama, bersama peneliti dari Universitas Indonesia dan BINUS University."
 eligibility: "Dewasa 18 tahun ke atas"
 duration: "Sekitar 10 menit"
