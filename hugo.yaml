@@ -158,9 +158,9 @@ params:
     final_cta:
       kicker: "Ikut serta"
       headline: "Jaga diri. Jaga sesama. Mulai dari sini."
-      body: "Sepuluh menit Anda membantu kita semua lebih dipahami. Sekecil apa pun, itu berarti."
+      body: "Sepuluh menit dari Anda bisa membantu kita memahami resiliensi dan kesehatan mental bersama-sama. Sekecil apa pun, itu berarti."
       cta: "Mulai Survei (10 Menit)"
-      faq_label: "Masih ragu? Baca FAQ."
+      faq_label: "Masih ada pertanyaan? Baca FAQ."
 
   social_media:
     github:

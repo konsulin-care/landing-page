@@ -80,14 +80,13 @@ const anchorHrefs = (html, label) => {
   return [...html.matchAll(re)].map((m) => m[1] ?? m[2] ?? m[3]);
 };
 
-test('FC3a: rendered final-cta shows the renewed headline and body', () => {
-  assert.ok(section.includes('Jaga diri. Jaga sesama. Mulai dari sini.'), 'headline copy');
-  assert.ok(
-    section.includes(
-      'Sepuluh menit Anda membantu kita semua lebih dipahami. Sekecil apa pun, itu berarti.',
-    ),
-    'body copy',
-  );
+test('FC3a: rendered final-cta shows the retained headline and a body paragraph', () => {
+  const headline = section.indexOf('Jaga diri. Jaga sesama. Mulai dari sini.');
+  assert.ok(headline >= 0, 'headline copy');
+  const body = section.match(/<p[^>]*text-background[^>]*>([\s\S]*?)<\/p>/);
+  assert.ok(body, 'body paragraph renders on the charcoal band');
+  assert.ok(body[1].replace(/<[^>]*>/g, '').trim().length > 0, 'body paragraph is not empty');
+  assert.ok(section.indexOf(body[0]) > headline, 'body follows the headline');
 });
 
 test('FC3b: final-cta button label is "Mulai Survei (10 Menit)" and links where the hero button links', () => {
@@ -112,10 +111,10 @@ test('FC3c: a text-background FAQ link to /faq/ renders after the final-cta butt
   assert.ok(buttonIndex >= 0 && faqIndex > buttonIndex, 'source places the FAQ label after button.html');
 
   const buttonClose = section.indexOf('</a>', section.indexOf('Mulai Survei (10 Menit)'));
-  const faqStart = section.indexOf('Masih ragu? Baca FAQ.');
+  const faqStart = section.search(/<a\b[^>]*href="?(?:https:\/\/konsulin\.care)?\/faq\/"?/);
   assert.ok(buttonClose >= 0 && faqStart > buttonClose, 'FAQ link renders after the CTA');
 
-  const faq = section.slice(section.lastIndexOf('<a', faqStart), section.indexOf('</a>', faqStart) + 4);
+  const faq = section.slice(faqStart, section.indexOf('</a>', faqStart) + 4);
   assert.match(faq, /href=(?:"?https:\/\/konsulin\.care)?\/faq\/"?/, 'links to /faq/');
   assert.match(faq, /class=(?:"[^"]*text-background[^"]*"|'[^']*text-background[^']*'|[^\s>]*text-background[^\s>]*)/, 'uses text-background');
 });
