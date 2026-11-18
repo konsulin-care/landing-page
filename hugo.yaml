@@ -133,6 +133,12 @@ params:
           strong: "Tapi dilatih, sedikit demi sedikit"
         - muted: "Bukan sendirian"
           strong: "Tapi saling jaga"
+    why_record:
+      kicker: "Kenapa dicatat"
+      title: "Yang nggak dicatat, nggak terlihat"
+      lead: "Kebijakan yang baik butuh data yang baik. Untuk menjawab masalah yang benar-benar kita alami, peneliti perlu mendengarnya langsung dari kita."
+      quote: "Satu kali pengisian ibarat satu foto. Pengisian berulang membantu kita melihat ceritanya secara utuh."
+      closing: "Ini riset warga: dikumpulkan oleh publik, kembali untuk publik."
     final_cta:
       kicker: "Ikut serta"
       headline: "Sepuluh menit Anda berharga"

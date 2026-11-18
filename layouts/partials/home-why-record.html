@@ -1,0 +1,23 @@
+<!-- Why record section: why repeated participation matters for the research -->
+<div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
+  <div class="md:grid md:grid-cols-12 md:gap-12">
+    <div class="md:col-span-4">
+      {{ partial "section-kicker.html" (dict "label" .Site.Params.home.why_record.kicker "num" (page.Store.Get "sectionNum")) }}
+      <h2 class="text-3xl font-semibold leading-tight text-foreground md:text-4xl">
+        {{ .Site.Params.home.why_record.title }}
+      </h2>
+      <p class="mt-6 text-base leading-7 text-charcoal-700 md:text-lg md:leading-8">
+        {{ .Site.Params.home.why_record.lead }}
+      </p>
+    </div>
+
+    <div class="mt-12 md:col-span-8 md:mt-0">
+      <blockquote class="rounded-lg border border-border bg-card p-6 text-lg leading-8 text-foreground md:text-xl">
+        {{ .Site.Params.home.why_record.quote }}
+      </blockquote>
+      <p class="mt-8 text-base font-medium text-foreground md:text-lg">
+        {{ .Site.Params.home.why_record.closing }}
+      </p>
+    </div>
+  </div>
+</div>
