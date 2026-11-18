@@ -14,7 +14,6 @@
     --color-blue-600: oklch(54.6% 0.245 262.881);
     --color-blue-700: oklch(48.8% 0.243 264.376);
     --color-blue-800: oklch(42.4% 0.199 265.638);
-    --color-slate-50: oklch(98.4% 0.003 247.858);
     --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-200: oklch(92.8% 0.006 264.531);
@@ -1216,6 +1215,16 @@
   }
   .border-l-transparent {
     border-left-color: transparent;
+  }
+  .band-paper {
+    background-color: var(--color-paper);
+    --color-background: var(--color-paper);
+    --color-card: var(--color-surface);
+  }
+  .band-surface {
+    background-color: var(--color-surface);
+    --color-background: var(--color-surface);
+    --color-card: var(--color-paper);
   }
   .bg-\[\#13c2c2\] {
     background-color: #13c2c2;

@@ -7,8 +7,8 @@
   - partial: name of the content partial to include (e.g., "home-hero.html")
   - context: the original page context for passing to content partials
   - tone: band tone (paper | surface | charcoal, default paper)
-      paper    => bg-background
-      surface  => bg-card border-y border-border (hairlines separate it from paper)
+      paper    => band-paper (redefines --color-card for contrast)
+      surface  => band-surface border-y border-border (hairlines separate it from paper)
       charcoal => bg-foreground text-background
 
   All sections flow naturally with the page; the homepage is a normal
@@ -25,9 +25,9 @@
 
 {{/* Map the tone to the full-bleed band classes */}}
 {{ $tone := .tone | default "paper" }}
-{{ $bgClass := "bg-background" }}
+{{ $bgClass := "band-paper" }}
 {{ if eq $tone "surface" }}
-  {{ $bgClass = "bg-card border-y border-border" }}
+  {{ $bgClass = "band-surface border-y border-border" }}
 {{ else if eq $tone "charcoal" }}
   {{ $bgClass = "bg-foreground text-background" }}
 {{ end }}

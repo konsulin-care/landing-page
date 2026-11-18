@@ -79,6 +79,20 @@
   --tw-prose-td-borders: var(--color-charcoal-100);
 }
 
+/* Full-bleed band utilities: a band sets --color-card so bg-card always
+   contrasts with the band background. */
+@utility band-paper {
+  background-color: var(--color-paper);
+  --color-background: var(--color-paper);
+  --color-card: var(--color-surface);
+}
+
+@utility band-surface {
+  background-color: var(--color-surface);
+  --color-background: var(--color-surface);
+  --color-card: var(--color-paper);
+}
+
 @layer base {
   html {
     font-family: var(--font-sans);

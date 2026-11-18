@@ -11,8 +11,8 @@ const ROOT = path.join(import.meta.dirname, '..');
 const read = (rel) => fs.readFileSync(path.isAbsolute(rel) ? rel : path.join(ROOT, rel), 'utf8');
 
 const BAND_CLASSES = {
-  paper: ['bg-background'],
-  surface: ['bg-card', 'border-y', 'border-border'],
+  paper: ['band-paper'],
+  surface: ['band-surface', 'border-y', 'border-border'],
   charcoal: ['bg-foreground', 'text-background'],
 };
 
