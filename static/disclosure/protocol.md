@@ -48,7 +48,7 @@ This document specifies how data collected through the #JadiTangguh citizen-scie
 | --- | --- | --- |
 | Aggregate | Summary tables, participant reports and aggregate-results emails. Cells smaller than 11 are suppressed. | Public |
 | Public-use wave files | Protected microdata for a single wave. | Public, Harvard Dataverse, CC BY 4.0 with terms of use prohibiting re-identification |
-| Restricted | Item-level responses, regency or city, wave-linked longitudinal data and referral edges. | Konsulin, controlled download under a Data Use Agreement |
+| Restricted | Complete item-level response files, regency or city, wave-linked longitudinal data and referral edges. | Konsulin, controlled download under a Data Use Agreement |
 | Original | The complete raw data. | Backend only, never released |
 
 ## 6. Processing of public-use data
@@ -57,6 +57,7 @@ This document specifies how data collected through the #JadiTangguh citizen-scie
 - The baseline public file covers every baseline participant. Complete coverage is acceptable because the cohort is itself a self-selected sample of the population rather than a sample drawn from a frame, and because the key variables are generalised enough that no record stands alone.
 - Instrument scores are published only as the bands defined by each instrument's manual. l-diversity is computed on the banded score, since a continuous score leaves l-diversity undefined.
 - Non-composition rule. A release may never carry a derived score together with the items from which it is computed, because item responses regenerate the total arithmetically and turn the two files into one identified record. Cross-instrument rows are never published, since each added instrument multiplies the number of near-unique profiles.
+- Open item access is served by non-record artifacts. Item marginals and the inter-item correlation matrix are published for each instrument, which supports reliability, factor and item-fit work without any record-level data. A synthetic item file, labelled synthetic in its filename and front matter, is published in addition, and it contains no real participant records.
 - Each wave file carries post-stratification weights (age by sex, based on Statistics Indonesia population figures). Baseline weights equal one, because the baseline covers the whole cohort.
 - The random per-wave identifier is generated within the release pipeline and is not derived from the Patient ID. The mapping is destroyed after release, and identifiers are regenerated for every version so that successive versions cannot be differenced.
 - Public demographics are limited to age in three bands, sex and island group, which keeps the demographic key mapping many-to-one. Remaining demographic variables appear only in publication-specific extracts or in restricted data.
@@ -81,7 +82,7 @@ This document specifies how data collected through the #JadiTangguh citizen-scie
 
 ## 9. Restricted access
 
-- Restricted data comprise item-level responses, regency or city of residence, wave-linked longitudinal data and referral edges.
+- Restricted data comprise complete item-level response files, regency or city of residence, wave-linked longitudinal data and referral edges.
 - Requests are submitted to hello@konsulin.care and assessed case by case by the steward and the second reviewer. Grounds for refusal are recorded.
 - The Data Use Agreement prohibits re-identification and linkage attempts, onward sharing, and any use beyond the approved purpose. It further specifies security requirements, retention and destruction, incident reporting, publication rules and audit rights.
 - Access is granted by controlled download.

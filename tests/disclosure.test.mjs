@@ -123,3 +123,18 @@ test('U2c: the non-composition rule forbids scores with their items and cross-in
   assert.match(text, /never carry a derived score together with the items/);
   assert.match(text, /cross-instrument rows are never published/i);
 });
+
+// ── U3 restricted items and open item access ────
+test('U3a: the restricted tier lists complete item-level response files', () => {
+  assert.match(protocolText(), /\| Restricted \| Complete item-level response files/);
+});
+
+test('U3b: open item access is item marginals and an inter-item correlation matrix', () => {
+  assert.match(protocolText(), /item marginals and the inter-item correlation matrix/i);
+});
+
+test('U3c: the synthetic item file is labelled synthetic and holds no real records', () => {
+  const text = protocolText();
+  assert.match(text, /synthetic item file, labelled synthetic in its filename and front matter/);
+  assert.match(text, /contains no real participant records/);
+});
