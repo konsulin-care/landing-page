@@ -24,12 +24,15 @@ Taking part in a study. Every page points to this one action; do not write compe
 
 Soften the #JadiTangguh tagline. Never promise outcomes, and never frame resilience as a duty or a cure.
 
+"Tangguh" names the campaign only. Explain it as adapting, coping and seeking support. Never define it as strength, stoicism, or individual grit, and never frame resilience as solely an individual's responsibility.
+
 ## Honesty Rules
 
 - No unconfirmed counts (participants, studies, results). Leave a visible `TODO(maintainer)` placeholder.
 - Never state or imply ethics approval. Render the ethics status verbatim: "Persetujuan etik sedang dalam proses pengajuan."
 - Screening is not diagnosis. Say so wherever screening appears.
 - No invented testimonials, statistics or research claims.
+- Privacy claims on the home page, the FAQ, the privacy page and `static/disclosure/protocol.md` must match. Never strengthen a claim without evidence.
 
 ## Safety Rule
 
@@ -72,7 +75,7 @@ Avoid "instan", "pasti", "terbukti menyembuhkan". Prefer "mulai dari sini" and "
 | English | Indonesian |
 |---|---|
 | Mental health | Kesehatan mental |
-| Resilience | Ketangguhan psikologis |
+| Resilience | Resiliensi psikologis |
 | Screening | Skrining (bukan diagnosis) |
 | Stress | Stres |
 | Anxiety | Kecemasan |
@@ -95,6 +98,10 @@ Avoid "instan", "pasti", "terbukti menyembuhkan". Prefer "mulai dari sini" and "
 - Outcome: "Anda bisa [aksi], [tanpa beban]" without promising results.
 - Trust: "Dipimpin oleh Konsulin" and links to study details; no unconfirmed numbers.
 - Action: "Ikut Berkontribusi", "Pelajari riset ini".
+
+### Sparse punctuation
+
+Keep colons sparse in visitor-facing copy. Prefer short sentences that end with a full stop.
 
 ## Common Mistakes
 

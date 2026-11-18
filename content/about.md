@@ -8,7 +8,7 @@ sections:
     body: >-
       Banyak orang di Indonesia hidup di bawah tekanan yang terus-menerus: dari pekerjaan, uang, tanggung jawab keluarga, sampai keadaan negeri yang ikut memengaruhi kesehatan dan kesejahteraan kita. Kebanyakan dari kita nggak menyebutnya masalah kesehatan mental. Kita menyebutnya perut mulas menjelang *deadline*, malam tanpa tidur, mudah marah dengan orang terdekat, atau bilang "nggak apa-apa" saat ada yang nggak beres.
 
-      Saya memulai gerakan ini dari satu hipotesis kerja: stres yang berkepanjangan menggerus kesehatan mental dan bisa berujung pada depresi dan kecemasan, sedangkan ketangguhan psikologis penting untuk menjalani hidup yang seimbang. Indonesia banyak membicarakan kesehatan mental, tapi masih sangat sedikit data yang mengikuti orang yang sama dari waktu ke waktu. Tanpa data itu, belum ada yang bisa memastikan apa yang membantu orang pulih dan apa yang memperburuk keadaan.
+      Saya memulai gerakan ini dari satu hipotesis kerja: stres yang berkepanjangan menggerus kesehatan mental dan bisa berujung pada depresi dan kecemasan, sedangkan resiliensi psikologis, yaitu proses beradaptasi dengan kesulitan, penting untuk menjaga kesehatan mental. Indonesia banyak membicarakan kesehatan mental, tapi masih sangat sedikit data yang mengikuti orang yang sama dari waktu ke waktu. Tanpa data itu, belum ada yang bisa memastikan apa yang membantu orang pulih dan apa yang memperburuk keadaan.
     note: "Aly Lamuri, peneliti utama"
   - id: siapa
     title: "Siapa kami"
@@ -37,7 +37,7 @@ sections:
           Konsulin tidak menjual data apa pun. Data ini dikumpulkan oleh publik dan kembali untuk publik.
       - title: "Terbuka untuk diperiksa"
         text: >-
-          Kode platform pengumpulan data terbuka untuk siapa pun. Data yang sudah diolah dipublikasikan di RIN Dataverse dan Harvard Dataverse, tanpa informasi yang bisa dilacak ke individu.
+          Kode platform pengumpulan data terbuka untuk siapa pun. Data yang sudah diolah dipublikasikan di Harvard Dataverse, tanpa informasi yang bisa dilacak ke individu.
       - title: "Apa yang Konsulin dapat"
         text: >-
           Tidak ada keuntungan langsung bagi Konsulin dari partisipasi Anda. Konsulin tidak mengambil profit apa pun dari pengumpulan data ini, dan tidak ada penawaran layanan berbayar di alur penelitian.
