@@ -155,3 +155,18 @@ test('U4c: a marginal budget fixes the tables and bars a complete cross-tabulati
   assert.match(text, /marginal budget fixes which tables each wave releases/);
   assert.match(text, /complete cross-tabulation set is forbidden/);
 });
+
+// ── U5 aggregate longitudinal and documentation ────
+test('U5a: longitudinal results are transition matrices between banded categories', () => {
+  assert.match(protocolText(), /transition matrices between banded categories/);
+});
+
+test('U5b: cell definitions are harmonised and never redefined between releases', () => {
+  assert.match(protocolText(), /Cell definitions are harmonised across waves and never redefined/);
+});
+
+test('U5c: each aggregate wave publishes a codebook and a retention table', () => {
+  const text = protocolText();
+  assert.match(text, /publishes a codebook listing its variables/);
+  assert.match(text, /retention table/);
+});
