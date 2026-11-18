@@ -1,111 +1,129 @@
 ---
-title: "Protokol Pengungkapan dan Penanganan Data #JadiTangguh"
+title: "Data Disclosure and Handling Protocol #JadiTangguh"
 version: "1.0.0"
 status: frozen
 effective_date: "TODO(maintainer)"
 steward: "Aly Lamuri"
-reviewer: "Haykal Hafidzul Arifin (Ilmuwan, Biro Psikologi Attentive)"
+reviewer: "Haykal Hafidzul Arifin (Scientist, Biro Psikologi Attentive)"
 supersedes: null
 ---
 
-# Protokol Pengungkapan dan Penanganan Data #JadiTangguh
+# Data Disclosure and Handling Protocol #JadiTangguh
 
-Dokumen ini menjelaskan bagaimana data studi #JadiTangguh dikumpulkan, disimpan, diolah, dan dibuka untuk publik. Dokumen ini ditujukan untuk auditor, pengguna data, dan siapa pun yang ingin memeriksa cara kami bekerja.
+## Abstract
 
-## Ruang lingkup dan versi
+This document specifies how data collected through the #JadiTangguh citizen-science study of psychological resilience (*resiliensi psikologis*) are collected, secured, processed and released. It defines four release tiers, the disclosure-control procedure applied to public-use microdata, the validation steps required before each release, the conditions governing restricted access, and the residual risks that remain after those controls. The document is written for auditors, data users and reviewers. It is not participant-facing copy. Participant notices are published separately in Indonesian.
 
-- Protokol ini berlaku untuk seluruh data yang dikumpulkan melalui #JadiTangguh.
-- Setiap perubahan protokol adalah satu commit baru di repositori. Pengguna teknis merujuk versi tertentu melalui tautan permanen GitHub, misalnya https://github.com/konsulin-care/landing-page/blob/&lt;sha&gt;/static/disclosure/protocol.md
-- Kolom `supersedes` di atas memuat tautan permanen versi sebelumnya, dan riwayat perubahan di bagian akhir dokumen mencatat setiap versi.
-- Perubahan aturan hanya berlaku untuk data yang dikumpulkan setelah tanggal berlaku versi baru. Perubahan yang bersifat material diumumkan kepada peserta.
+## 1. Scope and versioning
 
-## Peran
+- This protocol governs all data collected under #JadiTangguh.
+- Each revision of the protocol is a separate commit in the public repository. Technical users cite a specific version through its GitHub permalink, for example https://github.com/konsulin-care/landing-page/blob/&lt;sha&gt;/static/disclosure/protocol.md
+- The `supersedes` field above records the permalink of the preceding version. The revision history in Section 14 records every version.
+- Amendments apply only to data collected after the effective date of the amended version. Material amendments are announced to participants, because a change to the disclosure procedure alters the conditions under which consent was given.
 
-- Penjaga data (data steward) adalah Aly Lamuri, peneliti utama studi.
-- Peninjau kedua adalah Haykal Hafidzul Arifin, Ilmuwan di Biro Psikologi Attentive.
-- Keduanya menandatangani setiap rilis data publik dan setiap permintaan akses data terbatas.
-- Pertanyaan tentang protokol ini dikirim ke hello@konsulin.care
+## 2. Roles and responsibilities
 
-## Data yang dikumpulkan
+- The data steward is Aly Lamuri, principal investigator of the study.
+- The second reviewer is Haykal Hafidzul Arifin, Scientist at Biro Psikologi Attentive.
+- The steward and the second reviewer both sign off each public release and each request for restricted access. Neither signature alone is sufficient, so that no single person authorises the disclosure of participant data.
+- Correspondence concerning this protocol is addressed to hello@konsulin.care
 
-- Data demografis, yaitu usia, jenis kelamin, kabupaten/kota, pendidikan terakhir, status pekerjaan, status hubungan, dan pengeluaran rumah tangga.
-- Jawaban kuesioner pada tingkat butir pertanyaan, catatan persetujuan, dan waktu pengisian.
-- Email, hanya jika peserta memilih menyimpan laporan. Sistem memegang email tersebut, hanya peserta yang bisa melihatnya, dan email tidak bisa diekstrak oleh peneliti.
-- Pola rujukan, yaitu catatan jika peserta datang melalui tautan undangan teman.
-- Survei tidak mengumpulkan data perangkat atau data teknis lainnya. Nama instrumen tidak disebutkan dalam dokumen ini.
+## 3. Data collected
 
-## Penyimpanan dan keamanan
+- Demographic variables, namely age, sex, regency or city of residence, highest educational attainment, employment status, relationship status and household expenditure.
+- Item-level questionnaire responses, consent records and response timestamps.
+- Email address, recorded only where a participant elects to retain a report. The address is held by the system, is visible to the participant alone, and cannot be extracted by researchers.
+- Referral patterns, that is a record of participation recruited through a friend's invitation link.
+- The survey collects no device data and no other technical data. Instrument names are omitted from this document by design, since the variable classes rather than the instruments determine the treatment applied.
 
-- Patient ID pseudonim (FHIR) disimpan di jaringan privat yang hanya bisa diakses oleh sistem backend, dengan pembatasan akses berdasarkan peran (RBAC) dan pengamanan lain.
-- Peneliti hanya melihat ID peserta acak, bukan identitas pribadi peserta.
-- Data mentah tidak pernah keluar dari lingkungan backend.
+## 4. Storage and security
 
-## Tingkat rilis
+- The pseudonymous Patient ID used in the FHIR data model is held in a private network reachable only by the backend system. Access is subject to role-based access control and additional technical safeguards.
+- Researchers observe a random participant identifier only; they cannot resolve it to a personal identity.
+- Raw data never leave the backend environment.
 
-| Tingkat | Isi | Akses |
+## 5. Release tiers
+
+| Tier | Contents | Access |
 | --- | --- | --- |
-| Agregat | Tabel ringkasan, laporan peserta, email hasil agregat. Sel berukuran kurang dari 11 disembunyikan. | Publik |
-| Data publik per gelombang | Data mikro per gelombang yang sudah dilindungi. | Publik, Harvard Dataverse, lisensi CC BY 4.0 dengan ketentuan penggunaan yang melarang identifikasi ulang |
-| Data terbatas | Butir pertanyaan, kabupaten/kota, data longitudinal yang tertaut antargelombang, dan sisi rujukan. | Konsulin, unduhan terkendali di bawah Perjanjian Penggunaan Data |
-| Data asli | Seluruh data mentah. | Hanya backend, tidak pernah keluar |
+| Aggregate | Summary tables, participant reports and aggregate-results emails. Cells smaller than 11 are suppressed. | Public |
+| Public-use wave files | Protected microdata for a single wave. | Public, Harvard Dataverse, CC BY 4.0 with terms of use prohibiting re-identification |
+| Restricted | Item-level responses, regency or city, wave-linked longitudinal data and referral edges. | Konsulin, controlled download under a Data Use Agreement |
+| Original | The complete raw data. | Backend only, never released |
 
-## Pengolahan data publik
+## 6. Processing of public-use data
 
-- Data dirilis per gelombang pada awal gelombang berikutnya, dengan jarak sekitar tiga bulan.
-- Data publik bersifat potong lintang. Tidak ada ID yang menghubungkan antargelombang.
-- Setiap gelombang memuat sekitar 70 persen peserta yang dipilih acak secara independen, dan bobot pascastratifikasi (usia kali jenis kelamin menurut BPS) menyertai data.
-- ID acak per gelombang dibuat di dalam alur rilis, bukan diturunkan dari Patient ID. Pemetaannya dihapus setelah rilis, dan ID dibuat ulang untuk setiap versi.
-- Data demografis publik dibatasi pada usia (3 kelompok), jenis kelamin, dan kelompok pulau. Data demografis lain hanya muncul pada ekstrak khusus publikasi atau pada data terbatas.
-- Skor total instrumen dipublikasikan apa adanya, disertai pertukaran terarah untuk catatan yang jarang di antara kelas yang mirip, dan dilakukan terpisah untuk setiap gelombang.
-- Jawaban tingkat butir dipublikasikan sebagai berkas terpisah tanpa penanda dan tanpa skor total, dengan urutan baris diacak sendiri.
-- Kuasi-penanda pada data publik memenuhi k ≥ 11, dengan target internal 20. Skor sensitif yang dikelompokkan memenuhi l ≥ 2.
-- Tidak ada resampling. Penyesuaian keterwakilan dilakukan dengan bobot.
-- Waktu pengisian diperkecil menjadi nomor gelombang. Urutan baris diacak, dan metadata berkas dihapus.
-- Sisi rujukan tidak pernah dipublikasikan, hanya agregatnya. Teks bebas tidak pernah dipublikasikan.
+- Wave files are released at the beginning of the following wave, at an interval of approximately three months.
+- Public wave files are cross-sectional. No identifier links a participant across waves.
+- Each wave file contains an independent random subsample of approximately 70 per cent of that wave's participants, accompanied by post-stratification weights (age by sex, based on Statistics Indonesia population figures).
+- The random per-wave identifier is generated within the release pipeline and is not derived from the Patient ID. The mapping is destroyed after release, and identifiers are regenerated for every version so that successive versions cannot be differenced.
+- Public demographics are limited to age in three bands, sex and island group. Remaining demographic variables appear only in publication-specific extracts or in restricted data.
+- Instrument total scores are released unbanded, protected by targeted record swapping among similar classes. Swapping is performed independently for each wave.
+- Item-level responses are released as a separate file carrying neither an identifier nor a total score, with an independent row shuffle. Because a total score can be reconstructed from its items, publishing both in the same file would permit a deterministic join.
+- Quasi-identifiers in public files satisfy k ≥ 11, with an internal target cell size of 20 so that attrition and class transitions do not push a released class below the threshold. Banded sensitive scores satisfy l ≥ 2.
+- The representativeness adjustment is applied through weights. No resampling is used.
+- Timestamps are reduced to the wave number. Row order is shuffled and file metadata is stripped.
+- Referral edges are never published; only aggregates are. Free text is never published.
 
-## Uji sebelum rilis
+## 7. Pre-release validation
 
-- Pemeriksaan k dan l dijalankan dengan ARX atau sdcMicro, dan konfigurasinya disimpan di repositori.
-- Pemeriksaan rilis berurutan, yaitu kelas yang berubah tepat satu orang antara dua gelombang digabung atau disembunyikan.
-- Simulasi serangan penautan pada gelombang publik terakhir, memakai data asli sebagai kebenaran acuan. Tingkat keberhasilan penautan harus tetap dekat dengan baseline acak.
-- Tinjauan penyusup termotivasi, lalu persetujuan penjaga data dan peninjau kedua.
-- Pemeriksaan hukum atas klaim anonimitas menurut UU PDP No. 27/2022 sebelum rilis pertama.
+- k-anonymity and l-diversity are computed with ARX or sdcMicro, and the configuration is committed to the repository.
+- A sequential-release check compares class counts between consecutive waves. A class whose count changes by exactly one is merged or suppressed, since a single-unit change enables differencing by an observer who knows that a specific person changed class.
+- A linkage-attack simulation is run against the most recent public waves, using the original data as ground truth. The observed linkage rate must remain close to the random baseline.
+- A motivated-intruder review is conducted, followed by sign-off from the steward and the second reviewer.
+- A legal assessment of the anonymity claim under Law No. 27 of 2022 on Personal Data Protection (UU PDP) is completed before the first release.
 
-## Paket replikasi publikasi
+## 8. Publication replication packages
 
-- Untuk setiap publikasi, himpunan variabel minimum yang dipakai analisis, pada k ≥ 11, beserta kode analisisnya.
-- Untuk hasil longitudinal, panel tertaut sintetis yang diberi label sintetis sebagai pengganti data asli, beserta statistik cukup yang mereproduksi estimasi utama.
-- Paket diterbitkan di Harvard Dataverse dengan DOI, dan dirujuk pada pernyataan ketersediaan data di publikasi.
+- For each publication, the minimum variable set used in the analysis is released at k ≥ 11, together with the analysis code.
+- Where results are longitudinal, a synthetic linked panel is released in place of the original wave-linked data, labelled explicitly as synthetic, together with sufficient statistics that reproduce the principal estimates.
+- Packages are deposited in Harvard Dataverse with a DOI and cited in the data availability statement of the publication.
 
-## Data terbatas
+## 9. Restricted access
 
-- Isi data terbatas adalah jawaban tingkat butir, kabupaten/kota, data longitudinal yang tertaut antargelombang, dan sisi rujukan.
-- Permintaan dikirim ke hello@konsulin.care dan dinilai kasus per kasus oleh penjaga data dan peninjau kedua. Alasan penolakan dicatat.
-- Perjanjian Penggunaan Data mengatur larangan identifikasi ulang, larangan penautan, larangan berbagi lebih lanjut, keamanan, retensi dan pemusnahan, pelaporan insiden, aturan publikasi, dan hak audit.
-- Akses diberikan melalui unduhan terkendali.
-- Pihak yang mendapat akses tercatat di /disclosure/data-access-register.md dan templat Perjanjian Penggunaan Data tersedia atas permintaan.
-- Data terbatas dijelaskan melalui catatan metadata berDOI yang tidak memuat berkas data.
+- Restricted data comprise item-level responses, regency or city of residence, wave-linked longitudinal data and referral edges.
+- Requests are submitted to hello@konsulin.care and assessed case by case by the steward and the second reviewer. Grounds for refusal are recorded.
+- The Data Use Agreement prohibits re-identification and linkage attempts, onward sharing, and any use beyond the approved purpose. It further specifies security requirements, retention and destruction, incident reporting, publication rules and audit rights.
+- Access is granted by controlled download.
+- Recipients are recorded in the public register at /disclosure/data-access-register.md The Data Use Agreement template is available on request.
+- Restricted data are described by a metadata-only record carrying a DOI and containing no data files, so that the dataset remains findable while access stays conditional.
 
-## Penarikan
+## 10. Withdrawal
 
-Anda bisa menarik data kapan saja sebelum tanggal rilis. Kami mengumumkan tanggal rilis sedikitnya 14 hari sebelumnya, lewat email untuk peserta yang mendaftar dan di situs ini. Penarikan sebelum tanggal rilis dihormati untuk semua rilis yang belum terbit. Data yang sudah terbit tidak dapat ditarik kembali, dan data yang belum diklaim tidak bisa dikenali sehingga tidak bisa ditarik.
+Participants may withdraw before the release date. The release date is announced at least 14 days in advance, by email to registered participants and on the study website. Withdrawals submitted before the release date are honoured for all releases not yet published. Published data cannot be retracted, and unclaimed data cannot be identified and therefore cannot be withdrawn.
 
-## Retensi
+The Indonesian wording issued to participants is quoted verbatim below, followed by its English rendering.
+
+> Anda bisa menarik data kapan saja sebelum tanggal rilis. Kami mengumumkan tanggal rilis sedikitnya 14 hari sebelumnya, lewat email untuk peserta yang mendaftar dan di situs ini. Penarikan sebelum tanggal rilis dihormati untuk semua rilis yang belum terbit. Data yang sudah terbit tidak dapat ditarik kembali, dan data yang belum diklaim tidak bisa dikenali sehingga tidak bisa ditarik.
+
+> You may withdraw your data at any time before the release date. We announce the release date at least 14 days in advance, by email to registered participants and on this site. Withdrawals submitted before the release date are honoured for all releases not yet published. Published data cannot be retracted, and unclaimed data cannot be identified and therefore cannot be withdrawn.
+
+## 11. Retention
 
 TODO(maintainer)
 
-## Hasil untuk peserta
+## 12. Participant-facing outputs
 
-- Ringkasan langsung tersedia setelah peserta mengirim jawaban.
-- Email hasil agregat dikirim satu bulan setelah pengumpulan data ditutup, dihitung dari data asli, dengan sel berukuran kurang dari 11 disembunyikan.
-- Email lanjutan dikirim saat hasil penelitian terbit.
+- A summary report is available immediately after submission.
+- An aggregate-results email is sent one month after data collection closes. It is computed from the original data, with cells smaller than 11 suppressed.
+- A follow-up email is sent when the research is published.
 
-## Risiko sisa
+## 13. Residual risk
 
-- Tidak ada rilis data yang bebas risiko. Risiko menumpuk seiring bertambahnya gelombang, dan data yang sudah terbit tidak dapat ditarik kembali.
-- Ambang 0,09 yang dipakai EMA Policy 0070 dan Health Canada PRCI adalah konvensi, bukan kewajiban hukum. Kami memakainya sebagai rujukan bersama k ≥ 11.
-- Protokol ini dirancang untuk menekan risiko, bukan menjanjikan risiko nol.
+- No data release is free of risk. Risk accumulates across waves, and published data cannot be retracted, which is why the earliest releases are the most conservative.
+- k-anonymity bounds the size of the equivalence class but does not protect against homogeneity within a class, nor against an intruder who combines the release with external information. l-diversity mitigates, but does not eliminate, the first of these limitations.
+- The 0.09 re-identification risk reference used by EMA Policy 0070 and Health Canada's Public Release of Clinical Information guidance is a convention rather than a legal requirement. It is adopted here as a shared benchmark alongside k ≥ 11.
+- This protocol is designed to reduce re-identification risk to a documented level. It does not claim that risk is zero.
 
-## Riwayat perubahan
+## 14. Revision history
 
-- 1.0.0, versi pertama, dibekukan.
+- 1.0.0, initial version, frozen.
+
+## References
+
+- European Medicines Agency. External guidance on the implementation of the European Medicines Agency policy on the publication of clinical data for medicinal products for human use, version 1.5. https://www.ema.europa.eu/en/documents/regulatory-procedural-guideline/external-guidance-implementation-european-medicines-agency-policy-publication-clinical-data-medicinal-products-human-use-version-15_en.pdf
+- Health Canada. Public Release of Clinical Information: guidance document. https://www.canada.ca/en/health-canada/services/drug-health-product-review-approval/profile-public-release-clinical-information-guidance/document.html
+- UK Government Analysis Function. Statistical Disclosure Control for microdata produced from social survey data. https://analysisfunction.civilservice.gov.uk/policy-store/sdc-for-microdata-produced-from-social-survey-data
+- Machanavajjhala, A., Kifer, D., Gehrke, J. and Venkitasubramaniam, M. l-Diversity: privacy beyond k-anonymity. ACM Transactions on Knowledge Discovery from Data, 1(1), 2007.
+- Sweeney, L. k-anonymity: a model for protecting privacy. International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, 10(5), 2002.
+- Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J. et al. The FAIR Guiding Principles for scientific data management and stewardship. Scientific Data, 3, 160018, 2016. https://doi.org/10.1038/sdata.2016.18

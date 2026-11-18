@@ -36,7 +36,7 @@ Halaman ini menjelaskan bagaimana Konsulin mengumpulkan, menggunakan, dan melind
 
 ## Pengungkapan teknis
 
-Rincian cara kami menangani dan menganonimkan data ada di [Protokol Pengungkapan dan Penanganan Data](/disclosure/protocol.md). Pihak yang mendapat akses ke data terbatas tercatat di [Daftar Pengguna Data](/disclosure/data-access-register.md). Untuk merujuk versi tertentu, gunakan tautan permanen GitHub di repositori konsulin-care/landing-page.
+Rincian cara kami menangani dan menganonimkan data ada di [Data Disclosure and Handling Protocol](/disclosure/protocol.md). Pihak yang mendapat akses ke data terbatas tercatat di [Register of Restricted-Data Users](/disclosure/data-access-register.md). Kedua dokumen itu ditulis dalam bahasa Inggris untuk pembaca teknis, auditor, dan pengguna data. Untuk merujuk versi tertentu, gunakan tautan permanen GitHub di repositori konsulin-care/landing-page.
 
 ## Kontak
 

@@ -68,7 +68,7 @@ test('D3a: the protocol states k >= 11 and l >= 2 for the public tier', () => {
 test('D4a: the build emits disclosure/data-access-register.md with its table header', () => {
   const file = path.join(dest, 'disclosure/data-access-register.md');
   assert.ok(fs.existsSync(file), 'the built site contains disclosure/data-access-register.md');
-  assert.match(read(file), /^\| Institusi \| Judul proyek \|/m);
+  assert.match(read(file), /^\| Institution \| Project title \|/m);
 });
 
 // ── D5 privacy page links ──────────────────────────────────────────

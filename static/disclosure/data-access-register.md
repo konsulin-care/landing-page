@@ -1,14 +1,14 @@
 ---
-title: "Daftar Pengguna Data Terbatas #JadiTangguh"
+title: "Register of Restricted-Data Users #JadiTangguh"
 ---
 
-# Daftar Pengguna Data Terbatas #JadiTangguh
+# Register of Restricted-Data Users #JadiTangguh
 
-Daftar ini mencatat pihak yang mendapat akses ke data terbatas studi #JadiTangguh di bawah Perjanjian Penggunaan Data (DUA). Dokumen DUA yang ditandatangani disimpan secara aman dan tidak dipublikasikan. Nama individu hanya dicantumkan jika penanda tangan menyetujuinya.
+This register records the parties granted access to restricted data from the #JadiTangguh study under a Data Use Agreement (DUA). Signed agreements are held securely and are not published. Individual names are disclosed only where the signatory has consented to disclosure.
 
-| Institusi | Judul proyek | Tujuan | Data yang diberikan | Versi DUA | Tanggal persetujuan | Berlaku hingga | Status | Luaran |
+| Institution | Project title | Purpose | Data provided | DUA version | Approval date | Valid until | Status | Outputs |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
-Belum ada akses yang diberikan.
+No access has been granted to date.
 
-Ketentuan aksesnya dijelaskan di [Protokol Pengungkapan dan Penanganan Data](/disclosure/protocol.md).
+The conditions governing access are specified in the [Data Disclosure and Handling Protocol](/disclosure/protocol.md).
