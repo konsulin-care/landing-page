@@ -2,6 +2,8 @@
 //   D1  the production build emits disclosure/protocol.md with its front matter
 //   D2  static/_headers serves /disclosure/* as plain UTF-8 text
 //   D3  the protocol states the public-tier thresholds k >= 11 and l >= 2
+//   D4  the production build emits disclosure/data-access-register.md with its table
+//   D5  the rendered /privacy/ page links both disclosure files
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -60,4 +62,22 @@ test('D3a: the protocol states k >= 11 and l >= 2 for the public tier', () => {
   const protocol = read(path.join(dest, 'disclosure/protocol.md'));
   assert.match(protocol, /k\s*(?:≥|>=)\s*11/, 'k threshold is stated');
   assert.match(protocol, /l\s*(?:≥|>=)\s*2/, 'l threshold is stated');
+});
+
+// ── D4 access register ─────────────────────────────────────────────
+test('D4a: the build emits disclosure/data-access-register.md with its table header', () => {
+  const file = path.join(dest, 'disclosure/data-access-register.md');
+  assert.ok(fs.existsSync(file), 'the built site contains disclosure/data-access-register.md');
+  assert.match(read(file), /^\| Institusi \| Judul proyek \|/m);
+});
+
+// ── D5 privacy page links ──────────────────────────────────────────
+test('D5a: the rendered /privacy/ page links both disclosure files', () => {
+  const html = read(path.join(dest, 'privacy/index.html'));
+  for (const target of ['/disclosure/protocol.md', '/disclosure/data-access-register.md']) {
+    const pattern = new RegExp(
+      `href="?(?:https:\\/\\/konsulin\\.care)?${target.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"?[\\s>]`,
+    );
+    assert.match(html, pattern, `/privacy/ links ${target}`);
+  }
 });
