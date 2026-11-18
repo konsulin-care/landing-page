@@ -136,9 +136,9 @@ params:
     why_record:
       kicker: "Kenapa dicatat"
       title: "Yang nggak dicatat, nggak terlihat"
-      lead: "Kebijakan yang baik butuh data yang baik. Untuk menjawab masalah yang benar-benar kita alami, peneliti perlu mendengarnya langsung dari kita."
-      quote: "Satu kali pengisian ibarat satu foto. Pengisian berulang membantu kita melihat ceritanya secara utuh."
-      closing: "Ini riset warga: dikumpulkan oleh publik, kembali untuk publik."
+      lead: "Kebijakan yang baik butuh data yang baik. Untuk memahami pengalaman yang benar-benar kita jalani, peneliti perlu mendengarnya langsung dari kita."
+      quote: "Satu kali pengisian ibarat satu foto yang menangkap satu momen. Pengisian berulang membantu peneliti memahami perubahan, cara kita beradaptasi, dan hal-hal yang mendukung kesehatan mental dari waktu ke waktu. Ikut satu kali pun tetap berharga."
+      closing: "Ini riset oleh warga. Pengalaman dikumpulkan dari publik, dan hasilnya dibagikan kembali untuk publik."
     if_join:
       kicker: "Kalau Anda ikut"
       title: "Sepuluh menit, tanpa nama"
@@ -146,15 +146,15 @@ params:
         - title: "Isi Survei."
           text: "Jawab pertanyaan tentang apa yang sehari-hari Anda rasakan. Tidak ada jawaban benar atau salah."
         - title: "Dapatkan ID Anonim."
-          text: "Begitu selesai, sistem otomatis membuat ID Anonim, sehingga partisipasi Anda tidak memakai nama Anda."
+          text: "Begitu selesai, sistem otomatis membuat ID Anonim, jadi Anda tidak perlu mengisi nama. Peneliti hanya melihat ID acak, bukan identitas Anda."
         - title: "Lihat Laporan Anda."
-          text: "Laporan ringkas langsung tersedia. Email hanya diperlukan jika Anda ingin menyimpannya."
+          text: "Laporan ringkas langsung tersedia. Email hanya diperlukan jika Anda ingin menyimpannya, dan peneliti tidak bisa melihat email Anda. Laporan tanpa email hanya bisa disimpan dalam 24 jam."
       assurances:
         - "Gratis"
         - "Boleh berhenti kapan saja"
         - "Data tidak dijual"
         - "Bukan diagnosis"
-      link_label: "Baca detail studi dan janji kami"
+      link_label: "Baca detail studi dan cara data dikelola"
     final_cta:
       kicker: "Ikut serta"
       headline: "Jaga diri. Jaga sesama. Mulai dari sini."

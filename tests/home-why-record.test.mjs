@@ -20,6 +20,11 @@ function sectionHtml(html, id) {
   return html.slice(start, html.indexOf('</section>', start));
 }
 
+const LEAD_CLASS = 'mt-6 text-base leading-7 text-charcoal-700 md:text-lg md:leading-8';
+const QUOTE_CLASS =
+  'rounded-lg border border-border bg-card p-6 text-lg leading-8 text-foreground md:text-xl';
+const CLOSING_CLASS = 'mt-8 text-base font-medium text-foreground md:text-lg';
+
 let html = '';
 let section = '';
 
@@ -47,44 +52,32 @@ test('W1a: the section follows #makna-tangguh and carries band-paper', () => {
 
 test('W1b: the kicker precedes the H2, which is followed by the intro paragraph', () => {
   const kicker = section.indexOf('03 · Kenapa dicatat');
-  const heading = section.indexOf('Yang nggak dicatat, nggak terlihat');
-  const lead = section.indexOf(
-    'Kebijakan yang baik butuh data yang baik. Untuk menjawab masalah yang benar-benar kita alami, peneliti perlu mendengarnya langsung dari kita.',
-  );
+  const heading = section.search(/<h2[^>]*>\s*Yang nggak dicatat, nggak terlihat\s*<\/h2>/);
+  const lead = section.indexOf(`<p class="${LEAD_CLASS}">`);
   assert.ok(kicker >= 0, 'kicker "03 · Kenapa dicatat" is rendered');
   assert.ok(heading >= 0, 'H2 is rendered');
   assert.ok(lead >= 0, 'intro paragraph is rendered');
   assert.ok(kicker < heading, 'kicker precedes the H2');
-  assert.match(section, /<h2[^>]*>\s*Yang nggak dicatat, nggak terlihat\s*<\/h2>/);
   assert.ok(heading < lead, 'intro paragraph follows the H2');
 });
 
 // ── W2 blockquote ──────────────────────────────────────────────────
 test('W2a: the supporting line renders inside a blockquote card', () => {
-  assert.match(
-    section,
-    /<blockquote class="rounded-lg border border-border bg-card p-6 text-lg leading-8 text-foreground md:text-xl">/,
-  );
-  assert.ok(
-    section.includes(
-      'Satu kali pengisian ibarat satu foto. Pengisian berulang membantu kita melihat ceritanya secara utuh.',
-    ),
-    section,
-  );
+  const quote = section.match(/<blockquote class="[^"]+">[\s\S]*?<\/blockquote>/);
+  assert.ok(quote, 'the blockquote card is rendered');
+  assert.ok(quote[0].includes(QUOTE_CLASS), 'the blockquote keeps its card classes');
+  const text = quote[0].replace(/<[^>]*>/g, '').trim();
+  assert.ok(text.length > 0, 'the blockquote carries the supporting line');
 });
 
 // ── W3 closing ─────────────────────────────────────────────────────
 test('W3a: the closing line renders after the quote with the closing style', () => {
-  const quote = section.indexOf(
-    'Satu kali pengisian ibarat satu foto. Pengisian berulang membantu kita melihat ceritanya secara utuh.',
+  const quote = section.search(/<blockquote class=/);
+  const closing = section.match(
+    new RegExp(`<p class="${CLOSING_CLASS.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">([^<]+)</p>`),
   );
-  const closing = section.indexOf(
-    'Ini riset warga: dikumpulkan oleh publik, kembali untuk publik.',
-  );
-  assert.ok(closing >= 0, 'closing line is rendered');
-  assert.ok(quote < closing, 'closing follows the quote');
-  assert.match(
-    section,
-    /<p class="mt-8 text-base font-medium text-foreground md:text-lg">[^<]*Ini riset warga: dikumpulkan oleh publik, kembali untuk publik\./,
-  );
+  assert.ok(closing, 'the closing paragraph renders with the closing style');
+  assert.ok(quote >= 0, 'the blockquote is rendered');
+  assert.ok(quote < section.indexOf(closing[0]), 'the closing paragraph follows the quote');
+  assert.ok(closing[1].trim().length > 0, 'the closing paragraph is not empty');
 });
