@@ -73,6 +73,7 @@ params:
   forward: "https://app.konsulin.care/research"
   # Nav login button: auth entry that returns the user to the research page.
   auth: "https://app.konsulin.care/auth?redirectToPath=/research"
+  hashtag_url: 'https://instagram.com/konsulin.care'
   keywords:
     - riset kesehatan partisipatif
     - riset kesehatan bersama masyarakat
@@ -89,7 +90,11 @@ params:
 
   home:
     hero:
-      headline: "Pengalaman kita membantu ribuan orang merasa dipahami"
+      hashtag: "#JadiTangguh"
+      lines:
+        - "bukan berarti nggak pernah capek."
+        - "itu nggak harus sendirian."
+        - "itu dilatih, bukan ditahan-tahan."
       body:
         - text: "Kelelahan emosional sering menjadi bagian dari keseharian kita. Dengan saling berbagi pengalaman, kita bisa memahami bagaimana burnout dialami oleh orang-orang di sekitar kita."
       primary_cta: "Mulai Survei (10 Menit)"

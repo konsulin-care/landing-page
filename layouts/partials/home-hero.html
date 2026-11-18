@@ -2,8 +2,16 @@
 <div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8">
   <div class="grid gap-10 md:grid-cols-2 md:items-center">
     <div class="order-2 md:order-1 text-left">
-      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground">
-        {{ .Site.Params.home.hero.headline }}
+      {{ $url := .Site.Params.hashtag_url | default .Site.Params.social_media.instagram.url }}
+      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground"
+        x-data="{ i: 1, n: {{ len .Site.Params.home.hero.lines }}, paused: false, hiddenClass: 'invisible opacity-0', init() { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; setInterval(() => { if (!document.hidden && !this.paused) this.i = (this.i + 1) % this.n; }, 5500); } }"
+        @mouseenter="paused = true" @mouseleave="paused = false" @focusin="paused = true" @focusout="paused = false">
+        <a href="{{ $url }}" target="_blank" rel="noopener" class="font-extrabold text-turquoise-deep hover:underline">{{ .Site.Params.home.hero.hashtag }}</a>
+        <span class="grid">
+          {{ range $i, $line := .Site.Params.home.hero.lines }}
+          <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 1 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $line }}</span>
+          {{ end }}
+        </span>
       </h1>
 
       {{ range .Site.Params.home.hero.body }}
