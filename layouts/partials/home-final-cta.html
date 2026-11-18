@@ -11,5 +11,6 @@
     <div class="mt-10">
       {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.final_cta.cta "tone" "on-dark") }}
     </div>
+    <p class="mt-6"><a href="/faq/" class="text-sm font-semibold text-background underline underline-offset-4">{{ .Site.Params.home.final_cta.faq_label }}</a></p>
   </div>
 </div>

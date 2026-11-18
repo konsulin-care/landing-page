@@ -157,9 +157,10 @@ params:
       link_label: "Baca detail studi dan janji kami"
     final_cta:
       kicker: "Ikut serta"
-      headline: "Sepuluh menit Anda berharga"
-      body: "Dalam sepuluh menit, Anda dapat membantu pengembangan program kesehatan yang lebih baik. Mulai dari satu partisipasi, dan simpan laporan Anda. Bangun riwayat partisipasi penelitian secara bertahap."
-      cta: "Mulai Survei Sekarang"
+      headline: "Jaga diri. Jaga sesama. Mulai dari sini."
+      body: "Sepuluh menit Anda membantu kita semua lebih dipahami. Sekecil apa pun, itu berarti."
+      cta: "Mulai Survei (10 Menit)"
+      faq_label: "Masih ragu? Baca FAQ."
 
   social_media:
     github:

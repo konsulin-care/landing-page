@@ -72,3 +72,50 @@ test('FC2d: kicker stays readable on charcoal (text-background override)', () =>
   const partial = read('layouts/partials/home-final-cta.html');
   assert.ok(partial.includes('section-kicker]:!text-background'), 'kicker colour is overridden to paper');
 });
+
+// ── FC3 copy, CTA parity and FAQ escape hatch ────────────────────────
+const anchorHrefs = (html, label) => {
+  const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(`<a[^>]*href=(?:"([^"]*)"|'([^']*)'|([^\\s>]+))[^>]*>${escaped}</a>`, 'g');
+  return [...html.matchAll(re)].map((m) => m[1] ?? m[2] ?? m[3]);
+};
+
+test('FC3a: rendered final-cta shows the renewed headline and body', () => {
+  assert.ok(section.includes('Jaga diri. Jaga sesama. Mulai dari sini.'), 'headline copy');
+  assert.ok(
+    section.includes(
+      'Sepuluh menit Anda membantu kita semua lebih dipahami. Sekecil apa pun, itu berarti.',
+    ),
+    'body copy',
+  );
+});
+
+test('FC3b: final-cta button label is "Mulai Survei (10 Menit)" and links where the hero button links', () => {
+  const html = read('public/index.html');
+  const heroStart = html.search(/<section\s+id="?hero"?/);
+  assert.ok(heroStart >= 0, 'rendered hero section exists');
+  const hero = html.slice(heroStart, html.indexOf('</section>', heroStart));
+
+  const label = 'Mulai Survei (10 Menit)';
+  const finalHrefs = anchorHrefs(section, label);
+  assert.equal(finalHrefs.length, 1, 'exactly one final-cta button with the shared label');
+
+  const heroHrefs = anchorHrefs(hero, label);
+  assert.equal(heroHrefs.length, 1, 'hero button with the same label exists');
+  assert.equal(finalHrefs[0], heroHrefs[0], 'final CTA points at params.forward like the hero');
+});
+
+test('FC3c: a text-background FAQ link to /faq/ renders after the final-cta button', () => {
+  const partial = read('layouts/partials/home-final-cta.html');
+  const buttonIndex = partial.indexOf('partial "button.html"');
+  const faqIndex = partial.indexOf('final_cta.faq_label');
+  assert.ok(buttonIndex >= 0 && faqIndex > buttonIndex, 'source places the FAQ label after button.html');
+
+  const buttonClose = section.indexOf('</a>', section.indexOf('Mulai Survei (10 Menit)'));
+  const faqStart = section.indexOf('Masih ragu? Baca FAQ.');
+  assert.ok(buttonClose >= 0 && faqStart > buttonClose, 'FAQ link renders after the CTA');
+
+  const faq = section.slice(section.lastIndexOf('<a', faqStart), section.indexOf('</a>', faqStart) + 4);
+  assert.match(faq, /href=(?:"?https:\/\/konsulin\.care)?\/faq\/"?/, 'links to /faq/');
+  assert.match(faq, /class=(?:"[^"]*text-background[^"]*"|'[^']*text-background[^']*'|[^\s>]*text-background[^\s>]*)/, 'uses text-background');
+});
