@@ -3,7 +3,11 @@ import assert from 'node:assert/strict';
 import {
   REST_COLOR,
   PEAK_COLOR,
+  GHOST_MS,
   createField,
+  gridFor,
+  ghostPointer,
+  fieldState,
   pointerRadius,
   step,
   isSettled,
@@ -79,6 +83,43 @@ test('displacementRatio normalises distance by spacing and clamps at one', () =>
   const dot = { x: field.spacing / 2, y: 0, rx: 0, ry: 0 };
   assert.equal(displacementRatio(dot, field), 0.5);
   assert.equal(displacementRatio({ x: field.spacing * 4, y: 0, rx: 0, ry: 0 }, field), 1);
+});
+
+test('gridFor returns the narrow grid below 768 and the wide grid at or above', () => {
+  assert.deepEqual(gridFor(375), { cols: 11, rows: 6 });
+  assert.deepEqual(gridFor(767), { cols: 11, rows: 6 });
+  assert.deepEqual(gridFor(768), { cols: 14, rows: 10 });
+  assert.deepEqual(gridFor(1440), { cols: 14, rows: 10 });
+});
+
+test('ghostPointer sweeps the middle row left to right over GHOST_MS', () => {
+  assert.equal(GHOST_MS, 2500);
+  const start = ghostPointer(0, 600, 300);
+  assert.deepEqual(start, { x: 0, y: 150, holdMs: 0 });
+
+  const mid = ghostPointer(GHOST_MS / 2, 600, 300);
+  assert.deepEqual(mid, { x: 300, y: 150, holdMs: 0 });
+
+  const end = ghostPointer(GHOST_MS, 600, 300);
+  assert.deepEqual(end, { x: 600, y: 150, holdMs: 0 });
+
+  assert.equal(ghostPointer(GHOST_MS + 1, 600, 300), null);
+  assert.equal(ghostPointer(-1, 600, 300), null);
+});
+
+test('fieldState reports idle, pressed, recovering and settled', () => {
+  const field = makeField();
+  assert.equal(fieldState(field, null, false), 'idle');
+
+  const pointer = { x: field.width / 2, y: field.height / 2, holdMs: 0 };
+  assert.equal(fieldState(field, pointer, true), 'pressed');
+
+  for (let frame = 0; frame < 20; frame += 1) step(field, pointer, 16);
+  assert.equal(fieldState(field, null, true), 'recovering');
+
+  for (let frame = 0; frame < 400; frame += 1) step(field, null, 16);
+  assert.equal(isSettled(field), true);
+  assert.equal(fieldState(field, null, true), 'settled');
 });
 
 test('dotColor blends rest into peak and clamps the ratio', () => {

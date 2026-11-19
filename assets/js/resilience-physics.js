@@ -8,6 +8,12 @@ export const REST_COLOR = '#DADBDB';
 /** Fully displaced dot colour (turquoise). */
 export const PEAK_COLOR = '#0ABDC3';
 
+/** Duration of the first-view ghost pointer sweep, in milliseconds. */
+export const GHOST_MS = 2500;
+
+/** Width in CSS pixels at which the hero field switches to the denser grid. */
+const WIDE_BREAKPOINT = 768;
+
 /** Spring constant in 1/s^2 for the rest-position restoring force. */
 const K = 180;
 
@@ -148,6 +154,43 @@ export function isSettled(field) {
 export function displacementRatio(dot, field) {
   const distance = Math.hypot(dot.x - dot.rx, dot.y - dot.ry);
   return Math.min(distance / field.spacing, 1);
+}
+
+/**
+ * Picks the dot grid dimensions for a given viewport width.
+ * @param {number} width viewport width in CSS pixels
+ * @returns {{ cols: number, rows: number }} grid dimensions
+ */
+export function gridFor(width) {
+  if (width < WIDE_BREAKPOINT) return { cols: 11, rows: 6 };
+  return { cols: 14, rows: 10 };
+}
+
+/**
+ * Position of the first-view ghost pointer along the vertical middle row.
+ * @param {number} tMs elapsed time since the sweep started, in milliseconds
+ * @param {number} width field width in CSS pixels
+ * @param {number} height field height in CSS pixels
+ * @returns {{ x: number, y: number, holdMs: number } | null} pointer state or null once the sweep is over
+ */
+export function ghostPointer(tMs, width, height) {
+  if (!(tMs >= 0 && tMs <= GHOST_MS)) return null;
+  return { x: (width * tMs) / GHOST_MS, y: height / 2, holdMs: 0 };
+}
+
+/**
+ * Describes the visible state of the field for captions and the render loop.
+ * @param {ReturnType<typeof createField>} field field state
+ * @param {{ x: number, y: number, holdMs: number } | null} pointer active pointer or null
+ * @param {boolean} touched whether the visitor has interacted with the field
+ * @returns {'idle' | 'pressed' | 'recovering' | 'settled'} field state
+ */
+export function fieldState(field, pointer, touched) {
+  const settled = isSettled(field);
+  if (!touched && settled) return 'idle';
+  if (pointer) return 'pressed';
+  if (!settled) return 'recovering';
+  return 'settled';
 }
 
 /**
