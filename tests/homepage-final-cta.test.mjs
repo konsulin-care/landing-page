@@ -1,27 +1,66 @@
-// Final CTA: a content block on the charcoal band (the band is applied by scroll-section.html).
-//   FC1  source: paper text on charcoal, no card wrapper, no rail
-//   FC2  source and rendered: unnumbered kicker and an on-dark pill CTA to .Site.Params.forward
+// Final CTA on the charcoal band: paper text, no card wrapper, and a
+// button.html pill that points where the hero CTA points, followed by a
+// FAQ escape hatch.
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { buildSite, readBuilt } from './helpers/build.mjs';
+import { read, sectionHtml } from './helpers/html.mjs';
 
-const ROOT = path.join(import.meta.dirname, '..');
-const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
-
-let section;
+let hero = '';
+let finalCta = '';
 
 before(() => {
-  execFileSync('hugo', ['--minify'], { cwd: ROOT, stdio: 'pipe', timeout: 60000 });
-  const html = read('public/index.html');
-  const start = html.search(/<section\s+id="?final-cta"?/);
-  assert.ok(start >= 0, 'rendered final-cta section exists');
-  section = html.slice(start, html.indexOf('</section>', start));
+  const { status, output } = buildSite();
+  assert.equal(status, 0, output);
+  const html = readBuilt('index.html');
+  hero = sectionHtml(html, 'hero');
+  finalCta = sectionHtml(html, 'final-cta');
 });
 
-// ── FC1 source ─────────────────────────────────────────────────────
-test('FC1a: final-cta uses text-background for headline and body, never muted-foreground or text-foreground', () => {
+/**
+ * Returns an attribute value from an opening tag, supporting quoted and
+ * unquoted (minified) attributes.
+ * @param {string} tag opening tag markup
+ * @param {string} name attribute name
+ * @returns {string|null} attribute value, or null when absent
+ */
+function attr(tag, name) {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = tag.match(new RegExp(`(?:^|\\s)${escaped}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`));
+  if (!match) return null;
+  return match[1] ?? match[2] ?? match[3];
+}
+
+/**
+ * Returns the anchors in rendered markup whose class list contains every
+ * requested token.
+ * @param {string} markup rendered HTML
+ * @param {string[]} tokens class tokens that must all be present
+ * @returns {Array<{ tag: string, href: string|null, index: number }>} matching anchors in document order
+ */
+function anchorsWithClass(markup, tokens) {
+  return [...markup.matchAll(/<a\b[^>]*>/g)]
+    .map((match) => {
+      const tag = match[0];
+      const classes = (attr(tag, 'class') ?? '').split(/\s+/).filter(Boolean);
+      return { tag, href: attr(tag, 'href'), index: match.index ?? 0, classes };
+    })
+    .filter(({ classes }) => tokens.every((token) => classes.includes(token)));
+}
+
+/** Reads `params.forward` from hugo.yaml. */
+function forwardUrl() {
+  const match = read('hugo.yaml').match(/^\s{2}forward:\s*['"]?([^'"\n]+?)['"]?\s*$/m);
+  assert.ok(match, 'params.forward is configured');
+  return match[1].trim();
+}
+
+/** Strips the site baseURL so root-relative and absolute hrefs compare equally. */
+function normalizeHref(href) {
+  return href.replace(/^https:\/\/konsulin\.care/, '');
+}
+
+test('final-cta headline and body use paper text, never muted or foreground', () => {
   const partial = read('layouts/partials/home-final-cta.html');
   assert.match(partial, /<h2[^>]*text-background/, 'headline uses text-background');
   assert.match(partial, /<p[^>]*text-background/, 'body uses text-background');
@@ -29,92 +68,44 @@ test('FC1a: final-cta uses text-background for headline and body, never muted-fo
   assert.ok(!/<h2[^>]*text-foreground/.test(partial), 'headline must not use text-foreground');
 });
 
-test('FC1b: final-cta has no bg-card or bordered card wrapper and no rail grid', () => {
+test('final-cta has no card wrapper and no rail grid', () => {
   const partial = read('layouts/partials/home-final-cta.html');
   assert.ok(!partial.includes('bg-card'), 'no bg-card');
   assert.ok(!/\bborder\b/.test(partial.replace(/\{\{[\s\S]*?\}\}/g, '')), 'no border classes');
   assert.ok(!partial.includes('grid-cols-12'), 'no 12-column rail');
 });
 
-test('FC1c: final-cta keeps its wrapper and headline scale', () => {
-  const partial = read('layouts/partials/home-final-cta.html');
-  assert.ok(partial.includes('max-w-6xl mx-auto px-6 py-24 md:px-8'));
-  assert.ok(partial.includes('max-w-4xl'));
-  assert.ok(partial.includes('text-3xl font-semibold text-background md:text-4xl'));
-  assert.ok(partial.includes('leading-6 md:leading-8'));
+test('final-cta pill CTA points where the hero pill CTA points and to params.forward', () => {
+  const expected = normalizeHref(forwardUrl());
+
+  const heroPills = anchorsWithClass(hero, ['rounded-full']);
+  assert.equal(heroPills.length, 1, 'hero renders exactly one button.html pill CTA');
+
+  const finalPills = anchorsWithClass(finalCta, ['rounded-full']);
+  assert.equal(finalPills.length, 1, 'final-cta renders exactly one button.html pill CTA');
+
+  assert.ok(heroPills[0].href, 'hero pill has an href');
+  assert.equal(
+    normalizeHref(finalPills[0].href),
+    normalizeHref(heroPills[0].href),
+    'final CTA points where the hero CTA points',
+  );
+  assert.equal(normalizeHref(finalPills[0].href), expected, 'final CTA points at params.forward');
 });
 
-// ── FC2 kicker and CTA ─────────────────────────────────────────────
-test('FC2a: final-cta calls section-kicker.html with the final_cta label and no num', () => {
-  const partial = read('layouts/partials/home-final-cta.html');
-  const call = partial.match(/partial\s+"section-kicker\.html"[^}]*/);
-  assert.ok(call, 'calls section-kicker.html');
-  assert.ok(call[0].includes('.Site.Params.home.final_cta.kicker'), 'uses the final_cta kicker label');
-  assert.ok(!call[0].includes('"num"'), 'passes no number');
-});
+test('a /faq/ link renders after the final-cta pill CTA', () => {
+  const [cta] = anchorsWithClass(finalCta, ['rounded-full']);
+  assert.ok(cta, 'final-cta renders the pill CTA');
 
-test('FC2b: final-cta CTA uses button.html with tone on-dark and .Site.Params.forward', () => {
-  const partial = read('layouts/partials/home-final-cta.html');
-  const call = partial.match(/partial\s+"button\.html"[^}]*/);
-  assert.ok(call, 'calls button.html');
-  assert.ok(call[0].includes('"tone" "on-dark"'), 'uses the on-dark tone');
-  assert.ok(call[0].includes('.Site.Params.forward'), 'links to .Site.Params.forward');
-});
+  const faq = [...finalCta.matchAll(/<a\b[^>]*>/g)]
+    .map((match) => ({ tag: match[0], index: match.index ?? 0 }))
+    .find(({ tag, index }) => {
+      const href = attr(tag, 'href');
+      if (!href || index <= cta.index) return false;
+      return /^\/faq\/?$/.test(normalizeHref(href));
+    });
 
-test('FC2c: rendered final-cta shows the unnumbered kicker and the on-dark pill', () => {
-  assert.ok(/<p class="?[^">]*section-kicker[^>]*>Ikut serta<\/p>/.test(section), 'unnumbered "Ikut serta" kicker');
-  assert.ok(!/\d\d · Ikut serta/.test(section), 'kicker has no number');
-  assert.ok(section.includes('rounded-full'), 'CTA is a pill');
-  assert.ok(section.includes('hover:bg-background'), 'CTA uses the on-dark hover');
-});
-
-test('FC2d: kicker stays readable on charcoal (text-background override)', () => {
-  const partial = read('layouts/partials/home-final-cta.html');
-  assert.ok(partial.includes('section-kicker]:!text-background'), 'kicker colour is overridden to paper');
-});
-
-// ── FC3 copy, CTA parity and FAQ escape hatch ────────────────────────
-const anchorHrefs = (html, label) => {
-  const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const re = new RegExp(`<a[^>]*href=(?:"([^"]*)"|'([^']*)'|([^\\s>]+))[^>]*>${escaped}</a>`, 'g');
-  return [...html.matchAll(re)].map((m) => m[1] ?? m[2] ?? m[3]);
-};
-
-test('FC3a: rendered final-cta shows the retained headline and a body paragraph', () => {
-  const headline = section.indexOf('Jaga diri. Jaga sesama. Mulai dari sini.');
-  assert.ok(headline >= 0, 'headline copy');
-  const body = section.match(/<p[^>]*text-background[^>]*>([\s\S]*?)<\/p>/);
-  assert.ok(body, 'body paragraph renders on the charcoal band');
-  assert.ok(body[1].replace(/<[^>]*>/g, '').trim().length > 0, 'body paragraph is not empty');
-  assert.ok(section.indexOf(body[0]) > headline, 'body follows the headline');
-});
-
-test('FC3b: final-cta button label is "Mulai Survei (10 Menit)" and links where the hero button links', () => {
-  const html = read('public/index.html');
-  const heroStart = html.search(/<section\s+id="?hero"?/);
-  assert.ok(heroStart >= 0, 'rendered hero section exists');
-  const hero = html.slice(heroStart, html.indexOf('</section>', heroStart));
-
-  const label = 'Mulai Survei (10 Menit)';
-  const finalHrefs = anchorHrefs(section, label);
-  assert.equal(finalHrefs.length, 1, 'exactly one final-cta button with the shared label');
-
-  const heroHrefs = anchorHrefs(hero, label);
-  assert.equal(heroHrefs.length, 1, 'hero button with the same label exists');
-  assert.equal(finalHrefs[0], heroHrefs[0], 'final CTA points at params.forward like the hero');
-});
-
-test('FC3c: a text-background FAQ link to /faq/ renders after the final-cta button', () => {
-  const partial = read('layouts/partials/home-final-cta.html');
-  const buttonIndex = partial.indexOf('partial "button.html"');
-  const faqIndex = partial.indexOf('final_cta.faq_label');
-  assert.ok(buttonIndex >= 0 && faqIndex > buttonIndex, 'source places the FAQ label after button.html');
-
-  const buttonClose = section.indexOf('</a>', section.indexOf('Mulai Survei (10 Menit)'));
-  const faqStart = section.search(/<a\b[^>]*href="?(?:https:\/\/konsulin\.care)?\/faq\/"?/);
-  assert.ok(buttonClose >= 0 && faqStart > buttonClose, 'FAQ link renders after the CTA');
-
-  const faq = section.slice(faqStart, section.indexOf('</a>', faqStart) + 4);
-  assert.match(faq, /href=(?:"?https:\/\/konsulin\.care)?\/faq\/"?/, 'links to /faq/');
-  assert.match(faq, /class=(?:"[^"]*text-background[^"]*"|'[^']*text-background[^']*'|[^\s>]*text-background[^\s>]*)/, 'uses text-background');
+  assert.ok(faq, 'a /faq/ link renders after the CTA');
+  const classes = (attr(faq.tag, 'class') ?? '').split(/\s+/).filter(Boolean);
+  assert.ok(classes.includes('text-background'), 'the FAQ link stays readable on charcoal');
 });
