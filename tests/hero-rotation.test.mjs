@@ -20,6 +20,11 @@ function makeEnv({ reducedMotion = false, hidden = false } = {}) {
   return { env: { window: win, document: doc, setInterval: every }, timers, doc };
 }
 
+/** Builds a deterministic byte source for Nano ID generation. */
+function zeroBytes(n) {
+  return new Uint8Array(n);
+}
+
 test('heroSync ticks raise progress and advance one pair after a full rotation', () => {
   const { env, timers } = makeEnv();
   const data = heroSync(3, {}, env);
@@ -270,6 +275,78 @@ test('heroSync clears picked after a full rotation following an answer', () => {
 
   for (let tick = 0; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
   assert.equal(data.picked, null);
+});
+
+test('heroSync init generates the default ID preview cards', () => {
+  const { env } = makeEnv();
+  const data = heroSync(3, {}, { ...env, random: zeroBytes });
+  data.init();
+
+  assert.equal(data.ids.length, 5);
+  for (const id of data.ids) assert.match(id, /^JT-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{10}$/);
+});
+
+test('heroSync refreshes ids only when entering the ID stage', () => {
+  const { env, timers } = makeEnv();
+  const data = heroSync(3, {}, { ...env, random: zeroBytes });
+  data.init();
+
+  const initial = data.ids;
+
+  timers[0].fn();
+  assert.equal(data.ids, initial);
+
+  for (let tick = 1; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 1);
+  assert.notEqual(data.ids, initial);
+
+  const entered = data.ids;
+  timers[0].fn();
+  assert.equal(data.ids, entered);
+
+  for (let tick = 1; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 2);
+  assert.equal(data.ids, entered);
+
+  data.select(0);
+  assert.equal(data.ids, entered);
+  data.select(1);
+  assert.notEqual(data.ids, entered);
+});
+
+test('heroSync select entering the ID stage replaces the ids array', () => {
+  const { env } = makeEnv();
+  const data = heroSync(3, {}, { ...env, random: zeroBytes });
+
+  data.select(1);
+  const first = data.ids;
+  assert.equal(first.length, 5);
+
+  data.select(1);
+  assert.equal(data.ids, first);
+
+  data.select(2);
+  assert.equal(data.ids, first);
+
+  data.select(1);
+  assert.notEqual(data.ids, first);
+});
+
+test('heroSync honours idCount, idPrefix and idSize options', () => {
+  const { env } = makeEnv();
+  const data = heroSync(3, { idCount: 3, idPrefix: 'X-', idSize: 4 }, { ...env, random: zeroBytes });
+  data.init();
+
+  assert.equal(data.ids.length, 3);
+  for (const id of data.ids) assert.match(id, /^X-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}$/);
+});
+
+test('heroSync under reduced motion still generates the ID preview once', () => {
+  const { env } = makeEnv({ reducedMotion: true });
+  const data = heroSync(3, {}, { ...env, random: zeroBytes });
+  data.init();
+
+  assert.equal(data.ids.length, 5);
 });
 
 /** Lists every file below a directory, recursively. */
