@@ -58,18 +58,24 @@ charcoal. Wrap with `[&_.section-kicker]:!text-background`.
 Everything lives inline in `layouts/partials/home-hero.html`; do not add new
 partials. Config comes from `params.home.hero` and `params.home.recognition`.
 
-- Root wrapper: `data-hero` plus `x-data="jtHeroSync(<line count>)"` on the
-  `relative max-w-6xl mx-auto px-6 py-24 md:px-8` div, so the chevron can read
-  the shared clock state.
-- Text column: `data-hero-text`. It is the only element that carries hold and
-  release handlers (`hold('hover')`, `focus`, `press`, swipe) and it uses
-  `touch-pan-y`. The image column never pauses the clock.
+- Root wrapper: `data-hero` plus `x-data="jtHeroSync(<line count>, <options>)"`
+  on the `relative max-w-6xl mx-auto px-6 py-24 md:px-8` div, so the chevron can
+  read the shared clock state. `<options>` is a `dict` (rotation `ms`, the demo
+  ID stage/count/prefix/size) rendered with `jsonify`; Hugo escapes the quotes
+  to `&#34;` and the browser decodes them, so Alpine receives a valid object.
+- Text column: `data-hero-text`. It carries no hold handlers at all (swipe and
+  `touch-pan-y` only), so reading or tapping the headline never freezes the
+  clock.
+- Pause handlers live on the demo figure instead: `@pointerenter` holding
+  `'hover'` only when `$event.pointerType === 'mouse'` (touch fires a synthetic
+  hover that never leaves), `@pointerleave` releasing `'hover'` and `'press'`,
+  and `@pointerdown`/`@pointerup`/`@pointercancel` holding and releasing
+  `'press'`. No focus handlers.
 - Grid-stack fade: a wrapper `<span class="grid">` or `<p class="grid">` holds
   each variant as `col-start-1 row-start-1`, with
   `transition-[opacity,visibility] duration-700 motion-reduce:transition-none`
-  and a `hiddenClass` bound through `:class`. The headline lines and the trust
-  chip use the same pattern. The trust chip is `aria-hidden="true"` with an
-  `sr-only` list of all items.
+  and a `hiddenClass` bound through `:class`. The headline lines use this
+  pattern.
 - Segments: three buttons with `min-h-11`, `aria-label="Pesan k dari 3"`, and a
   4px inner bar whose active width is bound to `progress()`.
 - Gloss marker: the headline word is a button with a low turquoise-tint marker:
@@ -95,12 +101,32 @@ partials. Config comes from `params.home.hero` and `params.home.recognition`.
   with `delay-0`/`delay-150`/`delay-300` and a bound active class; the current
   step (`i`) is also active and bold.
 - Demo figure: `<figure data-hero-demo>` in the image column (below the CTA on
-  mobile) holds a `rounded-lg border border-border bg-card p-4` frame. Inside,
-  a `grid` stack of three `data-hero-demo-stage` blocks (question, ID, report)
-  use `col-start-1 row-start-1` and the same opacity/visibility fade bound to
-  `i`. Option buttons use `min-h-11 rounded-lg`; indicator dots use
-  `rounded-md`. No `rounded-full` (the CTA is the only anchor). A `figcaption`
-  labels it as an example. No canvas, no second CTA.
+  mobile) holds a `relative rounded-lg border border-border bg-card p-4` frame.
+  Inside, a `grid` stack of three `data-hero-demo-stage` blocks (question, ID,
+  report) use `col-start-1 row-start-1` and the same opacity/visibility fade
+  bound to `i`. Option buttons use `min-h-11 rounded-lg`; indicator dots use
+  `rounded-md`. No `rounded-full` (the CTA is the only anchor). No canvas, no
+  second CTA.
+- Example badge: a `span` (`absolute -top-3 left-4 rounded-lg border
+  border-border bg-card px-2 text-xs`) is the frame's first child, so the demo
+  stays labelled as an example without repeating the note on screen.
+- Trust chip in the figcaption: the `aria-hidden="true"` `<p
+  data-hero-trust>` (grid stack, one span per line, same `:class` binding as the
+  headline line) plus its `sr-only` `<ul>` and an `sr-only` span holding
+  `demo.label` + `demo.note` live inside `<figcaption class="mt-3">`. The caption
+  text is not visible; the badge carries the visible label.
+- ID card stack: one `rounded-lg border px-4 py-2` card per
+  `demo.id.count`, `border-border` for earlier cards and `border-turquoise` for
+  the newest. Both states of the fade belong in `:class`
+  (`progress() >= <threshold> ? 'opacity-100 translate-y-0' : 'opacity-0
+  translate-y-2'`, `opacity-70` for the earlier cards): Alpine's `:class` adds to
+  static classes, so a static `opacity-*`/`translate-*` would win and pin the
+  element. Thresholds come from `printf "%.2f" (mul $k 0.12)`. The ID renders in
+  a `font-mono` `<p>` bound with `x-text="ids[k]"` and a masked fallback.
+- Save indicator: an `aria-hidden` `span` (never a button or link, never
+  `rounded-full`) with `inline-flex items-center gap-2 rounded-lg border px-4
+  py-2`, switching to `bg-turquoise-tint border-turquoise font-semibold` and a
+  check icon at `progress() >= 0.70`.
 
 # Do and don't
 
