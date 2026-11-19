@@ -1,6 +1,6 @@
 // Hero progress segments, swipe wiring and the labelled chevron: the text
-// column exposes a story-style segment per headline line, holds the clock on
-// touch, swipes between pairs, and the chevron reveals its label once cycled.
+// column exposes a story-style segment per headline line, swipes between pairs,
+// and the chevron reveals its label once cycled.
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildSite, readBuilt } from './helpers/build.mjs';
@@ -99,15 +99,16 @@ test('the hero renders one segment button per headline line before the h1', () =
   });
 });
 
-test('the text column swipes horizontally and holds the clock on touch', () => {
+test('the text column swipes horizontally without pausing the clock', () => {
   const classes = (attr(textColumn, 'class') ?? '').split(/\s+/).filter(Boolean);
   assert.ok(classes.includes('touch-pan-y'), 'the text column keeps vertical panning');
 
-  assert.match(attr(textColumn, '@pointerdown') ?? '', /hold\('press'\)/, 'pointerdown holds the clock');
   assert.match(attr(textColumn, '@pointerdown') ?? '', /swipeStart\(\$event\.clientX\)/, 'pointerdown records the start x');
-  assert.match(attr(textColumn, '@pointerup') ?? '', /release\('press'\)/, 'pointerup releases the clock');
   assert.match(attr(textColumn, '@pointerup') ?? '', /swipeEnd\(\$event\.clientX\)/, 'pointerup compares the end x');
-  assert.match(attr(textColumn, '@pointercancel') ?? '', /release\('press'\)/, 'pointercancel releases the clock');
+
+  for (const name of ['@pointerdown', '@pointerup', '@pointercancel']) {
+    assert.doesNotMatch(attr(textColumn, name) ?? '', /hold|release/, `the text column ${name} does not pause the clock`);
+  }
 });
 
 test('the chevron label shows the recognition kicker only once cycled', () => {

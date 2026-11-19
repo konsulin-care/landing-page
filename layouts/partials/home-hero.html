@@ -3,7 +3,7 @@
 {{ $clock := dict "ms" ($hero.rotation_ms | default 3000) }}
 <div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8" data-hero x-data="jtHeroSync({{ len $hero.lines }}, {{ $clock | jsonify }})">
   <div class="grid gap-10 md:grid-cols-2 md:items-center">
-    <div class="order-1 text-left touch-pan-y" data-hero-text @mouseenter="hold('hover')" @mouseleave="release('hover')" @focusin="hold('focus')" @focusout="release('focus')" @pointerdown="hold('press'); swipeStart($event.clientX)" @pointerup="release('press'); swipeEnd($event.clientX)" @pointercancel="release('press')">
+    <div class="order-1 text-left touch-pan-y" data-hero-text @pointerdown="swipeStart($event.clientX)" @pointerup="swipeEnd($event.clientX)">
       {{ $url := .Site.Params.hashtag_url | default .Site.Params.social_media.instagram.url }}
       <div class="mb-4 flex gap-2" data-hero-segments>
         {{ range $i, $line := .Site.Params.home.hero.lines }}
@@ -92,7 +92,7 @@
 
     {{ $demo := .Site.Params.home.hero.demo }}
     <div class="order-2 hero-image-wrapper">
-      <figure data-hero-demo class="m-0">
+      <figure data-hero-demo class="m-0" @pointerenter="$event.pointerType === 'mouse' && hold('hover')" @pointerleave="release('hover'); release('press')" @pointerdown="hold('press')" @pointerup="release('press')" @pointercancel="release('press')">
         <div class="rounded-lg border border-border bg-card p-4">
           <div class="grid">
             <div data-hero-demo-stage class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none" :class="{ [hiddenClass]: i !== 0 }">

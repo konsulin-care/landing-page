@@ -11,6 +11,20 @@ before(() => {
   hero = sectionHtml(readBuilt('index.html'), 'hero');
 });
 
+/**
+ * Returns an attribute value from an opening tag, supporting quoted and
+ * unquoted (minified) attributes.
+ * @param {string} tag opening tag markup
+ * @param {string} name attribute name
+ * @returns {string|null} attribute value, or null when absent
+ */
+function attr(tag, name) {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = tag.match(new RegExp(`(?:^|\\s)${escaped}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`));
+  if (!match) return null;
+  return match[1] ?? match[2] ?? match[3];
+}
+
 test('text column order-1, right column order-2 with demo figure', () => {
   assert.match(hero, /class="order-1 text-left[^"]*"[^>]*data-hero-text/);
   assert.match(hero, /class="order-2 hero-image-wrapper"[^>]*>\s*<figure data-hero-demo/);
@@ -58,6 +72,25 @@ test('options answer, nudge the CTA and confirm', () => {
   assert.match(hero, /x-show="?picked !== null"?[^>]*>Tidak ada jawaban salah/);
   assert.match(hero, /@jt-cta-nudge\.window="?ctaActive = true/);
   assert.equal((hero.match(/rounded-full[^>]*>[^<]*<\/a>|<a [^>]*rounded-full/g) || []).length <= 1, true);
+});
+
+test('the demo figure pauses the rotating clock', () => {
+  const figure = hero.match(/<figure\b[^>]*\bdata-hero-demo\b[^>]*>/)?.[0] ?? '';
+  assert.ok(figure, 'the demo figure declares data-hero-demo');
+  assert.match(figure, /^<figure data-hero-demo\b/, 'data-hero-demo stays the first attribute');
+
+  const enter = attr(figure, '@pointerenter') ?? '';
+  assert.match(enter, /hold\('hover'\)/, 'pointerenter holds hover');
+  assert.match(enter, /\$event\.pointerType\s*===\s*'mouse'/, 'hover only pauses for a mouse pointer');
+
+  const leave = attr(figure, '@pointerleave') ?? '';
+  assert.match(leave, /release\('hover'\)/, 'pointerleave releases hover');
+  assert.match(leave, /release\('press'\)/, 'pointerleave releases press');
+
+  assert.match(attr(figure, '@pointerdown') ?? '', /hold\('press'\)/, 'pointerdown holds press');
+  assert.match(attr(figure, '@pointerup') ?? '', /release\('press'\)/, 'pointerup releases press');
+  assert.match(attr(figure, '@pointercancel') ?? '', /release\('press'\)/, 'pointercancel releases press');
+  assert.ok(!/@focus/.test(figure), 'the demo figure has no focus handlers');
 });
 
 test('stage 1 content and caption', () => {

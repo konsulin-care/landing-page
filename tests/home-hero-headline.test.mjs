@@ -108,14 +108,31 @@ test('the hero root wires the shared clock to the configured line count', () => 
   assert.equal(opts.ms, Number(rotation[1].trim()), 'passes params.home.hero.rotation_ms');
 });
 
-test('only the data-hero-text column carries the hold and release handlers', () => {
-  const pause = (tag, name) => assert.match(attr(tag, name) ?? '', /hold\('(hover|focus)'\)/, `${name} holds the clock`);
-  const resume = (tag, name) => assert.match(attr(tag, name) ?? '', /release\('(hover|focus)'\)/, `${name} releases the clock`);
+test('the text column carries no pause handlers and the demo figure does', () => {
+  for (const name of ['@mouseenter', '@mouseleave', '@focusin', '@focusout', '@pointerdown', '@pointerup', '@pointercancel']) {
+    assert.doesNotMatch(attr(textColumn, name) ?? '', /hold|release/, `the text column ${name} does not pause the clock`);
+  }
 
-  pause(textColumn, '@mouseenter');
-  resume(textColumn, '@mouseleave');
-  pause(textColumn, '@focusin');
-  resume(textColumn, '@focusout');
+  const classes = (attr(textColumn, 'class') ?? '').split(/\s+/).filter(Boolean);
+  assert.ok(classes.includes('touch-pan-y'), 'the text column keeps vertical panning');
+  assert.match(attr(textColumn, '@pointerdown') ?? '', /swipeStart\(\$event\.clientX\)/, 'pointerdown records the start x');
+  assert.match(attr(textColumn, '@pointerup') ?? '', /swipeEnd\(\$event\.clientX\)/, 'pointerup compares the end x');
+
+  const figure = hero.match(/<figure\b[^>]*\bdata-hero-demo\b[^>]*>/)?.[0] ?? '';
+  assert.ok(figure, 'the demo figure declares data-hero-demo');
+  assert.ok(!/@focus/.test(figure), 'the demo figure has no focus handlers');
+
+  const enter = attr(figure, '@pointerenter') ?? '';
+  assert.match(enter, /hold\('hover'\)/, 'pointerenter holds the clock');
+  assert.match(enter, /\$event\.pointerType\s*===\s*'mouse'/, 'pointerenter only holds for a mouse pointer');
+
+  const leave = attr(figure, '@pointerleave') ?? '';
+  assert.match(leave, /release\('hover'\)/, 'pointerleave releases hover');
+  assert.match(leave, /release\('press'\)/, 'pointerleave releases press');
+
+  assert.match(attr(figure, '@pointerdown') ?? '', /hold\('press'\)/, 'pointerdown holds the clock');
+  assert.match(attr(figure, '@pointerup') ?? '', /release\('press'\)/, 'pointerup releases the clock');
+  assert.match(attr(figure, '@pointercancel') ?? '', /release\('press'\)/, 'pointercancel releases the clock');
 
   assert.doesNotMatch(attr(heroRoot, '@mouseenter') ?? '', /hold|paused/, 'the hero root does not pause the clock');
   assert.doesNotMatch(attr(headline.slice(0, headline.indexOf('>') + 1), '@mouseenter') ?? '', /hold|paused/, 'the h1 does not pause the clock');
