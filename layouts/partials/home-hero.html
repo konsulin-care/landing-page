@@ -21,8 +21,14 @@
       <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground">
         <a href="{{ $url }}" target="_blank" rel="noopener" class="font-extrabold text-turquoise-deep hover:underline">{{ .Site.Params.home.hero.hashtag }}</a>
         <span class="grid">
+          {{ $glosses := .Site.Params.home.hero.glosses }}
           {{ range $i, $line := .Site.Params.home.hero.lines }}
-          <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 1 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $line }}</span>
+          {{ $rendered := $line }}
+          {{ with index $glosses $i }}
+          {{ $btn := printf `<button type="button" class="underline decoration-dotted underline-offset-4" aria-controls="hero-gloss-%d" :aria-expanded="gloss === %d" @click="gloss === %d ? closeGloss() : openGloss(%d)">%s</button>` $i $i $i $i .word }}
+          {{ $rendered = replace $line .word $btn 1 }}
+          {{ end }}
+          <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 1 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $rendered | safeHTML }}</span>
           {{ end }}
         </span>
       </h1>
@@ -37,6 +43,25 @@
         <li>{{ . }}</li>
         {{ end }}
       </ul>
+
+      {{ range $k, $gloss := .Site.Params.home.hero.glosses }}
+      {{ $label := $gloss.link_label | default $.Site.Params.home.recognition.help_label }}
+      <div
+        id="hero-gloss-{{ $k }}"
+        role="dialog"
+        aria-label="{{ $gloss.word }}"
+        x-show="gloss === {{ $k }}"
+        x-cloak
+        @click.outside="closeGloss()"
+        @keydown.escape.window="closeGloss()"
+        class="mt-3 rounded-lg border border-border bg-card p-4 text-sm text-charcoal-700"
+      >
+        <p>{{ $gloss.text }}</p>
+        <p class="mt-2">
+          <a href="{{ $gloss.href }}" class="font-semibold text-turquoise-deep underline underline-offset-4">{{ $label }}</a>
+        </p>
+      </div>
+      {{ end }}
 
       {{ range .Site.Params.home.hero.body }}
       <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-charcoal-700">

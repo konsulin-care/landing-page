@@ -95,6 +95,18 @@ params:
         - "bukan berarti nggak pernah rapuh."
         - "bukan berarti harus menghadapi semuanya sendiri."
         - "artinya belajar beradaptasi, sedikit demi sedikit."
+      glosses:
+        - word: "rapuh"
+          text: "Wajar merasa rapuh. Mengenali apa yang Anda alami adalah bagian dari prosesnya."
+          href: "/faq/#bantuan"
+        - word: "sendiri"
+          text: "Mencari dan menerima dukungan juga bagian dari resiliensi."
+          link_label: "Baca makna tangguh ↓"
+          href: "#makna-tangguh"
+        - word: "beradaptasi"
+          text: "Dalam riset, ini disebut resiliensi psikologis: proses belajar menghadapi kesulitan, pelan-pelan."
+          link_label: "Baca makna tangguh ↓"
+          href: "#makna-tangguh"
       body:
         - text: "Gerakan riset warga untuk memahami kesehatan mental bersama-sama."
       primary_cta: "Mulai Survei (10 Menit)"
