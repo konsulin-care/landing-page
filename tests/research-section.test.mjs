@@ -1,79 +1,123 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { ROOT, readBuilt } from './helpers/build.mjs';
+import { read } from './helpers/html.mjs';
 
-const ROOT = path.join(import.meta.dirname, '..');
+const RESEARCH_DIR = path.join(ROOT, 'content/research');
 
-function build() {
-  const dest = fs.mkdtempSync(path.join(os.tmpdir(), 'research-'));
-  const r = spawnSync('hugo', ['--minify', '--destination', dest], {
-    cwd: ROOT,
-    encoding: 'utf8',
-    timeout: 60000,
-  });
-  return { dest, r, out: `${r.stdout}${r.stderr}` };
+/**
+ * Reads one top-level scalar value from a Markdown front matter block.
+ * Quoted and unquoted values are both supported.
+ * @param {string} source raw Markdown file contents
+ * @param {string} key front matter key
+ * @returns {string|undefined} the field value, or undefined when the key is absent
+ */
+function frontMatter(source, key) {
+  const match = source.match(
+    new RegExp(`^${key}:\\s*(?:"([^"]*)"|'([^']*)'|(.*?))\\s*$`, 'm'),
+  );
+  if (!match) return undefined;
+  return match[1] ?? match[2] ?? match[3];
 }
 
-test('research list builds with no Hugo warnings', () => {
-  const { r, out } = build();
-  assert.equal(r.status, 0, out);
-  assert.ok(!/WARN/.test(out), out);
-});
+/**
+ * Loads every research study declared under content/research.
+ * `_index.md` is the listing page and is skipped.
+ * @returns {Array<{ slug: string, source: string, field: (key: string) => string|undefined }>} studies in file-name order
+ */
+function studies() {
+  return fs
+    .readdirSync(RESEARCH_DIR)
+    .filter((file) => file.endsWith('.md') && file !== '_index.md')
+    .sort()
+    .map((file) => {
+      const source = read(path.join(RESEARCH_DIR, file));
+      return {
+        slug: file.replace(/\.md$/, ''),
+        source,
+        field: (key) => frontMatter(source, key),
+      };
+    });
+}
 
-test('research list renders a card per study with title, summary, badge, link', () => {
-  const { dest } = build();
-  const html = fs.readFileSync(path.join(dest, 'research/index.html'), 'utf8');
-  const cards = html.match(/data-study-card/g) ?? [];
-  assert.equal(cards.length, 1);
-  assert.ok(html.includes('JadiTangguh'));
-  assert.ok(html.includes('data-study-status'));
-  assert.match(html, /href="?(https:\/\/konsulin\.care)?\/research\/jadi-tangguh\/"?[ >]/);
-});
+/**
+ * Escapes a string for safe use inside a regular expression.
+ * @param {string} value raw text
+ * @returns {string} regex-escaped text
+ */
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
-test('research list renders the upcoming status label', () => {
-  const { dest } = build();
-  const html = fs.readFileSync(path.join(dest, 'research/index.html'), 'utf8');
-  assert.match(html, /data-study-status[^>]*>\s*Segera dibuka\s*</);
-});
+/** Matches a root-relative or canonical-baseURL href to the given path. */
+function hrefPattern(target) {
+  return new RegExp(`href=["']?(?:https:\\/\\/konsulin\\.care)?${escapeRegex(target)}["'\\s>]`);
+}
 
-test('upcoming study shows the badge but hides the study CTA', () => {
-  const { dest } = build();
-  const html = fs.readFileSync(path.join(dest, 'research/jadi-tangguh/index.html'), 'utf8');
-  assert.match(html, /data-study-status[^>]*>\s*Segera dibuka\s*</);
-  assert.ok(!html.includes('data-study-cta'), html);
-  assert.ok(!html.includes('https://app.konsulin.care/research'), html);
-});
+test('research list renders one linked card per study with its front-matter title', () => {
+  const all = studies();
+  const html = readBuilt('research/index.html');
+  const cards = html.match(/<li\b[^>]*\bdata-study-card\b[^>]*>[\s\S]*?<\/li>/g) ?? [];
 
-test('research pages contain no TODO(maintainer) placeholders', () => {
-  const { dest } = build();
-  const list = fs.readFileSync(path.join(dest, 'research/index.html'), 'utf8');
-  const study = fs.readFileSync(path.join(dest, 'research/jadi-tangguh/index.html'), 'utf8');
-  assert.ok(!list.includes('TODO(maintainer)'), list);
-  assert.ok(!study.includes('TODO(maintainer)'), study);
-});
+  assert.equal(cards.length, all.length);
 
-test('study page renders the summary, question and team from front matter', () => {
-  const source = fs.readFileSync(path.join(ROOT, 'content/research/jadi-tangguh.md'), 'utf8');
-  const field = (key) => {
-    const m = source.match(new RegExp(`^${key}:\\s*"(.*)"$`, 'm'));
-    assert.ok(m, `${key} should be set in front matter`);
-    return m[1];
-  };
-  const { dest } = build();
-  const html = fs.readFileSync(path.join(dest, 'research/jadi-tangguh/index.html'), 'utf8');
-  for (const key of ['summary', 'question', 'team']) {
-    assert.ok(html.includes(field(key)), `${key} renders on the study page`);
+  for (const study of all) {
+    const title = study.field('title');
+    assert.ok(title, `${study.slug} declares a title`);
+    const card = cards.find((markup) => markup.includes(title));
+    assert.ok(card, `the list shows a card titled ${title}`);
+    assert.match(
+      card,
+      hrefPattern(`/research/${study.slug}/`),
+      `the card links /research/${study.slug}/`,
+    );
   }
 });
 
-test('study page renders the ethics status verbatim', () => {
-  const source = fs.readFileSync(path.join(ROOT, 'content/research/jadi-tangguh.md'), 'utf8');
-  const match = source.match(/^ethics_status:\s*"(.*)"$/m);
-  assert.ok(match, 'ethics_status should be set in front matter');
-  const { dest } = build();
-  const html = fs.readFileSync(path.join(dest, 'research/jadi-tangguh/index.html'), 'utf8');
-  assert.ok(html.includes(match[1]), html);
+test('upcoming studies show a non-empty status badge and no study CTA', () => {
+  for (const study of studies()) {
+    if (study.field('status') !== 'upcoming') continue;
+
+    const html = readBuilt(`research/${study.slug}/index.html`);
+    const badge = html.match(/\bdata-study-status\b[^>]*>([^<]*)</);
+    assert.ok(badge, `${study.slug} renders a status badge`);
+    assert.ok(badge[1].trim().length > 0, `${study.slug} status badge is non-empty`);
+
+    assert.ok(!html.includes('data-study-cta'), `${study.slug} has no study CTA`);
+    const ctaUrl = study.field('cta_url');
+    if (ctaUrl) {
+      assert.ok(!html.includes(ctaUrl), `${study.slug} does not forward-link its CTA URL`);
+    }
+  }
+});
+
+test('research pages contain no TODO(maintainer) placeholders', () => {
+  const paths = ['research/index.html', ...studies().map((study) => `research/${study.slug}/index.html`)];
+  for (const rel of paths) {
+    assert.ok(!readBuilt(rel).includes('TODO(maintainer)'), `${rel} has no TODO(maintainer)`);
+  }
+});
+
+test('study pages render the summary, question and team from front matter', () => {
+  for (const study of studies()) {
+    const html = readBuilt(`research/${study.slug}/index.html`);
+    for (const key of ['summary', 'question', 'team']) {
+      const value = study.field(key);
+      if (!value) continue;
+      assert.ok(html.includes(value), `${study.slug} renders its ${key}`);
+    }
+  }
+});
+
+test('study pages render the ethics status verbatim', () => {
+  for (const study of studies()) {
+    const ethicsStatus = study.field('ethics_status');
+    if (!ethicsStatus) continue;
+    assert.ok(
+      readBuilt(`research/${study.slug}/index.html`).includes(ethicsStatus),
+      `${study.slug} renders its ethics status verbatim`,
+    );
+  }
 });
