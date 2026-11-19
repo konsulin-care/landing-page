@@ -25,6 +25,29 @@ test('three stages bound to i !== k', () => {
   });
 });
 
+test('stage ID renders label, masked value, text, no digits', () => {
+  const s = hero.split('data-hero-demo-stage')[2].split('data-hero-demo-stage')[0].replace(/^[^>]*>/, '');
+  assert.match(s, /ID Anonim/);
+  assert.match(s, /JT-••••/);
+  assert.match(s, /tanpa nama/);
+  assert.equal(/\d/.test(s.replace(/<(?:"[^"]*"|'[^']*'|[^>"'])*>/g, '')), false);
+});
+
+test('stage report content', () => {
+  const s = hero.split('data-hero-demo-stage')[3];
+  assert.match(s, /Laporan Anda/);
+  assert.match(s, /Baseline/);
+  assert.match(s, /Skor total[\s\S]*Contoh/);
+  assert.match(s, /bukan diagnosis medis\./);
+  assert.match(s, /Skor ini adalah hasil skrining untuk keperluan penelitian saja/);
+});
+
+test('micro-steps bind to progress thresholds', () => {
+  for (const t of ['>= 0.3', '>= 0.25', '>= 0.5', '>= 0.75', '>= 0.4']) {
+    assert.ok(hero.includes(`progress() ${t}`), t);
+  }
+});
+
 test('stage 1 content and caption', () => {
   assert.match(hero, /Contoh pertanyaan/);
   assert.match(hero, /Merasa gugup, cemas, atau gelisah/);

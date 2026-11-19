@@ -130,6 +130,16 @@ params:
             - "Beberapa hari"
             - "Lebih dari separuh waktu yang dimaksud"
             - "Hampir setiap hari"
+        id:
+          label: "ID Anonim"
+          value: "JT-••••"
+          text: "Jawaban Anda bergabung dengan jawaban warga lain, tanpa nama."
+        report:
+          title: "Laporan Anda"
+          badge: "Baseline"
+          score_label: "Skor total"
+          example: "Contoh"
+          disclaimer: "Skor ini adalah hasil skrining untuk keperluan penelitian saja dan bukan diagnosis medis."
     recognition:
       kicker: "Kenali tandanya"
       title: "Stres jarang datang dengan nama"
