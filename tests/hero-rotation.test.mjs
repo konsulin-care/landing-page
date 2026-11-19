@@ -26,14 +26,14 @@ test('heroSync ticks raise progress and advance one pair after a full rotation',
   data.init();
 
   assert.equal(TICK_MS, 100);
-  assert.equal(data.i, 1);
+  assert.equal(data.i, 0);
   assert.equal(data.progress(), 0);
 
   timers[0].fn();
   assert.ok(data.progress() > 0 && data.progress() < 1);
 
   for (let tick = 1; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
-  assert.equal(data.i, 2);
+  assert.equal(data.i, 1);
   assert.equal(data.elapsed, 0);
 });
 
@@ -48,12 +48,12 @@ test('heroSync holds all ticks while any reason is held or the document is hidde
   assert.deepEqual(data.holds, ['hover', 'focus']);
 
   timers[0].fn();
-  assert.equal(data.i, 1);
+  assert.equal(data.i, 0);
   assert.equal(data.elapsed, 0);
 
   data.release('hover');
   timers[0].fn();
-  assert.equal(data.i, 1);
+  assert.equal(data.i, 0);
   assert.equal(data.elapsed, 0);
 
   data.release('focus');
@@ -93,12 +93,12 @@ test('heroSync next and prev move modulo n and reset elapsed', () => {
 
   data.elapsed = TICK_MS;
   data.next();
-  assert.equal(data.i, 2);
+  assert.equal(data.i, 1);
   assert.equal(data.elapsed, 0);
 
   data.elapsed = TICK_MS;
   data.prev();
-  assert.equal(data.i, 1);
+  assert.equal(data.i, 0);
   assert.equal(data.elapsed, 0);
 
   data.select(0);
@@ -116,19 +116,19 @@ test('heroSync swipe advances or rewinds only past the threshold', () => {
 
   data.swipeStart(100);
   data.swipeEnd(100 - SWIPE_PX);
-  assert.equal(data.i, 2);
+  assert.equal(data.i, 1);
 
   data.swipeStart(100);
   data.swipeEnd(100 + SWIPE_PX);
-  assert.equal(data.i, 1);
+  assert.equal(data.i, 0);
 
   data.swipeStart(100);
   data.swipeEnd(100 - SWIPE_PX + 1);
-  assert.equal(data.i, 1);
+  assert.equal(data.i, 0);
 
   data.swipeStart(100);
   data.swipeEnd(100 + SWIPE_PX - 1);
-  assert.equal(data.i, 1);
+  assert.equal(data.i, 0);
 });
 
 test('heroSync swipeEnd without a start is a no-op', () => {
@@ -136,7 +136,7 @@ test('heroSync swipeEnd without a start is a no-op', () => {
   const data = heroSync(3, env);
 
   data.swipeEnd(0);
-  assert.equal(data.i, 1);
+  assert.equal(data.i, 0);
 });
 
 test('heroSync cycled becomes true once every pair has been active', () => {
@@ -164,7 +164,7 @@ test('heroSync openGloss holds the clock while the gloss stays open', () => {
   assert.deepEqual(data.holds, ['gloss']);
 
   timers[0].fn();
-  assert.equal(data.i, 1);
+  assert.equal(data.i, 0);
   assert.equal(data.elapsed, 0);
 });
 
@@ -200,11 +200,11 @@ test('heroSync automatic advances count towards cycled', () => {
   data.init();
 
   for (let tick = 0; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
-  assert.equal(data.i, 2);
+  assert.equal(data.i, 1);
   assert.equal(data.cycled, false);
 
   for (let tick = 0; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
-  assert.equal(data.i, 0);
+  assert.equal(data.i, 2);
   assert.equal(data.cycled, true);
 });
 

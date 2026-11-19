@@ -1,5 +1,5 @@
 /** Rotation interval for the hero headline lines, in milliseconds. */
-export const ROTATION_MS = 5500;
+export const ROTATION_MS = 7000;
 
 /** Clock tick for the shared hero progress and rotation state, in milliseconds. */
 export const TICK_MS = 100;
@@ -20,9 +20,9 @@ export function heroSync(n, env = {}) {
   const doc = env.document ?? globalThis.document;
   const every = env.setInterval ?? ((fn, ms) => setInterval(fn, ms));
   const reducedMotion = () => win.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const active = new Set([1]);
+  const active = new Set([0]);
   return {
-    i: 1,
+    i: 0,
     n,
     elapsed: 0,
     cycled: false,
