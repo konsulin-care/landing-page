@@ -102,6 +102,10 @@ params:
         - "Bukan diagnosis, tidak ada jawaban salah"
         - "Hasil riset dibagikan kembali untuk publik"
         - "Sepuluh menit, boleh berhenti kapan saja"
+      steps:
+        - "Isi survei"
+        - "Dapat ID Anonim"
+        - "Lihat laporan"
     recognition:
       kicker: "Kenali tandanya"
       title: "Stres jarang datang dengan nama"

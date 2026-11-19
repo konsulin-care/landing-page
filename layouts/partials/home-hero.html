@@ -44,8 +44,19 @@
       </p>
       {{ end }}
 
-      <div class="mt-8">
-        {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta) }}
+      {{ $stepDelays := slice "delay-0" "delay-150" "delay-300" }}
+      <div x-data="{ ctaActive: false }">
+        <div class="mt-8" @mouseenter="ctaActive = true" @mouseleave="ctaActive = false" @focusin="ctaActive = true" @focusout="ctaActive = false" @touchstart.passive="ctaActive = true">
+          {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta) }}
+        </div>
+        <ol class="mt-4 grid grid-cols-3 gap-2 text-xs text-muted-foreground" data-hero-steps>
+          {{ range $i, $step := .Site.Params.home.hero.steps }}
+          <li class="flex flex-col items-center gap-2 text-center">
+            <span class="flex h-6 w-6 items-center justify-center rounded-full border border-border transition-colors duration-300 motion-reduce:transition-none {{ index $stepDelays $i }}" :class="ctaActive && 'bg-turquoise-tint border-turquoise text-foreground'">{{ add $i 1 }}</span>
+            <span>{{ $step }}</span>
+          </li>
+          {{ end }}
+        </ol>
       </div>
     </div>
 
