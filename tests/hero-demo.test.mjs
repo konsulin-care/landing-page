@@ -48,6 +48,18 @@ test('micro-steps bind to progress thresholds', () => {
   }
 });
 
+test('options answer, nudge the CTA and confirm', () => {
+  for (let k = 0; k < 4; k += 1) {
+    assert.ok(hero.includes(`answer(${k})`), `answer(${k})`);
+    assert.ok(hero.includes(`picked === ${k}`), `picked === ${k}`);
+  }
+  assert.match(hero, /jt-cta-nudge/);
+  assert.match(hero, /aria-pressed/);
+  assert.match(hero, /x-show="?picked !== null"?[^>]*>Tidak ada jawaban salah/);
+  assert.match(hero, /@jt-cta-nudge\.window="?ctaActive = true/);
+  assert.equal((hero.match(/rounded-full[^>]*>[^<]*<\/a>|<a [^>]*rounded-full/g) || []).length <= 1, true);
+});
+
 test('stage 1 content and caption', () => {
   assert.match(hero, /Contoh pertanyaan/);
   assert.match(hero, /Merasa gugup, cemas, atau gelisah/);

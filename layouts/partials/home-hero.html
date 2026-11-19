@@ -73,7 +73,7 @@
 
       {{ $stepDelays := slice "delay-0" "delay-150" "delay-300" }}
       <div class="w-full sm:w-fit" x-data="{ ctaActive: false }">
-        <div class="mt-8" @mouseenter="ctaActive = true" @mouseleave="ctaActive = false" @focusin="ctaActive = true" @focusout="ctaActive = false" @touchstart.passive="ctaActive = true">
+        <div class="mt-8" @jt-cta-nudge.window="ctaActive = true; setTimeout(function () { ctaActive = false }, 2000)" @mouseenter="ctaActive = true" @mouseleave="ctaActive = false" @focusin="ctaActive = true" @focusout="ctaActive = false" @touchstart.passive="ctaActive = true">
           {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta "full" true) }}
         </div>
         <ol class="relative mt-4 grid grid-cols-3 gap-2 text-xs text-muted-foreground" data-hero-steps>
@@ -99,9 +99,10 @@
               <p class="mt-3 font-semibold text-foreground">{{ $demo.question.item }}</p>
               <div class="mt-3 grid gap-2">
                 {{ range $oi, $o := $demo.question.options }}
-                <button type="button" class="min-h-11 rounded-lg border border-border text-left px-4 py-2 text-sm"{{ if eq $oi 1 }} :class="picked === null && progress() >= 0.4 && 'bg-turquoise-tint border-turquoise font-semibold'"{{ end }}>{{ $o }}</button>
+                <button type="button" class="min-h-11 rounded-lg border border-border text-left px-4 py-2 text-sm" @click="answer({{ $oi }}); $dispatch('jt-cta-nudge')" :aria-pressed="picked === {{ $oi }}" :class="picked === {{ $oi }} && 'bg-turquoise-tint border-turquoise font-semibold'{{ if eq $oi 1 }} || (picked === null && progress() >= 0.4 && 'bg-turquoise-tint border-turquoise font-semibold'){{ end }}">{{ $o }}</button>
                 {{ end }}
               </div>
+              <p class="mt-3 text-sm text-charcoal-700" x-show="picked !== null" x-cloak>Tidak ada jawaban salah. Lanjutkan di survei lengkap (10 menit).</p>
             </div>
             <div data-hero-demo-stage class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none invisible opacity-0" :class="{ [hiddenClass]: i !== 1 }">
               <div aria-hidden="true" class="rounded-lg border border-border px-4 py-2 transition-[opacity,visibility] duration-700 motion-reduce:transition-none opacity-0" :class="progress() >= 0.3 ? 'opacity-100' : 'opacity-0'">

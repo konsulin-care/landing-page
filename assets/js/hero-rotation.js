@@ -27,6 +27,7 @@ export function heroSync(n, env = {}) {
     elapsed: 0,
     cycled: false,
     gloss: null,
+    picked: null,
     holds: [],
     startX: undefined,
     hiddenClass: 'invisible opacity-0',
@@ -58,7 +59,14 @@ export function heroSync(n, env = {}) {
       active.add(k);
       if (active.size >= this.n) this.cycled = true;
     },
+    /** Records the sample answer k and holds the clock on the demo. */
+    answer(k) {
+      this.picked = k;
+      this.hold('demo');
+    },
     select(k) {
+      this.picked = null;
+      this.release('demo');
       this.i = k;
       this.elapsed = 0;
       this.track(k);
@@ -89,6 +97,8 @@ export function heroSync(n, env = {}) {
         this.elapsed += TICK_MS;
         if (this.elapsed >= ROTATION_MS) {
           this.i = (this.i + 1) % this.n;
+          this.picked = null;
+          this.release('demo');
           this.elapsed = 0;
           this.track(this.i);
         }

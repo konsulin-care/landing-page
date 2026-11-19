@@ -208,6 +208,18 @@ test('heroSync automatic advances count towards cycled', () => {
   assert.equal(data.cycled, true);
 });
 
+test('heroSync answer holds the clock and select clears picked', () => {
+  const { env } = makeEnv();
+  const data = heroSync(3, env);
+  assert.equal(data.picked, null);
+  data.answer(2);
+  assert.equal(data.picked, 2);
+  assert.ok(data.paused);
+  data.select(1);
+  assert.equal(data.picked, null);
+  assert.equal(data.paused, false);
+});
+
 /** Lists every file below a directory, recursively. */
 function listFiles(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
