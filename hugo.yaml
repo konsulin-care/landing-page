@@ -118,6 +118,18 @@ params:
         - "Isi survei"
         - "Dapat ID Anonim"
         - "Lihat laporan"
+      demo:
+        label: "Contoh alur survei"
+        note: "Contoh saja. Jawaban di sini tidak disimpan."
+        question:
+          kicker: "Contoh pertanyaan"
+          instruction: "Selama 2 minggu terakhir, seberapa sering Anda terganggu oleh masalah-masalah berikut?"
+          item: "Merasa gugup, cemas, atau gelisah"
+          options:
+            - "Tidak pernah"
+            - "Beberapa hari"
+            - "Lebih dari separuh waktu yang dimaksud"
+            - "Hampir setiap hari"
     recognition:
       kicker: "Kenali tandanya"
       title: "Stres jarang datang dengan nama"

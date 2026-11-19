@@ -1,7 +1,7 @@
 <!-- Hero section: purpose, 10-minute duration, ID Anonim, report availability, CTA -->
 <div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8" data-hero x-data="jtHeroSync({{ len .Site.Params.home.hero.lines }})">
   <div class="grid gap-10 md:grid-cols-2 md:items-center">
-    <div class="order-2 md:order-1 text-left touch-pan-y" data-hero-text @mouseenter="hold('hover')" @mouseleave="release('hover')" @focusin="hold('focus')" @focusout="release('focus')" @pointerdown="hold('press'); swipeStart($event.clientX)" @pointerup="release('press'); swipeEnd($event.clientX)" @pointercancel="release('press')">
+    <div class="order-1 text-left touch-pan-y" data-hero-text @mouseenter="hold('hover')" @mouseleave="release('hover')" @focusin="hold('focus')" @focusout="release('focus')" @pointerdown="hold('press'); swipeStart($event.clientX)" @pointerup="release('press'); swipeEnd($event.clientX)" @pointercancel="release('press')">
       {{ $url := .Site.Params.hashtag_url | default .Site.Params.social_media.instagram.url }}
       <div class="mb-4 flex gap-2" data-hero-segments>
         {{ range $i, $line := .Site.Params.home.hero.lines }}
@@ -88,7 +88,27 @@
       </div>
     </div>
 
-    <div class="order-1 md:order-2 hero-image-wrapper">
+    {{ $demo := .Site.Params.home.hero.demo }}
+    <div class="order-2 hero-image-wrapper">
+      <figure data-hero-demo class="m-0">
+        <div class="rounded-lg border border-border bg-card p-4">
+          <div class="grid">
+            <div data-hero-demo-stage class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none" :class="{ [hiddenClass]: i !== 0 }">
+              <p class="section-kicker">{{ $demo.question.kicker }}</p>
+              <p class="text-sm text-charcoal-700">{{ $demo.question.instruction }}</p>
+              <p class="mt-3 font-semibold text-foreground">{{ $demo.question.item }}</p>
+              <div class="mt-3 grid gap-2">
+                {{ range $demo.question.options }}
+                <button type="button" class="min-h-11 rounded-lg border border-border text-left px-4 py-2 text-sm">{{ . }}</button>
+                {{ end }}
+              </div>
+            </div>
+            <div data-hero-demo-stage class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none invisible opacity-0" :class="{ [hiddenClass]: i !== 1 }"></div>
+            <div data-hero-demo-stage class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none invisible opacity-0" :class="{ [hiddenClass]: i !== 2 }"></div>
+          </div>
+        </div>
+        <figcaption class="mt-3 text-xs text-muted-foreground"><span class="font-semibold">{{ $demo.label }}</span>. {{ $demo.note }}</figcaption>
+      </figure>
     </div>
   </div>
 
