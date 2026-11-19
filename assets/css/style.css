@@ -316,6 +316,9 @@
       max-width: 96rem;
     }
   }
+  .m-0 {
+    margin: 0px;
+  }
   .-mx-5 {
     margin-inline: calc(var(--spacing) * -5);
   }
@@ -806,6 +809,9 @@
   .inline-flex {
     display: inline-flex;
   }
+  .aspect-\[2\/1\] {
+    aspect-ratio: 2/1;
+  }
   .h-1 {
     height: var(--spacing);
   }
@@ -1065,10 +1071,6 @@
   }
   .bg-center {
     background-position: center;
-  }
-  .object-cover {
-    -o-object-fit: cover;
-       object-fit: cover;
   }
   .object-fill {
     -o-object-fit: fill;
@@ -1376,6 +1378,12 @@
     outline-color: var(--color-ring);
   }
   @media (prefers-reduced-motion: reduce) {
+    .motion-reduce\:block {
+      display: block;
+    }
+    .motion-reduce\:hidden {
+      display: none;
+    }
     .motion-reduce\:transition-none {
       transition-property: none;
     }
@@ -1432,6 +1440,9 @@
     }
     .md\:hidden {
       display: none;
+    }
+    .md\:aspect-\[3\/2\] {
+      aspect-ratio: 3/2;
     }
     .md\:grid-cols-1 {
       grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -1523,6 +1534,11 @@
   .\[\&_\.section-kicker\]\:\!text-background .section-kicker {
     color: var(--color-background) !important;
   }
+}
+.jt-field-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 @font-face {
   font-family: "Plus Jakarta Sans";

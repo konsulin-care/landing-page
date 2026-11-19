@@ -118,6 +118,12 @@ params:
         - "Isi survei"
         - "Dapat ID Anonim"
         - "Lihat laporan"
+      field:
+        idle: "Sentuh atau arahkan kursor ke sini"
+        pressed: "Tertekan…"
+        recovering: "Memulihkan diri…"
+        settled: "Kembali seimbang"
+        line: "Resiliensi bukan berarti tidak pernah tertekan, tapi belajar pulih."
     recognition:
       kicker: "Kenali tandanya"
       title: "Stres jarang datang dengan nama"

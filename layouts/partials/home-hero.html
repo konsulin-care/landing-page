@@ -86,18 +86,25 @@
     </div>
 
     <div class="order-1 md:order-2 hero-image-wrapper">
-      {{ $img := resources.Get "images/hero.jpg" }}
-      {{ with $img }}
-      {{ $webp := .Resize "800x0 webp q80" }}
-      <img
-        src="{{ $webp.RelPermalink }}"
-        alt="Ilustrasi partisipasi penelitian kesehatan mental"
-        width="{{ $webp.Width }}"
-        height="{{ $webp.Height }}"
-        class="rounded-lg object-cover w-full"
-        fetchpriority="high"
-      />
-      {{ end }}
+      {{ $field := .Site.Params.home.hero.field }}
+      <figure data-jt-field class="m-0">
+        <div class="relative aspect-[2/1] md:aspect-[3/2] overflow-hidden rounded-lg border border-border bg-card">
+          <canvas class="jt-field-canvas block h-full w-full touch-pan-y motion-reduce:hidden" aria-hidden="true"></canvas>
+          <svg class="hidden motion-reduce:block h-full w-full" viewBox="0 0 14 10" aria-hidden="true">
+            {{ range $row := seq 0 9 }}
+            {{ range $col := seq 0 13 }}
+            {{ $fill := "#DADBDB" }}
+            {{ if and (or (eq $row 4) (eq $row 5)) (or (eq $col 6) (eq $col 7)) }}{{ $fill = "#D8F1F1" }}{{ end }}
+            <circle cx="{{ printf "%.1f" (add $col 0.5) }}" cy="{{ printf "%.1f" (add $row 0.5) }}" r="0.12" fill="{{ $fill }}" />
+            {{ end }}
+            {{ end }}
+          </svg>
+        </div>
+        <figcaption class="mt-3 text-sm text-muted-foreground">
+          <span data-jt-field-caption data-idle="{{ $field.idle }}" data-pressed="{{ $field.pressed }}" data-recovering="{{ $field.recovering }}" data-settled="{{ $field.settled }}">{{ $field.idle }}</span>
+          <span class="block">{{ $field.line }}</span>
+        </figcaption>
+      </figure>
     </div>
   </div>
 
