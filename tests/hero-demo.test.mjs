@@ -39,12 +39,33 @@ test('three stages bound to i !== k', () => {
   });
 });
 
-test('stage ID renders label, masked value, text, no digits', () => {
+test('stage ID stacks anonymous ID cards', () => {
   const s = hero.split('data-hero-demo-stage')[2].split('data-hero-demo-stage')[0].replace(/^[^>]*>/, '');
-  assert.match(s, /ID Anonim/);
-  assert.match(s, /JT-••••/);
   assert.match(s, /tanpa nama/);
-  assert.equal(/\d/.test(s.replace(/<(?:"[^"]*"|'[^']*'|[^>"'])*>/g, '')), false);
+  assert.equal(/>JT-••••</.test(s), false, 'the old masked value is gone');
+  assert.equal(/h-2 w-2 rounded-md bg-turquoise/.test(s), false, 'the old dot row is gone');
+
+  const tags = [...s.matchAll(/<div\b(?:"[^"]*"|'[^']*'|[^>"'])*>/g)].map((match) => match[0]);
+  const cards = tags.filter((tag) => /aria-hidden=(?:"|')?true/.test(tag) && /progress\(\)/.test(tag));
+  assert.equal(cards.length, 5, 'one card per configured ID count');
+
+  const thresholds = ['0.00', '0.12', '0.24', '0.36', '0.48'];
+  cards.forEach((card, k) => {
+    assert.ok(card.includes(`progress() >= ${thresholds[k]}`), `card ${k} threshold`);
+    assert.match(s, new RegExp(`x-text=(?:"|')?ids\\[${k}\\]`), `card ${k} binds ids[${k}]`);
+  });
+
+  for (const card of cards.slice(0, 4)) {
+    assert.match(card, /opacity-70/, 'early cards use opacity-70');
+    assert.equal(/opacity-100/.test(card), false, 'early cards never use opacity-100');
+    assert.equal(/border-turquoise/.test(card), false, 'early cards keep the default border');
+  }
+
+  const last = cards[4];
+  assert.match(last, /opacity-100/, 'the last card uses opacity-100');
+  assert.equal(/opacity-70/.test(last), false, 'the last card never uses opacity-70');
+  assert.match(last, /border-turquoise/, 'the last card carries the turquoise border');
+  assert.match(s, /ID Anonim Anda/);
 });
 
 test('stage report content', () => {
@@ -57,7 +78,7 @@ test('stage report content', () => {
 });
 
 test('micro-steps bind to progress thresholds', () => {
-  for (const t of ['>= 0.3', '>= 0.25', '>= 0.5', '>= 0.75', '>= 0.4']) {
+  for (const t of ['>= 0.25', '>= 0.5', '>= 0.75', '>= 0.4']) {
     assert.ok(hero.includes(`progress() ${t}`), t);
   }
 });

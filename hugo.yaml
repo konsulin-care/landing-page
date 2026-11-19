@@ -132,8 +132,10 @@ params:
             - "Lebih dari separuh waktu yang dimaksud"
             - "Hampir setiap hari"
         id:
-          label: "ID Anonim"
-          value: "JT-••••"
+          label: "ID Anonim Anda"
+          prefix: "JT-"
+          length: 10
+          count: 5
           text: "Jawaban Anda bergabung dengan jawaban warga lain, tanpa nama."
         report:
           title: "Laporan Anda"
