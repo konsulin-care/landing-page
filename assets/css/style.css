@@ -280,11 +280,20 @@
   .static {
     position: static;
   }
+  .inset-x-0 {
+    inset-inline: 0px;
+  }
+  .top-full {
+    top: 100%;
+  }
   .bottom-6 {
     bottom: calc(var(--spacing) * 6);
   }
   .left-1\/2 {
     left: calc(1 / 2 * 100%);
+  }
+  .z-10 {
+    z-index: 10;
   }
   .order-1 {
     order: 1;

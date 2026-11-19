@@ -186,6 +186,11 @@ test('each popover sits outside the h1 and closes on outside click and Escape', 
       assert.ok(classes.includes(token), `popover ${k + 1} has ${token}`);
     }
 
+    for (const token of ['absolute', 'inset-x-0', 'top-full', 'z-10']) {
+      assert.ok(classes.includes(token), `popover ${k + 1} has ${token}`);
+    }
+    assert.ok(!classes.includes('mt-3'), `popover ${k + 1} has no mt-3`);
+
     const text = markup.slice(tag.length).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
     assert.ok(text.includes(gloss.text), `popover ${k + 1} renders its configured text`);
   });
