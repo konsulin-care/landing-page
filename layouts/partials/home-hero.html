@@ -1,8 +1,23 @@
 <!-- Hero section: purpose, 10-minute duration, ID Anonim, report availability, CTA -->
 <div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8" data-hero x-data="jtHeroSync({{ len .Site.Params.home.hero.lines }})">
   <div class="grid gap-10 md:grid-cols-2 md:items-center">
-    <div class="order-2 md:order-1 text-left" data-hero-text @mouseenter="hold('hover')" @mouseleave="release('hover')" @focusin="hold('focus')" @focusout="release('focus')">
+    <div class="order-2 md:order-1 text-left touch-pan-y" data-hero-text @mouseenter="hold('hover')" @mouseleave="release('hover')" @focusin="hold('focus')" @focusout="release('focus')" @pointerdown="hold('press'); swipeStart($event.clientX)" @pointerup="release('press'); swipeEnd($event.clientX)" @pointercancel="release('press')">
       {{ $url := .Site.Params.hashtag_url | default .Site.Params.social_media.instagram.url }}
+      <div class="mb-4 flex gap-2" data-hero-segments>
+        {{ range $i, $line := .Site.Params.home.hero.lines }}
+        <button
+          type="button"
+          class="min-h-11 flex-1 flex items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          aria-label="Pesan {{ add $i 1 }} dari {{ len $.Site.Params.home.hero.lines }}"
+          @click="select({{ $i }})"
+          :aria-current="i === {{ $i }}"
+        >
+          <span class="block h-1 w-full rounded-full bg-muted overflow-hidden">
+            <span class="block h-full bg-turquoise-deep" :style="{ width: (i === {{ $i }} ? progress() * 100 : 0) + '%' }"></span>
+          </span>
+        </button>
+        {{ end }}
+      </div>
       <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground">
         <a href="{{ $url }}" target="_blank" rel="noopener" class="font-extrabold text-turquoise-deep hover:underline">{{ .Site.Params.home.hero.hashtag }}</a>
         <span class="grid">
@@ -59,5 +74,6 @@
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-6 h-6 animate-bounce">
       <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
     </svg>
+    <span class="flex flex-col items-center gap-1 text-sm" x-show="cycled" x-cloak>{{ .Site.Params.home.recognition.kicker }}</span>
   </a>
 </div>
