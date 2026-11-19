@@ -204,6 +204,46 @@ test('heroSync cycled becomes true once every pair has been active', () => {
   assert.equal(data.cycled, true);
 });
 
+test('heroSync openGloss holds the clock while the gloss stays open', () => {
+  const { env, timers } = makeEnv();
+  const data = heroSync(3, env);
+  data.init();
+
+  data.openGloss(2);
+  assert.equal(data.gloss, 2);
+  assert.deepEqual(data.holds, ['gloss']);
+
+  timers[0].fn();
+  assert.equal(data.i, 1);
+  assert.equal(data.elapsed, 0);
+});
+
+test('heroSync openGloss switches the gloss without stacking holds', () => {
+  const { env } = makeEnv();
+  const data = heroSync(3, env);
+
+  data.openGloss(0);
+  data.openGloss(2);
+  assert.equal(data.gloss, 2);
+  assert.deepEqual(data.holds, ['gloss']);
+});
+
+test('heroSync closeGloss releases the hold so ticks advance again', () => {
+  const { env, timers } = makeEnv();
+  const data = heroSync(3, env);
+  data.init();
+
+  data.openGloss(1);
+  timers[0].fn();
+  assert.equal(data.elapsed, 0);
+
+  data.closeGloss();
+  assert.equal(data.gloss, null);
+  assert.deepEqual(data.holds, []);
+  timers[0].fn();
+  assert.equal(data.elapsed, TICK_MS);
+});
+
 test('heroSync automatic advances count towards cycled', () => {
   const { env, timers } = makeEnv();
   const data = heroSync(3, env);

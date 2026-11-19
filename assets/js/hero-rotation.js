@@ -39,7 +39,7 @@ export function heroRotation(n, env = {}) {
  * pause reason is held or the document is hidden.
  * @param {number} n number of hero pairs to rotate through
  * @param {{ window?: Window, document?: Document, setInterval?: (fn: () => void, ms: number) => unknown }} [env] injectable environment for tests
- * @returns {{ i: number, n: number, elapsed: number, cycled: boolean, holds: string[], hiddenClass: string, paused: boolean, hold: (reason: string) => void, release: (reason: string) => void, progress: () => number, select: (k: number) => void, next: () => void, prev: () => void, swipeStart: (x: number) => void, swipeEnd: (x: number) => void, init: () => void }} Alpine data object
+ * @returns {{ i: number, n: number, elapsed: number, cycled: boolean, gloss: number | null, holds: string[], hiddenClass: string, paused: boolean, hold: (reason: string) => void, release: (reason: string) => void, openGloss: (k: number) => void, closeGloss: () => void, progress: () => number, select: (k: number) => void, next: () => void, prev: () => void, swipeStart: (x: number) => void, swipeEnd: (x: number) => void, init: () => void }} Alpine data object
  */
 export function heroSync(n, env = {}) {
   const win = env.window ?? globalThis.window;
@@ -52,6 +52,7 @@ export function heroSync(n, env = {}) {
     n,
     elapsed: 0,
     cycled: false,
+    gloss: null,
     holds: [],
     startX: undefined,
     hiddenClass: 'invisible opacity-0',
@@ -63,6 +64,16 @@ export function heroSync(n, env = {}) {
     },
     release(reason) {
       this.holds = this.holds.filter((held) => held !== reason);
+    },
+    /** Opens the gloss at index k and holds the clock while it stays open. */
+    openGloss(k) {
+      this.gloss = k;
+      this.hold('gloss');
+    },
+    /** Closes the open gloss and releases the clock hold. */
+    closeGloss() {
+      this.gloss = null;
+      this.release('gloss');
     },
     progress() {
       if (reducedMotion()) return 1;
