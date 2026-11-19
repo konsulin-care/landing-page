@@ -283,6 +283,9 @@
   .inset-x-0 {
     inset-inline: 0px;
   }
+  .-top-3 {
+    top: calc(var(--spacing) * -3);
+  }
   .top-3 {
     top: calc(var(--spacing) * 3);
   }
@@ -297,6 +300,9 @@
   }
   .left-1\/2 {
     left: calc(1 / 2 * 100%);
+  }
+  .left-4 {
+    left: calc(var(--spacing) * 4);
   }
   .left-\[16\.67\%\] {
     left: 16.67%;
@@ -1176,6 +1182,9 @@
   }
   .p-8 {
     padding: calc(var(--spacing) * 8);
+  }
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
   }
   .px-2\.5 {
     padding-inline: calc(var(--spacing) * 2.5);

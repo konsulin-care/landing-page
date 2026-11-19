@@ -122,6 +122,7 @@ params:
       demo:
         label: "Contoh alur survei"
         note: "Contoh saja. Jawaban di sini tidak disimpan."
+        badge: "Contoh"
         question:
           kicker: "Contoh pertanyaan"
           instruction: "Selama 2 minggu terakhir, seberapa sering Anda terganggu oleh masalah-masalah berikut?"
