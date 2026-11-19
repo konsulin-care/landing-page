@@ -72,13 +72,41 @@ test('stage report content', () => {
   const s = hero.split('data-hero-demo-stage')[3];
   assert.match(s, /Laporan Anda/);
   assert.match(s, /Baseline/);
-  assert.match(s, /Skor total[\s\S]*Contoh/);
+  assert.match(s, /Skor per aspek[\s\S]*Contoh/);
+  assert.equal(/Skor total/.test(s), false, 'the old score label is gone');
+
+  const bars = [
+    ['Kecemasan', '0.10', '40%'],
+    ['Stres', '0.25', '55%'],
+    ['Resiliensi', '0.40', '65%'],
+  ];
+  for (const [label, threshold, width] of bars) {
+    assert.match(
+      s,
+      new RegExp(`${label}[\\s\\S]{0,400}progress\\(\\) >= ${threshold} \\? '${width}'`),
+      `${label} bar binds its threshold and width`,
+    );
+  }
+
+  assert.match(s, /Cek ulang berkala/);
+  assert.match(s, /Baseline[\s\S]*Cek ulang 1[\s\S]*Cek ulang 2/);
+  assert.match(s, /Simpan hasil hari ini ke akun Anda, lalu ikut lagi saat cek ulang berikutnya\./);
+  assert.equal(/h-2 w-2 rounded-md bg-muted/.test(s), false, 'the old dot row is gone');
   assert.match(s, /bukan diagnosis medis\./);
   assert.match(s, /Skor ini adalah hasil skrining untuk keperluan penelitian saja/);
+
+  const save = s.match(/<span\b[^>]*data-hero-save[^>]*>/)?.[0] ?? '';
+  assert.ok(save, 'the save indicator is present');
+  assert.match(save, /^<span\b/, 'the save indicator is a span');
+  assert.match(save, /aria-hidden=(?:"|')?true/, 'the save indicator is aria-hidden');
+  assert.equal(/rounded-full/.test(save), false, 'the save indicator never uses rounded-full');
+  assert.match(s, /x-show="?progress\(\) < 0\.70"?[^>]*>Simpan hasil/);
+  assert.match(s, /progress\(\) >= 0\.70/);
+  assert.match(s, /Tersimpan/);
 });
 
 test('micro-steps bind to progress thresholds', () => {
-  for (const t of ['>= 0.25', '>= 0.5', '>= 0.75', '>= 0.4']) {
+  for (const t of ['>= 0.10', '>= 0.25', '>= 0.40', '>= 0.70', '>= 0.4']) {
     assert.ok(hero.includes(`progress() ${t}`), t);
   }
 });
