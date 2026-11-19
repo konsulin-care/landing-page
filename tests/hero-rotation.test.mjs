@@ -1,6 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ROTATION_MS, TICK_MS, SWIPE_PX, heroRotation, heroSync } from '../assets/js/hero-rotation.js';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import * as rotation from '../assets/js/hero-rotation.js';
+import { ROTATION_MS, TICK_MS, SWIPE_PX, heroSync } from '../assets/js/hero-rotation.js';
 
 /** Builds a fake environment that records interval registrations. */
 function makeEnv({ reducedMotion = false, hidden = false } = {}) {
@@ -15,60 +19,6 @@ function makeEnv({ reducedMotion = false, hidden = false } = {}) {
   };
   return { env: { window: win, document: doc, setInterval: every }, timers, doc };
 }
-
-test('init starts a 5500 ms interval', () => {
-  const { env, timers } = makeEnv();
-  heroRotation(3, env).init();
-
-  assert.equal(ROTATION_MS, 5500);
-  assert.equal(timers.length, 1);
-  assert.equal(timers[0].ms, ROTATION_MS);
-});
-
-test('each tick advances the active line modulo n', () => {
-  const { env, timers } = makeEnv();
-  const data = heroRotation(3, env);
-  data.init();
-
-  assert.equal(data.i, 1);
-  timers[0].fn();
-  assert.equal(data.i, 2);
-  timers[0].fn();
-  assert.equal(data.i, 0);
-  timers[0].fn();
-  assert.equal(data.i, 1);
-});
-
-test('ticks do not advance while the document is hidden', () => {
-  const { env, timers, doc } = makeEnv();
-  const data = heroRotation(3, env);
-  data.init();
-
-  doc.hidden = true;
-  timers[0].fn();
-  assert.equal(data.i, 1);
-});
-
-test('ticks do not advance while paused', () => {
-  const { env, timers } = makeEnv();
-  const data = heroRotation(3, env);
-  data.init();
-
-  data.paused = true;
-  timers[0].fn();
-  assert.equal(data.i, 1);
-
-  data.paused = false;
-  timers[0].fn();
-  assert.equal(data.i, 2);
-});
-
-test('reduced motion starts no interval at all', () => {
-  const { env, timers } = makeEnv({ reducedMotion: true });
-  heroRotation(3, env).init();
-
-  assert.equal(timers.length, 0);
-});
 
 test('heroSync ticks raise progress and advance one pair after a full rotation', () => {
   const { env, timers } = makeEnv();
@@ -256,4 +206,23 @@ test('heroSync automatic advances count towards cycled', () => {
   for (let tick = 0; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
   assert.equal(data.i, 0);
   assert.equal(data.cycled, true);
+});
+
+/** Lists every file below a directory, recursively. */
+function listFiles(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(dir, entry.name);
+    return entry.isDirectory() ? listFiles(path) : [path];
+  });
+}
+
+test('legacy heroRotation factory and global are gone', () => {
+  assert.equal(typeof rotation.heroSync, 'function');
+  assert.equal('heroRotation' in rotation, false);
+
+  const layouts = fileURLToPath(new URL('../layouts/', import.meta.url));
+  for (const file of listFiles(layouts)) {
+    const source = readFileSync(file, 'utf8');
+    assert.equal(source.includes('jtHeroRotation'), false, `${file} references jtHeroRotation`);
+  }
 });
