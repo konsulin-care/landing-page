@@ -60,9 +60,9 @@ footer help link out of reach.
 ## Hero clock
 
 - One shared clock (`heroSync`, `window.jtHeroSync`, `assets/js/hero-rotation.js`)
-  drives the rotating headline line and the trust chip together: the same index
-  moves both, 5500ms per pair, starting at index 1. If one moves, both move; if
-  one stops, both stop.
+  drives the rotating headline line, the trust chip, the demo stage and the
+  current step together: the same index moves all, 7000ms per pair, starting at
+  index 0. If one moves, all move; if one stops, all stop.
 - `x-data` lives on the hero root (`data-hero`) so the chevron can read state.
   Pause handlers live only on the text column (`data-hero-text`), never on the
   image column.
@@ -82,33 +82,33 @@ footer help link out of reach.
   breakpoint: "Isi survei", "Dapat ID Anonim", "Lihat laporan". Hovering,
   focusing or touching the CTA lights the steps 1 to 3 in sequence through CSS
   transition delays (0/150/300ms).
-- Glossed headline words are dotted-underline buttons that leave the line text
-  unchanged. Their popovers render after the h1, never inside it. They open via
-  `openGloss(k)`, close on Escape or a click outside, and hold the clock while
-  open. The `rapuh` gloss links to help.
+- Glossed headline words carry a turquoise-tint marker that sweeps in when
+  their line becomes active and stays tinted when open. Their popovers overlay
+  the content (relative wrapper, absolute dialogs after the h1), never pushing
+  layout. They open via `openGloss(k)`, close on Escape or a click outside, and
+  hold the clock while open. The `rapuh` gloss links to help.
+- The stepper connects the three steps with a line; the current step follows
+  the clock index and the CTA width group is shared with the strip.
 
-## Hero dot field
+## Hero demo
 
-- "Lentur lalu pulih" replaces the hero photo with a canvas dot field in the
-  image column. It is the one canvas exception to the Alpine-only rule, like
-  the citizen-science canvas, and uses vanilla JS
-  (`assets/js/resilience-field.js`, physics in `resilience-physics.js`).
-- Dots rest in charcoal-200 and lerp towards turquoise by displacement, never
-  turquoise-deep. Pointer repulsion widens with hold time up to a cap; release
-  springs back with damping. The touch/ghost ring is drawn in turquoise-tint.
-- Captions come from `params.home.hero.field` (idle, pressed, recovering,
-  settled) plus one fixed line about resilience. A ghost pointer sweeps the
-  middle row once on first view, only when motion is allowed, and never after
-  the visitor interacts.
-- The loop runs only while unsettled, pointer or ghost is active, pauses when
-  off-screen, and caps DPR at 2.
+- An animated demo of the questionnaire-to-report flow sits in the image column
+  (below the CTA on mobile). The clock maps rapuh -> question (i=0), sendiri ->
+  ID (i=1), beradaptasi -> report (i=2), matching the steps.
+- The question is a mild GAD-7 item, labelled as an example. Answers are never
+  saved and no counts are shown. The report states that screening is not a
+  diagnosis.
+- `answer()` holds the clock; this is the only hold from the image column.
+  Answering also nudges the existing CTA (step strip lights up). There is no
+  second CTA.
+- Copy comes from `params.home.hero.demo`.
 
 ## Reduced motion
 
 Respect `prefers-reduced-motion`. Entrance animations and the shared hero clock
-run only under `no-preference`: no interval starts, the pair at index 1 stays,
-the segments still work, and `cycled` is already true. The hero dot field hides
-its canvas and shows a static SVG dot grid instead. The citizen-science canvas
+run only under `no-preference`: no interval starts, the pair at index 0 stays,
+the segments still work, and `cycled` is already true. The hero demo shows its
+final states and nothing is drawn on a canvas. The citizen-science canvas
 falls back to a static image.
 
 # Before merging

@@ -72,19 +72,35 @@ partials. Config comes from `params.home.hero` and `params.home.recognition`.
   `sr-only` list of all items.
 - Segments: three buttons with `min-h-11`, `aria-label="Pesan k dari 3"`, and a
   4px inner bar whose active width is bound to `progress()`.
-- Gloss popover: render a `role="dialog"` block after the `</h1>`, never inside
-  it, with `x-show`, `x-cloak`, `@click.outside="closeGloss()"` and
-  `@keydown.escape.window="closeGloss()"`. The headline word is a
-  `decoration-dotted underline-offset-4` button with `aria-controls` and
-  `:aria-expanded`.
-- Step strip: an `<ol data-hero-steps>` with `grid-cols-3` under the CTA,
-  wrapped in a nested `x-data="{ ctaActive: false }"`. The numbered circles use
-  `delay-0`/`delay-150`/`delay-300` plus a bound active class.
-- Dot field: a `<figure data-jt-field>` containing a `bg-card` frame with
-  `aspect-[2/1] md:aspect-[3/2]`, a `canvas.jt-field-canvas` (hidden under
-  reduced motion) and a static SVG fallback. The caption span carries
-  `data-jt-field-caption` and the `data-idle`, `data-pressed`, `data-recovering`
-  and `data-settled` attributes from `params.home.hero.field`.
+- Gloss marker: the headline word is a button with a low turquoise-tint marker:
+  `bg-linear-to-t from-turquoise-tint from-50% to-transparent to-50%
+  bg-no-repeat bg-left-bottom box-decoration-clone` plus
+  `transition-[background-size] duration-700`. `bg-size-[100%_100%]` when its
+  line is active, `bg-size-[0%_100%]` otherwise (bound through `:class`). It
+  has `aria-controls` and `:aria-expanded`; the tint stays in open and closed
+  state, never turquoise.
+- Gloss popover overlay: wrap the h1, trust chip and dialogs in a `relative`
+  div. Each `role="dialog"` sits after the `</h1>`, never inside it, as
+  `absolute inset-x-0 top-full z-10 mt-2` so it overlays and does not push the
+  layout. It has `x-show`, `x-cloak`, `@click.outside="closeGloss()"` and
+  `@keydown.escape.window="closeGloss()"`.
+- CTA width group: a `w-full sm:w-fit` div with nested
+  `x-data="{ ctaActive: false }"` holds the CTA and the step strip so both
+  share one width. Pass `"full" true` to `button.html` so the pill fills the
+  group.
+- Stepper: an `<ol data-hero-steps>` with `relative grid-cols-3` under the CTA.
+  A connector (`absolute left-[16.67%] right-[16.67%] top-3 h-px bg-border`)
+  runs behind the circles, with a `bg-turquoise origin-left` fill that toggles
+  `scale-x-0`/`scale-x-100` on `ctaActive`. The circles are `relative bg-card`
+  with `delay-0`/`delay-150`/`delay-300` and a bound active class; the current
+  step (`i`) is also active and bold.
+- Demo figure: `<figure data-hero-demo>` in the image column (below the CTA on
+  mobile) holds a `rounded-lg border border-border bg-card p-4` frame. Inside,
+  a `grid` stack of three `data-hero-demo-stage` blocks (question, ID, report)
+  use `col-start-1 row-start-1` and the same opacity/visibility fade bound to
+  `i`. Option buttons use `min-h-11 rounded-lg`; indicator dots use
+  `rounded-md`. No `rounded-full` (the CTA is the only anchor). A `figcaption`
+  labels it as an example. No canvas, no second CTA.
 
 # Do and don't
 
@@ -125,7 +141,9 @@ On `bg-muted` use `charcoal-700` or `charcoal-900` text, not `charcoal-600`.
 
 - Test breakpoints at 375, 640 and 768px.
 - `assets/css/style.css` is a committed Tailwind build. After adding classes run
-  `pnpm run build:tw` and commit the regenerated file.
+  `pnpm run build:tw` and commit the regenerated file. Whichever task changes
+  scanned markup or scripts rebuilds and commits it; docs changes are not
+  scanned.
 - Run `pnpm test` and `pnpm run build` before merging.
 - `docs/ALPINE_PATTERNS.md` uses legacy colour classes (blue, gray) and emoji.
   Copy the Alpine logic only, never the classes.
