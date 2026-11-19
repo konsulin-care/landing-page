@@ -99,9 +99,9 @@ params:
         - text: "Gerakan riset warga untuk memahami kesehatan mental bersama-sama."
       primary_cta: "Mulai Survei (10 Menit)"
       trust:
-        - "Peneliti tidak melihat identitas Anda"
-        - "Untuk riset, bukan diagnosis"
-        - "Laporan ringkas langsung tersedia"
+        - "Bukan diagnosis, tidak ada jawaban salah"
+        - "Hasil riset dibagikan kembali untuk publik"
+        - "Sepuluh menit, boleh berhenti kapan saja"
     recognition:
       kicker: "Kenali tandanya"
       title: "Stres jarang datang dengan nama"

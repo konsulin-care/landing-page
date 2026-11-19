@@ -1,11 +1,9 @@
 <!-- Hero section: purpose, 10-minute duration, ID Anonim, report availability, CTA -->
-<div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8">
+<div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8" data-hero x-data="jtHeroSync({{ len .Site.Params.home.hero.lines }})">
   <div class="grid gap-10 md:grid-cols-2 md:items-center">
-    <div class="order-2 md:order-1 text-left">
+    <div class="order-2 md:order-1 text-left" data-hero-text @mouseenter="hold('hover')" @mouseleave="release('hover')" @focusin="hold('focus')" @focusout="release('focus')">
       {{ $url := .Site.Params.hashtag_url | default .Site.Params.social_media.instagram.url }}
-      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground"
-        x-data="jtHeroRotation({{ len .Site.Params.home.hero.lines }})"
-        @mouseenter="paused = true" @mouseleave="paused = false" @focusin="paused = true" @focusout="paused = false">
+      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground">
         <a href="{{ $url }}" target="_blank" rel="noopener" class="font-extrabold text-turquoise-deep hover:underline">{{ .Site.Params.home.hero.hashtag }}</a>
         <span class="grid">
           {{ range $i, $line := .Site.Params.home.hero.lines }}
@@ -13,6 +11,17 @@
           {{ end }}
         </span>
       </h1>
+
+      <p class="mt-4 grid text-sm text-muted-foreground" aria-hidden="true" data-hero-trust>
+        {{ range $i, $item := .Site.Params.home.hero.trust }}
+        <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 1 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $item }}</span>
+        {{ end }}
+      </p>
+      <ul class="sr-only">
+        {{ range .Site.Params.home.hero.trust }}
+        <li>{{ . }}</li>
+        {{ end }}
+      </ul>
 
       {{ range .Site.Params.home.hero.body }}
       <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-charcoal-700">
@@ -22,40 +31,6 @@
 
       <div class="mt-8">
         {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta) }}
-      </div>
-
-      {{/* Desktop: all items inline */}}
-      <div class="hidden md:block mt-6">
-        <p class="text-sm text-muted-foreground">
-          {{ range $i, $item := .Site.Params.home.hero.trust }}{{ if $i }} <span class="mx-2">·</span> {{ end }}{{ . }}{{ end }}
-        </p>
-      </div>
-
-      {{/* Mobile: Alpine.js carousel, slide right-to-left */}}
-      <div
-        x-data="{
-          current: 0,
-          items: {{ .Site.Params.home.hero.trust | jsonify }},
-          init() {
-            this._timer = setInterval(() => {
-              if (!document.hidden) this.current = (this.current + 1) % this.items.length;
-            }, 3000);
-          }
-        }"
-        class="relative h-6 overflow-hidden mt-6 md:hidden"
-      >
-        {{ range $i, $item := .Site.Params.home.hero.trust }}
-        <span
-          x-show="current === {{ $i }}"
-          x-transition:enter="transition ease-out duration-400"
-          x-transition:enter-start="opacity-0 translate-x-full"
-          x-transition:enter-end="opacity-100 translate-x-0"
-          x-transition:leave="transition ease-in duration-400"
-          x-transition:leave-start="opacity-100 translate-x-0"
-          x-transition:leave-end="opacity-0 -translate-x-full"
-          class="absolute inset-0 flex items-center justify-start text-sm text-muted-foreground"
-        >{{ . }}</span>
-        {{ end }}
       </div>
     </div>
 

@@ -3,19 +3,29 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { buildSite } from './helpers/build.mjs';
-import { read } from './helpers/html.mjs';
+import { read, sectionHtml } from './helpers/html.mjs';
 
 let html = '';
 let hero = '';
+let heroRoot = '';
+let textColumn = '';
+let headline = '';
 
 before(() => {
   const { dest, status, output } = buildSite();
   assert.equal(status, 0, output);
   html = fs.readFileSync(path.join(dest, 'index.html'), 'utf8');
+  hero = sectionHtml(html, 'hero');
 
-  const start = html.search(/<h1[\s>]/);
+  heroRoot = hero.match(/<div\b[^>]*\bdata-hero\b[^>]*>/)?.[0] ?? '';
+  assert.ok(heroRoot, 'the hero root declares data-hero');
+
+  textColumn = hero.match(/<div\b[^>]*\bdata-hero-text\b[^>]*>/)?.[0] ?? '';
+  assert.ok(textColumn, 'the text column declares data-hero-text');
+
+  const start = hero.search(/<h1[\s>]/);
   assert.ok(start >= 0, 'the homepage renders an h1');
-  hero = html.slice(start, html.indexOf('</h1>', start));
+  headline = hero.slice(start, hero.indexOf('</h1>', start));
 });
 
 /**
@@ -49,13 +59,13 @@ function heroLineCount() {
 
 /** Returns every line span rendered inside the h1 grid cell. */
 function lineSpans() {
-  const block = hero.slice(hero.search(/<span[^>]*\bgrid\b[^>]*>/));
+  const block = headline.slice(headline.search(/<span[^>]*\bgrid\b[^>]*>/));
   return [...block.matchAll(/<span\b[^>]*\bcol-start-1\b[^>]*>/g)].map((m) => m[0]);
 }
 
 test('the h1 anchor links to hashtag_url in a new tab', () => {
   const url = configValue('hashtag_url');
-  const anchor = hero.match(/<a\b[^>]*>/);
+  const anchor = headline.match(/<a\b[^>]*>/);
   assert.ok(anchor, 'the h1 renders an anchor');
 
   const href = attr(anchor[0], 'href');
@@ -79,26 +89,27 @@ test('the h1 grid holds three line spans and only the second starts visible', ()
   assert.ok(!hidden(spans[1]), 'line 2 starts visible');
   assert.ok(hidden(spans[2]), 'line 3 starts hidden');
 
-  assert.ok(!/aria-live/.test(hero), 'the h1 has no aria-live attribute');
+  assert.ok(!/aria-live/.test(headline), 'the h1 has no aria-live attribute');
 });
 
-test('the built h1 wires the rotation component to the configured line count', () => {
-  const opening = hero.slice(0, hero.indexOf('>') + 1);
-  const data = attr(opening, 'x-data');
-  assert.ok(data, 'the h1 declares x-data');
+test('the hero root wires the shared clock to the configured line count', () => {
+  const data = attr(heroRoot, 'x-data');
+  assert.ok(data, 'the hero root declares x-data');
 
-  const call = data.match(/jtHeroRotation\(\s*(\d+)\s*\)/);
-  assert.ok(call, 'x-data calls jtHeroRotation with a line count');
+  const call = data.match(/jtHeroSync\(\s*(\d+)\s*\)/);
+  assert.ok(call, 'x-data calls jtHeroSync with a line count');
   assert.equal(Number(call[1]), heroLineCount(), 'passes params.home.hero.lines length');
 });
 
-test('the built h1 pauses on mouseenter and focusin and resumes on mouseleave and focusout', () => {
-  const opening = hero.slice(0, hero.indexOf('>') + 1);
-  const pause = (name) => assert.match(attr(opening, name) ?? '', /paused\s*=\s*true/, `${name} pauses rotation`);
-  const resume = (name) => assert.match(attr(opening, name) ?? '', /paused\s*=\s*false/, `${name} resumes rotation`);
+test('only the data-hero-text column carries the hold and release handlers', () => {
+  const pause = (tag, name) => assert.match(attr(tag, name) ?? '', /hold\('(hover|focus)'\)/, `${name} holds the clock`);
+  const resume = (tag, name) => assert.match(attr(tag, name) ?? '', /release\('(hover|focus)'\)/, `${name} releases the clock`);
 
-  pause('@mouseenter');
-  resume('@mouseleave');
-  pause('@focusin');
-  resume('@focusout');
+  pause(textColumn, '@mouseenter');
+  resume(textColumn, '@mouseleave');
+  pause(textColumn, '@focusin');
+  resume(textColumn, '@focusout');
+
+  assert.doesNotMatch(attr(heroRoot, '@mouseenter') ?? '', /hold|paused/, 'the hero root does not pause the clock');
+  assert.doesNotMatch(attr(headline.slice(0, headline.indexOf('>') + 1), '@mouseenter') ?? '', /hold|paused/, 'the h1 does not pause the clock');
 });
