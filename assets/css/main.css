@@ -1,6 +1,9 @@
 /* assets */
-@import "tailwindcss";
+@import "tailwindcss" source(none);
 @plugin "@tailwindcss/typography";
+@source "../../layouts";
+@source "../js/*.js";
+@source not "../js/alpine.min.js";
 
 /* Mirrors the Konsulin frontend globals.css token set (light-only). */
 
