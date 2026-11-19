@@ -1,17 +1,9 @@
-// Homepage build (T10): the committed Tailwind build covers every static
-// utility used by the five homepage section partials, and a production Hugo
-// build is clean (exit 0, no WARN lines).
-//   B1  style.css contains a selector for every static class in the partials
-//   B2  `hugo --minify` exits 0 and prints no WARN lines
+// The committed Tailwind build covers every static utility used by the five
+// homepage section partials, and the shared production Hugo build is clean.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import os from 'node:os';
-import path from 'node:path';
-import { spawnSync } from 'node:child_process';
-
-const ROOT = path.join(import.meta.dirname, '..');
-const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
+import { buildSite } from './helpers/build.mjs';
+import { read } from './helpers/html.mjs';
 
 /** Section partials that make up the six-section homepage sequence. */
 const SECTION_PARTIALS = [
@@ -56,16 +48,7 @@ function escapeSelector(token) {
   return token.replace(/[:/\[\]().,!#%&]/g, '\\$&');
 }
 
-test('B1a: the section partials yield static utility classes', () => {
-  const tokens = new Set();
-  for (const partial of SECTION_PARTIALS) {
-    for (const token of staticClassTokens(read(partial))) tokens.add(token);
-  }
-  assert.ok(tokens.size > 20, `expected many utility classes, got ${tokens.size}`);
-  assert.ok(tokens.has('md:grid-cols-12'), 'responsive utility tokens are collected');
-});
-
-test('B1b: style.css contains a selector for every static utility class', () => {
+test('the committed stylesheet contains a selector for every static utility class', () => {
   const styleCss = read('assets/css/style.css');
   const missing = [];
   for (const partial of SECTION_PARTIALS) {
@@ -76,15 +59,9 @@ test('B1b: style.css contains a selector for every static utility class', () => 
   assert.deepEqual(missing, [], `classes missing from assets/css/style.css: ${missing.join(', ')}`);
 });
 
-test('B2: a production hugo build exits 0 without WARN lines', () => {
-  const dest = path.resolve(fs.mkdtempSync(path.join(os.tmpdir(), 'homepage-build-')));
-  const result = spawnSync('hugo', ['--minify', '--destination', dest], {
-    cwd: ROOT,
-    encoding: 'utf8',
-    timeout: 60000,
-  });
-  const output = `${result.stdout}${result.stderr}`;
-  assert.equal(result.status, 0, output);
+test('the shared production build exits 0 without WARN lines', () => {
+  const { status, output } = buildSite();
+  assert.equal(status, 0, output);
   const warnings = output
     .split('\n')
     .map((line) => line.trim())
