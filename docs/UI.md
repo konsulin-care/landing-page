@@ -53,6 +53,39 @@ Cards always use `bg-card`, never `bg-background`:
 Kicker on charcoal: `.section-kicker` is turquoise-deep, which is too dark on
 charcoal. Wrap with `[&_.section-kicker]:!text-background`.
 
+## Hero recipe
+
+Everything lives inline in `layouts/partials/home-hero.html`; do not add new
+partials. Config comes from `params.home.hero` and `params.home.recognition`.
+
+- Root wrapper: `data-hero` plus `x-data="jtHeroSync(<line count>)"` on the
+  `relative max-w-6xl mx-auto px-6 py-24 md:px-8` div, so the chevron can read
+  the shared clock state.
+- Text column: `data-hero-text`. It is the only element that carries hold and
+  release handlers (`hold('hover')`, `focus`, `press`, swipe) and it uses
+  `touch-pan-y`. The image column never pauses the clock.
+- Grid-stack fade: a wrapper `<span class="grid">` or `<p class="grid">` holds
+  each variant as `col-start-1 row-start-1`, with
+  `transition-[opacity,visibility] duration-700 motion-reduce:transition-none`
+  and a `hiddenClass` bound through `:class`. The headline lines and the trust
+  chip use the same pattern. The trust chip is `aria-hidden="true"` with an
+  `sr-only` list of all items.
+- Segments: three buttons with `min-h-11`, `aria-label="Pesan k dari 3"`, and a
+  4px inner bar whose active width is bound to `progress()`.
+- Gloss popover: render a `role="dialog"` block after the `</h1>`, never inside
+  it, with `x-show`, `x-cloak`, `@click.outside="closeGloss()"` and
+  `@keydown.escape.window="closeGloss()"`. The headline word is a
+  `decoration-dotted underline-offset-4` button with `aria-controls` and
+  `:aria-expanded`.
+- Step strip: an `<ol data-hero-steps>` with `grid-cols-3` under the CTA,
+  wrapped in a nested `x-data="{ ctaActive: false }"`. The numbered circles use
+  `delay-0`/`delay-150`/`delay-300` plus a bound active class.
+- Dot field: a `<figure data-jt-field>` containing a `bg-card` frame with
+  `aspect-[2/1] md:aspect-[3/2]`, a `canvas.jt-field-canvas` (hidden under
+  reduced motion) and a static SVG fallback. The caption span carries
+  `data-jt-field-caption` and the `data-idle`, `data-pressed`, `data-recovering`
+  and `data-settled` attributes from `params.home.hero.field`.
+
 # Do and don't
 
 Banned in `layouts/**/*.html` (enforced by `tests/design-tokens.test.mjs`):
