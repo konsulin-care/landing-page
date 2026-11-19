@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ROTATION_MS, heroRotation } from '../assets/js/hero-rotation.js';
+import { ROTATION_MS, TICK_MS, heroRotation, heroSync } from '../assets/js/hero-rotation.js';
 
 /** Builds a fake environment that records interval registrations. */
 function makeEnv({ reducedMotion = false, hidden = false } = {}) {
@@ -68,4 +68,60 @@ test('reduced motion starts no interval at all', () => {
   heroRotation(3, env).init();
 
   assert.equal(timers.length, 0);
+});
+
+test('heroSync ticks raise progress and advance one pair after a full rotation', () => {
+  const { env, timers } = makeEnv();
+  const data = heroSync(3, env);
+  data.init();
+
+  assert.equal(TICK_MS, 100);
+  assert.equal(data.i, 1);
+  assert.equal(data.progress(), 0);
+
+  timers[0].fn();
+  assert.ok(data.progress() > 0 && data.progress() < 1);
+
+  for (let tick = 1; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 2);
+  assert.equal(data.elapsed, 0);
+});
+
+test('heroSync holds all ticks while any reason is held or the document is hidden', () => {
+  const { env, timers, doc } = makeEnv();
+  const data = heroSync(3, env);
+  data.init();
+
+  data.hold('hover');
+  data.hold('focus');
+  data.hold('hover');
+  assert.deepEqual(data.holds, ['hover', 'focus']);
+
+  timers[0].fn();
+  assert.equal(data.i, 1);
+  assert.equal(data.elapsed, 0);
+
+  data.release('hover');
+  timers[0].fn();
+  assert.equal(data.i, 1);
+  assert.equal(data.elapsed, 0);
+
+  data.release('focus');
+  assert.equal(data.paused, false);
+  timers[0].fn();
+  assert.equal(data.elapsed, TICK_MS);
+
+  doc.hidden = true;
+  timers[0].fn();
+  assert.equal(data.elapsed, TICK_MS);
+});
+
+test('heroSync under reduced motion registers no interval and is complete', () => {
+  const { env, timers } = makeEnv({ reducedMotion: true });
+  const data = heroSync(3, env);
+  data.init();
+
+  assert.equal(timers.length, 0);
+  assert.equal(data.cycled, true);
+  assert.equal(data.progress(), 1);
 });
