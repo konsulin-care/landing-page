@@ -61,14 +61,14 @@ export function heroSync(n, opts = {}, env = {}) {
       active.add(k);
       if (active.size >= this.n) this.cycled = true;
     },
-    /** Records the sample answer k and holds the clock on the demo. */
+    /** Records the sample answer k without pausing the clock. */
     answer(k) {
       this.picked = k;
-      this.hold('demo');
     },
+    /** Selects pair k, closing any open gloss and resetting the clock. */
     select(k) {
+      if (this.gloss !== null) this.closeGloss();
       this.picked = null;
-      this.release('demo');
       this.i = k;
       this.elapsed = 0;
       this.track(k);
@@ -100,7 +100,6 @@ export function heroSync(n, opts = {}, env = {}) {
         if (this.elapsed >= ms) {
           this.i = (this.i + 1) % this.n;
           this.picked = null;
-          this.release('demo');
           this.elapsed = 0;
           this.track(this.i);
         }

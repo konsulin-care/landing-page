@@ -224,16 +224,52 @@ test('heroSync automatic advances count towards cycled', () => {
   assert.equal(data.cycled, true);
 });
 
-test('heroSync answer holds the clock and select clears picked', () => {
-  const { env } = makeEnv();
+test('heroSync answer sets picked without holding the clock', () => {
+  const { env, timers } = makeEnv();
   const data = heroSync(3, {}, env);
+  data.init();
+
   assert.equal(data.picked, null);
   data.answer(2);
   assert.equal(data.picked, 2);
-  assert.ok(data.paused);
-  data.select(1);
-  assert.equal(data.picked, null);
+  assert.deepEqual(data.holds, []);
   assert.equal(data.paused, false);
+
+  timers[0].fn();
+  assert.equal(data.elapsed, TICK_MS);
+});
+
+test('heroSync select closes an open gloss and releases its hold', () => {
+  const { env } = makeEnv();
+  const data = heroSync(3, {}, env);
+
+  data.openGloss(1);
+  assert.deepEqual(data.holds, ['gloss']);
+  data.select(2);
+  assert.equal(data.gloss, null);
+  assert.deepEqual(data.holds, []);
+
+  data.openGloss(0);
+  data.next();
+  assert.equal(data.gloss, null);
+  assert.deepEqual(data.holds, []);
+
+  data.openGloss(0);
+  data.prev();
+  assert.equal(data.gloss, null);
+  assert.deepEqual(data.holds, []);
+});
+
+test('heroSync clears picked after a full rotation following an answer', () => {
+  const { env, timers } = makeEnv();
+  const data = heroSync(3, {}, env);
+  data.init();
+
+  data.answer(2);
+  assert.equal(data.picked, 2);
+
+  for (let tick = 0; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.picked, null);
 });
 
 /** Lists every file below a directory, recursively. */
