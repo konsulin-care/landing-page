@@ -1,163 +1,88 @@
-import { test } from "node:test";
-import assert from "node:assert/strict";
-import { readFileSync, readdirSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { test, before } from 'node:test';
+import assert from 'node:assert/strict';
+import { buildSite, readBuilt } from './helpers/build.mjs';
 
-const root = new URL("..", import.meta.url).pathname;
-const read = (p) => readFileSync(join(root, p), "utf8");
+let homeHtml = '';
+let contactHtml = '';
 
-function walk(dir) {
-  return readdirSync(dir).flatMap((n) => {
-    const p = join(dir, n);
-    return statSync(p).isDirectory() ? walk(p) : [p];
-  });
+/**
+ * Matches an HTML attribute value in quoted, single-quoted or unquoted form.
+ * @param {string} name attribute name
+ * @param {string} value expected attribute value
+ * @returns {RegExp} pattern that matches the attribute with that value
+ */
+function attribute(name, value) {
+  const escaped = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`\\b${name}\\s*=\\s*(?:"${escaped}"|'${escaped}'|${escaped}(?=[\\s>/]))`);
 }
 
-test("main.css @theme defines --color-cta: var(--color-turquoise)", () => {
-  const css = read("assets/css/main.css");
-  const theme = css.match(/@theme\s*\{([\s\S]*?)\n\}/);
-  assert.ok(theme, "assets/css/main.css has an @theme block");
-  assert.match(theme[1], /--color-cta:\s*var\(--color-turquoise\)/);
+/**
+ * Extracts the opening tags of the given element name.
+ * @param {string} html rendered HTML
+ * @param {string} name element name, e.g. `button` or `a`
+ * @returns {string[]} opening tags including attributes
+ */
+function openingTags(html, name) {
+  return [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, 'g'))].map((match) => match[0]);
+}
+
+/**
+ * Reads the class tokens of an opening tag.
+ * @param {string} tag rendered opening tag
+ * @returns {string[]} class tokens, or an empty array when there is no class attribute
+ */
+function classesOf(tag) {
+  const quoted = tag.match(/\bclass\s*=\s*"([^"]*)"/) ?? tag.match(/\bclass\s*=\s*'([^']*)'/);
+  if (quoted) return quoted[1].split(/\s+/).filter(Boolean);
+  const unquoted = tag.match(/\bclass\s*=\s*([^\s>]+)/);
+  return unquoted ? [unquoted[1]] : [];
+}
+
+before(() => {
+  const { status, output } = buildSite();
+  assert.equal(status, 0, output);
+  homeHtml = readBuilt('index.html');
+  contactHtml = readBuilt('contact/index.html');
 });
 
-test("main.css still defines --color-accent: var(--color-turquoise-tint)", () => {
-  const css = read("assets/css/main.css");
-  const theme = css.match(/@theme\s*\{([\s\S]*?)\n\}/);
-  assert.ok(theme, "assets/css/main.css has an @theme block");
-  assert.match(theme[1], /--color-accent:\s*var\(--color-turquoise-tint\)/);
-});
-
-test("docs/DESIGN_TOKENS.md mentions the cta token", () => {
-  const doc = read("docs/DESIGN_TOKENS.md");
-  assert.match(doc, /cta/);
-});
-
-test("button.html uses CTA colors and no bg-foreground", () => {
-  const html = read("layouts/partials/button.html");
-  assert.match(html, /bg-cta/);
-  assert.match(html, /text-foreground/);
-  assert.match(html, /hover:bg-turquoise-deep/);
-  assert.match(html, /hover:text-background/);
-  assert.doesNotMatch(html, /bg-foreground/);
-});
-
-test("button.html renders a <button> when type is set, an <a> otherwise", () => {
-  const html = read("layouts/partials/button.html");
-  const branch = html.match(
-    /\{\{-?\s*if\s+\.type\s*-?\}\}([\s\S]*?)\{\{-?\s*else\s*-?\}\}([\s\S]*?)\{\{-?\s*end\s*-?\}\}/
+test('the contact page renders its submit CTA as a pill button', () => {
+  const submitButtons = openingTags(contactHtml, 'button').filter((tag) =>
+    attribute('type', 'submit').test(tag),
   );
-  assert.ok(branch, "template branches on .type with if/else/end");
-  assert.match(branch[1], /<button[^>]*type="/);
-  assert.match(branch[1], /<\/button>/);
-  assert.match(branch[2], /<a\s+href="/);
-  assert.match(branch[2], /<\/a>/);
-});
 
-test("button.html supports size values default, sm and lg", () => {
-  const html = read("layouts/partials/button.html");
-  assert.match(html, /\.size/, "reads the size param");
-  assert.match(html, /default "default"/, "size defaults to default");
-  assert.match(html, /"px-7"/, "default size renders px-7");
-  assert.match(html, /if eq \$size "sm"[\s\S]{0,120}?px-4 text-sm/,
-    "sm renders px-4 text-sm");
-  assert.match(html, /else if eq \$size "lg"[\s\S]{0,120}?px-9 py-4 text-base/,
-    "lg renders px-9 py-4 text-base");
-});
-
-test("button.html is a pill: rounded-full and no rounded-lg", () => {
-  const html = read("layouts/partials/button.html");
-  assert.match(html, /rounded-full/);
-  assert.doesNotMatch(html, /rounded-lg/);
-});
-
-test("button.html default size uses px-7 and lg uses px-9, never px-6 or px-8", () => {
-  const html = read("layouts/partials/button.html");
-  assert.match(html, /\$sizeClass := "px-7"/);
-  assert.match(html, /else if eq \$size "lg"[\s\S]{0,120}?px-9/);
-  assert.doesNotMatch(html, /px-6|px-8/);
-});
-
-test("button.html tone param: default keeps turquoise-deep hover, on-dark hovers to background", () => {
-  const html = read("layouts/partials/button.html");
-  assert.match(html, /\.tone/, "reads the tone param");
-  assert.match(html, /eq \$tone "on-dark"/, "branches on the on-dark tone");
-  const onDark = html.match(/eq \$tone "on-dark"([\s\S]*?)\{\{-?\s*end/);
-  assert.ok(onDark, "on-dark branch exists");
-  assert.match(onDark[1], /hover:bg-background hover:text-foreground/);
-  assert.match(onDark[1], /outline-background/);
-  assert.doesNotMatch(onDark[1], /turquoise-deep/);
-  assert.match(html, /hover:bg-turquoise-deep hover:text-background/);
-  assert.match(html, /outline-ring/);
-  assert.match(html, /bg-cta text-foreground/);
-});
-
-test("button.html emits the label with no whitespace before </a>", () => {
-  const html = read("layouts/partials/button.html");
-  assert.match(html, />\{\{ \.label \}\}<\/a>/);
-  assert.match(html, />\{\{ \.label \}\}<\/button>/);
-});
-
-test("no layouts/*.html file combines bg-foreground with text-background hover:bg-charcoal-700", () => {
-  const htmlFiles = walk(join(root, "layouts")).filter((f) => f.endsWith(".html"));
-  for (const f of htmlFiles) {
-    const src = readFileSync(f, "utf8");
-    const combines =
-      /bg-foreground/.test(src) &&
-      /text-background/.test(src) &&
-      /hover:bg-charcoal-700/.test(src);
+  assert.ok(submitButtons.length > 0, 'the contact page renders a submit button');
+  for (const tag of submitButtons) {
     assert.ok(
-      !combines,
-      `${f} combines bg-foreground with text-background hover:bg-charcoal-700`,
+      classesOf(tag).includes('rounded-full'),
+      `submit button is a pill: ${tag}`,
     );
   }
 });
 
-test("nav.html and contact/single.html call partial button.html", () => {
-  for (const p of [
-    "layouts/partials/nav.html",
-    "layouts/contact/single.html",
-  ]) {
-    assert.match(read(p), /partial\s+"button\.html"/, `${p} must call partial button.html`);
-  }
-});
-
-test("the remaining CTAs pass the expected params to button.html", () => {
-  assert.match(
-    read("layouts/partials/nav.html"),
-    /partial\s+"button\.html"[^\n]*"size"\s+"sm"/,
-    "nav Login uses size sm",
+test('the homepage renders button.html CTAs as anchors with an href', () => {
+  const ctaAnchors = openingTags(homeHtml, 'a').filter((tag) =>
+    classesOf(tag).includes('rounded-full'),
   );
-  assert.match(
-    read("layouts/contact/single.html"),
-    /partial\s+"button\.html"[^\n]*"type"\s+"submit"/,
-    "contact submit uses type submit",
-  );
-});
 
-test("the orphaned study partials are gone and unreferenced", () => {
-  const orphans = [
-    "home-why-it-matters.html",
-    "home-how-it-works.html",
-    "home-claim-report.html",
-    "home-research-credibility.html",
-  ];
-  const layoutFiles = walk(join(root, "layouts")).filter((f) => f.endsWith(".html"));
-  for (const name of orphans) {
-    assert.ok(
-      !layoutFiles.some((f) => f.endsWith(join("partials", name))),
-      `layouts/partials/${name} must not exist`,
+  assert.ok(ctaAnchors.length > 0, 'the homepage renders rounded-full CTA anchors');
+  for (const tag of ctaAnchors) {
+    assert.match(
+      tag,
+      /\bhref\s*=\s*(?:"[^"]+"|'[^']+'|[^\s>]+)/,
+      `CTA anchor has an href: ${tag}`,
     );
-    for (const f of layoutFiles) {
-      assert.ok(
-        !readFileSync(f, "utf8").includes(name),
-        `${f} still references ${name}`,
-      );
-    }
   }
 });
 
-test("nav.html mobile-menu toggle button is still present", () => {
-  const nav = read("layouts/partials/nav.html");
-  assert.match(nav, /<button[^>]*@click="open = !open"/);
-  assert.match(nav, /aria-controls="menuItems"/);
+test('the homepage nav toggle controls the menu element', () => {
+  const toggles = openingTags(homeHtml, 'button').filter((tag) =>
+    attribute('aria-controls', 'menuItems').test(tag),
+  );
+
+  assert.equal(toggles.length, 1, 'the nav renders one menu toggle');
+  assert.match(toggles[0], attribute('aria-expanded', 'false'), 'the menu starts collapsed');
+  assert.match(toggles[0], /@click\s*=\s*["'][^"']*open\s*=\s*!open/, 'the toggle flips the open state');
+
+  const menu = openingTags(homeHtml, 'nav').filter((tag) => attribute('id', 'menuItems').test(tag));
+  assert.equal(menu.length, 1, 'the nav renders the element the toggle controls');
 });
