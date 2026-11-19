@@ -152,8 +152,14 @@ test('each glossed word renders as a button inside the h1', () => {
     assert.ok(button, `gloss ${k + 1} renders "${gloss.word}" as a button inside the h1`);
 
     const classes = (attr(button.tag, 'class') ?? '').split(/\s+/).filter(Boolean);
-    assert.ok(classes.includes('underline'), `gloss ${k + 1} button is underlined`);
-    assert.ok(classes.includes('decoration-dotted'), `gloss ${k + 1} button is dotted`);
+    for (const token of ['bg-linear-to-t', 'from-turquoise-tint', 'from-50%', 'to-transparent', 'to-50%', 'bg-no-repeat', 'bg-left-bottom', 'pb-1', 'box-decoration-clone', 'transition-[background-size]', 'motion-reduce:transition-none']) {
+      assert.ok(classes.includes(token), `gloss ${k + 1} button has ${token}`);
+    }
+    assert.ok(!classes.includes('underline') && !classes.includes('decoration-dotted'), `gloss ${k + 1} has no underline`);
+    const bound = attr(button.tag, ':class') ?? '';
+    assert.ok(bound.includes(`i === ${k}`), `gloss ${k + 1} binds on its line index`);
+    assert.ok(bound.includes('bg-size-[100%_100%]') && bound.includes('bg-size-[0%_100%]'), `gloss ${k + 1} sweeps`);
+    assert.ok(!/bg-turquoise|from-turquoise(?!-tint)|aria-expanded/.test(bound + classes.join(' ')), `gloss ${k + 1} stays tint`);
     assert.equal(attr(button.tag, 'type'), 'button', `gloss ${k + 1} is a type=button`);
     assert.equal(attr(button.tag, 'aria-controls'), `hero-gloss-${k}`, `gloss ${k + 1} controls its popover`);
     assert.match(attr(button.tag, '@click') ?? '', /openGloss/, `gloss ${k + 1} opens its popover`);
