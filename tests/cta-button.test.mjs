@@ -74,6 +74,12 @@ test('the homepage renders button.html CTAs as anchors with an href', () => {
   }
 });
 
+test('button.html adds w-full only when full is true', () => {
+  const pills = openingTags(homeHtml, 'a').filter((tag) => classesOf(tag).includes('rounded-full'));
+  assert.ok(pills.some((tag) => classesOf(tag).includes('w-full')), 'a pill renders w-full');
+  assert.ok(pills.some((tag) => !classesOf(tag).includes('w-full')), 'a pill renders without w-full');
+});
+
 test('the homepage nav toggle controls the menu element', () => {
   const toggles = openingTags(homeHtml, 'button').filter((tag) =>
     attribute('aria-controls', 'menuItems').test(tag),

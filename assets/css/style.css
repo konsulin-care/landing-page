@@ -283,14 +283,23 @@
   .inset-x-0 {
     inset-inline: 0px;
   }
+  .top-3 {
+    top: calc(var(--spacing) * 3);
+  }
   .top-full {
     top: 100%;
+  }
+  .right-\[16\.67\%\] {
+    right: 16.67%;
   }
   .bottom-6 {
     bottom: calc(var(--spacing) * 6);
   }
   .left-1\/2 {
     left: calc(1 / 2 * 100%);
+  }
+  .left-\[16\.67\%\] {
+    left: 16.67%;
   }
   .z-10 {
     z-index: 10;
@@ -836,6 +845,9 @@
   .h-full {
     height: 100%;
   }
+  .h-px {
+    height: 1px;
+  }
   .min-h-11 {
     min-height: calc(var(--spacing) * 11);
   }
@@ -893,9 +905,20 @@
   .flex-grow {
     flex-grow: 1;
   }
+  .origin-left {
+    transform-origin: 0;
+  }
   .-translate-x-1\/2 {
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .scale-x-0 {
+    --tw-scale-x: 0%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .scale-x-100 {
+    --tw-scale-x: 100%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
   }
   .rotate-45 {
     rotate: 45deg;
@@ -1054,6 +1077,9 @@
   .bg-background {
     background-color: var(--color-background);
   }
+  .bg-border {
+    background-color: var(--color-border);
+  }
   .bg-card {
     background-color: var(--color-card);
   }
@@ -1065,6 +1091,9 @@
   }
   .bg-muted {
     background-color: var(--color-muted);
+  }
+  .bg-turquoise {
+    background-color: var(--color-turquoise);
   }
   .bg-turquoise-deep {
     background-color: var(--color-turquoise-deep);
@@ -1341,6 +1370,10 @@
     --tw-duration: 300ms;
     transition-duration: 300ms;
   }
+  .duration-500 {
+    --tw-duration: 500ms;
+    transition-duration: 500ms;
+  }
   .duration-700 {
     --tw-duration: 700ms;
     transition-duration: 700ms;
@@ -1421,6 +1454,10 @@
   @media (width >= 40rem) {
     .sm\:col-span-2 {
       grid-column: span 2 / span 2;
+    }
+    .sm\:w-fit {
+      width: -moz-fit-content;
+      width: fit-content;
     }
     .sm\:max-w-3xl {
       max-width: var(--container-3xl);
@@ -1654,6 +1691,21 @@
   inherits: false;
   initial-value: 0;
 }
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
 @property --tw-pan-x {
   syntax: "*";
   inherits: false;
@@ -1760,6 +1812,9 @@
       --tw-translate-x: 0;
       --tw-translate-y: 0;
       --tw-translate-z: 0;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-scale-z: 1;
       --tw-pan-x: initial;
       --tw-pan-y: initial;
       --tw-pinch-zoom: initial;

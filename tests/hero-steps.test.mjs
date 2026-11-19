@@ -111,6 +111,20 @@ test('the CTA wrapper drives ctaActive on hover, focus and touch', () => {
   assert.equal(attr(ctaWrapper, '@touchstart.passive'), 'ctaActive = true', 'touchstart activates');
 });
 
+test('the width group wraps the full-width CTA and the steps, with a connector', () => {
+  const groupTag = [...hero.matchAll(/<div\b[^>]*>/g)].map((m) => m[0]).find((t) => /ctaActive:\s*false/.test(t)) ?? '';
+  const groupClasses = classesOf(groupTag);
+  assert.ok(groupClasses.includes('w-full') && groupClasses.includes('sm:w-fit'), 'group is w-full sm:w-fit');
+  const groupHtml = hero.slice(hero.indexOf(groupTag));
+  assert.ok(groupHtml.indexOf('data-hero-steps') > 0, 'group contains the steps');
+  assert.match(groupHtml, /<a\b[^>]*class="?[^">]*\bw-full\b[^>]*rounded-full|<a\b[^>]*rounded-full[^>]*\bw-full\b/, 'CTA is w-full');
+  assert.match(strip, /aria-hidden="?true"?/, 'connector is aria-hidden');
+  assert.match(strip, /scale-x-100/);
+  assert.match(strip, /scale-x-0/);
+  assert.match(strip, /motion-reduce:transition-none/);
+  assert.match(strip, /:class="?ctaActive \? 'scale-x-100' : 'scale-x-0'/);
+});
+
 test('each numbered circle binds its highlight to ctaActive with a stepped delay', () => {
   items.forEach((item, index) => {
     const circle = item.match(/<span\b[^>]*>/)?.[0] ?? '';
