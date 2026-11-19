@@ -141,13 +141,9 @@ params:
         report:
           title: "Laporan Anda"
           badge: "Baseline"
-          bars_label: "Skor per aspek"
-          example: "Contoh"
           bars:
             - label: "Kecemasan"
               value: 40
-            - label: "Stres"
-              value: 55
             - label: "Resiliensi"
               value: 65
           timeline_label: "Cek ulang berkala"
@@ -158,7 +154,6 @@ params:
           retake: "Simpan hasil hari ini ke akun Anda, lalu ikut lagi saat cek ulang berikutnya."
           save_label: "Simpan hasil"
           saved_label: "Tersimpan"
-          disclaimer: "Skor ini adalah hasil skrining untuk keperluan penelitian saja dan bukan diagnosis medis."
     recognition:
       kicker: "Kenali tandanya"
       title: "Stres jarang datang dengan nama"

@@ -102,14 +102,16 @@ test('stage report content', () => {
   const s = hero.split('data-hero-demo-stage')[3];
   assert.match(s, /Laporan Anda/);
   assert.match(s, /Baseline/);
-  assert.match(s, /Skor per aspek[\s\S]*Contoh/);
+  assert.equal(/Skor per aspek/.test(s), false, 'the aspect-score label is gone');
+  assert.equal(/\(Contoh\)/.test(s), false, 'the example hint is gone');
   assert.equal(/Skor total/.test(s), false, 'the old score label is gone');
 
   const bars = [
     ['Kecemasan', '0.10', '40%'],
-    ['Stres', '0.25', '55%'],
-    ['Resiliensi', '0.40', '65%'],
+    ['Resiliensi', '0.25', '65%'],
   ];
+  assert.equal(/Stres<\/p>/.test(s), false, 'the Stres bar is gone');
+  assert.equal((s.match(/h-full bg-turquoise/g) || []).length, 2, 'two aspect bars remain');
   for (const [label, threshold, width] of bars) {
     assert.match(
       s,
@@ -122,8 +124,8 @@ test('stage report content', () => {
   assert.match(s, /Baseline[\s\S]*Cek ulang 1[\s\S]*Cek ulang 2/);
   assert.match(s, /Simpan hasil hari ini ke akun Anda, lalu ikut lagi saat cek ulang berikutnya\./);
   assert.equal(/h-2 w-2 rounded-md bg-muted/.test(s), false, 'the old dot row is gone');
-  assert.match(s, /bukan diagnosis medis\./);
-  assert.match(s, /Skor ini adalah hasil skrining untuk keperluan penelitian saja/);
+  assert.equal(/bukan diagnosis medis/.test(s), false, 'the report disclaimer is gone');
+  assert.equal(/Skor ini adalah hasil skrining/.test(s), false, 'the screening disclaimer is gone');
 
   const save = s.match(/<span\b[^>]*data-hero-save[^>]*>/)?.[0] ?? '';
   assert.ok(save, 'the save indicator is present');
@@ -136,7 +138,7 @@ test('stage report content', () => {
 });
 
 test('micro-steps bind to progress thresholds', () => {
-  for (const t of ['>= 0.10', '>= 0.25', '>= 0.40', '>= 0.70', '>= 0.4']) {
+  for (const t of ['>= 0.10', '>= 0.25', '>= 0.70', '>= 0.4']) {
     assert.ok(hero.includes(`progress() ${t}`), t);
   }
 });
