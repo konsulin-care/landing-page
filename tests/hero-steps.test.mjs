@@ -154,6 +154,11 @@ test('each numbered circle binds its highlight to ctaActive with a stepped delay
       assert.ok(binding.includes(token), `step ${index + 1} circle highlights with ${token}`);
     }
 
+    assert.ok(binding.includes(`i === ${index}`), `step ${index + 1} circle binds to i === ${index}`);
+    const labelTag = item.match(/<span\b[^>]*>(?=[^<]*<\/span>\s*$)/)?.[0] ?? '';
+    const labelBinding = attr(labelTag, ':class') ?? '';
+    assert.ok(labelBinding.includes(`i === ${index}`) && labelBinding.includes('font-semibold'), `step ${index + 1} label is bold when current`);
+
     const circleStart = item.indexOf(circle);
     const number = item.slice(circleStart + circle.length, item.indexOf('</span>', circleStart)).trim();
     assert.equal(number, String(index + 1), `step ${index + 1} circle shows its number`);

@@ -80,8 +80,8 @@
           <span aria-hidden="true" class="absolute left-[16.67%] right-[16.67%] top-3 h-px bg-border"><span class="block h-full origin-left bg-turquoise transition-transform duration-500 motion-reduce:transition-none" :class="ctaActive ? 'scale-x-100' : 'scale-x-0'"></span></span>
           {{ range $i, $step := .Site.Params.home.hero.steps }}
           <li class="flex flex-col items-center gap-2 text-center">
-            <span class="relative bg-card flex h-6 w-6 items-center justify-center rounded-full border border-border transition-colors duration-300 motion-reduce:transition-none {{ index $stepDelays $i }}" :class="ctaActive && 'bg-turquoise-tint border-turquoise text-foreground'">{{ add $i 1 }}</span>
-            <span>{{ $step }}</span>
+            <span class="relative bg-card flex h-6 w-6 items-center justify-center rounded-full border border-border transition-colors duration-300 motion-reduce:transition-none {{ index $stepDelays $i }}" :class="(ctaActive || i === {{ $i }}) && 'bg-turquoise-tint border-turquoise text-foreground'">{{ add $i 1 }}</span>
+            <span :class="i === {{ $i }} && 'font-semibold text-foreground'">{{ $step }}</span>
           </li>
           {{ end }}
         </ol>
