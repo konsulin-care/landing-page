@@ -113,6 +113,12 @@ test('the text column swipes horizontally and holds the clock on touch', () => {
 test('the chevron label shows the recognition kicker only once cycled', () => {
   assert.equal(attr(chevronMarkup.match(/<a\b[^>]*>/)?.[0] ?? '', 'aria-label'), 'Lanjut ke bagian berikutnya');
 
+  const anchorClasses = (attr(chevronMarkup.match(/<a\b[^>]*>/)?.[0] ?? '', 'class') ?? '').split(/\s+/);
+  for (const token of ['absolute', 'left-1/2', '-translate-x-1/2', 'flex', 'flex-col', 'items-center', 'gap-1']) {
+    assert.ok(anchorClasses.includes(token), `the chevron anchor carries ${token}`);
+  }
+  assert.equal(attr(chevronMarkup.match(/<a\b[^>]*>/)?.[0] ?? '', 'href'), '#kenali-tandanya');
+
   const label = [...chevronMarkup.matchAll(/<span\b[^>]*>/g)]
     .map((match) => match[0])
     .find((tag) => attr(tag, 'x-show') === 'cycled');
