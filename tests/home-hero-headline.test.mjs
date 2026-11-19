@@ -96,9 +96,16 @@ test('the hero root wires the shared clock to the configured line count', () => 
   const data = attr(heroRoot, 'x-data');
   assert.ok(data, 'the hero root declares x-data');
 
-  const call = data.match(/jtHeroSync\(\s*(\d+)\s*\)/);
-  assert.ok(call, 'x-data calls jtHeroSync with a line count');
+  const decoded = data.replace(/&#34;|&quot;/g, '"');
+  const call = decoded.match(/jtHeroSync\(\s*(\d+)\s*,\s*(\{[^)]*\})\s*\)/);
+  assert.ok(call, 'x-data calls jtHeroSync with a line count and options');
   assert.equal(Number(call[1]), heroLineCount(), 'passes params.home.hero.lines length');
+
+  const opts = JSON.parse(call[2]);
+  const config = read('hugo.yaml');
+  const rotation = config.match(/^ {6}rotation_ms:\s*['"]?([^'"\n]+?)['"]?\s*$/m);
+  assert.ok(rotation, 'params.home.hero.rotation_ms is configured');
+  assert.equal(opts.ms, Number(rotation[1].trim()), 'passes params.home.hero.rotation_ms');
 });
 
 test('only the data-hero-text column carries the hold and release handlers', () => {

@@ -1,5 +1,7 @@
 <!-- Hero section: purpose, 10-minute duration, ID Anonim, report availability, CTA -->
-<div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8" data-hero x-data="jtHeroSync({{ len .Site.Params.home.hero.lines }})">
+{{ $hero := .Site.Params.home.hero }}
+{{ $clock := dict "ms" ($hero.rotation_ms | default 3000) }}
+<div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8" data-hero x-data="jtHeroSync({{ len $hero.lines }}, {{ $clock | jsonify }})">
   <div class="grid gap-10 md:grid-cols-2 md:items-center">
     <div class="order-1 text-left touch-pan-y" data-hero-text @mouseenter="hold('hover')" @mouseleave="release('hover')" @focusin="hold('focus')" @focusout="release('focus')" @pointerdown="hold('press'); swipeStart($event.clientX)" @pointerup="release('press'); swipeEnd($event.clientX)" @pointercancel="release('press')">
       {{ $url := .Site.Params.hashtag_url | default .Site.Params.social_media.instagram.url }}

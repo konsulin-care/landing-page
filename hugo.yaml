@@ -91,6 +91,7 @@ params:
   home:
     hero:
       hashtag: "#JadiTangguh"
+      rotation_ms: 3000
       lines:
         - "bukan berarti nggak pernah rapuh."
         - "bukan berarti harus menghadapi semuanya sendiri."

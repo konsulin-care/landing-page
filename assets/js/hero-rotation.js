@@ -1,5 +1,5 @@
 /** Rotation interval for the hero headline lines, in milliseconds. */
-export const ROTATION_MS = 7000;
+export const ROTATION_MS = 3000;
 
 /** Clock tick for the shared hero progress and rotation state, in milliseconds. */
 export const TICK_MS = 100;
@@ -12,10 +12,12 @@ export const SWIPE_PX = 40;
  * both the rotating headline pair and the trust chip, holding whenever any
  * pause reason is held or the document is hidden.
  * @param {number} n number of hero pairs to rotate through
+ * @param {{ ms?: number }} [opts] clock options; `ms` overrides the rotation interval
  * @param {{ window?: Window, document?: Document, setInterval?: (fn: () => void, ms: number) => unknown }} [env] injectable environment for tests
  * @returns {{ i: number, n: number, elapsed: number, cycled: boolean, gloss: number | null, holds: string[], hiddenClass: string, paused: boolean, hold: (reason: string) => void, release: (reason: string) => void, openGloss: (k: number) => void, closeGloss: () => void, progress: () => number, select: (k: number) => void, next: () => void, prev: () => void, swipeStart: (x: number) => void, swipeEnd: (x: number) => void, init: () => void }} Alpine data object
  */
-export function heroSync(n, env = {}) {
+export function heroSync(n, opts = {}, env = {}) {
+  const ms = opts.ms ?? ROTATION_MS;
   const win = env.window ?? globalThis.window;
   const doc = env.document ?? globalThis.document;
   const every = env.setInterval ?? ((fn, ms) => setInterval(fn, ms));
@@ -52,7 +54,7 @@ export function heroSync(n, env = {}) {
     },
     progress() {
       if (reducedMotion()) return 1;
-      return Math.min(1, Math.max(0, this.elapsed / ROTATION_MS));
+      return Math.min(1, Math.max(0, this.elapsed / ms));
     },
     /** Records the active index and marks the cycle complete once all are seen. */
     track(k) {
@@ -95,7 +97,7 @@ export function heroSync(n, env = {}) {
       every(() => {
         if (doc.hidden || this.paused) return;
         this.elapsed += TICK_MS;
-        if (this.elapsed >= ROTATION_MS) {
+        if (this.elapsed >= ms) {
           this.i = (this.i + 1) % this.n;
           this.picked = null;
           this.release('demo');

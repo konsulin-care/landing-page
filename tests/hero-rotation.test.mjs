@@ -22,9 +22,10 @@ function makeEnv({ reducedMotion = false, hidden = false } = {}) {
 
 test('heroSync ticks raise progress and advance one pair after a full rotation', () => {
   const { env, timers } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
   data.init();
 
+  assert.equal(ROTATION_MS, 3000);
   assert.equal(TICK_MS, 100);
   assert.equal(data.i, 0);
   assert.equal(data.progress(), 0);
@@ -37,9 +38,24 @@ test('heroSync ticks raise progress and advance one pair after a full rotation',
   assert.equal(data.elapsed, 0);
 });
 
+test('heroSync honours a custom ms option for progress and advance', () => {
+  const { env, timers } = makeEnv();
+  const data = heroSync(3, { ms: 5000 }, env);
+  data.init();
+
+  for (let tick = 0; tick < 3000 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 0);
+  assert.equal(data.elapsed, 3000);
+  assert.equal(data.progress(), 3000 / 5000);
+
+  for (let tick = 0; tick < 2000 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 1);
+  assert.equal(data.elapsed, 0);
+});
+
 test('heroSync holds all ticks while any reason is held or the document is hidden', () => {
   const { env, timers, doc } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
   data.init();
 
   data.hold('hover');
@@ -68,7 +84,7 @@ test('heroSync holds all ticks while any reason is held or the document is hidde
 
 test('heroSync under reduced motion registers no interval and is complete', () => {
   const { env, timers } = makeEnv({ reducedMotion: true });
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
   data.init();
 
   assert.equal(timers.length, 0);
@@ -78,7 +94,7 @@ test('heroSync under reduced motion registers no interval and is complete', () =
 
 test('heroSync select sets the active pair and resets elapsed', () => {
   const { env } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
 
   data.elapsed = TICK_MS * 3;
   data.select(2);
@@ -89,7 +105,7 @@ test('heroSync select sets the active pair and resets elapsed', () => {
 
 test('heroSync next and prev move modulo n and reset elapsed', () => {
   const { env } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
 
   data.elapsed = TICK_MS;
   data.next();
@@ -110,7 +126,7 @@ test('heroSync next and prev move modulo n and reset elapsed', () => {
 
 test('heroSync swipe advances or rewinds only past the threshold', () => {
   const { env } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
 
   assert.equal(SWIPE_PX, 40);
 
@@ -133,7 +149,7 @@ test('heroSync swipe advances or rewinds only past the threshold', () => {
 
 test('heroSync swipeEnd without a start is a no-op', () => {
   const { env } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
 
   data.swipeEnd(0);
   assert.equal(data.i, 0);
@@ -141,7 +157,7 @@ test('heroSync swipeEnd without a start is a no-op', () => {
 
 test('heroSync cycled becomes true once every pair has been active', () => {
   const { env } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
   data.init();
 
   assert.equal(data.cycled, false);
@@ -156,7 +172,7 @@ test('heroSync cycled becomes true once every pair has been active', () => {
 
 test('heroSync openGloss holds the clock while the gloss stays open', () => {
   const { env, timers } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
   data.init();
 
   data.openGloss(2);
@@ -170,7 +186,7 @@ test('heroSync openGloss holds the clock while the gloss stays open', () => {
 
 test('heroSync openGloss switches the gloss without stacking holds', () => {
   const { env } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
 
   data.openGloss(0);
   data.openGloss(2);
@@ -180,7 +196,7 @@ test('heroSync openGloss switches the gloss without stacking holds', () => {
 
 test('heroSync closeGloss releases the hold so ticks advance again', () => {
   const { env, timers } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
   data.init();
 
   data.openGloss(1);
@@ -196,7 +212,7 @@ test('heroSync closeGloss releases the hold so ticks advance again', () => {
 
 test('heroSync automatic advances count towards cycled', () => {
   const { env, timers } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
   data.init();
 
   for (let tick = 0; tick < ROTATION_MS / TICK_MS; tick += 1) timers[0].fn();
@@ -210,7 +226,7 @@ test('heroSync automatic advances count towards cycled', () => {
 
 test('heroSync answer holds the clock and select clears picked', () => {
   const { env } = makeEnv();
-  const data = heroSync(3, env);
+  const data = heroSync(3, {}, env);
   assert.equal(data.picked, null);
   data.answer(2);
   assert.equal(data.picked, 2);
