@@ -107,7 +107,7 @@ test('each trust span mirrors the matching headline line transition and binding'
       assert.ok(classes.includes(token), `trust span ${k} has ${token}`);
     }
 
-    assert.equal(hidden(tag), k !== 1, `trust span ${k} starts ${k === 1 ? 'visible' : 'hidden'}`);
+    assert.equal(hidden(tag), k !== 0, `trust span ${k} starts ${k === 0 ? 'visible' : 'hidden'}`);
     assert.match(attr(tag, ':class') ?? '', new RegExp(`i\\s*!==\\s*${k}\\b`), `trust span ${k} binds i !== ${k}`);
     assert.equal(
       attr(tag, ':class'),

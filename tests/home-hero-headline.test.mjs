@@ -80,13 +80,13 @@ test('the h1 anchor links to hashtag_url in a new tab', () => {
   assert.match(attr(anchor[0], 'rel') ?? '', /noopener/, 'rel includes noopener');
 });
 
-test('the h1 grid holds three line spans and only the second starts visible', () => {
+test('the h1 grid holds three line spans and only the first starts visible', () => {
   const spans = lineSpans();
   assert.equal(spans.length, 3, 'three line spans render in the grid');
 
   const hidden = (tag) => /\binvisible\b/.test(tag) && /\bopacity-0\b/.test(tag);
-  assert.ok(hidden(spans[0]), 'line 1 starts hidden');
-  assert.ok(!hidden(spans[1]), 'line 2 starts visible');
+  assert.ok(!hidden(spans[0]), 'line 1 starts visible');
+  assert.ok(hidden(spans[1]), 'line 2 starts hidden');
   assert.ok(hidden(spans[2]), 'line 3 starts hidden');
 
   assert.ok(!/aria-live/.test(headline), 'the h1 has no aria-live attribute');

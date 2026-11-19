@@ -28,14 +28,14 @@
           {{ $btn := printf `<button type="button" class="underline decoration-dotted underline-offset-4" aria-controls="hero-gloss-%d" :aria-expanded="gloss === %d" @click="gloss === %d ? closeGloss() : openGloss(%d)">%s</button>` $i $i $i $i .word }}
           {{ $rendered = replace $line .word $btn 1 }}
           {{ end }}
-          <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 1 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $rendered | safeHTML }}</span>
+          <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 0 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $rendered | safeHTML }}</span>
           {{ end }}
         </span>
       </h1>
 
       <p class="mt-4 grid text-sm text-muted-foreground" aria-hidden="true" data-hero-trust>
         {{ range $i, $item := .Site.Params.home.hero.trust }}
-        <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 1 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $item }}</span>
+        <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 0 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $item }}</span>
         {{ end }}
       </p>
       <ul class="sr-only">
