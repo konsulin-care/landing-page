@@ -1740,6 +1740,9 @@
     .lg\:rotate-0 {
       rotate: 0deg;
     }
+    .lg\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     .lg\:flex-row {
       flex-direction: row;
     }
@@ -1776,6 +1779,16 @@
   }
   .\[\&_\.section-kicker\]\:\!text-background .section-kicker {
     color: var(--color-background) !important;
+  }
+  .\[\&_a\]\:font-semibold a {
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+  }
+  .\[\&_a\]\:text-turquoise-deep a {
+    color: var(--color-turquoise-deep);
+  }
+  .\[\&_a\]\:underline a {
+    text-decoration-line: underline;
   }
 }
 @font-face {

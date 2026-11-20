@@ -224,18 +224,31 @@ params:
     if_join:
       kicker: "Kalau Anda ikut"
       title: "Sepuluh menit, tanpa nama"
-      steps:
-        - title: "Isi Survei."
-          text: "Jawab pertanyaan tentang apa yang sehari-hari Anda rasakan. Tidak ada jawaban benar atau salah."
-        - title: "Dapatkan ID Anonim."
-          text: "Begitu selesai, sistem otomatis membuat ID Anonim, jadi Anda tidak perlu mengisi nama. Peneliti hanya melihat ID acak, bukan identitas Anda."
-        - title: "Lihat Laporan Anda."
-          text: "Laporan ringkas langsung tersedia. Email hanya diperlukan jika Anda ingin menyimpannya, dan peneliti tidak bisa melihat email Anda. Laporan tanpa email hanya bisa disimpan dalam 24 jam."
-      assurances:
-        - "Gratis"
-        - "Boleh berhenti kapan saja"
-        - "Data tidak dijual"
-        - "Bukan diagnosis"
+      lead: "Anda memberi sedikit waktu, dan langsung mendapat laporan ringkas tentang diri Anda."
+      give:
+        title: "Yang Anda beri"
+        items:
+          - title: "Sepuluh menit."
+            text: "Boleh berhenti kapan saja."
+            icon: "clock"
+          - title: "Jawaban jujur."
+            text: "Tidak ada jawaban benar atau salah."
+            icon: "message-circle"
+          - title: "Bukan nama Anda."
+            text: "ID Anonim dibuat otomatis."
+            icon: "fingerprint-pattern"
+      get:
+        title: "Yang Anda dapat"
+        report_title: "Laporan Anda"
+        badge: "Contoh"
+        caption: "Tersedia begitu survei selesai. Hasil skrining, bukan diagnosis."
+      faq:
+        - q: "Apakah saya harus memberi email?"
+          a: "Tidak. Email hanya diperlukan jika Anda ingin menyimpan laporan, dan peneliti tidak bisa melihat email Anda. Tanpa email, laporan tersedia selama 24 jam."
+        - q: "Siapa yang bisa melihat jawaban saya?"
+          a: "Begitu selesai, sistem otomatis membuat ID Anonim. Peneliti hanya melihat ID acak, bukan identitas Anda. Data tidak dijual."
+        - q: "Apakah ini diagnosis?"
+          a: "Bukan. Laporan Anda adalah hasil skrining, bukan diagnosis. Kalau terasa berat sekarang, bantuan tersedia di [halaman FAQ](/faq/#bantuan)."
       link_label: "Baca detail studi dan cara data dikelola"
     final_cta:
       kicker: "Ikut serta"
