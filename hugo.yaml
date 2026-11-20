@@ -92,6 +92,7 @@ params:
     hero:
       hashtag: "#JadiTangguh"
       rotation_ms: 3000
+      stage_ms: [3000, 6000, 6000]
       lines:
         - "bukan berarti nggak pernah rapuh."
         - "bukan berarti harus menghadapi semuanya sendiri."

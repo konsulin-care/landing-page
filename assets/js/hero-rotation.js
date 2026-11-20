@@ -14,12 +14,13 @@ export const SWIPE_PX = 40;
  * both the rotating headline pair and the trust chip, holding whenever any
  * pause reason is held or the document is hidden.
  * @param {number} n number of hero pairs to rotate through
- * @param {{ ms?: number, idStage?: number, idCount?: number, idPrefix?: string, idSize?: number }} [opts] clock options; `ms` overrides the rotation interval and the id options configure the ID preview
+ * @param {{ ms?: number, durations?: number[], idStage?: number, idCount?: number, idPrefix?: string, idSize?: number }} [opts] clock options; `ms` is the fallback rotation interval, `durations` holds one interval per pair index and the id options configure the ID preview
  * @param {{ window?: Window, document?: Document, setInterval?: (fn: () => void, ms: number) => unknown, random?: (n: number) => Uint8Array }} [env] injectable environment for tests
- * @returns {{ i: number, n: number, ids: string[], elapsed: number, cycled: boolean, gloss: number | null, holds: string[], hiddenClass: string, paused: boolean, hold: (reason: string) => void, release: (reason: string) => void, openGloss: (k: number) => void, closeGloss: () => void, progress: () => number, refreshIds: () => void, select: (k: number) => void, next: () => void, prev: () => void, swipeStart: (x: number) => void, swipeEnd: (x: number) => void, init: () => void }} Alpine data object
+ * @returns {{ i: number, n: number, ids: string[], elapsed: number, cycled: boolean, gloss: number | null, holds: string[], hiddenClass: string, paused: boolean, hold: (reason: string) => void, release: (reason: string) => void, openGloss: (k: number) => void, closeGloss: () => void, duration: () => number, progress: () => number, refreshIds: () => void, select: (k: number) => void, next: () => void, prev: () => void, swipeStart: (x: number) => void, swipeEnd: (x: number) => void, init: () => void }} Alpine data object
  */
 export function heroSync(n, opts = {}, env = {}) {
   const ms = opts.ms ?? ROTATION_MS;
+  const durations = opts.durations ?? [];
   const idStage = opts.idStage ?? 1;
   const idCount = opts.idCount ?? 5;
   const idPrefix = opts.idPrefix ?? 'JT-';
@@ -60,9 +61,14 @@ export function heroSync(n, opts = {}, env = {}) {
       this.gloss = null;
       this.release('gloss');
     },
+    /** Returns how long the pair at the current index stays up, in milliseconds. */
+    duration() {
+      const stage = durations[this.i];
+      return typeof stage === 'number' && stage > 0 ? stage : ms;
+    },
     progress() {
       if (reducedMotion()) return 1;
-      return Math.min(1, Math.max(0, this.elapsed / ms));
+      return Math.min(1, Math.max(0, this.elapsed / this.duration()));
     },
     /** Regenerates the ID preview cards for the current entry into the ID stage. */
     refreshIds() {
@@ -112,7 +118,7 @@ export function heroSync(n, opts = {}, env = {}) {
       every(() => {
         if (doc.hidden || this.paused) return;
         this.elapsed += TICK_MS;
-        if (this.elapsed >= ms) {
+        if (this.elapsed >= this.duration()) {
           const previous = this.i;
           this.i = (this.i + 1) % this.n;
           this.picked = null;

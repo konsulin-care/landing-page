@@ -1,7 +1,7 @@
 <!-- Hero section: purpose, 10-minute duration, ID Anonim, report availability, CTA -->
 {{ $hero := .Site.Params.home.hero }}
 {{ $demo := .Site.Params.home.hero.demo }}
-{{ $clock := dict "ms" ($hero.rotation_ms | default 3000) "idStage" 1 "idCount" $demo.id.count "idPrefix" $demo.id.prefix "idSize" $demo.id.length }}
+{{ $clock := dict "ms" ($hero.rotation_ms | default 3000) "durations" $hero.stage_ms "idStage" 1 "idCount" $demo.id.count "idPrefix" $demo.id.prefix "idSize" $demo.id.length }}
 <div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8" data-hero x-data="jtHeroSync({{ len $hero.lines }}, {{ $clock | jsonify }})">
   <div class="grid gap-10 md:grid-cols-2 md:items-center">
     <div class="order-1 text-left touch-pan-y" data-hero-text @pointerdown="swipeStart($event.clientX)" @pointerup="swipeEnd($event.clientX)">

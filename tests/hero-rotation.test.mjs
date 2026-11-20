@@ -58,6 +58,46 @@ test('heroSync honours a custom ms option for progress and advance', () => {
   assert.equal(data.elapsed, 0);
 });
 
+test('heroSync advances each stage on its own configured duration', () => {
+  const { env, timers } = makeEnv();
+  const data = heroSync(3, { ms: 3000, durations: [3000, 6000, 6000] }, env);
+  data.init();
+
+  for (let tick = 0; tick < 2900 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 0, 'stage 0 still holds just before 3000ms');
+  assert.equal(data.progress(), 2900 / 3000, 'progress divides by the stage 0 duration');
+
+  for (let tick = 0; tick < 100 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 1, 'stage 0 advances after 3000ms');
+
+  for (let tick = 0; tick < 5900 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 1, 'stage 1 still holds just before 6000ms');
+  assert.equal(data.progress(), 5900 / 6000, 'progress divides by the stage 1 duration');
+
+  for (let tick = 0; tick < 100 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 2, 'stage 1 advances after 6000ms');
+
+  for (let tick = 0; tick < 6000 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 0, 'stage 2 advances after 6000ms and wraps');
+});
+
+test('heroSync falls back to ms when a stage has no configured duration', () => {
+  const { env, timers } = makeEnv();
+  const data = heroSync(3, { ms: 3000, durations: [3000] }, env);
+  data.init();
+
+  for (let tick = 0; tick < 3000 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 1);
+
+  for (let tick = 0; tick < 2900 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 1, 'a stage without a duration still holds before ms');
+  assert.equal(data.progress(), 2900 / 3000, 'progress falls back to ms');
+
+  for (let tick = 0; tick < 100 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 2, 'the fallback duration still advances the stage');
+});
+
+
 test('heroSync holds all ticks while any reason is held or the document is hidden', () => {
   const { env, timers, doc } = makeEnv();
   const data = heroSync(3, {}, env);

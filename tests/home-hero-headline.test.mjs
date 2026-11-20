@@ -106,6 +106,15 @@ test('the hero root wires the shared clock to the configured line count', () => 
   const rotation = config.match(/^ {6}rotation_ms:\s*['"]?([^'"\n]+?)['"]?\s*$/m);
   assert.ok(rotation, 'params.home.hero.rotation_ms is configured');
   assert.equal(opts.ms, Number(rotation[1].trim()), 'passes params.home.hero.rotation_ms');
+
+  const stageMs = config.match(/^ {6}stage_ms:\s*\[([^\]]*)\]\s*$/m);
+  assert.ok(stageMs, 'params.home.hero.stage_ms is configured');
+  const configured = stageMs[1]
+    .split(',')
+    .map((part) => Number(part.trim()))
+    .filter((value) => !Number.isNaN(value));
+  assert.deepEqual(opts.durations, configured, 'passes params.home.hero.stage_ms as opts.durations');
+  assert.equal(configured.length, heroLineCount(), 'one stage duration per headline pair');
 });
 
 test('the text column carries no pause handlers and the demo figure does', () => {
