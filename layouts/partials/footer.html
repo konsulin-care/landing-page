@@ -9,6 +9,8 @@
 <script src="{{ $morph.RelPermalink }}" defer></script>
 {{ $hero := resources.Get "js/hero-rotation.js" | js.Build }}
 <script src="{{ $hero.RelPermalink }}" defer></script>
+{{ $scroll := resources.Get "js/scroll-indicator.js" | js.Build }}
+<script src="{{ $scroll.RelPermalink }}" defer></script>
 {{ $alpine := resources.Get "js/alpine.min.js" }}
 <script defer src="{{ $alpine.RelPermalink }}"></script>
 {{ else }}
@@ -18,6 +20,8 @@
 <script src="{{ $morph.RelPermalink }}" integrity="{{ $morph.Data.Integrity }}" defer></script>
 {{ $hero := resources.Get "js/hero-rotation.js" | js.Build | minify | fingerprint }}
 <script src="{{ $hero.RelPermalink }}" integrity="{{ $hero.Data.Integrity }}" defer></script>
+{{ $scroll := resources.Get "js/scroll-indicator.js" | js.Build | minify | fingerprint }}
+<script src="{{ $scroll.RelPermalink }}" integrity="{{ $scroll.Data.Integrity }}" defer></script>
 {{ $alpine := resources.Get "js/alpine.min.js" | fingerprint }}
 <script defer src="{{ $alpine.RelPermalink }}" integrity="{{ $alpine.Data.Integrity }}"></script>
 {{ end }}
