@@ -91,7 +91,7 @@
               <p class="mt-3 font-semibold text-foreground">{{ $demo.question.item }}</p>
               <div class="mt-3 grid gap-2">
                 {{ range $oi, $o := $demo.question.options }}
-                <button type="button" class="min-h-11 rounded-lg border border-border text-left px-4 py-2 text-sm" @click="answer({{ $oi }}); $dispatch('jt-cta-nudge')" :aria-pressed="picked === {{ $oi }}" :class="picked === {{ $oi }} && 'bg-turquoise-tint border-turquoise font-semibold'{{ if eq $oi 1 }} || (picked === null && progress() >= 0.4 && 'bg-turquoise-tint border-turquoise font-semibold'){{ end }}">{{ $o }}</button>
+                <button type="button" class="min-h-11 rounded-lg border border-border text-left px-4 py-2 text-sm" @click="answer({{ $oi }}); $dispatch('jt-cta-nudge')" :aria-pressed="picked === {{ $oi }}" :class="picked === {{ $oi }} && 'bg-turquoise-tint border-turquoise font-semibold'{{ if eq $oi 1 }} || (picked === null && at(1200) && 'bg-turquoise-tint border-turquoise font-semibold'){{ end }}">{{ $o }}</button>
                 {{ end }}
               </div>
               <p class="mt-3 text-sm text-charcoal-700" x-show="picked !== null" x-cloak>Tidak ada jawaban salah. Lanjutkan di survei lengkap (10 menit).</p>
@@ -100,7 +100,7 @@
               <div class="grid gap-2">
                 {{ $last := sub $demo.id.count 1 }}
                 {{ range $k := seq 0 $last }}
-                <div aria-hidden="true" class="rounded-lg border px-4 py-2 transition-[opacity,translate] duration-500 motion-reduce:transition-none {{ if eq $k $last }}border-turquoise{{ else }}border-border{{ end }}" :class="progress() >= {{ printf "%.2f" (mul $k 0.12) }} ? '{{ if eq $k $last }}opacity-100{{ else }}opacity-70{{ end }} translate-y-0' : 'opacity-0 translate-y-2'">
+                <div aria-hidden="true" class="rounded-lg border px-4 py-2 transition-[opacity,translate] duration-500 motion-reduce:transition-none {{ if eq $k $last }}border-turquoise{{ else }}border-border{{ end }}" :class="at({{ mul $k 360 }}) ? '{{ if eq $k $last }}opacity-100{{ else }}opacity-70{{ end }} translate-y-0' : 'opacity-0 translate-y-2'">
                   {{ if eq $k $last }}<p class="section-kicker">{{ $demo.id.label }}</p>{{ end }}
                   <p class="font-mono text-sm font-bold text-foreground" x-text="ids[{{ $k }}]">{{ $demo.id.prefix }}••••••••••</p>
                 </div>
@@ -117,7 +117,7 @@
                 {{ range $k, $bar := $demo.report.bars }}
                 <div>
                   <p class="text-xs text-charcoal-700">{{ $bar.label }}</p>
-                  <div class="h-2 w-full rounded-md bg-muted overflow-hidden"><div class="h-full bg-turquoise transition-[width] duration-700 motion-reduce:transition-none" :style="{ width: progress() >= {{ printf "%.2f" (add 0.1 (mul $k 0.15)) }} ? '{{ $bar.value }}%' : '0%' }"></div></div>
+                  <div class="h-2 w-full rounded-md bg-muted overflow-hidden"><div class="h-full bg-turquoise transition-[width] duration-700 motion-reduce:transition-none" :style="{ width: at({{ add 300 (mul $k 450) }}) ? '{{ $bar.value }}%' : '0%' }"></div></div>
                 </div>
                 {{ end }}
               </div>
@@ -133,9 +133,9 @@
                 </ol>
               </div>
               <p class="mt-3 text-sm text-charcoal-700">{{ $demo.report.retake }}</p>
-              <span aria-hidden="true" data-hero-save class="mt-3 inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm transition-colors duration-300 motion-reduce:transition-none" :class="progress() >= 0.70 ? 'bg-turquoise-tint border-turquoise font-semibold text-foreground' : 'border-border text-charcoal-700'">
-                <span x-show="progress() < 0.70">{{ $demo.report.save_label }}</span>
-                <span x-show="progress() >= 0.70" x-cloak class="inline-flex items-center gap-1"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>{{ $demo.report.saved_label }}</span>
+              <span aria-hidden="true" data-hero-save class="mt-3 inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm transition-colors duration-300 motion-reduce:transition-none" :class="at(2100) ? 'bg-turquoise-tint border-turquoise font-semibold text-foreground' : 'border-border text-charcoal-700'">
+                <span x-show="!at(2100)">{{ $demo.report.save_label }}</span>
+                <span x-show="at(2100)" x-cloak class="inline-flex items-center gap-1"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>{{ $demo.report.saved_label }}</span>
               </span>
             </div>
           </div>

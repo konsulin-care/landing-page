@@ -137,6 +137,31 @@ test('heroSync under reduced motion registers no interval and is complete', () =
   assert.equal(data.progress(), 1);
 });
 
+test('heroSync at() reveals a mark once elapsed reaches it', () => {
+  const { env, timers } = makeEnv();
+  const data = heroSync(3, { ms: 3000, durations: [3000, 6000, 6000] }, env);
+  data.init();
+
+  assert.equal(data.at(300), false, 'a mark ahead of elapsed stays hidden');
+  assert.equal(data.at(0), true, 'a zero mark is reached immediately');
+
+  for (let tick = 0; tick < 2900 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.at(300), true, 'an earlier mark stays revealed');
+  assert.equal(data.at(3000), false, 'a later mark is still hidden');
+
+  for (let tick = 0; tick < 100 / TICK_MS; tick += 1) timers[0].fn();
+  assert.equal(data.i, 1, 'the stage advanced');
+  assert.equal(data.at(300), false, 'marks are absolute within the stage and restart at 0');
+});
+
+test('heroSync at() is always true under reduced motion', () => {
+  const { env } = makeEnv({ reducedMotion: true });
+  const data = heroSync(3, {}, env);
+  data.init();
+
+  assert.equal(data.at(2100), true, 'reduced motion skips the staged reveal');
+});
+
 test('heroSync select sets the active pair and resets elapsed', () => {
   const { env } = makeEnv();
   const data = heroSync(3, {}, env);

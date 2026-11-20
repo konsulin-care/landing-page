@@ -76,12 +76,12 @@ test('stage ID stacks anonymous ID cards', () => {
   assert.equal(/h-2 w-2 rounded-md bg-turquoise/.test(s), false, 'the old dot row is gone');
 
   const tags = [...s.matchAll(/<div\b(?:"[^"]*"|'[^']*'|[^>"'])*>/g)].map((match) => match[0]);
-  const cards = tags.filter((tag) => /aria-hidden=(?:"|')?true/.test(tag) && /progress\(\)/.test(tag));
+  const cards = tags.filter((tag) => /aria-hidden=(?:"|')?true/.test(tag) && /at\(/.test(tag));
   assert.equal(cards.length, 5, 'one card per configured ID count');
 
-  const thresholds = ['0.00', '0.12', '0.24', '0.36', '0.48'];
+  const marks = [0, 360, 720, 1080, 1440];
   cards.forEach((card, k) => {
-    assert.ok(card.includes(`progress() >= ${thresholds[k]}`), `card ${k} threshold`);
+    assert.ok(card.includes(`at(${marks[k]})`), `card ${k} reveals at ${marks[k]}ms`);
     assert.match(s, new RegExp(`x-text=(?:"|')?ids\\[${k}\\]`), `card ${k} binds ids[${k}]`);
   });
 
@@ -107,16 +107,16 @@ test('stage report content', () => {
   assert.equal(/Skor total/.test(s), false, 'the old score label is gone');
 
   const bars = [
-    ['Kecemasan', '0.10', '40%'],
-    ['Resiliensi', '0.25', '65%'],
+    ['Kecemasan', '300', '40%'],
+    ['Resiliensi', '750', '65%'],
   ];
   assert.equal(/Stres<\/p>/.test(s), false, 'the Stres bar is gone');
   assert.equal((s.match(/h-full bg-turquoise/g) || []).length, 2, 'two aspect bars remain');
-  for (const [label, threshold, width] of bars) {
+  for (const [label, mark, width] of bars) {
     assert.match(
       s,
-      new RegExp(`${label}[\\s\\S]{0,400}progress\\(\\) >= ${threshold} \\? '${width}'`),
-      `${label} bar binds its threshold and width`,
+      new RegExp(`${label}[\\s\\S]{0,400}at\\(${mark}\\) \\? '${width}'`),
+      `${label} bar fills at ${mark}ms with ${width}`,
     );
   }
 
@@ -132,15 +132,20 @@ test('stage report content', () => {
   assert.match(save, /^<span\b/, 'the save indicator is a span');
   assert.match(save, /aria-hidden=(?:"|')?true/, 'the save indicator is aria-hidden');
   assert.equal(/rounded-full/.test(save), false, 'the save indicator never uses rounded-full');
-  assert.match(s, /x-show="?progress\(\) < 0\.70"?[^>]*>Simpan hasil/);
-  assert.match(s, /progress\(\) >= 0\.70/);
+  assert.match(s, /x-show="?!at\(2100\)"?[^>]*>Simpan hasil/);
+  assert.match(s, /at\(2100\) \? 'bg-turquoise-tint border-turquoise font-semibold text-foreground'/);
   assert.match(s, /Tersimpan/);
 });
 
-test('micro-steps bind to progress thresholds', () => {
-  for (const t of ['>= 0.10', '>= 0.25', '>= 0.70', '>= 0.4']) {
-    assert.ok(hero.includes(`progress() ${t}`), t);
+test('in-stage micro-animations use absolute millisecond marks', () => {
+  assert.equal(/progress\(\) >=/.test(hero), false, 'stages no longer bind fraction thresholds');
+
+  for (const mark of ['at(1200)', 'at(300)', 'at(750)', 'at(2100)']) {
+    assert.ok(hero.includes(mark), `the hero binds ${mark}`);
   }
+
+  const answered = hero.slice(hero.indexOf('Merasa gugup'), hero.indexOf('Tidak ada jawaban salah'));
+  assert.match(answered, /picked === 1 && 'bg-turquoise-tint border-turquoise font-semibold' \|\| \(picked === null && at\(1200\)/);
 });
 
 test('options answer, nudge the CTA and confirm', () => {

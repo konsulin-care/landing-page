@@ -16,7 +16,7 @@ export const SWIPE_PX = 40;
  * @param {number} n number of hero pairs to rotate through
  * @param {{ ms?: number, durations?: number[], idStage?: number, idCount?: number, idPrefix?: string, idSize?: number }} [opts] clock options; `ms` is the fallback rotation interval, `durations` holds one interval per pair index and the id options configure the ID preview
  * @param {{ window?: Window, document?: Document, setInterval?: (fn: () => void, ms: number) => unknown, random?: (n: number) => Uint8Array }} [env] injectable environment for tests
- * @returns {{ i: number, n: number, ids: string[], elapsed: number, cycled: boolean, gloss: number | null, holds: string[], hiddenClass: string, paused: boolean, hold: (reason: string) => void, release: (reason: string) => void, openGloss: (k: number) => void, closeGloss: () => void, duration: () => number, progress: () => number, refreshIds: () => void, select: (k: number) => void, next: () => void, prev: () => void, swipeStart: (x: number) => void, swipeEnd: (x: number) => void, init: () => void }} Alpine data object
+ * @returns {{ i: number, n: number, ids: string[], elapsed: number, cycled: boolean, gloss: number | null, holds: string[], hiddenClass: string, paused: boolean, hold: (reason: string) => void, release: (reason: string) => void, openGloss: (k: number) => void, closeGloss: () => void, duration: () => number, progress: () => number, at: (markMs: number) => boolean, refreshIds: () => void, select: (k: number) => void, next: () => void, prev: () => void, swipeStart: (x: number) => void, swipeEnd: (x: number) => void, init: () => void }} Alpine data object
  */
 export function heroSync(n, opts = {}, env = {}) {
   const ms = opts.ms ?? ROTATION_MS;
@@ -69,6 +69,16 @@ export function heroSync(n, opts = {}, env = {}) {
     progress() {
       if (reducedMotion()) return 1;
       return Math.min(1, Math.max(0, this.elapsed / this.duration()));
+    },
+    /**
+     * Reports whether the current stage has reached an absolute millisecond mark.
+     * Stages can grow longer without slowing the micro-animations inside them.
+     * @param {number} markMs mark in milliseconds from the start of the stage
+     * @returns {boolean} true once `elapsed` reaches the mark, or always under reduced motion
+     */
+    at(markMs) {
+      if (reducedMotion()) return true;
+      return this.elapsed >= markMs;
     },
     /** Regenerates the ID preview cards for the current entry into the ID stage. */
     refreshIds() {
