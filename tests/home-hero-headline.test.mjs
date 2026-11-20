@@ -146,3 +146,18 @@ test('the text column carries no pause handlers and the demo figure does', () =>
   assert.doesNotMatch(attr(heroRoot, '@mouseenter') ?? '', /hold|paused/, 'the hero root does not pause the clock');
   assert.doesNotMatch(attr(headline.slice(0, headline.indexOf('>') + 1), '@mouseenter') ?? '', /hold|paused/, 'the h1 does not pause the clock');
 });
+
+test('each glossed word stays nowrap together with its trailing punctuation', () => {
+  const config = read('hugo.yaml');
+  const words = [...config.matchAll(/^ {8}- word:\s*['"]?([^'"\n]+?)['"]?\s*$/gm)].map((m) => m[1].trim());
+  assert.ok(words.length > 0, 'hero gloss words are configured');
+
+  const text = headline.replace(/\s+/g, ' ');
+  for (const word of words) {
+    const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const pattern = new RegExp(
+      `<span\\b[^>]*\\bwhitespace-nowrap\\b[^>]*>\\s*<button\\b[^>]*>${escaped}</button>\\s*[.,;:!?]`,
+    );
+    assert.match(text, pattern, `the gloss button for "${word}" sits in a whitespace-nowrap span with its punctuation`);
+  }
+});

@@ -43,12 +43,12 @@ const html = readBuilt('index.html');
 /** Rendered hero section markup. */
 const hero = sectionHtml(html, 'hero');
 
-test('the hero chevron links to #kenali-tandanya', () => {
+test('the hero chevron links to #makna-tangguh', () => {
   const chevron = hero.match(/<a\b[^>]*aria-label=(?:"Lanjut ke bagian berikutnya"|Lanjut[^>]*)>/);
   assert.ok(chevron, 'hero renders the down chevron anchor');
   assert.match(
     chevron[0],
-    /href=(?:"(?:https:\/\/konsulin\.care)?#kenali-tandanya"|(?:https:\/\/konsulin\.care)?#kenali-tandanya[\s>])/,
+    /href=(?:"(?:https:\/\/konsulin\.care)?#makna-tangguh"|(?:https:\/\/konsulin\.care)?#makna-tangguh[\s>])/,
   );
 });
 

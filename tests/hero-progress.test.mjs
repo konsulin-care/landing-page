@@ -18,14 +18,14 @@ function heroLineCount() {
   return block[1].split('\n').filter(Boolean).length;
 }
 
-/** Configured params.home.recognition.kicker value. */
-function recognitionKicker() {
+/** Configured params.home.meaning.kicker value. */
+function meaningKicker() {
   const home = read('hugo.yaml').match(/^ {2}home:\n([\s\S]*?)^ {2}social_media:/m);
   assert.ok(home, 'params.home is configured');
-  const recognition = home[1].match(/^ {4}recognition:\n([\s\S]*?)^ {4}[a-z_]+:/m);
-  assert.ok(recognition, 'params.home.recognition is configured');
-  const kicker = recognition[1].match(/^ {6}kicker:\s*["']?([^"'\n]+?)["']?\s*$/m);
-  assert.ok(kicker, 'params.home.recognition.kicker is configured');
+  const meaning = home[1].match(/^ {4}meaning:\n([\s\S]*?)^ {4}[a-z_]+:/m);
+  assert.ok(meaning, 'params.home.meaning is configured');
+  const kicker = meaning[1].match(/^ {6}kicker:\s*["']?([^"'\n]+?)["']?\s*$/m);
+  assert.ok(kicker, 'params.home.meaning.kicker is configured');
   return kicker[1].trim();
 }
 
@@ -118,14 +118,14 @@ test('the text column swipes horizontally without pausing the clock', () => {
   }
 });
 
-test('the chevron label shows the recognition kicker only once cycled', () => {
+test('the chevron label shows the meaning kicker only once cycled', () => {
   assert.equal(attr(chevronMarkup.match(/<a\b[^>]*>/)?.[0] ?? '', 'aria-label'), 'Lanjut ke bagian berikutnya');
 
   const anchorClasses = (attr(chevronMarkup.match(/<a\b[^>]*>/)?.[0] ?? '', 'class') ?? '').split(/\s+/);
   for (const token of ['absolute', 'left-1/2', '-translate-x-1/2', 'flex', 'flex-col', 'items-center', 'gap-1']) {
     assert.ok(anchorClasses.includes(token), `the chevron anchor carries ${token}`);
   }
-  assert.equal(attr(chevronMarkup.match(/<a\b[^>]*>/)?.[0] ?? '', 'href'), '#kenali-tandanya');
+  assert.equal(attr(chevronMarkup.match(/<a\b[^>]*>/)?.[0] ?? '', 'href'), '#makna-tangguh');
 
   const label = [...chevronMarkup.matchAll(/<span\b[^>]*>/g)]
     .map((match) => match[0])
@@ -141,5 +141,5 @@ test('the chevron label shows the recognition kicker only once cycled', () => {
   const labelStart = chevronMarkup.indexOf(label);
   const labelEnd = chevronMarkup.indexOf('</span>', labelStart);
   const text = chevronMarkup.slice(labelStart + label.length, labelEnd).trim();
-  assert.equal(text, recognitionKicker(), 'the label renders params.home.recognition.kicker');
+  assert.equal(text, meaningKicker(), 'the label renders params.home.meaning.kicker');
 });
