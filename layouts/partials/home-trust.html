@@ -1,0 +1,37 @@
+<!-- Trust section: who is behind the study, in a compact four-item strip with no rail -->
+{{ $trust := .Site.Params.home.trust }}
+{{ $ethics := "" }}
+{{ with site.GetPage "/research/jadi-tangguh" }}{{ $ethics = .Params.ethics_status }}{{ end }}
+<div class="max-w-6xl mx-auto px-6 py-12 md:px-8 md:py-16">
+  <div class="max-w-3xl">
+    {{ partial "section-kicker.html" (dict "label" $trust.kicker "num" (page.Store.Get "sectionNum")) }}
+    <h2 class="text-3xl font-semibold leading-tight text-foreground md:text-4xl">
+      {{ $trust.title }}
+    </h2>
+  </div>
+
+  <dl class="mt-8 grid divide-y divide-border md:grid-cols-4 md:divide-y-0 md:gap-8">
+    {{ range $trust.items }}
+    <div class="py-4 md:py-0">
+      <dt class="font-semibold text-foreground">{{ .label }}</dt>
+      <dd class="mt-2 text-sm leading-6 text-charcoal-700 [&_a]:font-semibold [&_a]:text-turquoise-deep [&_a]:underline">
+        {{ .text | markdownify }}
+      </dd>
+    </div>
+    {{ end }}
+  </dl>
+
+  <div class="mt-10 border-t border-border pt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <p class="text-sm leading-6 text-charcoal-700">
+      {{ $trust.ethics_label }}
+      {{ if $ethics }}
+      <span data-ethics-status>{{ $ethics }}</span>
+      {{ else }}
+      <span data-ethics-status>TODO(maintainer): status etik belum diisi</span>
+      {{ end }}
+    </p>
+    <a href="/about/" class="inline-flex min-h-11 items-center text-sm font-semibold text-turquoise-deep underline underline-offset-4">
+      {{ $trust.about_label }}
+    </a>
+  </div>
+</div>

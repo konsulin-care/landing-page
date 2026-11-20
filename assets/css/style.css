@@ -1631,6 +1631,12 @@
     .sm\:items-baseline {
       align-items: baseline;
     }
+    .sm\:items-center {
+      align-items: center;
+    }
+    .sm\:justify-between {
+      justify-content: space-between;
+    }
     .sm\:gap-6 {
       gap: calc(var(--spacing) * 6);
     }
@@ -1680,6 +1686,9 @@
     .md\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+    .md\:grid-cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
     .md\:grid-cols-12 {
       grid-template-columns: repeat(12, minmax(0, 1fr));
     }
@@ -1695,14 +1704,27 @@
     .md\:justify-end {
       justify-content: flex-end;
     }
+    .md\:gap-8 {
+      gap: calc(var(--spacing) * 8);
+    }
     .md\:gap-12 {
       gap: calc(var(--spacing) * 12);
+    }
+    :where(.md\:divide-y-0 > :not(:last-child)) {
+      --tw-divide-y-reverse: 0;
+      border-bottom-style: var(--tw-border-style);
+      border-top-style: var(--tw-border-style);
+      border-top-width: calc(0px * var(--tw-divide-y-reverse));
+      border-bottom-width: calc(0px * calc(1 - var(--tw-divide-y-reverse)));
     }
     .md\:px-6 {
       padding-inline: calc(var(--spacing) * 6);
     }
     .md\:px-8 {
       padding-inline: calc(var(--spacing) * 8);
+    }
+    .md\:py-0 {
+      padding-block: 0px;
     }
     .md\:py-16 {
       padding-block: calc(var(--spacing) * 16);

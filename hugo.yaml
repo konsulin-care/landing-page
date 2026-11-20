@@ -250,6 +250,20 @@ params:
         - q: "Apakah ini diagnosis?"
           a: "Bukan. Laporan Anda adalah hasil skrining, bukan diagnosis. Kalau terasa berat sekarang, bantuan tersedia di [halaman FAQ](/faq/#bantuan)."
       link_label: "Baca detail studi dan cara data dikelola"
+    trust:
+      kicker: "Siapa di baliknya"
+      title: "Riset terbuka, bisa diperiksa siapa pun"
+      items:
+        - label: "Peneliti utama"
+          text: "Aly Lamuri, kandidat doktor di University of Groningen."
+        - label: "Tim peneliti"
+          text: "Bersama peneliti dari Universitas Indonesia, University of Groningen, University Medical Center Groningen, dan BINUS University."
+        - label: "Kode terbuka"
+          text: "Platform pengumpulan data bersifat open source di [github.com/konsulin-care](https://github.com/konsulin-care)."
+        - label: "Data terbuka"
+          text: "Data olahan dipublikasikan di Harvard Dataverse, tanpa informasi yang bisa dilacak ke individu."
+      ethics_label: "Status etik:"
+      about_label: "Tentang gerakan ini"
     final_cta:
       kicker: "Ikut serta"
       headline: "Jaga diri. Jaga sesama. Mulai dari sini."

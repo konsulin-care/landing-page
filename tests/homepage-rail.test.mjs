@@ -5,6 +5,7 @@ import { read, parseSections, sectionHtml } from './helpers/html.mjs';
 
 const HERO_PARTIAL = 'home-hero.html';
 const FINAL_CTA_PARTIAL = 'home-final-cta.html';
+const TRUST_PARTIAL = 'home-trust.html';
 
 let html = '';
 let railSections = [];
@@ -67,7 +68,10 @@ before(() => {
   assert.equal(status, 0, output);
   html = readBuilt('index.html');
   railSections = parseSections().filter(
-    (section) => section.partial !== HERO_PARTIAL && section.partial !== FINAL_CTA_PARTIAL,
+    (section) =>
+      section.partial !== HERO_PARTIAL &&
+      section.partial !== FINAL_CTA_PARTIAL &&
+      section.partial !== TRUST_PARTIAL,
   );
   kickers = parseHomeKickers();
 });
