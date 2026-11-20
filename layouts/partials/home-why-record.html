@@ -1,4 +1,4 @@
-<!-- Why record section: why repeated participation matters for the research -->
+<!-- Why record section: a single record versus repeated records, and the research loop -->
 <div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
   <div class="md:grid md:grid-cols-12 md:gap-12">
     <div class="md:col-span-4">
@@ -12,12 +12,59 @@
     </div>
 
     <div class="mt-12 md:col-span-8 md:mt-0">
-      <blockquote class="rounded-lg border border-border bg-card p-6 text-lg leading-8 text-foreground md:text-xl">
-        {{ .Site.Params.home.why_record.quote }}
-      </blockquote>
-      <p class="mt-8 text-base font-medium text-foreground md:text-lg">
-        {{ .Site.Params.home.why_record.closing }}
+      <div class="grid grid-cols-2 gap-4">
+        {{ range $index, $item := .Site.Params.home.why_record.compare }}
+        <div class="rounded-lg border border-border bg-card p-4">
+          <p class="text-sm font-semibold text-foreground">{{ $item.title }}</p>
+          {{ if eq $index 0 }}
+          <svg viewBox="0 0 120 40" role="img" aria-label="{{ $item.label }}" class="mt-3 w-full h-auto">
+            <line x1="4" y1="26" x2="116" y2="26" class="stroke-border" stroke-width="2" />
+            <circle cx="24" cy="26" r="6" class="fill-turquoise" />
+            <circle cx="48" cy="26" r="6" class="fill-none stroke-charcoal-400" stroke-width="2" stroke-dasharray="3 3" />
+            <circle cx="72" cy="26" r="6" class="fill-none stroke-charcoal-400" stroke-width="2" stroke-dasharray="3 3" />
+            <circle cx="96" cy="26" r="6" class="fill-none stroke-charcoal-400" stroke-width="2" stroke-dasharray="3 3" />
+          </svg>
+          {{ else }}
+          <svg viewBox="0 0 120 40" role="img" aria-label="{{ $item.label }}" class="mt-3 w-full h-auto">
+            <polyline points="24,26 48,26 72,26 96,26" class="fill-none stroke-turquoise" stroke-width="2" />
+            <circle cx="24" cy="26" r="6" class="fill-turquoise" />
+            <circle cx="48" cy="26" r="6" class="fill-turquoise" />
+            <circle cx="72" cy="26" r="6" class="fill-turquoise" />
+            <circle cx="96" cy="26" r="6" class="fill-turquoise" />
+          </svg>
+          {{ end }}
+          <p class="mt-3 text-sm leading-6 text-muted-foreground">{{ $item.caption }}</p>
+        </div>
+        {{ end }}
+      </div>
+
+      <p class="mt-4 text-sm leading-6 text-muted-foreground">
+        {{ .Site.Params.home.why_record.compare_note }}
       </p>
+
+      <h3 class="mt-10 text-lg font-semibold text-foreground">
+        {{ .Site.Params.home.why_record.loop_title }}
+      </h3>
+      {{ $loop := .Site.Params.home.why_record.loop }}
+      {{ $last := sub (len $loop) 1 }}
+      <ol class="mt-4 flex flex-col gap-4 lg:flex-row">
+        {{ range $index, $step := $loop }}
+        <li class="flex items-start gap-3 lg:flex-1">
+          <span aria-hidden="true" class="mt-0.5 flex-shrink-0 text-turquoise-deep">
+            {{ partial "icon.html" (dict "name" $step.icon "class" "h-5 w-5") }}
+          </span>
+          <span class="flex-1">
+            <span class="block font-semibold text-foreground">{{ $step.title }}</span>
+            <span class="mt-1 block text-sm leading-6 text-charcoal-700">{{ $step.text }}</span>
+          </span>
+          {{ if ne $index $last }}
+          <span aria-hidden="true" class="mt-4 flex-shrink-0 text-muted-foreground lg:mt-0">
+            {{ partial "icon.html" (dict "name" "arrow-right" "class" "h-5 w-5 rotate-90 lg:rotate-0") }}
+          </span>
+          {{ end }}
+        </li>
+        {{ end }}
+      </ol>
     </div>
   </div>
 </div>

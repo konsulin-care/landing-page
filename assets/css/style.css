@@ -991,6 +991,9 @@
   .rotate-45 {
     rotate: 45deg;
   }
+  .rotate-90 {
+    rotate: 90deg;
+  }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
@@ -1009,6 +1012,9 @@
   }
   .list-disc {
     list-style-type: disc;
+  }
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1039,6 +1045,9 @@
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
+  }
+  .gap-3 {
+    gap: calc(var(--spacing) * 3);
   }
   .gap-4 {
     gap: calc(var(--spacing) * 4);
@@ -1219,6 +1228,21 @@
   .bg-no-repeat {
     background-repeat: no-repeat;
   }
+  .fill-none {
+    fill: none;
+  }
+  .fill-turquoise {
+    fill: var(--color-turquoise);
+  }
+  .stroke-border {
+    stroke: var(--color-border);
+  }
+  .stroke-charcoal-400 {
+    stroke: var(--color-charcoal-400);
+  }
+  .stroke-turquoise {
+    stroke: var(--color-turquoise);
+  }
   .object-fill {
     -o-object-fit: fill;
        object-fit: fill;
@@ -1364,10 +1388,6 @@
   .leading-7 {
     --tw-leading: calc(var(--spacing) * 7);
     line-height: calc(var(--spacing) * 7);
-  }
-  .leading-8 {
-    --tw-leading: calc(var(--spacing) * 8);
-    line-height: calc(var(--spacing) * 8);
   }
   .leading-tight {
     --tw-leading: var(--leading-tight);
@@ -1702,18 +1722,26 @@
       font-size: var(--text-lg);
       line-height: var(--tw-leading, var(--text-lg--line-height));
     }
-    .md\:text-xl {
-      font-size: var(--text-xl);
-      line-height: var(--tw-leading, var(--text-xl--line-height));
-    }
     .md\:leading-8 {
       --tw-leading: calc(var(--spacing) * 8);
       line-height: calc(var(--spacing) * 8);
     }
   }
   @media (width >= 64rem) {
+    .lg\:mt-0 {
+      margin-top: 0px;
+    }
     .lg\:max-w-7xl {
       max-width: var(--container-7xl);
+    }
+    .lg\:flex-1 {
+      flex: 1;
+    }
+    .lg\:rotate-0 {
+      rotate: 0deg;
+    }
+    .lg\:flex-row {
+      flex-direction: row;
     }
     .lg\:px-6 {
       padding-inline: calc(var(--spacing) * 6);
