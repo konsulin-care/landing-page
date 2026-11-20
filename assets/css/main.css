@@ -134,6 +134,11 @@
   color: var(--color-turquoise-deep);
 }
 
+/* Hide Alpine-controlled markup until Alpine initialises. */
+[x-cloak] {
+  display: none !important;
+}
+
 /* Citizen-science morph stage */
 .cs-morph-canvas {
   display: block;

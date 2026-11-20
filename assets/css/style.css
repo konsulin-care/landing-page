@@ -1739,6 +1739,9 @@
   text-transform: uppercase;
   color: var(--color-turquoise-deep);
 }
+[x-cloak] {
+  display: none !important;
+}
 .cs-morph-canvas {
   display: block;
   width: 100%;
