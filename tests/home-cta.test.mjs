@@ -1,21 +1,20 @@
-// Homepage CTA tracking: button.html renders an optional data-cta-location
-// attribute, the hero and final-cta pills set it, and calls without the
-// param (the nav Login pill) leave it off.
+// Homepage CTA tracking: every primary CTA inside <main> carries a
+// data-cta-location attribute, and calls without the param (the nav Login
+// pill) leave it off.
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildSite, readBuilt } from './helpers/build.mjs';
-import { read, sectionHtml } from './helpers/html.mjs';
+import { read } from './helpers/html.mjs';
 
 let homeHtml = '';
-let hero = '';
-let finalCta = '';
+let mainHtml = '';
 
 before(() => {
   const { status, output } = buildSite();
   assert.equal(status, 0, output);
   homeHtml = readBuilt('index.html');
-  hero = sectionHtml(homeHtml, 'hero');
-  finalCta = sectionHtml(homeHtml, 'final-cta');
+  mainHtml = homeHtml.match(/<main\b[^>]*>[\s\S]*?<\/main>/)?.[0] ?? '';
+  assert.ok(mainHtml, 'the built homepage renders a <main> element');
 });
 
 /**
@@ -74,24 +73,33 @@ function normalizeHref(href) {
   return href.replace(/^https:\/\/konsulin\.care/, '');
 }
 
-test('hero CTA carries data-cta-location="hero" and points at params.forward', () => {
-  const pills = anchorsWithClass(hero, ['rounded-full']);
-  assert.equal(pills.length, 1, 'hero renders exactly one button.html pill CTA');
+test('the four main CTAs are data-cta-location tagged in section order', () => {
+  const ctas = anchorsWithClass(mainHtml, []).filter((pill) => attr(pill.tag, 'data-cta-location') !== null);
+  assert.equal(ctas.length, 4, 'main renders exactly four tracked CTAs');
+  assert.deepEqual(
+    ctas.map((pill) => attr(pill.tag, 'data-cta-location')),
+    ['hero', 'kenali-tandanya', 'kalau-ikut', 'final-cta'],
+    'CTAs appear in homepage section order',
+  );
 
-  const [pill] = pills;
-  assert.equal(attr(pill.tag, 'data-cta-location'), 'hero', 'hero CTA is tagged as hero');
-  assert.equal(normalizeHref(pill.href), normalizeHref(forwardUrl()), 'hero CTA points at params.forward');
-  assert.equal(pill.text, 'Mulai Survei (10 Menit)', 'hero CTA keeps its label');
+  for (const pill of ctas) {
+    const location = attr(pill.tag, 'data-cta-location');
+    assert.ok(pill.classes.includes('rounded-full'), `${location} CTA is a rounded-full pill`);
+    assert.equal(normalizeHref(pill.href), normalizeHref(forwardUrl()), `${location} CTA points at params.forward`);
+    assert.equal(pill.text, 'Mulai Survei (10 Menit)', `${location} CTA keeps its label`);
+  }
 });
 
-test('final-cta CTA carries data-cta-location="final-cta" and points at params.forward', () => {
-  const pills = anchorsWithClass(finalCta, ['rounded-full']);
-  assert.equal(pills.length, 1, 'final-cta renders exactly one button.html pill CTA');
-
-  const [pill] = pills;
-  assert.equal(attr(pill.tag, 'data-cta-location'), 'final-cta', 'final CTA is tagged as final-cta');
-  assert.equal(normalizeHref(pill.href), normalizeHref(forwardUrl()), 'final CTA points at params.forward');
-  assert.equal(pill.text, 'Mulai Survei (10 Menit)', 'final CTA keeps its label');
+test('every rounded-full anchor inside main carries data-cta-location', () => {
+  const pills = anchorsWithClass(mainHtml, ['rounded-full']);
+  assert.ok(pills.length > 0, 'main renders rounded-full anchors');
+  for (const pill of pills) {
+    assert.notEqual(
+      attr(pill.tag, 'data-cta-location'),
+      null,
+      `untracked rounded-full anchor: ${pill.text || pill.href}`,
+    );
+  }
 });
 
 test('nav Login pill omits data-cta-location when no location is passed', () => {
