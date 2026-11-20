@@ -102,6 +102,12 @@
     scroll-behavior: smooth;
     scroll-padding-top: 64px;
     overscroll-behavior: none;
+    /* Native scrollbar off; the overlay indicator replaces it everywhere. */
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
   }
 
   body {
