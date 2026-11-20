@@ -14,7 +14,7 @@ Five main items: Beranda, Riset, FAQ, Tentang, Blog. Help, privacy, contact and 
 
 The single call to action is taking part in a study. Every page points to this one action. Do not add competing CTAs (no product sign-ups, no service promotions, no pricing).
 
-- Primary CTA: "Ikut Berkontribusi", routed through the shared `params.forward` value in `hugo.yaml`.
+- Primary CTA: "Mulai Survei (10 Menit)", rendered through `layouts/partials/button.html` and routed through the shared `params.forward` value in `hugo.yaml`.
 - Secondary navigation: in-page scrolling or links to Riset, FAQ and Tentang. These are navigation, not competing actions.
 - Never place a secondary link above the primary CTA.
 
@@ -40,25 +40,28 @@ Help resources must stay reachable: in the footer and wherever distress may be d
 
 ## Button Styling (TailwindCSS)
 
-Tailwind core utilities only, with `dark:` variants on every template.
+The shared `button.html` partial owns the primary CTA: a pill with `bg-cta`, `text-foreground`, `hover:bg-turquoise-deep` and `hover:text-background`. Use design tokens and Tailwind core utilities only; see `docs/DESIGN.md` for the visual language and `docs/UI.md` for the partial and class recipes. Do not invent a one-off button style.
 
 ```html
-<a href="{{ site.Params.forward }}"
-   class="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold
-          hover:bg-blue-700 active:bg-blue-800 dark:bg-blue-500 dark:hover:bg-blue-400
-          transition-all duration-300 shadow-md hover:shadow-lg">
-  Ikut Berkontribusi
-</a>
+{{ partial "button.html" (dict
+  "href" .Site.Params.forward
+  "label" "Mulai Survei (10 Menit)"
+  "location" "home-hero"
+) }}
 ```
 
-On mobile, stack any grouped links vertically:
+Pass `location` so the CTA carries a `data-cta-location` attribute for tracking. The label always names the action; do not shorten it to "Ikut" or replace it with a generic "Selengkapnya".
+
+On mobile, stack any grouped links vertically and keep the primary CTA first:
 
 ```html
-<div class="flex flex-col md:flex-row gap-4">
-  <a href="..." class="flex-1">Ikut Berkontribusi</a>
-  <a href="..." class="flex-1">Pelajari riset</a>
+<div class="flex flex-col gap-4 md:flex-row">
+  {{ partial "button.html" (dict "href" .Site.Params.forward "label" "Mulai Survei (10 Menit)" "location" "home-final") }}
+  <a href="/riset/" class="flex-1">Pelajari riset ini</a>
 </div>
 ```
+
+Never place a secondary link above the primary CTA in the visual order.
 
 ## Testing
 
@@ -67,5 +70,4 @@ Before committing:
 1. **Click test**: every CTA goes to the correct URL.
 2. **Mobile test**: check 375px, 640px and 768px; targets are large enough with proper spacing.
 3. **Hierarchy test**: the primary CTA is identifiable on every page, and no competing CTA exists.
-4. **Dark mode test**: buttons stay legible.
-5. Run `pnpm run build` before merging.
+4. Run `pnpm run build` before merging.
