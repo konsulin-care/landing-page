@@ -1739,6 +1739,57 @@
   text-transform: uppercase;
   color: var(--color-turquoise-deep);
 }
+html.jt-splash body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--color-paper);
+  pointer-events: none;
+  animation: jt-splash-veil 400ms ease-out 800ms forwards;
+}
+@keyframes jt-splash-veil {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+html.jt-splash-run [data-splash-logo] {
+  position: relative;
+  z-index: 61;
+  transform-origin: center;
+  animation: jt-splash-logo 1100ms backwards;
+}
+@keyframes jt-splash-logo {
+  0% {
+    opacity: 0;
+    transform: translate(var(--jt-splash-x, 0), var(--jt-splash-y, 0)) scale(var(--jt-splash-scale, 1));
+    animation-timing-function: ease-out;
+  }
+  15% {
+    opacity: 1;
+    transform: translate(var(--jt-splash-x, 0), var(--jt-splash-y, 0)) scale(var(--jt-splash-scale, 1));
+    animation-timing-function: linear;
+  }
+  45% {
+    opacity: 1;
+    transform: translate(var(--jt-splash-x, 0), var(--jt-splash-y, 0)) scale(var(--jt-splash-scale, 1));
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.jt-splash body::before {
+    display: none;
+    animation: none;
+  }
+  html.jt-splash-run [data-splash-logo] {
+    animation: none;
+  }
+}
 [x-cloak] {
   display: none !important;
 }
