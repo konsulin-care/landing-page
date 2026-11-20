@@ -47,9 +47,78 @@ function normalizeHref(href) {
   return href.replace(/^https:\/\/konsulin\.care/, '');
 }
 
+/** Reads the Lucide icon set shipped in node_modules. */
+function lucideIcons() {
+  return JSON.parse(read('node_modules/@iconify-json/lucide/icons.json')).icons;
+}
+
+/**
+ * Normalizes SVG markup so Hugo's minifier output compares with Lucide's source.
+ * @param {string} markup svg fragment
+ * @returns {string} markup without attribute quotes and with collapsed whitespace
+ */
+function normalizeSvg(markup) {
+  return markup.replace(/["']/g, '').replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Lists the shape elements of an SVG fragment in document order. Hugo's minifier
+ * rewrites path data but leaves circle, rect, line and polygon geometry alone.
+ * @param {string} markup svg fragment
+ * @returns {string[]} normalized opening tags of the shape elements
+ */
+function shapesOf(markup) {
+  return [...markup.matchAll(/<(circle|ellipse|rect|line|polyline|polygon)\b[^>]*>/g)].map((match) =>
+    normalizeSvg(match[0]),
+  );
+}
+
+/**
+ * Lists the moveto start point of every path in an SVG fragment. The minifier
+ * shortens command letters and later curve segments but keeps each start point.
+ * @param {string} markup svg fragment
+ * @returns {string[]} first coordinate pair of each path's `d` attribute
+ */
+function pathStarts(markup) {
+  return [...markup.matchAll(/<path\b[^>]*\bd=("[^"]*"|'[^']*')/g)].map((match) => {
+    const d = match[1].replace(/^["']|["']$/g, '');
+    return (d.match(/-?\d+(?:\.\d+)?/g) ?? []).slice(0, 2).join(',');
+  });
+}
+
+/**
+ * Checks whether rendered icon markup draws the same geometry as a Lucide body:
+ * identical shape elements and identical path start points.
+ * @param {string} rendered inner markup of the rendered svg
+ * @param {string} body Lucide icon body from icons.json
+ * @returns {boolean} true when the rendered icon is that Lucide icon
+ */
+function rendersIcon(rendered, body) {
+  return (
+    JSON.stringify(shapesOf(rendered)) === JSON.stringify(shapesOf(body)) &&
+    JSON.stringify(pathStarts(rendered)) === JSON.stringify(pathStarts(body))
+  );
+}
+
+/**
+ * Returns the inner markup of the icon svg of the tile carrying the given label.
+ * @param {string} label visible sign label, for example "Tubuh"
+ * @returns {string} inner markup of the tile's first svg
+ */
+function tileIcon(label) {
+  const tile = [...section.matchAll(/<button\b[^>]*>([\s\S]*?)<\/button>/g)]
+    .map((match) => match[1])
+    .find((inner) => inner.includes(`>${label}<`));
+  assert.ok(tile, `${label} tile is rendered`);
+  const icon = tile.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
+  assert.ok(icon, `${label} tile renders an icon svg`);
+  return icon[1];
+}
+
 test('the section renders the prompt, hint and six tappable signs with Lucide icons and a check', () => {
   assert.match(section, /Yang mana yang terasa akrab\?/);
-  assert.match(section, /Ketuk yang cocok\./);
+  assert.match(section, /Pilih satu atau lebih\./);
+  assert.doesNotMatch(section, /Ketuk yang cocok\./);
 
   const buttons = [...section.matchAll(/<button\b[^>]*>([\s\S]*?)<\/button>/g)].map((match) => ({
     tag: match[0].slice(0, match[0].indexOf('>') + 1),
@@ -91,6 +160,13 @@ test('the section renders the prompt, hint and six tappable signs with Lucide ic
     assert.match(button.inner, /rounded-md border/, `${label} check sits in a rounded bordered box`);
     assert.match(button.inner, /group-aria-pressed:opacity-100/, `${label} check appears when pressed`);
   });
+});
+
+test('the Tubuh and Tidur tiles render the user and moon-star Lucide icons', () => {
+  const icons = lucideIcons();
+
+  assert.ok(rendersIcon(tileIcon('Tubuh'), icons.user.body), 'the Tubuh tile renders the Lucide user icon');
+  assert.ok(rendersIcon(tileIcon('Tidur'), icons['moon-star'].body), 'the Tidur tile renders the Lucide moon-star icon');
 });
 
 test('an aria-live region holds the x-cloak selected panel with its CTA and the idle sentence', () => {
