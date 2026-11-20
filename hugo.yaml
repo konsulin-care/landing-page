@@ -178,14 +178,15 @@ params:
     meaning:
       kicker: "Makna tangguh"
       title: "Tangguh bukan berarti kuat terus"
-      lead: "Tangguh adalah nama gerakan kita. Dalam penelitian, kita menyebutnya resiliensi psikologis, yaitu proses belajar beradaptasi, menemukan cara menghadapi kesulitan, dan mengembangkan sumber daya yang membantu kita menjaga atau memulihkan kesehatan mental. Mencari dan menerima dukungan juga bagian dari proses itu."
-      cards:
-        - muted: "Bukan pura-pura baik-baik saja"
-          strong: "Tapi mengenali apa yang kita alami"
-        - muted: "Bukan menahan-nahan perasaan"
-          strong: "Tapi mencari cara yang cocok, termasuk berhenti sebentar"
-        - muted: "Bukan menghadapi semuanya sendiri"
-          strong: "Tapi mencari dan menerima dukungan"
+      lead: "Dalam riset, ini disebut resiliensi psikologis: proses belajar beradaptasi, pelan-pelan."
+      not_label: "Bukan"
+      rows:
+        - not: "pura-pura baik-baik saja"
+          is: "Mengenali apa yang kita alami"
+        - not: "menahan-nahan perasaan"
+          is: "Mencari cara yang cocok, termasuk berhenti sebentar"
+        - not: "menghadapi semuanya sendiri"
+          is: "Mencari dan menerima dukungan"
     why_record:
       kicker: "Kenapa dicatat"
       title: "Yang nggak dicatat, nggak terlihat"
