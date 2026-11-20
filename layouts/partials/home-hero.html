@@ -66,7 +66,7 @@
       {{ $stepDelays := slice "delay-0" "delay-150" "delay-300" }}
       <div class="w-full sm:w-fit" x-data="{ ctaActive: false }">
         <div class="mt-8" @jt-cta-nudge.window="ctaActive = true; setTimeout(function () { ctaActive = false }, 2000)" @mouseenter="ctaActive = true" @mouseleave="ctaActive = false" @focusin="ctaActive = true" @focusout="ctaActive = false" @touchstart.passive="ctaActive = true">
-          {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta "full" true) }}
+          {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta "full" true "location" "hero") }}
         </div>
         <ol class="relative mt-4 grid grid-cols-3 gap-2 text-xs text-muted-foreground" data-hero-steps>
           <span aria-hidden="true" class="absolute left-[16.67%] right-[16.67%] top-3 h-px bg-border"><span class="block h-full origin-left bg-turquoise transition-transform duration-500 motion-reduce:transition-none" :class="ctaActive ? 'scale-x-100' : 'scale-x-0'"></span></span>
