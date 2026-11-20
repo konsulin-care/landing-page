@@ -31,3 +31,19 @@ export function shouldPlay(env = {}) {
   }
   return true;
 }
+
+/**
+ * Computes the transform needed to move the lockup from its nav slot to the
+ * viewport centre and scale it up. With transform-origin centre and
+ * `translate(x, y) scale(s)` the lockup centre lands on the viewport centre.
+ * @param {{ left: number, top: number, width: number, height: number }} rect lockup bounding rect
+ * @param {{ width: number, height: number }} viewport viewport size
+ * @returns {{ x: number, y: number, scale: number }} translation and scale for the lockup
+ */
+export function dockOffset(rect, viewport) {
+  const x = viewport.width / 2 - (rect.left + rect.width / 2);
+  const y = viewport.height / 2 - (rect.top + rect.height / 2);
+  if (rect.width <= 0) return { x, y, scale: 1 };
+  const scale = Math.max(1, Math.min(2, (0.6 * viewport.width) / rect.width));
+  return { x, y, scale };
+}

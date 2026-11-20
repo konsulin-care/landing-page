@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { SPLASH_KEY } from '../assets/js/splash-state.js';
-import { shouldPlay } from '../assets/js/splash.js';
+import { shouldPlay, dockOffset } from '../assets/js/splash.js';
 
 /**
  * Builds a fake window/document pair with a stubbed media query, location,
@@ -98,4 +98,33 @@ test('shouldPlay returns false when the sessionStorage getter throws', () => {
 test('shouldPlay returns false when setItem throws', () => {
   const env = makeEnv({ throwingSet: true });
   assert.equal(shouldPlay(env), false);
+});
+
+test('dockOffset returns x and y that move the lockup centre to the viewport centre', () => {
+  const rect = { left: 24, top: 20, width: 120, height: 40 };
+  const viewport = { width: 1280, height: 800 };
+  const offset = dockOffset(rect, viewport);
+  assert.equal(rect.left + rect.width / 2 + offset.x, viewport.width / 2);
+  assert.equal(rect.top + rect.height / 2 + offset.y, viewport.height / 2);
+});
+
+test('dockOffset caps scale at 2 on wide viewports and floors it at 1 when the lockup is wide', () => {
+  const viewport = { width: 1600, height: 900 };
+  assert.equal(dockOffset({ left: 0, top: 0, width: 100, height: 40 }, viewport).scale, 2);
+  assert.equal(dockOffset({ left: 0, top: 0, width: 1000, height: 40 }, viewport).scale, 1);
+});
+
+test('dockOffset on a 375px wide viewport returns min(2, 225 / lockup width) floored at 1 with centred x and y', () => {
+  const viewport = { width: 375, height: 700 };
+  const rect = { left: 20, top: 16, width: 120, height: 32 };
+  const offset = dockOffset(rect, viewport);
+  assert.equal(offset.scale, Math.max(1, Math.min(2, 225 / rect.width)));
+  assert.equal(rect.left + rect.width / 2 + offset.x, viewport.width / 2);
+  assert.equal(rect.top + rect.height / 2 + offset.y, viewport.height / 2);
+});
+
+test('dockOffset returns scale 1 when rect width is zero or negative', () => {
+  const viewport = { width: 1280, height: 800 };
+  assert.equal(dockOffset({ left: 0, top: 0, width: 0, height: 0 }, viewport).scale, 1);
+  assert.equal(dockOffset({ left: 0, top: 0, width: -10, height: 0 }, viewport).scale, 1);
 });
