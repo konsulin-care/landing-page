@@ -68,3 +68,11 @@ test('the shared production build exits 0 without WARN lines', () => {
     .filter((line) => line.includes('WARN'));
   assert.deepEqual(warnings, [], `hugo build emitted warnings:\n${warnings.join('\n')}`);
 });
+
+test('the head partial does not post-process the production stylesheet', () => {
+  const source = read('layouts/partials/head.html');
+  assert.ok(
+    !source.includes('resources.PostProcess'),
+    'layouts/partials/head.html must not reference resources.PostProcess',
+  );
+});
