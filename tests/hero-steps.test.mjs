@@ -111,6 +111,33 @@ test('the CTA wrapper drives ctaActive on hover, focus and touch', () => {
   assert.equal(attr(ctaWrapper, '@touchstart.passive'), 'ctaActive = true', 'touchstart activates');
 });
 
+test('each step label reserves its bold width so the strip never resizes', () => {
+  items.forEach((item, index) => {
+    const wrapper = item.match(/<span\b[^>]*\binline-grid\b[^>]*>/)?.[0] ?? '';
+    assert.ok(wrapper, `step ${index + 1} wraps its label in an inline-grid`);
+
+    const block = item.match(/<span\b[^>]*\binline-grid\b[^>]*>([\s\S]*?)<\/span><\/span>/)?.[1] ?? '';
+    const spans = [...block.matchAll(/<span\b[^>]*>/g)].map((match) => match[0]);
+    assert.equal(spans.length, 2, `step ${index + 1} stacks exactly two label copies`);
+
+    const [copy, visible] = spans;
+    const copyClasses = classesOf(copy);
+    assert.equal(attr(copy, 'aria-hidden'), 'true', `step ${index + 1} hides the width copy from assistive tech`);
+    for (const token of ['invisible', 'col-start-1', 'row-start-1', 'font-semibold']) {
+      assert.ok(copyClasses.includes(token), `step ${index + 1} width copy has ${token}`);
+    }
+
+    const visibleClasses = classesOf(visible);
+    for (const token of ['col-start-1', 'row-start-1']) {
+      assert.ok(visibleClasses.includes(token), `step ${index + 1} visible label shares the grid cell with ${token}`);
+    }
+    assert.equal(visibleClasses.includes('invisible'), false, `step ${index + 1} visible label stays visible`);
+
+    const copies = block.split(EXPECTED_STEPS[index]).length - 1;
+    assert.equal(copies, 2, `step ${index + 1} copies the same label text twice`);
+  });
+});
+
 test('the width group wraps the full-width CTA and the steps, with a connector', () => {
   const groupTag = [...hero.matchAll(/<div\b[^>]*>/g)].map((m) => m[0]).find((t) => /ctaActive:\s*false/.test(t)) ?? '';
   const groupClasses = classesOf(groupTag);
@@ -155,7 +182,10 @@ test('each numbered circle binds its highlight to ctaActive with a stepped delay
     }
 
     assert.ok(binding.includes(`i === ${index}`), `step ${index + 1} circle binds to i === ${index}`);
-    const labelTag = item.match(/<span\b[^>]*>(?=[^<]*<\/span>\s*$)/)?.[0] ?? '';
+    const labelTag =
+      [...item.matchAll(/<span\b(?:"[^"]*"|'[^']*'|[^>"'])*>/g)]
+        .map((match) => match[0])
+        .find((tag) => /font-semibold/.test(attr(tag, ':class') ?? '')) ?? '';
     const labelBinding = attr(labelTag, ':class') ?? '';
     assert.ok(labelBinding.includes(`i === ${index}`) && labelBinding.includes('font-semibold'), `step ${index + 1} label is bold when current`);
 

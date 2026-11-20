@@ -73,7 +73,10 @@
           {{ range $i, $step := .Site.Params.home.hero.steps }}
           <li class="flex flex-col items-center gap-2 text-center">
             <span class="relative bg-card flex h-6 w-6 items-center justify-center rounded-full border border-border transition-colors duration-300 motion-reduce:transition-none {{ index $stepDelays $i }}" :class="(ctaActive || i === {{ $i }}) && 'bg-turquoise-tint border-turquoise text-foreground'">{{ add $i 1 }}</span>
-            <span :class="i === {{ $i }} && 'font-semibold text-foreground'">{{ $step }}</span>
+            <span class="inline-grid">
+              <span aria-hidden="true" class="invisible col-start-1 row-start-1 font-semibold">{{ $step }}</span>
+              <span class="col-start-1 row-start-1" :class="i === {{ $i }} && 'font-semibold text-foreground'">{{ $step }}</span>
+            </span>
           </li>
           {{ end }}
         </ol>
