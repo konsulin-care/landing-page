@@ -1,67 +1,46 @@
-<!-- Defer Chatwoot SDK until browser is idle -->
-<script>
-  function loadChatwoot() {
-    var BASE_URL={{ .Site.Params.chatwoot_url }};
-    // Skip if secrets weren't injected (placeholder still present)
-    if (!BASE_URL || BASE_URL.charAt(0) === '{') return;
-    window.chatwootSettings = {
-      position: "right",
-      type: "expanded_bubble",
-      launcherTitle: "Tanya Lyna"
-    };
-    (function(d,t) {
-      var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      g.src=BASE_URL+"/packs/js/sdk.js";
-      g.defer = true;
-      g.async = true;
-      s.parentNode.insertBefore(g,s);
-      g.onload=function(){
-        window.chatwootSDK.run({
-          websiteToken: {{ .Site.Params.chatwoot_token }},
-          baseUrl: BASE_URL
-        })
-      }
-    })(document,"script");
-  }
-
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(loadChatwoot, { timeout: 5000 });
-  } else {
-    window.addEventListener('load', function() {
-      setTimeout(loadChatwoot, 1000);
-    });
-  }
-</script>
+<!-- Chatwoot config; the loader module defers the SDK until idle -->
+<script>window.jtChatwootConfig = { baseUrl: {{ .Site.Params.chatwoot_url }}, websiteToken: {{ .Site.Params.chatwoot_token }} };</script>
 
 <!-- Footer section -->
 {{ if hugo.IsServer }}
-{{ $js := resources.Get "js/darkmode.js" | js.Build }}
-<script src="{{ $js.RelPermalink }}" defer></script>
+{{ $chat := resources.Get "js/chatwoot-loader.js" | js.Build }}
+<script src="{{ $chat.RelPermalink }}" defer></script>
 {{ $morph := resources.Get "js/citizen-morph.js" | js.Build }}
 <script src="{{ $morph.RelPermalink }}" defer></script>
+{{ $hero := resources.Get "js/hero-rotation.js" | js.Build }}
+<script src="{{ $hero.RelPermalink }}" defer></script>
+{{ $scroll := resources.Get "js/scroll-indicator.js" | js.Build }}
+<script src="{{ $scroll.RelPermalink }}" defer></script>
 {{ $alpine := resources.Get "js/alpine.min.js" }}
 <script defer src="{{ $alpine.RelPermalink }}"></script>
 {{ else }}
-{{ $js := resources.Get "js/darkmode.js" | js.Build | minify | fingerprint }}
-<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ $chat := resources.Get "js/chatwoot-loader.js" | js.Build | minify | fingerprint }}
+<script src="{{ $chat.RelPermalink }}" integrity="{{ $chat.Data.Integrity }}" defer></script>
 {{ $morph := resources.Get "js/citizen-morph.js" | js.Build | minify | fingerprint }}
 <script src="{{ $morph.RelPermalink }}" integrity="{{ $morph.Data.Integrity }}" defer></script>
+{{ $hero := resources.Get "js/hero-rotation.js" | js.Build | minify | fingerprint }}
+<script src="{{ $hero.RelPermalink }}" integrity="{{ $hero.Data.Integrity }}" defer></script>
+{{ $scroll := resources.Get "js/scroll-indicator.js" | js.Build | minify | fingerprint }}
+<script src="{{ $scroll.RelPermalink }}" integrity="{{ $scroll.Data.Integrity }}" defer></script>
 {{ $alpine := resources.Get "js/alpine.min.js" | fingerprint }}
 <script defer src="{{ $alpine.RelPermalink }}" integrity="{{ $alpine.Data.Integrity }}"></script>
 {{ end }}
 
-<footer class="footer bg-gray-900">
+<footer class="footer border-t border-border bg-background text-muted-foreground">
   <div class="max-w-md px-4 py-12 mx-auto overflow-hidden sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
+    <p class="mb-6 text-sm text-center">
+      <a href="/faq/#bantuan" class="font-medium text-turquoise-deep hover:underline">Butuh bantuan sekarang?</a>
+    </p>
     <nav class="flex flex-wrap justify-center -mx-5 -my-2" aria-label="Footer">
       {{ range site.Menus.footer }}
       <div class="px-5 py-2">
-        <a href="{{ .URL | absLangURL }}" class="text-xs text-gray-400 hover:text-gray-300">{{ .Name }}</a>
+        <a href="{{ .URL | absLangURL }}" class="text-xs text-turquoise-deep hover:underline">{{ .Name }}</a>
       </div>
       {{ end }}
     </nav>
     <div class="flex justify-center mt-8 space-x-6">
       {{ if .Site.Params.Social_media.Facebook.Enabled }}
-      <a href="{{ $.Site.Params.Social_media.Facebook.Url }}" class="text-gray-400 hover:text-gray-300">
+      <a href="{{ $.Site.Params.Social_media.Facebook.Url }}" class="text-turquoise-deep hover:underline">
         <span class="sr-only">Facebook</span>
         <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -72,7 +51,7 @@
         </svg>
       </a>
       {{ end }} {{ if .Site.Params.Social_media.Instagram.Enabled }}
-      <a href="{{ $.Site.Params.Social_media.Instagram.Url }}" class="text-gray-400 hover:text-gray-300">
+      <a href="{{ $.Site.Params.Social_media.Instagram.Url }}" class="text-turquoise-deep hover:underline">
         <span class="sr-only">Instagram</span>
         <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -83,7 +62,7 @@
         </svg>
       </a>
       {{ end }} {{ if .Site.Params.Social_media.Twitter.Enabled }}
-      <a href="{{ $.Site.Params.Social_media.Twitter.Url }}" class="text-gray-400 hover:text-gray-300">
+      <a href="{{ $.Site.Params.Social_media.Twitter.Url }}" class="text-turquoise-deep hover:underline">
         <span class="sr-only">Twitter</span>
         <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -92,7 +71,7 @@
         </svg>
       </a>
       {{ end }} {{ if .Site.Params.Social_media.Github.Enabled }}
-      <a href="{{ $.Site.Params.Social_media.Github.Url }}" class="text-gray-400 hover:text-gray-300">
+      <a href="{{ $.Site.Params.Social_media.Github.Url }}" class="text-turquoise-deep hover:underline">
         <span class="sr-only">GitHub</span>
         <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -104,11 +83,15 @@
       </a>
       {{ end }}
     </div>
-    <p class="mt-8 text-xs text-center text-gray-400">Delrey BizTown BSD City Blok B8 Unit 9</p>
-    <p class="mt-8 text-xs text-center text-gray-400">Jl. Lingkar Botanika Utara, Lengkong Kulon, Pagedangan, Tangerang, Banten 15331</p>
-    <p class="mt-8 text-xs text-center text-gray-400">Reach us by email: <b><a href="mailto:hello@konsulin.care">hello@konsulin.care</a></b></p>
-    <p class="mt-8 text-xs text-center text-gray-400">&copy; {{ now.Format "2006" }} <b>{{ .Site.Params.author }}</b>. All rights reserved.</p>
-    <p class="mt-8 text-xs text-center text-gray-400">Illustrations by <a href="https://storyset.com/">Storyset</a></p>
+    <p class="mt-8 text-xs text-center">Delrey BizTown BSD City Blok B8 Unit 9</p>
+    <p class="mt-8 text-xs text-center">Jl. Lingkar Botanika Utara, Lengkong Kulon, Pagedangan, Tangerang, Banten 15331</p>
+    <p class="mt-8 text-xs text-center">Hubungi kami lewat email: <b><a href="mailto:hello@konsulin.care">hello@konsulin.care</a></b></p>
+    <p class="mt-8 text-xs text-center">&copy; {{ now.Format "2006" }} <b>{{ .Site.Params.author }}</b>. Hak cipta dilindungi.</p>
+    <nav class="flex justify-center mt-4 space-x-4 text-xs" aria-label="Legal">
+      <a href="/privacy/" class="text-turquoise-deep hover:underline">Privasi</a>
+      <a href="/feature/" class="text-turquoise-deep hover:underline">Layanan Konsulin</a>
+    </nav>
+    <p class="mt-8 text-xs text-center">Ilustrasi oleh <a class="text-turquoise-deep" href="https://storyset.com/">Storyset</a></p>
   </div>
 </footer>
 
@@ -118,7 +101,6 @@
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    background-color: #f7fafc; /* Adjust as needed */
   }
 
   .footer {

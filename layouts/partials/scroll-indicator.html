@@ -1,0 +1,14 @@
+<!-- Scroll indicator: replaces the hidden native scrollbar. Display only,
+     shown for fine pointers while the page scrolls (see footer script). -->
+<div
+  class="hidden pointer-fine:block fixed top-0 right-0.5 z-50 h-screen w-1.5 pointer-events-none"
+  aria-hidden="true"
+  data-scroll-indicator
+  x-data="jtScrollIndicator()"
+>
+  <div
+    class="w-full rounded-full bg-charcoal-400 transition-opacity duration-300 motion-reduce:transition-none"
+    :class="visible ? 'opacity-100' : 'opacity-0'"
+    :style="{ height: thumb + 'px', transform: 'translateY(' + offset + 'px)' }"
+  ></div>
+</div>

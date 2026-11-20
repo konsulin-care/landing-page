@@ -1,6 +1,1 @@
-{{ $button_text := .Get "text" }}
-{{ $button_link := .Get "link" }}
-
-<button type="button" class="block px-5 py-3 text-base font-medium text-gray-900 bg-primary-600 border border-transparent rounded-md shadow hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-500 sm:px-10" onclick="location.href='{{ $button_link }}'" style="width: 200px;">
-  {{ $button_text }}
-</button>
+{{ partial "button.html" (dict "href" (.Get "link") "label" (.Get "text")) }}

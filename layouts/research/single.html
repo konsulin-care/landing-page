@@ -1,0 +1,54 @@
+{{ define "main" }}
+{{ $p := .Params }}
+{{ $extra := "" }}
+{{ with $p.ethics_status }}{{ $extra = printf `<p class="text-muted-foreground" data-ethics-status>%s</p>` (. | htmlEscape) }}{{ end }}
+<main>
+  {{ partial "page-header.html" (dict "title" .Title "description" $p.description "extra" $extra "width" "max-w-3xl") }}
+  {{ with $p.status }}<div class="max-w-3xl px-6 mx-auto mt-6">{{ partial "study-status.html" . }}</div>{{ end }}
+  <article class="max-w-3xl px-6 mx-auto my-12 space-y-10 text-muted-foreground">
+    {{ partial "summary-card.html" (dict "page" . "variant" "research") }}
+    {{ with $p.question }}<section data-section="question"><h2 class="text-2xl font-bold text-foreground">Pertanyaan penelitian</h2><p class="mt-2">{{ . }}</p></section>{{ end }}
+    {{ with $p.team }}<section data-section="team"><h2 class="text-2xl font-bold text-foreground">Tim peneliti</h2><p class="mt-2">{{ . }}</p></section>{{ end }}
+    {{ if or $p.eligibility $p.duration }}
+    <section data-section="participation"><h2 class="text-2xl font-bold text-foreground">Partisipasi</h2>
+      <ul class="mt-2 space-y-1">
+        {{ with $p.eligibility }}<li><strong>Kelayakan:</strong> {{ . }}</li>{{ end }}
+        {{ with $p.duration }}<li><strong>Durasi:</strong> {{ . }}</li>{{ end }}
+      </ul>
+    </section>
+    {{ end }}
+    {{ with $p.steps }}
+    <section data-section="steps"><h2 class="text-2xl font-bold text-foreground">{{ .title }}</h2>
+      <ol class="mt-2 space-y-3">
+        {{ range .steps }}<li><strong>{{ .num }}. {{ .title }}</strong><p>{{ .text }}</p></li>{{ end }}
+      </ol>
+    </section>
+    {{ end }}
+    {{ with $p.report }}
+    <section data-section="report"><h2 class="text-2xl font-bold text-foreground">{{ .title }}</h2>
+      {{ with .subtitle }}<p class="mt-2">{{ . }}</p>{{ end }}
+      <ul class="mt-4 space-y-3">
+        {{ range .cards }}<li><strong>{{ .title }}</strong><p>{{ .text }}</p></li>{{ end }}
+      </ul>
+      {{ with .note }}<p class="mt-4"><strong>{{ .title }}.</strong> {{ .text }}</p>{{ end }}
+      <p class="mt-4 text-sm" data-screening-notice>Laporan ini hasil skrining, bukan diagnosis.</p>
+    </section>
+    {{ end }}
+    {{ with $p.data_handling }}
+    <section data-section="data-handling"><h2 class="text-2xl font-bold text-foreground">{{ .title }}</h2>
+      <ul class="mt-2 space-y-3">
+        {{ range .cards }}<li><strong>{{ .title }}</strong><p>{{ .text }}</p></li>{{ end }}
+      </ul>
+    </section>
+    {{ end }}
+    {{ with $p.findings }}
+    <section data-section="findings"><h2 class="text-2xl font-bold text-foreground">Temuan</h2>
+      <ul class="mt-2 list-disc ps-6">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
+    </section>
+    {{ end }}
+    {{ if and (eq $p.status "open") $p.cta_url }}
+    <div class="text-center" data-study-cta>{{ partial "button.html" (dict "href" $p.cta_url "label" (cond (isset $p "data_handling") ($p.data_handling.cta | default "Ikut studi") "Ikut studi")) }}</div>
+    {{ end }}
+  </article>
+</main>
+{{ end }}

@@ -1,0 +1,34 @@
+<!-- If join section: what taking part actually asks of the reader -->
+<div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
+  <div class="md:grid md:grid-cols-12 md:gap-12">
+    <div class="md:col-span-4">
+      {{ partial "section-kicker.html" (dict "label" .Site.Params.home.if_join.kicker "num" (page.Store.Get "sectionNum")) }}
+      <h2 class="text-3xl font-semibold leading-tight text-foreground md:text-4xl">
+        {{ .Site.Params.home.if_join.title }}
+      </h2>
+    </div>
+
+    <div class="mt-12 md:col-span-8 md:mt-0">
+      <ol class="grid gap-4">
+        {{ range $i, $step := .Site.Params.home.if_join.steps }}
+        <li class="flex gap-4 rounded-lg border border-border bg-card p-6">
+          <span class="text-2xl font-bold text-turquoise-deep">{{ add $i 1 }}</span>
+          <p class="text-base leading-7 text-charcoal-700"><strong class="font-semibold text-foreground">{{ $step.title }}</strong> {{ $step.text }}</p>
+        </li>
+        {{ end }}
+      </ol>
+
+      <ul class="mt-8 flex flex-wrap gap-2">
+        {{ range .Site.Params.home.if_join.assurances }}
+        <li class="rounded-full border border-border bg-card px-3 py-1 text-sm text-foreground">{{ . }}</li>
+        {{ end }}
+      </ul>
+
+      <p class="mt-6">
+        <a href="/research/jadi-tangguh/" class="text-sm font-semibold text-turquoise-deep underline underline-offset-4">
+          {{ .Site.Params.home.if_join.link_label }}
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+{
+  "implement": {
+    "tests": {
+      "scoped": [
+        {
+          "argv": [
+            "node",
+            "--test",
+            "--test-concurrency=1"
+          ],
+          "scope": "files"
+        }
+      ],
+      "full": [
+        [
+          "pnpm",
+          "test"
+        ]
+      ]
+    },
+    "commands": {
+      "build:tw": [
+        "pnpm",
+        "run",
+        "build:tw"
+      ],
+      "build": [
+        "pnpm",
+        "run",
+        "build"
+      ]
+    }
+  }
+}

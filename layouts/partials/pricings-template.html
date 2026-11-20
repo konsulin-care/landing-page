@@ -1,32 +1,31 @@
-<div class="mx-auto text-gray-900 max-w-7xl dark:text-gray-50">
-  <div class="px-4 not-prose">
-    <div class="grid gap-4 mx-auto mt-12 mb-4 lg:max-w-none md:grid-cols-3">
+<div class="mx-auto max-w-6xl text-foreground">
+  <div class="px-6 not-prose">
+    <div class="grid gap-4 mx-auto mt-12 mb-4 md:grid-cols-3">
       {{ range .Paginator.Pages }}
-      <div class="flex flex-col overflow-hidden rounded-lg shadow-lg bg-gray-50 dark:bg-gray-900">
+      <div class="flex flex-col overflow-hidden rounded-lg bg-card border border-border">
         <a href="{{.Permalink}}">
           {{ with .Params.featured_image }}
           {{ with resources.Get . }}
           {{ $postimage := (.Resize "500x webp q90").RelPermalink }}
-          <img src="{{ $postimage }}" class="object-fill overflow-hidden rounded-t-lg" width="100%" height=""
+          <img src="{{ $postimage }}" class="object-fill overflow-hidden" width="100%" height=""
              loading="lazy" alt="{{ .Title }}" />
-
           {{ end }}
           {{ end }}
         </a>
         <div class="p-6">
           <div class="flex-1">
             <a href="{{.Permalink}}"
-              class="block mt-2 text-3xl font-black text-primary-600 dark:text-primary-300 hover:text-primary-600 dark:hover:text-primary-500 hover:underline">
+              class="block mt-2 text-3xl font-bold text-turquoise-deep hover:underline">
               {{.Title}}
             </a>
-            <ul class="mt-3 list-disc pl-5 text-base text-gray-900 dark:text-gray-300" style="list-style-type: disc; padding-left: 1.25rem;">
+            <ul class="mt-3 list-disc pl-5 text-base text-muted-foreground">
               {{ range .Params.summaries }}
               <li> {{ . }} </li>
               {{ end }}
             </ul>
           </div>
-          <div class="flex pt-6 font-large text-gray-900 dark:text-gray-200 text-md">
-            <span class="pr-2 font-black">Harga:</span>
+          <div class="flex pt-6 font-medium text-foreground text-base">
+            <span class="pr-2 font-bold">Harga:</span>
             <span> {{ .Params.price }} </span>
           </div>
         </div>

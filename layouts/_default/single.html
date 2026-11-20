@@ -1,65 +1,13 @@
 {{define "main"}}
 <article>
-  <header class="mb-4 bg-gray-200 dark:bg-gray-900">
-    <span class="py-96">
-      <h1 class="py-16 text-5xl font-black text-center text-gray-700 dark:text-gray-400 capitalize">
-        {{ .Title }}
-      </h1>
-    </span>
-  </header>
-  <!-- " {{.Content}}" pulls from the markdown content of the corresponding _index.md -->
-  <div class="max-w-2xl px-6 pt-6 pb-16 mx-auto prose dark:prose-invert dark:text-gray-200 text-gray-900">
-
-    <div class="mx-auto text-gray-900 max-w-7xl dark:text-gray-50 md:px-1.5">
-      <div class="px-4 text-gray-900 dark:text-white not-prose dark:text-zinc-200">
-        <div class="grid gap-4 mx-auto mt-12 mb-4 lg:max-w-none md:grid-cols-1">
-          <div class="flex flex-col overflow-hidden rounded-lg shadow-lg bg-gray-50 dark:bg-gray-900">
-            <a href="{{.Permalink}}">
-              {{ with .Params.featured_image }}
-              {{ with resources.Get . }}
-              {{ $postimage := (.Resize "500x webp q90").RelPermalink }}
-              <img src="{{ $postimage }}" class="object-fill overflow-hidden rounded-t-lg" width="100%" height="" loading="lazy" alt="{{ .Title }}" />
-              {{ end }}
-              {{ end }}
-            </a>
-            <div class="p-6">
-              <div class="flex-1">
-                <p class="block mt-2 text-2xl font-black text-gray-900 dark:text-gray-200">
-                  Ringkasan
-                </p>
-                <p class="mt-3 text-base text-gray-900 dark:text-gray-300">
-                  {{ .Params.summary }}
-                </p>
-              </div>
-              <div class="flex items-center mt-6">
-                <div class="flex-shrink-0">
-                  <span class="sr-only">{{ .Params.author }}</span>
-                  {{ with .Params.authorimage }}
-                  {{ with resources.Get . }}
-                  {{ $authorimage := (.Resize "400x webp").RelPermalink }}
-                  <img class="w-10 h-10 rounded-full" src="{{ $authorimage }}" alt="">
-                  {{ end }}
-                  {{ end }}
-                </div>
-                <div class="pt-1 ml-3">
-                  <p class="text-sm font-medium text-gray-900 dark:text-white">
-                    {{ .Params.author }}
-                  </p>
-                  <div class="flex space-x-1 text-sm text-gray-500 dark:text-white">
-                    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2006-01-02" }}</time>
-                    <span aria-hidden="true">&middot;</span>
-                    <span>{{ math.Round (div (countwords .Content) 220.0) }} min read</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  {{ partial "page-header.html" (dict "title" .Title "width" "max-w-2xl") }}
+  <div class="max-w-2xl px-6 pt-8 pb-16 mx-auto">
+    {{ if .Params.summary }}
+    <div class="mb-8">{{ partial "summary-card.html" (dict "page" . "variant" "blog") }}</div>
+    {{ end }}
+    <div class="prose prose-neutral">
+      {{ .Content }}
     </div>
-
-    {{.Content}}
-
   </div>
 </article>
 {{end}}

@@ -6,9 +6,16 @@
   - id: semantic section slug used as the DOM id and URL hash (e.g. "privacy")
   - partial: name of the content partial to include (e.g., "home-hero.html")
   - context: the original page context for passing to content partials
+  - tone: band tone (paper | surface | charcoal, default paper)
+      paper    => band-paper (redefines --color-card for contrast)
+      surface  => band-surface border-y border-border (hairlines separate it from paper)
+      charcoal => bg-foreground text-background
 
-  Section 1 renders as an exact-fit slide (scroll-snap-section--slide);
-  sections 2-9 flow naturally with the page.
+  All sections flow naturally with the page; the homepage is a normal
+  scrolling reading page with no snap or exact-fit slides.
+
+  Visible section number: the hero has no kicker, so content partials read
+  `page.Store.Get "sectionNum"` (num minus 1) and pass it to section-kicker.html.
 */}}
 
 {{ $num := .num }}
@@ -16,20 +23,22 @@
 {{ $partial := .partial }}
 {{ $context := .context }}
 
-{{/* Section 1 is the hero slide */}}
-{{ $slide := eq $num 1 }}
-
-{{/* Determine background class for section 1 */}}
-{{ $bgClass := "" }}
-{{ if eq $num 1 }}
-  {{ $bgClass = "bg-gray-200 dark:bg-gray-900" }}
+{{/* Map the tone to the full-bleed band classes */}}
+{{ $tone := .tone | default "paper" }}
+{{ $bgClass := "band-paper" }}
+{{ if eq $tone "surface" }}
+  {{ $bgClass = "band-surface border-y border-border" }}
+{{ else if eq $tone "charcoal" }}
+  {{ $bgClass = "bg-foreground text-background" }}
 {{ end }}
+
+{{ page.Store.Set "sectionNum" (sub $num 1) }}
 
 <section
   id="{{ $id }}"
-  class="relative scroll-snap-section {{ if $slide }}scroll-snap-section--slide{{ end }} {{ $bgClass }}"
+  class="relative home-section {{ $bgClass }}"
 >
-  <div class="scroll-snap-section__content">
+  <div class="home-section__content">
     {{ partial $partial $context }}
   </div>
 </section>

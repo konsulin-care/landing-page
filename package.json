@@ -19,13 +19,14 @@
   },
   "scripts": {
     "copy:alpine": "mkdir -p assets/js && cp node_modules/alpinejs/dist/cdn.min.js assets/js/alpine.min.js",
-    "start": "npm run copy:alpine && concurrently npm:watch:*",
+    "start": "pnpm run copy:alpine && concurrently \"pnpm run watch:tw\" \"pnpm run watch:hugo\"",
     "watch:tw": "postcss ./assets/css/main.css -o ./assets/css/style.css --watch",
     "watch:hugo": "hugo server",
     "build:tw": "postcss ./assets/css/main.css -o ./assets/css/style.css",
-    "build": "npm run copy:alpine && npm run build:tw && hugo --minify",
+    "build": "pnpm run copy:alpine && pnpm run build:tw && hugo --minify",
     "prepare": "husky",
-    "test": "node --test --test-concurrency=1"
+    "test": "node scripts/clear-hugo-lock.mjs && node --test --test-concurrency=1",
+    "posttest": "node scripts/clear-hugo-lock.mjs"
   },
   "repository": {
     "type": "git",
@@ -49,5 +50,6 @@
   "bugs": {
     "url": "https://github.com/nusserstudios/tailbliss/issues"
   },
-  "homepage": "https://github.com/nusserstudios/tailbliss"
+  "homepage": "https://github.com/nusserstudios/tailbliss",
+  "packageManager": "pnpm@12.18.0+sha512.9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3"
 }

@@ -1,0 +1,12 @@
+{{/*
+  section-kicker: dict params
+  - label (string, optional): kicker text; nothing is rendered when empty
+  - num (int, optional): visible section number; rendered as "01 · label"
+*/}}
+{{- with .label -}}
+{{- if $.num -}}
+<p class="section-kicker">{{ printf "%02d · %s" $.num . }}</p>
+{{- else -}}
+<p class="section-kicker">{{ . }}</p>
+{{- end -}}
+{{- end -}}

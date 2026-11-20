@@ -1,13 +1,13 @@
 {{ define "main" }}
-<main class="scroll-snap-container">
+<main>
 
   {{ $sections := slice
-    (dict "num" 1 "id" "hero" "partial" "home-hero.html" "context" .)
-    (dict "num" 2 "id" "why-this-research-matters" "partial" "home-why-it-matters.html" "context" .)
-    (dict "num" 3 "id" "how-it-works" "partial" "home-how-it-works.html" "context" .)
-    (dict "num" 4 "id" "claim-report" "partial" "home-claim-report.html" "context" .)
-    (dict "num" 5 "id" "research-credibility" "partial" "home-research-credibility.html" "context" .)
-    (dict "num" 6 "id" "final-cta" "partial" "home-final-cta.html" "context" .)
+    (dict "num" 1 "tone" "surface" "id" "hero" "partial" "home-hero.html" "context" .)
+    (dict "num" 2 "tone" "paper" "id" "kenali-tandanya" "partial" "home-recognition.html" "context" .)
+    (dict "num" 3 "tone" "surface" "id" "makna-tangguh" "partial" "home-meaning.html" "context" .)
+    (dict "num" 4 "tone" "paper" "id" "kenapa-dicatat" "partial" "home-why-record.html" "context" .)
+    (dict "num" 5 "tone" "surface" "id" "kalau-ikut" "partial" "home-if-join.html" "context" .)
+    (dict "num" 6 "tone" "charcoal" "id" "final-cta" "partial" "home-final-cta.html" "context" .)
   }}
 
   {{ range $sections }}
@@ -15,18 +15,5 @@
   {{ end }}
 
 </main>
-
-<script>
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    const hero = document.getElementById('hero');
-    const nextSection = hero?.nextElementSibling;
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-});
-</script>
 
 {{ end }}

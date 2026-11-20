@@ -1,16 +1,14 @@
 baseURL: 'https://konsulin.care/'
 csURL: 'https://cs.konsulin.care'
 title: Konsulin
-languageCode: en-us
-DefaultContentLanguage: en
+locale: id-ID
+DefaultContentLanguage: id
 enableEmoji: true
 enableGitInfo: true
 enableRobotsTXT: true
 canonifyURLs: true
 pagination:
   pagerSize: 3
-darkmode_js:
-  - assets/js/darkmode.js
 enableInlineShortcodes: true
 
 security:
@@ -70,25 +68,20 @@ params:
   chatwoot_token: "{chatwoot_token}"
 
   # Browser/meta alias for the homepage, distinct from the short title.
-  meta_title: "Konsulin | Riset Kesehatan Bersama Masyarakat"
-  description: "Pengalaman kita membantu ribuan orang merasa dipahami"
+  meta_title: "Konsulin | Bareng Warga, Saling Jaga"
+  description: "#JadiTangguh adalah gerakan riset warga tentang resiliensi psikologis dan kesehatan mental. Ikut survei 10 menit, gratis, dan bantu kita saling memahami."
   forward: "https://app.konsulin.care/research"
   # Nav login button: auth entry that returns the user to the research page.
   auth: "https://app.konsulin.care/auth?redirectToPath=/research"
-  disable_theme_toggle: false
+  hashtag_url: 'https://instagram.com/konsulin.care'
   keywords:
     - riset kesehatan partisipatif
     - riset kesehatan bersama masyarakat
     - citizen science
     - kesehatan mental
-    - aplikasi kesehatan jiwa
-    - dokter psikolog
-    - dokter psikiater
-    - psikiater
-    - psikiatri
-    - psikolog online
-    - konsultasi psikolog online
-    - kesehatan mental
+    - resiliensi
+    - ketangguhan psikologis
+    - JadiTangguh
     - tes kesehatan mental
     - tes kejiwaan online
     - tes depresi online
@@ -97,60 +90,130 @@ params:
 
   home:
     hero:
-      headline: "Pengalaman kita membantu ribuan orang merasa dipahami"
+      hashtag: "#JadiTangguh"
+      rotation_ms: 3000
+      stage_ms: [3000, 6000, 6000]
+      lines:
+        - "bukan berarti nggak pernah rapuh."
+        - "bukan berarti harus menghadapi semuanya sendiri."
+        - "artinya belajar beradaptasi, sedikit demi sedikit."
+      glosses:
+        - word: "rapuh"
+          text: "Wajar merasa rapuh. Mengenali apa yang Anda alami adalah bagian dari prosesnya."
+          href: "/faq/#bantuan"
+        - word: "sendiri"
+          text: "Mencari dan menerima dukungan juga bagian dari resiliensi."
+          link_label: "Baca makna tangguh ↓"
+          href: "#makna-tangguh"
+        - word: "beradaptasi"
+          text: "Dalam riset, ini disebut resiliensi psikologis: proses belajar menghadapi kesulitan, pelan-pelan."
+          link_label: "Baca makna tangguh ↓"
+          href: "#makna-tangguh"
       body:
-        - text: "Kelelahan emosional sering menjadi bagian dari keseharian kita. Dengan saling berbagi pengalaman, kita bisa memahami bagaimana burnout dialami oleh orang-orang di sekitar kita."
+        - text: "Gerakan riset warga untuk memahami kesehatan mental bersama-sama."
       primary_cta: "Mulai Survei (10 Menit)"
       trust:
-        - "Privasi terjaga"
-        - "Untuk penelitian"
-        - "Laporan hasil langsung tersedia"
-    why_it_matters:
-      title: "Kenapa penelitian ini penting?"
-      body: "Banyak pengalaman sehari hari tentang kesehatan mental belum cukup terwakili dalam penelitian. Ketika ribuan pengalaman dikumpulkan melalui platform ini, peneliti dapat menemukan pola yang membantu mengembangkan layanan yang lebih tepat bagi masyarakat Indonesia."
-      cta: "Mulai Survei"
-    how_it_works:
-      title: "Cara kerjanya"
+        - "Sepuluh menit, boleh berhenti kapan saja"
+        - "Hasil riset dibagikan kembali untuk publik"
+        - "Bukan diagnosis, tidak ada jawaban salah"
       steps:
-        - num: "1"
-          title: "Isi Survei"
-          text: "Jawab pertanyaan tentang apa yang sehari-hari Anda rasakan. Tidak ada jawaban benar atau salah, Anda cukup menanggapi sesuai dengan apa yang Anda alami."
-        - num: "2"
-          title: "Dapatkan ID Anonim"
-          text: "Begitu selesai, sistem otomatis membuat ID Anonim. Identitas ini memungkinkan partisipasi penelitian tetap terlindungi tanpa menggunakan nama Anda."
-        - num: "3"
-          title: "Lihat Laporan Anda"
-          text: "Laporan ringkas langsung tersedia setelah survei selesai. Jika nanti ingin menyimpannya, Anda bisa mengklaim laporan menggunakan email melalui magic link."
-    claim_report:
-      title: "Laporan Anda langsung tersedia"
-      subtitle: "Setelah menyelesaikan survei, Anda langsung mendapatkan laporan. Jika ingin menyimpannya untuk nanti, Anda bisa mengklaimnya kapan saja."
+        - "Isi survei"
+        - "Dapat ID Anonim"
+        - "Lihat laporan"
+      demo:
+        label: "Contoh alur survei"
+        note: "Contoh saja. Jawaban di sini tidak disimpan."
+        badge: "Contoh"
+        question:
+          kicker: "Contoh pertanyaan"
+          instruction: "Selama 2 minggu terakhir, seberapa sering Anda terganggu oleh masalah-masalah berikut?"
+          item: "Merasa gugup, cemas, atau gelisah"
+          options:
+            - "Tidak pernah"
+            - "Beberapa hari"
+            - "Lebih dari separuh waktu yang dimaksud"
+            - "Hampir setiap hari"
+        id:
+          label: "ID Anonim Anda"
+          prefix: "JT-"
+          length: 10
+          count: 5
+          text: "Jawaban Anda bergabung dengan jawaban warga lain, tanpa nama."
+        report:
+          title: "Laporan Anda"
+          badge: "Baseline"
+          bars:
+            - label: "Kecemasan"
+              value: 40
+            - label: "Resiliensi"
+              value: 65
+          timeline_label: "Cek ulang berkala"
+          timeline:
+            - "Baseline"
+            - "Cek ulang 1"
+            - "Cek ulang 2"
+          retake: "Simpan hasil hari ini ke akun Anda, lalu ikut lagi saat cek ulang berikutnya."
+          save_label: "Simpan hasil"
+          saved_label: "Tersimpan"
+    recognition:
+      kicker: "Kenali tandanya"
+      title: "Stres jarang datang dengan nama"
+      lead: "Banyak dari kita nggak menyebutnya masalah kesehatan mental. Kita menyebutnya hari yang panjang, atau sekadar capek."
+      signals:
+        - label: "Tubuh"
+          text: "Perut mulas setiap menjelang *deadline*."
+        - label: "Tidur"
+          text: "Bangun tidur masih terasa kurang istirahat."
+        - label: "Pikiran"
+          text: "Banyak *pikiran*, bahkan saat mau istirahat."
+        - label: "Uang"
+          text: "Cemas tiap cek saldo di akhir bulan."
+        - label: "Hubungan"
+          text: "Mudah marah dengan orang terdekat, lalu menyesal."
+        - label: "Diam"
+          text: 'Bilang "nggak apa-apa", padahal ada yang nggak beres.'
+      note: "Ini bukan daftar untuk mendiagnosis diri, dan mengenali satu tanda bukan berarti Anda punya kondisi tertentu. Ini cara untuk saling memahami."
+      closing: "Kalau Anda mengenali salah satunya, itu wajar, dan Anda nggak sendirian. #JadiTangguh berarti memahami kapan perlu mencari dukungan."
+      help_label: "Kalau terasa berat sekarang, lihat bantuan"
+    meaning:
+      kicker: "Makna tangguh"
+      title: "Tangguh bukan berarti kuat terus"
+      lead: "Tangguh adalah nama gerakan kita. Dalam penelitian, kita menyebutnya resiliensi psikologis, yaitu proses belajar beradaptasi, menemukan cara menghadapi kesulitan, dan mengembangkan sumber daya yang membantu kita menjaga atau memulihkan kesehatan mental. Mencari dan menerima dukungan juga bagian dari proses itu."
       cards:
-        - icon: "fingerprint-pattern"
-          title: "ID Anonim dibuat otomatis"
-          text: "Setiap partisipasi mendapat ID Anonim sehingga laporan bisa dibuat tanpa menggunakan nama Anda."
-        - icon: "mail-badge"
-          title: "Klaim dengan magic link"
-          text: "Cukup masukkan email jika ingin menyimpan laporan. Kami mengirimkan tautan masuk tanpa password."
-        - icon: "scroll-text"
-          title: "Riwayat tersimpan"
-          text: "Partisipasi berikutnya akan tersimpan di tempat yang sama sehingga Anda dapat melihat perkembangan dari waktu ke waktu."
-      note:
-        title: "Email bersifat opsional"
-        text: "Anda tetap dapat melihat laporan segera setelah survei selesai hingga 24 jam. Email hanya diperlukan jika ingin menyimpannya ke akun."
-    research_credibility:
-      title: "Dibangun untuk penelitian kesehatan"
-      cards:
-        - title: "Pemrosesan ID Anonim"
-          text: "Sistem menggunakan ID Anonim agar partisipasi penelitian tidak bergantung pada nama atau identitas pribadi."
-        - title: "Dirancang untuk Penelitian"
-          text: "Platform dibuat khusus untuk mendukung pengumpulan data penelitian secara konsisten."
-        - title: "Akses Kembali Laporan"
-          text: "Klaim laporan kapan saja menggunakan magic link tanpa mengubah partisipasi Anda."
-      cta: "Mulai Survei"
+        - muted: "Bukan pura-pura baik-baik saja"
+          strong: "Tapi mengenali apa yang kita alami"
+        - muted: "Bukan menahan-nahan perasaan"
+          strong: "Tapi mencari cara yang cocok, termasuk berhenti sebentar"
+        - muted: "Bukan menghadapi semuanya sendiri"
+          strong: "Tapi mencari dan menerima dukungan"
+    why_record:
+      kicker: "Kenapa dicatat"
+      title: "Yang nggak dicatat, nggak terlihat"
+      lead: "Kebijakan yang baik butuh data yang baik. Untuk memahami pengalaman yang benar-benar kita jalani, peneliti perlu mendengarnya langsung dari kita."
+      quote: "Satu kali pengisian ibarat satu foto yang menangkap satu momen. Pengisian berulang membantu peneliti memahami perubahan, cara kita beradaptasi, dan hal-hal yang mendukung kesehatan mental dari waktu ke waktu. Ikut satu kali pun tetap berharga."
+      closing: "Ini riset oleh warga. Pengalaman dikumpulkan dari publik, dan hasilnya dibagikan kembali untuk publik."
+    if_join:
+      kicker: "Kalau Anda ikut"
+      title: "Sepuluh menit, tanpa nama"
+      steps:
+        - title: "Isi Survei."
+          text: "Jawab pertanyaan tentang apa yang sehari-hari Anda rasakan. Tidak ada jawaban benar atau salah."
+        - title: "Dapatkan ID Anonim."
+          text: "Begitu selesai, sistem otomatis membuat ID Anonim, jadi Anda tidak perlu mengisi nama. Peneliti hanya melihat ID acak, bukan identitas Anda."
+        - title: "Lihat Laporan Anda."
+          text: "Laporan ringkas langsung tersedia. Email hanya diperlukan jika Anda ingin menyimpannya, dan peneliti tidak bisa melihat email Anda. Laporan tanpa email hanya bisa disimpan dalam 24 jam."
+      assurances:
+        - "Gratis"
+        - "Boleh berhenti kapan saja"
+        - "Data tidak dijual"
+        - "Bukan diagnosis"
+      link_label: "Baca detail studi dan cara data dikelola"
     final_cta:
-      headline: "Sepuluh menit Anda berharga"
-      body: "Dalam sepuluh menit, Anda dapat membantu pengembangan program kesehatan yang lebih baik. Mulai dari satu partisipasi, dan simpan laporan Anda. Bangun riwayat partisipasi penelitian secara bertahap."
-      cta: "Mulai Survei Sekarang"
+      kicker: "Ikut serta"
+      headline: "Jaga diri. Jaga sesama. Mulai dari sini."
+      body: "Sepuluh menit dari Anda bisa membantu kita memahami resiliensi dan kesehatan mental bersama-sama. Sekecil apa pun, itu berarti."
+      cta: "Mulai Survei (10 Menit)"
+      faq_label: "Masih ada pertanyaan? Baca FAQ."
 
   social_media:
     github:
@@ -168,37 +231,41 @@ params:
 
 menu:
   main:
-    - identifier: feature
-      name: Feature
-      url: /feature/
+    - identifier: home
+      name: Beranda
+      url: /
       weight: 1
-    - identifier: pricing
-      name: Pricing
-      url: /pricing/
+    - identifier: research
+      name: Riset
+      url: /research/
       weight: 10
+    - identifier: faq
+      name: FAQ
+      url: /faq/
+      weight: 20
     - identifier: about
-      name: About
+      name: Tentang
       url: /about/
-      weight: 20
+      weight: 30
     - identifier: blog
-      name: Blogs
+      name: Blog
       url: /blog/
-      weight: 20
+      weight: 40
   footer:
-    - identifier: feature
-      name: Feature
-      url: /feature/
+    - identifier: faq
+      name: FAQ
+      url: /faq/
       weight: 1
-    - identifier: pricing
-      name: Pricing
-      url: /pricing/
+    - identifier: research
+      name: Riset
+      url: /research/
       weight: 10
     - identifier: about
-      name: About
+      name: Tentang
       url: /about/
       weight: 20
     - identifier: contact
-      name: Contact
+      name: Kontak
       url: /contact/
       weight: 50
 

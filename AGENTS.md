@@ -1,65 +1,30 @@
-# Konsulin Landing Page
+# Konsulin.care – Home of #JadiTangguh
 
-This is a Hugo + Alpine.js + TailwindCSS landing page for Konsulin, an open-source digital mental health platform. The primary goal is to drive user habit formation by converting visitors to WhatsApp interactions within 10 seconds.
+Hugo + Alpine.js + TailwindCSS site. Home of #JadiTangguh, a citizen science movement on psychological resilience led by Konsulin. Not a product landing page.
 
-## Project Setup
+## Setup
 
-Use `npm` as the package manager.
+Package manager is `pnpm`.
 
-Build and development commands:
-- `npm run start` – Starts Hugo server + TailwindCSS watcher concurrently
-- `npm run build` – Builds production-ready site with minification
+- `pnpm run start` – Hugo server + TailwindCSS watcher
+- `pnpm run build` – production build with minification
+- `pnpm test` – test suite; run it and the build before merging
 
-## Landing Page Structure
+## Read first
 
-The landing page follows a **modular conversion formula** with repeating sections. Before making changes, review `docs/LANDING_PAGE_FORMULA.md` to understand the section template and interactivity patterns.
+- `docs/DESIGN.md` – visual language, radius policy, 8/4 rail, bands. Follows the redesign in https://github.com/konsulin-care/konsulin-app
+- `docs/UI.md` – partials, params, class recipes, banned classes, CSS rebuild
+- `docs/UX.md` – journey, voice, honesty, safety, behaviour
+- `docs/DESIGN_TOKENS.md` – token values and roles
 
-## Key Strategic Decisions
+## Non-negotiables
 
-**CTA Priority**: Primary CTA redirects to WhatsApp. Secondary CTA to PWA dashboard.
-- WhatsApp is the entry point for habit formation (users check it 10+ times daily)
-- PWA is the insight/analytics layer (accessed after initial journaling)
-- See `docs/CTA_STRATEGY.md` for the dual-CTA architecture and copy guidelines
+- One CTA: taking part in a study. No competing CTAs.
+- Site map: Home, Research, FAQ, About, Blog. Help, privacy, contact and services in the footer.
+- Copy is Indonesian. Reader is "Anda"; Konsulin speaks as "saya". Soften the tagline; no outcome promises.
+- No unconfirmed counts; use a visible `TODO(maintainer)`. Never state or imply ethics approval; render the front matter ethics string verbatim. Screening is not diagnosis.
+- Help resources stay reachable.
+- Tailwind core utilities, design tokens and Alpine.js only. No dark mode. Mobile-first at 375, 640 and 768px.
+- `assets/css/style.css` is a committed build; run `pnpm run build:tw` after adding classes.
 
-**Audience**: Indonesian general public (self-care, wellness). 
-- Copy must feel conversational, not clinical
-- Reference Indonesian mental health context and values
-- See `docs/INDONESIAN_COPY_GUIDELINES.md` for tone and phrasing
-
-## Interactive Elements
-
-Use Alpine.js for interactions (expand/collapse, tabs, carousel, scroll-reveal). Avoid adding external libraries like AOS or Gsap.
-
-Interactive patterns available:
-- Expand/collapse (x-data with toggle)
-- Tabs/toggle groups (x-data with state management)
-- Carousel (array iteration with prev/next)
-- Scroll-reveal (detect visibility with @scroll.window)
-
-For specifics, see `docs/ALPINE_PATTERNS.md`.
-
-## Styling
-
-- Use only TailwindCSS core utility classes (no plugins except @tailwindcss/typography for content)
-- Dark mode via Tailwind's class strategy (add `dark:` utilities as needed)
-- Breakpoints: mobile-first, test at sm (640px) and md (768px) minimum
-
-## Testing & QA
-
-Before committing:
-- Test all CTAs redirect to correct URLs (WhatsApp or PWA)
-- Verify mobile responsiveness (test on phone or mobile browser DevTools)
-- Confirm all Alpine.js interactions work (expand, tabs, carousels)
-- Check that page loads in under 3 seconds (Hugo serves static files; monitor for CSS/JS weight)
-
-Run `npm run build` to generate production output before merging.
-
-## File Structure Hints
-
-- Hugo content: `content/` (sections, posts)
-- Hugo layouts: `layouts/` (base template, section templates)
-- TailwindCSS: `assets/css/main.css` (gets compiled to `assets/css/style.css`)
-- JavaScript/Alpine: Included directly in layouts via `<script>` tags
-- Documentation: `docs/` (guides for agents, progressively disclosed)
-
-Don't document file paths in detail—they change. Instead, explore the project structure naturally.
+Explore the project structure instead of documenting file paths here.

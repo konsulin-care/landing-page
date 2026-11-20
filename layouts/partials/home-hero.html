@@ -1,83 +1,174 @@
 <!-- Hero section: purpose, 10-minute duration, ID Anonim, report availability, CTA -->
-<div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8">
+{{ $hero := .Site.Params.home.hero }}
+{{ $demo := .Site.Params.home.hero.demo }}
+{{ $clock := dict "ms" ($hero.rotation_ms | default 3000) "durations" $hero.stage_ms "idStage" 1 "idCount" $demo.id.count "idPrefix" $demo.id.prefix "idSize" $demo.id.length }}
+<div class="relative max-w-6xl mx-auto px-6 py-24 md:px-8" data-hero x-data="jtHeroSync({{ len $hero.lines }}, {{ $clock | jsonify }})">
   <div class="grid gap-10 md:grid-cols-2 md:items-center">
-    <div class="order-2 md:order-1 text-center md:text-left">
-      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-gray-900 dark:text-gray-50">
-        {{ .Site.Params.home.hero.headline }}
+    <div class="order-1 text-left touch-pan-y" data-hero-text @pointerdown="swipeStart($event.clientX)" @pointerup="swipeEnd($event.clientX)">
+      {{ $url := .Site.Params.hashtag_url | default .Site.Params.social_media.instagram.url }}
+      <div class="mb-4 flex gap-2" data-hero-segments>
+        {{ range $i, $line := .Site.Params.home.hero.lines }}
+        <button
+          type="button"
+          class="min-h-11 flex-1 flex items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          aria-label="Pesan {{ add $i 1 }} dari {{ len $.Site.Params.home.hero.lines }}"
+          @click="select({{ $i }})"
+          :aria-current="i === {{ $i }}"
+        >
+          <span class="block h-1 w-full rounded-full bg-muted overflow-hidden">
+            <span class="block h-full bg-turquoise-tint transition-[width] duration-100 ease-linear motion-reduce:transition-none" :style="{ width: (i === {{ $i }} ? progress() * 100 : 0) + '%' }"></span>
+          </span>
+        </button>
+        {{ end }}
+      </div>
+      <div class="relative">
+      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground">
+        <a href="{{ $url }}" target="_blank" rel="noopener" class="font-extrabold text-turquoise-deep hover:underline">{{ .Site.Params.home.hero.hashtag }}</a>
+        <span class="grid">
+          {{ $glosses := .Site.Params.home.hero.glosses }}
+          {{ range $i, $line := .Site.Params.home.hero.lines }}
+          {{ $rendered := $line }}
+          {{ with index $glosses $i }}
+          {{ $btn := printf `<button type="button" class="bg-linear-to-t from-turquoise-tint from-50%% to-transparent to-50%% bg-no-repeat bg-left-bottom pb-1 box-decoration-clone transition-[background-size] duration-700 motion-reduce:transition-none" :class="i === %d ? 'bg-size-[100%%_100%%]' : 'bg-size-[0%%_100%%]'" aria-controls="hero-gloss-%d" :aria-expanded="gloss === %d" @click="gloss === %d ? closeGloss() : openGloss(%d)">%s</button>` $i $i $i $i $i .word }}
+          {{ $rendered = replace $line .word $btn 1 }}
+          {{ end }}
+          <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 0 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $rendered | safeHTML }}</span>
+          {{ end }}
+        </span>
       </h1>
 
+      {{ range $k, $gloss := .Site.Params.home.hero.glosses }}
+      {{ $label := $gloss.link_label | default $.Site.Params.home.recognition.help_label }}
+      <div
+        id="hero-gloss-{{ $k }}"
+        role="dialog"
+        aria-label="{{ $gloss.word }}"
+        x-show="gloss === {{ $k }}"
+        x-cloak
+        @click.outside="closeGloss()"
+        @keydown.escape.window="closeGloss()"
+        class="absolute inset-x-0 top-full z-10 mt-2 rounded-lg border border-turquoise bg-card p-4 text-sm text-charcoal-700"
+      >
+        <p>{{ $gloss.text }}</p>
+        <p class="mt-2">
+          <a href="{{ $gloss.href }}" class="font-semibold text-turquoise-deep underline underline-offset-4">{{ $label }}</a>
+        </p>
+      </div>
+      {{ end }}
+      </div>
+
       {{ range .Site.Params.home.hero.body }}
-      <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-justify text-gray-700 dark:text-gray-300">
+      <p class="mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-6 md:leading-8 text-charcoal-700">
         {{ .text }}
       </p>
       {{ end }}
 
-      <a
-        href="{{ .Site.Params.forward }}"
-        class="inline-flex items-center justify-center px-8 py-4 mt-8 text-base font-semibold text-white rounded-3xl bg-primary-700 shadow-sm hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-      >
-        {{ .Site.Params.home.hero.primary_cta }}
-      </a>
-
-      {{/* Desktop: all items inline */}}
-      <div class="hidden md:block mt-6">
-        <p class="text-sm text-gray-600 dark:text-gray-400">
-          {{ range $i, $item := .Site.Params.home.hero.trust }}{{ if $i }} <span class="mx-2">·</span> {{ end }}{{ . }}{{ end }}
-        </p>
-      </div>
-
-      {{/* Mobile: Alpine.js carousel, slide right-to-left */}}
-      <div
-        x-data="{
-          current: 0,
-          items: {{ .Site.Params.home.hero.trust | jsonify }},
-          init() {
-            this._timer = setInterval(() => {
-              if (!document.hidden) this.current = (this.current + 1) % this.items.length;
-            }, 3000);
-          }
-        }"
-        class="relative h-6 overflow-hidden mt-6 md:hidden"
-      >
-        {{ range $i, $item := .Site.Params.home.hero.trust }}
-        <span
-          x-show="current === {{ $i }}"
-          x-transition:enter="transition ease-out duration-400"
-          x-transition:enter-start="opacity-0 translate-x-full"
-          x-transition:enter-end="opacity-100 translate-x-0"
-          x-transition:leave="transition ease-in duration-400"
-          x-transition:leave-start="opacity-100 translate-x-0"
-          x-transition:leave-end="opacity-0 -translate-x-full"
-          class="absolute inset-0 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400"
-        >{{ . }}</span>
-        {{ end }}
+      {{ $stepDelays := slice "delay-0" "delay-150" "delay-300" }}
+      <div class="w-full sm:w-fit" x-data="{ ctaActive: false }">
+        <div class="mt-8" @jt-cta-nudge.window="ctaActive = true; setTimeout(function () { ctaActive = false }, 2000)" @mouseenter="ctaActive = true" @mouseleave="ctaActive = false" @focusin="ctaActive = true" @focusout="ctaActive = false" @touchstart.passive="ctaActive = true">
+          {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta "full" true) }}
+        </div>
+        <ol class="relative mt-4 grid grid-cols-3 gap-2 text-xs text-muted-foreground" data-hero-steps>
+          <span aria-hidden="true" class="absolute left-[16.67%] right-[16.67%] top-3 h-px bg-border"><span class="block h-full origin-left bg-turquoise transition-transform duration-500 motion-reduce:transition-none" :class="ctaActive ? 'scale-x-100' : 'scale-x-0'"></span></span>
+          {{ range $i, $step := .Site.Params.home.hero.steps }}
+          <li class="flex flex-col items-center gap-2 text-center">
+            <span class="relative bg-card flex h-6 w-6 items-center justify-center rounded-full border border-border transition-colors duration-300 motion-reduce:transition-none {{ index $stepDelays $i }}" :class="(ctaActive || i === {{ $i }}) && 'bg-turquoise-tint border-turquoise text-foreground'">{{ add $i 1 }}</span>
+            <span class="inline-grid">
+              <span aria-hidden="true" class="invisible col-start-1 row-start-1 font-semibold">{{ $step }}</span>
+              <span class="col-start-1 row-start-1" :class="i === {{ $i }} && 'font-semibold text-foreground'">{{ $step }}</span>
+            </span>
+          </li>
+          {{ end }}
+        </ol>
       </div>
     </div>
 
-    <div class="order-1 md:order-2 hero-image-wrapper">
-      {{ $img := resources.Get "images/hero.jpg" }}
-      {{ with $img }}
-      {{ $webp := .Resize "800x0 webp q80" }}
-      <img
-        src="{{ $webp.RelPermalink }}"
-        alt="Ilustrasi partisipasi penelitian kesehatan mental"
-        width="{{ $webp.Width }}"
-        height="{{ $webp.Height }}"
-        class="rounded-3xl object-cover w-full"
-        fetchpriority="high"
-      />
-      {{ end }}
+    <div class="order-2 hero-image-wrapper">
+      <figure data-hero-demo class="m-0" @pointerenter="$event.pointerType === 'mouse' && hold('hover')" @pointerleave="release('hover'); release('press')" @pointerdown="hold('press')" @pointerup="release('press')" @pointercancel="release('press')">
+        <div class="relative rounded-lg border border-border bg-card p-4">
+          <span class="absolute -top-3 left-4 rounded-lg border border-border bg-card px-2 text-xs font-semibold text-muted-foreground">{{ $demo.badge }}</span>
+          <div class="grid">
+            <div data-hero-demo-stage class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none" :class="{ [hiddenClass]: i !== 0 }">
+              <p class="section-kicker">{{ $demo.question.kicker }}</p>
+              <p class="text-sm text-charcoal-700">{{ $demo.question.instruction }}</p>
+              <p class="mt-3 font-semibold text-foreground">{{ $demo.question.item }}</p>
+              <div class="mt-3 grid gap-2">
+                {{ range $oi, $o := $demo.question.options }}
+                <button type="button" class="min-h-11 rounded-lg border border-border text-left px-4 py-2 text-sm" @click="answer({{ $oi }}); $dispatch('jt-cta-nudge')" :aria-pressed="picked === {{ $oi }}" :class="picked === {{ $oi }} && 'bg-turquoise-tint border-turquoise font-semibold'{{ if eq $oi 1 }} || (picked === null && at(1200) && 'bg-turquoise-tint border-turquoise font-semibold'){{ end }}">{{ $o }}</button>
+                {{ end }}
+              </div>
+              <p class="mt-3 text-sm text-charcoal-700" x-show="picked !== null" x-cloak>Tidak ada jawaban salah. Lanjutkan di survei lengkap (10 menit).</p>
+            </div>
+            <div data-hero-demo-stage class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none invisible opacity-0" :class="{ [hiddenClass]: i !== 1 }">
+              <div class="grid gap-2">
+                {{ $last := sub $demo.id.count 1 }}
+                {{ range $k := seq 0 $last }}
+                <div aria-hidden="true" class="rounded-lg border px-4 py-2 transition-[opacity,translate] duration-500 motion-reduce:transition-none {{ if eq $k $last }}border-turquoise{{ else }}border-border{{ end }}" :class="at({{ mul $k 360 }}) ? '{{ if eq $k $last }}opacity-100{{ else }}opacity-70{{ end }} translate-y-0' : 'opacity-0 translate-y-2'">
+                  {{ if eq $k $last }}<p class="section-kicker">{{ $demo.id.label }}</p>{{ end }}
+                  <p class="font-mono text-sm font-bold text-foreground" x-text="ids[{{ $k }}]">{{ $demo.id.prefix }}••••••••••</p>
+                </div>
+                {{ end }}
+              </div>
+              <p class="mt-3 text-sm text-charcoal-700">{{ $demo.id.text }}</p>
+            </div>
+            <div data-hero-demo-stage class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none invisible opacity-0" :class="{ [hiddenClass]: i !== 2 }">
+              <div class="flex items-center justify-between gap-2">
+                <p class="font-semibold text-foreground">{{ $demo.report.title }}</p>
+                <span class="rounded-lg bg-turquoise-tint px-2.5 py-0.5 text-xs font-semibold text-foreground">{{ $demo.report.badge }}</span>
+              </div>
+              <div class="mt-2 grid gap-2">
+                {{ range $k, $bar := $demo.report.bars }}
+                <div>
+                  <p class="text-xs text-charcoal-700">{{ $bar.label }}</p>
+                  <div class="h-2 w-full rounded-md bg-muted overflow-hidden"><div class="h-full bg-turquoise transition-[width] duration-700 motion-reduce:transition-none" :style="{ width: at({{ add 300 (mul $k 450) }}) ? '{{ $bar.value }}%' : '0%' }"></div></div>
+                </div>
+                {{ end }}
+              </div>
+              <div class="mt-3">
+                <p class="section-kicker">{{ $demo.report.timeline_label }}</p>
+                <ol class="grid gap-2">
+                  {{ range $k, $step := $demo.report.timeline }}
+                  <li class="flex items-center gap-2 text-xs text-charcoal-700">
+                    <span aria-hidden="true" class="h-2 w-2 rounded-md{{ if eq $k 0 }} bg-turquoise border-turquoise{{ else }} border border-border bg-card{{ end }}"></span>
+                    <span>{{ $step }}</span>
+                  </li>
+                  {{ end }}
+                </ol>
+              </div>
+              <p class="mt-3 text-sm text-charcoal-700">{{ $demo.report.retake }}</p>
+              <span aria-hidden="true" data-hero-save class="mt-3 inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm transition-colors duration-300 motion-reduce:transition-none" :class="at(2100) ? 'bg-turquoise-tint border-turquoise font-semibold text-foreground' : 'border-border text-charcoal-700'">
+                <span x-show="!at(2100)">{{ $demo.report.save_label }}</span>
+                <span x-show="at(2100)" x-cloak class="inline-flex items-center gap-1"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>{{ $demo.report.saved_label }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="mt-3 text-xs text-muted-foreground">
+          <p class="mt-4 grid text-sm text-muted-foreground" aria-hidden="true" data-hero-trust>
+            {{ range $i, $item := .Site.Params.home.hero.trust }}
+            <span class="col-start-1 row-start-1 transition-[opacity,visibility] duration-700 motion-reduce:transition-none{{ if ne $i 0 }} invisible opacity-0{{ end }}" :class="{ [hiddenClass]: i !== {{ $i }} }">{{ $item }}</span>
+            {{ end }}
+          </p>
+          <ul class="sr-only">
+            {{ range .Site.Params.home.hero.trust }}
+            <li>{{ . }}</li>
+            {{ end }}
+          </ul>
+          <span class="sr-only">{{ $demo.label }}. {{ $demo.note }}</span>
+        </figcaption>
+      </figure>
     </div>
   </div>
 
   {{/* Down chevron: plain anchor inviting the visitor to discover section 2 */}}
   <a
-    href="#why-this-research-matters"
-    class="absolute bottom-6 left-1/2 -translate-x-1/2 text-primary-700 hover:text-primary-500 dark:text-primary-300"
+    href="#kenali-tandanya"
+    class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-turquoise-deep"
     aria-label="Lanjut ke bagian berikutnya"
   >
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-6 h-6 animate-bounce">
       <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
     </svg>
+    <span class="flex flex-col items-center gap-1 text-sm" x-show="cycled" x-cloak>{{ .Site.Params.home.recognition.kicker }}</span>
   </a>
 </div>

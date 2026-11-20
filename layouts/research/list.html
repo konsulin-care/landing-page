@@ -1,0 +1,17 @@
+{{ define "main" }}
+<main>
+  {{ partial "page-header.html" (dict "title" .Title "description" .Params.intro) }}
+  <section class="max-w-6xl px-6 mx-auto my-12">
+    <ul class="grid gap-6 md:grid-cols-2">
+      {{ range .Pages }}
+      <li class="p-6 bg-card border border-border rounded-lg" data-study-card>
+        {{ with .Params.status }}{{ partial "study-status.html" . }}{{ end }}
+        <h2 class="mt-3 text-xl font-bold text-foreground">{{ .Title }}</h2>
+        <p class="mt-2 text-muted-foreground">{{ .Params.summary }}</p>
+        <a href="{{ .RelPermalink }}" class="inline-block mt-4 font-semibold text-foreground hover:underline">Lihat studi</a>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+</main>
+{{ end }}

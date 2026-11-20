@@ -4,7 +4,7 @@
     {{ partial "head.html" . }}
   </head>
 
-  <body class="bg-zinc-100 dark:bg-gray-800">
-    {{ partial "nav.html" . }} {{ block "main" . }}{{ end }} {{ partial "footer" . }}
+  <body class="bg-background text-foreground">
+    {{ partial "nav.html" . }} {{ block "main" . }}{{ end }} {{ partial "footer" . }} {{ partial "scroll-indicator.html" . }}
   </body>
 </html>

@@ -1,0 +1,32 @@
+{{ define "main" }}
+<main>
+  {{ partial "page-header.html" (dict "title" .Title "description" .Params.description "width" "max-w-3xl") }}
+  <article class="max-w-3xl px-6 py-12 mx-auto space-y-12">
+    {{ range .Params.sections }}
+      {{ if or .body .items .note }}
+      <section id="{{ .id }}" class="text-muted-foreground">
+        <h2 id="{{ .id }}-title" class="text-2xl font-bold text-foreground">{{ .title }}</h2>
+        {{ with .body }}
+        <div class="mt-4">{{ . | markdownify }}</div>
+        {{ end }}
+        {{ with .items }}
+        <ul class="mt-6 space-y-4">
+          {{ range . }}
+          <li class="border rounded-lg border-border bg-card p-5">
+            <h3 class="font-semibold text-foreground">{{ .title }}</h3>
+            <div class="mt-2">{{ .text | markdownify }}</div>
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+        {{ with .note }}
+        <div class="mt-6 text-sm">
+          {{ . | markdownify }}
+        </div>
+        {{ end }}
+      </section>
+      {{ end }}
+    {{ end }}
+  </article>
+</main>
+{{ end }}
