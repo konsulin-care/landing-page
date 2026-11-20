@@ -15,6 +15,29 @@ All live in `layouts/partials/`. Call with `partial "name.html" (dict ...)`.
 | `summary-card.html` | `page`, `variant` (blog, research) | Aside with the "Ringkasan" kicker. |
 | `scroll-section.html` | `num`, `id`, `partial`, `context`, `tone` (paper, surface, charcoal) | Band wrapper. Sets `page.Store` key `sectionNum` to `num - 1`. |
 | `section-kicker.html` | `label`, `num` | Renders `01 · label`, or `label` alone without `num`, or nothing without `label`. |
+| `scroll-indicator.html` | none | Site-wide scroll indicator rail, included once from `baseof.html`. See below. |
+
+## Scroll indicator
+
+The native page scrollbar is hidden on every page and browser
+(`scrollbar-width: none` plus `html::-webkit-scrollbar` in `assets/css/main.css`),
+because OS scrollbars look different everywhere and a full grey bar breaks the
+layout on Linux. In its place, `layouts/partials/scroll-indicator.html` draws a
+thin `bg-charcoal-400` pill on a fixed rail at the right edge
+(`fixed top-0 right-0.5 z-50 h-screen w-1.5`).
+
+The indicator is display only: `pointer-events-none` and `aria-hidden="true"`,
+no dragging and no click handling, so it never competes with content or the CTA.
+State comes from `assets/js/scroll-indicator.js` (`window.jtScrollIndicator`,
+loaded from `footer.html` before Alpine): it listens to the window `scroll`
+event, which covers mouse wheel, keyboard (arrows, Space, PgUp/PgDn, Home/End),
+trackpad and in-page anchor jumps. It appears on the first scroll and hides
+800ms after the last one; thumb height is the viewport-to-document ratio with a
+32px minimum, and offset is applied with `transform: translateY(...)`.
+
+Visibility is gated on Tailwind's `pointer-fine:` variant, so it only shows for
+mouse and trackpad input and stays hidden on touch and mobile. Keep it token
+only (`bg-charcoal-400`, `rounded-full`, `motion-reduce:transition-none`).
 
 Home section partials (`home-*.html`) take one flat dict. Read the visible
 number with `page.Store.Get "sectionNum"`.
