@@ -89,7 +89,7 @@ groups:
     items:
       - q: 'Siapa di balik gerakan ini?'
         a: >-
-          Gerakan ini dikerjakan oleh peneliti dari University of Groningen, Universitas Indonesia, dan BINUS University, bersama PT Teman Konsulin Sejawat dan PT Atensi Kini.
+          Gerakan ini dikerjakan oleh peneliti dari University of Groningen, University Medical Center Groningen, Universitas Indonesia, dan BINUS University, bersama PT Teman Konsulin Sejawat dan PT Atensi Kini.
       - q: 'Kenapa harus di Konsulin?'
         a: >-
           Konsulin menyediakan platform kolaboratif yang terbuka untuk pengumpulan data penelitian. Karena Konsulin open source, Anda bisa melihat sendiri bagaimana data Anda ditangani. Kode yang terbuka juga membuat keamanannya lebih mudah diperiksa oleh siapa pun.
