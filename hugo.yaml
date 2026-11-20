@@ -112,9 +112,9 @@ params:
         - text: "Gerakan riset warga untuk memahami kesehatan mental bersama-sama."
       primary_cta: "Mulai Survei (10 Menit)"
       trust:
-        - "Bukan diagnosis, tidak ada jawaban salah"
-        - "Hasil riset dibagikan kembali untuk publik"
         - "Sepuluh menit, boleh berhenti kapan saja"
+        - "Hasil riset dibagikan kembali untuk publik"
+        - "Bukan diagnosis, tidak ada jawaban salah"
       steps:
         - "Isi survei"
         - "Dapat ID Anonim"

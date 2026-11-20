@@ -7,9 +7,9 @@ import { buildSite, readBuilt } from './helpers/build.mjs';
 import { read, sectionHtml } from './helpers/html.mjs';
 
 const EXPECTED_TRUST = [
-  'Bukan diagnosis, tidak ada jawaban salah',
-  'Hasil riset dibagikan kembali untuk publik',
   'Sepuluh menit, boleh berhenti kapan saja',
+  'Hasil riset dibagikan kembali untuk publik',
+  'Bukan diagnosis, tidak ada jawaban salah',
 ];
 
 let hero = '';
@@ -100,6 +100,18 @@ function headlineSpans() {
 test('params.home.hero.trust lists the three agreed strings in pair order', () => {
   assert.deepEqual(heroTrust(), EXPECTED_TRUST);
   assert.equal(heroTrust().length, heroLineCount(), 'trust pairs match the headline pair count');
+});
+
+test('the not-diagnosis assurance shows with the report preview', () => {
+  const spans = [...chip.matchAll(/<span\b[^>]*>([\s\S]*?)<\/span>/g)].map((match) => ({
+    tag: match[0].slice(0, match[0].indexOf('>') + 1),
+    text: match[1].trim(),
+  }));
+  assert.equal(spans.length, EXPECTED_TRUST.length, 'one span per trust item');
+
+  const last = spans[spans.length - 1];
+  assert.equal(last.text, 'Bukan diagnosis, tidak ada jawaban salah', 'the third trust span carries the not-diagnosis line');
+  assert.match(attr(last.tag, ':class') ?? '', /i\s*!==\s*2\b/, 'the not-diagnosis line shows while preview 3 is active');
 });
 
 test('the hero renders exactly one trust chip inside the demo figcaption, not the text column', () => {
