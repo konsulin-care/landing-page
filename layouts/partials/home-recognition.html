@@ -23,15 +23,17 @@
             aria-pressed="false"
             :aria-pressed="picked.includes('{{ .label }}').toString()"
             @click="toggle('{{ .label }}')"
-            class="group flex w-full min-h-11 items-start gap-4 rounded-lg border border-border bg-card p-5 text-left aria-pressed:border-turquoise-deep aria-pressed:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            class="group flex h-full w-full min-h-11 cursor-pointer items-start gap-4 rounded-lg border border-border bg-card p-5 text-left transition-colors motion-reduce:transition-none hover:border-turquoise active:border-turquoise-deep aria-pressed:border-turquoise-deep aria-pressed:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
-            {{ partial "icon.html" (dict "name" .icon "class" "mt-0.5 h-5 w-5 flex-shrink-0 text-turquoise-deep") }}
+            <span aria-hidden="true" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-border">
+              {{ partial "icon.html" (dict "name" .icon "class" "h-5 w-5 text-turquoise-deep") }}
+            </span>
             <span class="flex-1">
               <span class="block font-semibold text-foreground">{{ .label }}</span>
               <span class="mt-1 block text-sm leading-6 text-charcoal-700">{{ .text | markdownify }}</span>
             </span>
-            <span aria-hidden="true" class="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border border-border text-turquoise-deep opacity-0 transition-opacity group-aria-pressed:opacity-100">
-              {{ partial "icon.html" (dict "name" "check" "class" "h-4 w-4") }}
+            <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 self-center items-center justify-center rounded-full border border-border group-aria-pressed:border-turquoise-deep group-aria-pressed:bg-turquoise-deep">
+              {{ partial "icon.html" (dict "name" "check" "class" "h-4 w-4 text-background opacity-0 transition-opacity group-aria-pressed:opacity-100") }}
             </span>
           </button>
         </li>

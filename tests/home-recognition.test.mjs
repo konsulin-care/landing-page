@@ -157,9 +157,61 @@ test('the section renders the prompt, hint and six tappable signs with Lucide ic
       svgs.some((svg) => (attr(svg, 'class') ?? '').includes('h-4')),
       `${label} tile renders the smaller check icon`,
     );
-    assert.match(button.inner, /rounded-md border/, `${label} check sits in a rounded bordered box`);
     assert.match(button.inner, /group-aria-pressed:opacity-100/, `${label} check appears when pressed`);
   });
+});
+
+test('every sign tile is a full-height clickable card', () => {
+  const buttons = [...section.matchAll(/<button\b[^>]*>/g)].map((match) => match[0]);
+  assert.equal(buttons.length, 6, 'six sign tiles are rendered');
+
+  for (const tag of buttons) {
+    const label = attr(tag, '@click') ?? tag;
+    const tokens = (attr(tag, 'class') ?? '').split(/\s+/).filter(Boolean);
+    assert.ok(tokens.includes('h-full'), `${label} tile fills its grid row`);
+    assert.ok(tokens.includes('cursor-pointer'), `${label} tile shows a pointer cursor`);
+    assert.ok(tokens.includes('hover:border-turquoise'), `${label} tile tints its border on hover`);
+  }
+});
+
+test('every sign tile shows a resting round check circle that fills when pressed', () => {
+  const buttons = [...section.matchAll(/<button\b[^>]*>([\s\S]*?)<\/button>/g)].map((match) => match[1]);
+  assert.equal(buttons.length, 6, 'six sign tiles are rendered');
+
+  for (const inner of buttons) {
+    const indicator = openingTags(inner, 'span').find((tag) =>
+      (attr(tag, 'class') ?? '').includes('group-aria-pressed:bg-turquoise-deep'),
+    );
+    assert.ok(indicator, 'the tile renders a check indicator');
+
+    const tokens = (attr(indicator, 'class') ?? '').split(/\s+/).filter(Boolean);
+    for (const token of ['rounded-full', 'border', 'self-center']) {
+      assert.ok(tokens.includes(token), `the check indicator carries ${token}`);
+    }
+    assert.ok(!tokens.includes('opacity-0'), 'the check indicator is visible at rest');
+
+    assert.ok(
+      openingTags(inner, 'svg').some((svg) => (attr(svg, 'class') ?? '').includes('group-aria-pressed:opacity-100')),
+      'the check mark appears only while the tile is pressed',
+    );
+  }
+});
+
+test('every sign tile wraps its icon in a bordered circle', () => {
+  const buttons = [...section.matchAll(/<button\b[^>]*>([\s\S]*?)<\/button>/g)].map((match) => match[1]);
+  assert.equal(buttons.length, 6, 'six sign tiles are rendered');
+
+  for (const inner of buttons) {
+    const wrapper = openingTags(inner, 'span').find((tag) => {
+      const tokens = (attr(tag, 'class') ?? '').split(/\s+/);
+      return tokens.includes('rounded-full') && tokens.includes('border');
+    });
+    assert.ok(wrapper, 'the tile renders a bordered circle for its icon');
+
+    const start = inner.indexOf(wrapper);
+    const wrapperInner = inner.slice(start, inner.indexOf('</span>', start));
+    assert.match(wrapperInner, /<svg\b/, 'the icon svg sits inside the bordered circle');
+  }
 });
 
 test('the Tubuh and Tidur tiles render the user and moon-star Lucide icons', () => {

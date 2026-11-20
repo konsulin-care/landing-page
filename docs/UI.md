@@ -278,9 +278,18 @@ On `bg-muted` use `charcoal-700` or `charcoal-900` text, not `charcoal-600`.
   a later task. Content (`*.md`) and docs (`docs/*.md`) are not scanned, so those
 tasks do not rebuild. Whichever task changes scanned markup or scripts rebuilds
   and commits it.
-- Tappable tiles (for example the 02 `kenali-tandanya` signs) use `aria-pressed`
-  variants bound through Alpine (`:aria-pressed`), paired with a second visual
-  cue (ring or check) beside `turquoise-tint`; the selected state is client-only.
+- Tappable tiles (for example the 02 `kenali-tandanya` signs) are `h-full`
+  buttons so tiles sharing a grid row match height (`<li>` stretches, the button
+  fills it; no `auto-rows-fr`). They read as controls: `cursor-pointer`,
+  `hover:border-turquoise`, `active:border-turquoise-deep` and
+  `transition-colors motion-reduce:transition-none`. The category icon sits in a
+  `rounded-full border-border` circle (`h-10 w-10`), and the state indicator is a
+  `rounded-full` check circle on the right, `self-center` and visible at rest
+  (`border border-border`); it fills `turquoise-deep` with a `text-background`
+  check when selected. Selection uses `aria-pressed` variants bound through
+  Alpine (`:aria-pressed`), paired with a second visual cue (the filled circle)
+  beside `turquoise-tint`; the selected state is client-only. `rounded-full` on
+  these decorative spans is allowed - never on an `<a>` other than the CTA.
 - Run `pnpm test` and `pnpm run build` before merging.
 - `docs/ALPINE_PATTERNS.md` uses legacy colour classes (blue, gray) and emoji.
   Copy the Alpine logic only, never the classes.

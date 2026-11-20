@@ -1113,6 +1113,9 @@
   :where(.divide-border > :not(:last-child)) {
     border-color: var(--color-border);
   }
+  .self-center {
+    align-self: center;
+  }
   .overflow-hidden {
     overflow: hidden;
   }
@@ -1564,10 +1567,19 @@
     --tw-prose-invert-th-borders: oklch(43.9% 0 none);
     --tw-prose-invert-td-borders: oklch(37.1% 0 none);
   }
+  .group-aria-pressed\:border-turquoise-deep:is(:where(.group)[aria-pressed="true"] *) {
+    border-color: var(--color-turquoise-deep);
+  }
+  .group-aria-pressed\:bg-turquoise-deep:is(:where(.group)[aria-pressed="true"] *) {
+    background-color: var(--color-turquoise-deep);
+  }
   .group-aria-pressed\:opacity-100:is(:where(.group)[aria-pressed="true"] *) {
     opacity: 100%;
   }
   @media (hover: hover) {
+    .hover\:border-turquoise:hover {
+      border-color: var(--color-turquoise);
+    }
     .hover\:bg-background:hover {
       background-color: var(--color-background);
     }
@@ -1596,6 +1608,9 @@
   }
   .focus-visible\:outline-ring:focus-visible {
     outline-color: var(--color-ring);
+  }
+  .active\:border-turquoise-deep:active {
+    border-color: var(--color-turquoise-deep);
   }
   .aria-pressed\:border-turquoise-deep[aria-pressed="true"] {
     border-color: var(--color-turquoise-deep);
