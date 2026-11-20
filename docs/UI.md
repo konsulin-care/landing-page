@@ -9,13 +9,46 @@ All live in `layouts/partials/`. Call with `partial "name.html" (dict ...)`.
 
 | Partial | Params | Notes |
 | --- | --- | --- |
-| `button.html` | `href`, `label`, `size` (default, sm, lg), `tone` (default, on-dark), `type` | Primary CTA pill. `type` renders a `<button>` instead of `<a>`. |
+| `button.html` | `href`, `label`, `size` (default, sm, lg), `tone` (default, on-dark), `location`, `type` | Primary CTA pill. `type` renders a `<button>` instead of `<a>`. `location` adds `data-cta-location` for CTA tracking. |
 | `card.html` | `inner` (safeHTML) | `bg-card border border-border rounded-lg p-6`. |
+| `icon.html` | `name`, `class` | Lucide icon, see below. |
+| `home-trust.html` | none (flat dict from `scroll-section.html`) | The 05 trust strip. Renders `ethics_status` verbatim via `site.GetPage`; no rail. |
 | `page-header.html` | `title`, `description`, `kicker`, `extra`, `width` | `width` is a max-w class, default `max-w-6xl`. |
 | `summary-card.html` | `page`, `variant` (blog, research) | Aside with the "Ringkasan" kicker. |
 | `scroll-section.html` | `num`, `id`, `partial`, `context`, `tone` (paper, surface, charcoal) | Band wrapper. Sets `page.Store` key `sectionNum` to `num - 1`. |
 | `section-kicker.html` | `label`, `num` | Renders `01 · label`, or `label` alone without `num`, or nothing without `label`. |
 | `scroll-indicator.html` | none | Site-wide scroll indicator rail, included once from `baseof.html`. See below. |
+
+## Icons
+
+`layouts/partials/icon.html` inlines a Lucide icon from
+`node_modules/@iconify-json/lucide/icons.json` (an exact devDependency,
+`@iconify-json/lucide@1.2.157`). Pass `name` and an optional `class`:
+
+```go-html-template
+{{ partial "icon.html" (dict "name" "brain" "class" "h-5 w-5") }}
+```
+
+The partial reads the `icons` map (`prefix`, `icons{name:{body}}`, `aliases`,
+`width` 24, `height` 24); the icon body already carries `fill="none"`,
+`stroke="currentColor"` and `stroke-width="2"`, so it inherits the text colour.
+The rendered `<svg>` is `aria-hidden="true"` and gets the passed `class`.
+An unknown `name` calls `errorf` so a typo fails the build instead of shipping a
+blank box. Lucide is ISC-licensed; keep the notice with the dependency. Icon
+names live per item in `hugo.yaml` as `icon:`.
+
+## Home trust strip
+
+`layouts/partials/home-trust.html` is the 05 paper band and has no rail. It
+reads the ethics status from site config and prints it verbatim (never a claim
+of approval):
+
+```go-html-template
+{{ with site.GetPage "/research/jadi-tangguh" }}{{ .Params.ethics_status }}{{ end }}
+```
+
+The strip is compact (`py-12 md:py-16`) and must not wrap the value in a
+sentence that implies more than the front matter says.
 
 ## Scroll indicator
 
@@ -239,10 +272,15 @@ On `bg-muted` use `charcoal-700` or `charcoal-900` text, not `charcoal-600`.
 # Check and build
 
 - Test breakpoints at 375, 640 and 768px.
-- `assets/css/style.css` is a committed Tailwind build. After adding classes run
-  `pnpm run build:tw` and commit the regenerated file. Whichever task changes
-  scanned markup or scripts rebuilds and commits it; docs changes are not
-  scanned.
+- `assets/css/style.css` is a committed Tailwind build. **Every task that edits
+  `layouts/**/*.html` owns it**: run `pnpm run build:tw` and commit the
+  regenerated `assets/css/style.css` in the same commit, never leave it dirty for
+  a later task. Content (`*.md`) and docs (`docs/*.md`) are not scanned, so those
+tasks do not rebuild. Whichever task changes scanned markup or scripts rebuilds
+  and commits it.
+- Tappable tiles (for example the 02 `kenali-tandanya` signs) use `aria-pressed`
+  variants bound through Alpine (`:aria-pressed`), paired with a second visual
+  cue (ring or check) beside `turquoise-tint`; the selected state is client-only.
 - Run `pnpm test` and `pnpm run build` before merging.
 - `docs/ALPINE_PATTERNS.md` uses legacy colour classes (blue, gray) and emoji.
   Copy the Alpine logic only, never the classes.

@@ -49,13 +49,24 @@ footer help link out of reach.
 # Behaviour
 
 - Scroll-snap: only the hero is an exact-fit slide (`scroll-snap-section--slide`,
-  `100svh`). Sections 2 to 6 flow naturally. On screens shorter than 700px the
+  `100svh`). Sections 2 to 7 flow naturally. On screens shorter than 700px the
   snap is disabled and the chevron is hidden.
-- The hero chevron and the ArrowDown key scroll to the next section.
+- The hero chevron links to `#makna-tangguh` and its label comes from
+  `params.home.meaning.kicker`. Keyboard users move with the browser's normal
+  keys; there is no custom key handler.
 - Interaction uses Alpine.js (carousel, expand and collapse, tabs, reveal).
   No other animation or UI library. Patterns: `docs/ALPINE_PATTERNS.md`.
 - Mobile-first. Check 375, 640 and 768px. The 8/4 rail stacks below `md`.
 - Touch targets are at least 44px (`min-h-11`).
+
+## Section behaviour
+
+- The 02 `kenali-tandanya` signs are tappable tiles. Tapping one only toggles
+  Alpine state in the browser: nothing is stored, sent or counted, and the
+  selection is gone on reload. The copy must state that screening is not a
+  diagnosis.
+- The 04 `kalau-ikut` give/get blocks are a one-open accordion: opening one
+  panel closes any other open panel, so only one answer is expanded at a time.
 
 ## Splash intro
 
