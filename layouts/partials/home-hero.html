@@ -16,7 +16,7 @@
           :aria-current="i === {{ $i }}"
         >
           <span class="block h-1 w-full rounded-full bg-muted overflow-hidden">
-            <span class="block h-full bg-turquoise-deep" :style="{ width: (i === {{ $i }} ? progress() * 100 : 0) + '%' }"></span>
+            <span class="block h-full bg-turquoise-tint transition-[width] duration-100 ease-linear motion-reduce:transition-none" :style="{ width: (i === {{ $i }} ? progress() * 100 : 0) + '%' }"></span>
           </span>
         </button>
         {{ end }}

@@ -1420,6 +1420,10 @@
   .delay-300 {
     transition-delay: 300ms;
   }
+  .duration-100 {
+    --tw-duration: 100ms;
+    transition-duration: 100ms;
+  }
   .duration-300 {
     --tw-duration: 300ms;
     transition-duration: 300ms;
@@ -1431,6 +1435,10 @@
   .duration-700 {
     --tw-duration: 700ms;
     transition-duration: 700ms;
+  }
+  .ease-linear {
+    --tw-ease: linear;
+    transition-timing-function: linear;
   }
   .prose-neutral {
     --tw-prose-body: oklch(37.1% 0 none);
@@ -1839,6 +1847,10 @@
   syntax: "*";
   inherits: false;
 }
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-outline-style {
   syntax: "*";
   inherits: false;
@@ -1882,6 +1894,7 @@
       --tw-font-weight: initial;
       --tw-tracking: initial;
       --tw-duration: initial;
+      --tw-ease: initial;
       --tw-outline-style: solid;
     }
   }

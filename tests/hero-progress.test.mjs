@@ -96,6 +96,13 @@ test('the hero renders one segment button per headline line before the h1', () =
     assert.ok(fill, `segment ${index + 1} renders a fill bound to progress()`);
     assert.match(attr(fill, ':style') ?? '', /width/, 'the fill binds its width');
     assert.match(attr(fill, ':style') ?? '', new RegExp(`i\\s*===\\s*${index}`), 'the fill tracks its own pair');
+
+    const fillClasses = (attr(fill, 'class') ?? '').split(/\s+/).filter(Boolean);
+    assert.ok(fillClasses.includes('bg-turquoise-tint'), `segment ${index + 1} fill uses the tint token`);
+    assert.equal(fillClasses.includes('bg-turquoise-deep'), false, `segment ${index + 1} fill avoids turquoise-deep`);
+    for (const token of ['transition-[width]', 'duration-100', 'ease-linear', 'motion-reduce:transition-none']) {
+      assert.ok(fillClasses.includes(token), `segment ${index + 1} fill has ${token}`);
+    }
   });
 });
 
