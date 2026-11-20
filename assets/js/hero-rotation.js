@@ -1,4 +1,5 @@
 import { nanoId } from './nanoid.js';
+import { SPLASH_CLASS, SPLASH_DONE_EVENT } from './splash-state.js';
 
 /** Rotation interval for the hero headline lines, in milliseconds. */
 export const ROTATION_MS = 3000;
@@ -12,7 +13,9 @@ export const SWIPE_PX = 40;
 /**
  * Builds the Alpine.js data object for the shared hero clock. One clock drives
  * both the rotating headline pair and the trust chip, holding whenever any
- * pause reason is held or the document is hidden.
+ * pause reason is held or the document is hidden. When the splash veil is
+ * still mounted it holds the clock under the `splash` reason until the window
+ * announces `jt-splash-done`.
  * @param {number} n number of hero pairs to rotate through
  * @param {{ ms?: number, durations?: number[], idStage?: number, idCount?: number, idPrefix?: string, idSize?: number }} [opts] clock options; `ms` is the fallback rotation interval, `durations` holds one interval per pair index and the id options configure the ID preview
  * @param {{ window?: Window, document?: Document, setInterval?: (fn: () => void, ms: number) => unknown, random?: (n: number) => Uint8Array }} [env] injectable environment for tests
@@ -124,6 +127,10 @@ export function heroSync(n, opts = {}, env = {}) {
       if (reducedMotion()) {
         this.cycled = true;
         return;
+      }
+      if (doc.documentElement?.classList?.contains(SPLASH_CLASS)) {
+        this.hold('splash');
+        win.addEventListener?.(SPLASH_DONE_EVENT, () => this.release('splash'), { once: true });
       }
       every(() => {
         if (doc.hidden || this.paused) return;
