@@ -42,6 +42,56 @@ only (`bg-charcoal-400`, `rounded-full`, `motion-reduce:transition-none`).
 Home section partials (`home-*.html`) take one flat dict. Read the visible
 number with `page.Store.Get "sectionNum"`.
 
+## Splash intro
+
+A paper veil covers the first homepage view of a tab session while the real nav
+lockup appears centred and enlarged, then glides into its slot. The lockup is
+the existing `<a href="/">` in `layouts/partials/nav.html`, marked with
+`data-splash-logo`; never add a second logo. Behaviour and skip rules:
+`docs/UX.md`.
+
+Files:
+
+- `assets/js/splash-state.js`: shared constants with no side effects
+  (`SPLASH_KEY`, `SPLASH_CLASS`, `SPLASH_RUN_CLASS`, `SPLASH_DONE_EVENT`,
+  `SPLASH_FALLBACK_MS`, `VEIL_ANIMATION`). `splash.js` and `hero-rotation.js`
+  both import from it; `hero-rotation.js` must not import `splash.js`.
+- `assets/js/splash.js`: the gate (`shouldPlay`), the dock offset (`dockOffset`)
+  and the lifecycle (`start`, `dock`, `cleanup`), loaded only on the home page.
+- `layouts/partials/splash.html`: home-only script include, called from
+  `layouts/_default/baseof.html` in the head; the body also calls
+  `window.jtSplashDock()` after the nav renders.
+- `assets/css/main.css`: the veil and lockup animation rules, mirrored in the
+  committed `assets/css/style.css` build.
+
+Classes and custom properties:
+
+- `jt-splash` on `html`: mounts the veil via `html.jt-splash body::before`.
+- `jt-splash-run` on `html`: starts the lockup timeline.
+- `--jt-splash-x`, `--jt-splash-y`, `--jt-splash-scale` on `html`: the measured
+  translation and scale set by `dockOffset`, consumed by the keyframes.
+
+Layering:
+
+- The veil uses `z-index: 60`, above the `z-50` scroll indicator, and is
+  `pointer-events: none` so it never blocks input.
+- The lockup uses `z-index: 61` so it sits above the veil.
+
+The timeline is about 1.2s. Keyframe percentages map to the 1100ms lockup
+animation: 0 to 15% is the fade-in at centre (scale
+`min(2, 0.6 * viewportWidth / lockupWidth)`, floored at 1), 15 to 45% is the
+hold, and 45 to 100% is the glide into the nav slot with
+`cubic-bezier(0.65, 0, 0.35, 1)`. The veil fades out over 400ms with an 800ms
+delay (`ease-out`) and then becomes `visibility: hidden`. Only `transform` and
+`opacity` are animated.
+
+To change timings, edit `assets/css/main.css`: shift the keyframe percentages
+against the 1100ms duration, and adjust the veil `animation` delay and duration.
+`SPLASH_FALLBACK_MS` in `assets/js/splash-state.js` (default 2500) is the safety
+timeout that tears the splash down if the veil never finishes. After changing
+scanned CSS or markup run `pnpm run build:tw` and commit the regenerated
+`assets/css/style.css`.
+
 # Recipes
 
 Band (set by `tone` in `layouts/index.html`, never by hand in a partial):

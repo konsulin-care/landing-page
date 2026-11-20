@@ -57,6 +57,28 @@ footer help link out of reach.
 - Mobile-first. Check 375, 640 and 768px. The 8/4 rail stacks below `md`.
 - Touch targets are at least 44px (`min-h-11`).
 
+## Splash intro
+
+On the first homepage view of a tab session, a paper veil covers the page and
+the real nav lockup appears centred and enlarged, then glides into its nav slot
+while the veil fades. It plays once per tab session, on the homepage only, and
+never creates a second logo.
+
+Timeline, about 1.2s:
+
+- 0 to 165ms: the lockup fades in at the centre, scaled up.
+- 165 to 495ms: hold.
+- 495 to 1100ms: the lockup moves into its slot, easing
+  `cubic-bezier(0.65, 0, 0.35, 1)`.
+- 800 to 1200ms: the veil fades out, then is hidden.
+
+The splash is skipped when any of these is true: `prefers-reduced-motion` is
+`reduce`; `location.hash` is non-empty; `document.referrer` is same-origin;
+`sessionStorage` is unavailable or throws; the `jt-splash-seen` key is already
+set. Without JavaScript nothing changes. The hero clock holds under the
+`splash` reason until the `jt-splash-done` event, so the rotating headline does
+not start under the veil. Build details: `docs/UI.md`.
+
 ## Hero clock
 
 - One shared clock (`heroSync`, `window.jtHeroSync`, `assets/js/hero-rotation.js`)
@@ -130,7 +152,7 @@ run only under `no-preference`: no interval starts, the pair at index 0 stays,
 `progress()` returns 1 so every stage shows its final state (all ID cards, all
 bars filled, "Tersimpan"), the segments still work, and `cycled` is already
 true. Nothing is drawn on a canvas. The citizen-science canvas falls back to a
-static image.
+static image. The splash never plays.
 
 # Before merging
 
