@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ .Language.Lang }}">
   <head>
-    {{ partial "head.html" . }}
+    {{ partial "head.html" . }} {{ partial "splash.html" . }}
   </head>
 
   <body class="bg-background text-foreground">
-    {{ partial "nav.html" . }} {{ block "main" . }}{{ end }} {{ partial "footer" . }} {{ partial "scroll-indicator.html" . }}
+    {{ partial "nav.html" . }} {{ if .IsHome }}<script>window.jtSplashDock&&window.jtSplashDock()</script>{{ end }} {{ block "main" . }}{{ end }} {{ partial "footer" . }} {{ partial "scroll-indicator.html" . }}
   </body>
 </html>

@@ -1,0 +1,4 @@
+{{- if .IsHome -}}
+{{- $splash := resources.Get "js/splash.js" | js.Build | minify -}}
+<script>{{ $splash.Content | safeJS }}</script>
+{{- end -}}
