@@ -18,7 +18,7 @@
 {{ $faq := dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $questions }}
 <main>
   {{ partial "page-header.html" (dict "title" .Title "description" .Params.description "width" "max-w-3xl") }}
-  <div class="max-w-3xl px-6 py-12 mx-auto space-y-12">
+  <div class="max-w-3xl px-6 py-12 mx-auto space-y-12" x-data="{ open: null }">
     {{ with index $helpItems 0 }}
     <section id="bantuan" data-faq-help class="p-6 border rounded-lg border-turquoise-deep bg-card">
       <h2 class="text-2xl font-bold text-foreground">{{ .q }}</h2>
@@ -36,20 +36,20 @@
         {{ else }}
         {{ $n = add $n 1 }}
         {{ $answerId := printf "faq-%s-%d" $groupId $n }}
-        <div x-data="{ open: false }" class="border rounded-lg border-border bg-card">
+        <div class="border rounded-lg border-border bg-card">
           <button
             type="button"
             data-faq-question
-            @click="open = !open"
-            :aria-expanded="open"
+            @click="open = open === '{{ $answerId }}' ? null : '{{ $answerId }}'"
+            :aria-expanded="(open === '{{ $answerId }}').toString()"
             aria-expanded="false"
             aria-controls="{{ $answerId }}"
             class="flex items-center justify-between gap-4 w-full min-h-11 p-5 text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
             <span class="font-semibold text-foreground">{{ .q }}</span>
-            <span aria-hidden="true" class="text-xl text-turquoise-deep transition-transform" :class="{ 'rotate-45': open }">+</span>
+            <span aria-hidden="true" class="text-xl text-turquoise-deep transition-transform" :class="{ 'rotate-45': open === '{{ $answerId }}' }">+</span>
           </button>
-          <div id="{{ $answerId }}" x-show="open" class="px-5 pb-5 text-muted-foreground">
+          <div id="{{ $answerId }}" x-show="open === '{{ $answerId }}'" class="px-5 pb-5 text-muted-foreground">
             {{ .a | markdownify }}
           </div>
         </div>

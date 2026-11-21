@@ -61,7 +61,7 @@ test('faq renders one question button per source item, wired to a visible answer
       new RegExp(`<div[^>]*\\sid=(?:"${answerId}"|${answerId}(?=[\\s>]))[^>]*>`),
     );
     assert.ok(answer, `missing answer element ${answerId}`);
-    assert.match(answer[0], /x-show=(?:"open"|open)/, answer[0]);
+    assert.match(answer[0], /x-show=(?:"?open\b)/, answer[0]);
   }
   assert.equal(controls.size, buttons.length);
   assert.ok(!/x-cloak/.test(html), 'answers must stay readable without JS');
@@ -124,6 +124,65 @@ test('faq emits one structured Question per rendered question plus the help item
     return entry.name;
   });
   assert.equal(new Set(questions).size, questions.length);
+});
+
+/**
+ * Extracts the id referenced by an element's aria-controls attribute.
+ * @param {string} tag the element's opening tag markup
+ * @returns {string} the referenced element id
+ */
+function controlsId(tag) {
+  const match = tag.match(/aria-controls=(?:"([^"]+)"|([^\s>]+))/);
+  assert.ok(match, tag);
+  return match[1] ?? match[2];
+}
+
+test('faq opens one answer at a time from a single shared scope', () => {
+  const html = faqHtml();
+
+  const scopes = [...html.matchAll(/x-data="\{\s*open:\s*null\s*\}"/g)];
+  assert.equal(scopes.length, 1, 'exactly one accordion scope declares open: null');
+
+  const wrappers = [
+    ...html.matchAll(/<div[^>]*class="border rounded-lg border-border bg-card"[^>]*>/g),
+  ].map((match) => match[0]);
+  assert.ok(wrappers.length > 0, 'faq renders question wrappers');
+  for (const wrapper of wrappers) {
+    assert.doesNotMatch(wrapper, /x-data/, `no per-question open state: ${wrapper}`);
+  }
+
+  const buttons = [...html.matchAll(/<button[^>]*data-faq-question[^>]*>/g)].map(
+    (match) => match[0],
+  );
+  assert.ok(buttons.length > 0, 'faq renders question buttons');
+
+  const keys = new Set();
+  for (const button of buttons) {
+    const answerId = controlsId(button);
+    const key = `open === '${answerId}'`;
+    assert.ok(
+      button.includes(`@click="open = ${key} ? null : '${answerId}'"`),
+      `button toggles its own key: ${button}`,
+    );
+    assert.ok(
+      button.includes(`:aria-expanded="(${key}).toString()"`),
+      `button reflects its own key: ${button}`,
+    );
+    assert.match(button, /aria-expanded="?false"?/, button);
+    assert.ok(!keys.has(answerId), `duplicate answer key ${answerId}`);
+    keys.add(answerId);
+
+    const answer = html.match(
+      new RegExp(`<div[^>]*\\sid=(?:"${answerId}"|${answerId}(?=[\\s>]))[^>]*>`),
+    );
+    assert.ok(answer, `missing answer element ${answerId}`);
+    assert.ok(
+      answer[0].includes(`x-show="${key}"`),
+      `answer reads the same key as its button: ${answer[0]}`,
+    );
+  }
+
+  assert.ok(!/x-cloak/.test(html), 'answers stay readable without JS');
 });
 
 test('faq source has no bracket placeholders', () => {
