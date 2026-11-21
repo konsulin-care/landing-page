@@ -75,16 +75,28 @@ band utility; it stays `bg-foreground text-background`. Hairlines separate paper
 from surface because their contrast is only 1.05, hence `border-y border-border`
 on surface bands.
 
-The homepage band order is surface, paper, surface, paper, surface, charcoal.
+The homepage band order is surface, paper, surface, paper, surface, paper,
+charcoal.
 
-| # | Section id | Tone | Classes |
-| --- | --- | --- | --- |
-| 1 | `hero` | surface | `band-surface border-y border-border` |
-| 2 | `kenali-tandanya` | paper | `band-paper` |
-| 3 | `makna-tangguh` | surface | `band-surface border-y border-border` |
-| 4 | `kenapa-dicatat` | paper | `band-paper` |
-| 5 | `kalau-ikut` | surface | `band-surface border-y border-border` |
-| 6 | `final-cta` | charcoal | `bg-foreground text-background` |
+| # | Section id | Tone | Kicker | Classes |
+| --- | --- | --- | --- | --- |
+| 1 | `hero` | surface | none | `band-surface border-y border-border` |
+| 2 | `makna-tangguh` | paper | 01 | `band-paper` |
+| 3 | `kenali-tandanya` | surface | 02 | `band-surface border-y border-border` |
+| 4 | `kenapa-dicatat` | paper | 03 | `band-paper` |
+| 5 | `kalau-ikut` | surface | 04 | `band-surface border-y border-border` |
+| 6 | `siapa-di-baliknya` | paper | 05 | `band-paper` |
+| 7 | `final-cta` | charcoal | none | `bg-foreground text-background` |
 
-Kickers number the sections 01 to 04 (hero excluded). The final CTA kicker has
+Kickers number the sections 01 to 05 (hero excluded). The final CTA kicker has
 no number. Labels live in `hugo.yaml` under `params.home.<section>.kicker`.
+
+## Compact bands and breakpoints
+
+Two bands break the usual `py-24` rhythm. The 01 `makna-tangguh` paper section
+and the 05 `siapa-di-baliknya` trust strip are compact: `py-12 md:py-16`. The
+trust strip also has no rail; it is a full-width single block, not an 8/4 grid.
+
+The 03 `kenapa-dicatat` three-step row and the 04 `kalau-ikut` give/get two-card
+grid switch from stacked to side-by-side at `lg` (not `md`), while the rest of
+the page is mobile-first at 375, 640 and 768px.

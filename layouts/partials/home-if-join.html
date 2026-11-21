@@ -1,4 +1,4 @@
-<!-- If join section: what taking part actually asks of the reader -->
+<!-- If join section: what taking part asks of the reader, and what they get back -->
 <div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
   <div class="md:grid md:grid-cols-12 md:gap-12">
     <div class="md:col-span-4">
@@ -6,23 +6,81 @@
       <h2 class="text-3xl font-semibold leading-tight text-foreground md:text-4xl">
         {{ .Site.Params.home.if_join.title }}
       </h2>
+      <p class="mt-6 text-base leading-7 text-charcoal-700 md:text-lg md:leading-8">
+        {{ .Site.Params.home.if_join.lead }}
+      </p>
     </div>
 
     <div class="mt-12 md:col-span-8 md:mt-0">
-      <ol class="grid gap-4">
-        {{ range $i, $step := .Site.Params.home.if_join.steps }}
-        <li class="flex gap-4 rounded-lg border border-border bg-card p-6">
-          <span class="text-2xl font-bold text-turquoise-deep">{{ add $i 1 }}</span>
-          <p class="text-base leading-7 text-charcoal-700"><strong class="font-semibold text-foreground">{{ $step.title }}</strong> {{ $step.text }}</p>
-        </li>
-        {{ end }}
-      </ol>
+      <div class="grid gap-4 lg:grid-cols-2">
+        <div class="rounded-lg border border-border bg-card p-6">
+          <h3 class="text-lg font-semibold text-foreground">{{ .Site.Params.home.if_join.give.title }}</h3>
+          <ul class="mt-4 space-y-4">
+            {{ range .Site.Params.home.if_join.give.items }}
+            <li class="flex items-start gap-3">
+              {{ partial "icon.html" (dict "name" .icon "class" "mt-0.5 h-5 w-5 flex-shrink-0 text-turquoise-deep") }}
+              <div>
+                <p class="font-semibold text-foreground">{{ .title }}</p>
+                <p class="mt-1 text-sm leading-6 text-charcoal-700">{{ .text }}</p>
+              </div>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
 
-      <ul class="mt-8 flex flex-wrap gap-2">
-        {{ range .Site.Params.home.if_join.assurances }}
-        <li class="rounded-full border border-border bg-card px-3 py-1 text-sm text-foreground">{{ . }}</li>
+        <div class="rounded-lg border border-border bg-card p-6">
+          <h3 class="text-lg font-semibold text-foreground">{{ .Site.Params.home.if_join.get.title }}</h3>
+          <div class="mt-4 rounded-lg border border-border bg-background p-4">
+            <div class="flex items-center justify-between gap-3">
+              <p class="font-semibold text-foreground">{{ .Site.Params.home.if_join.get.report_title }}</p>
+              <span class="rounded-lg bg-turquoise-tint px-2.5 py-0.5 text-xs font-semibold text-turquoise-deep">{{ .Site.Params.home.if_join.get.badge }}</span>
+            </div>
+            <div class="mt-4 space-y-4">
+              {{ range $bar := .Site.Params.home.hero.demo.report.bars }}
+              <div>
+                <div class="flex items-center justify-between text-sm text-charcoal-700">
+                  <span>{{ $bar.label }}</span>
+                  <span>{{ $bar.value }}%</span>
+                </div>
+                <div class="mt-2 h-2 rounded-md bg-muted">
+                  <div class="h-2 rounded-md bg-turquoise" style="{{ printf "width: %d%%" (int $bar.value) | safeCSS }}"></div>
+                </div>
+              </div>
+              {{ end }}
+            </div>
+            <p class="mt-4 text-sm leading-6 text-muted-foreground">{{ .Site.Params.home.if_join.get.caption }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8" x-data="{ open: 0 }">
+        {{ range $k, $item := .Site.Params.home.if_join.faq }}
+        <div class="border rounded-lg border-border bg-card{{ if $k }} mt-3{{ end }}">
+          <button
+            type="button"
+            @click="open = open === {{ $k }} ? null : {{ $k }}"
+            :aria-expanded="(open === {{ $k }}).toString()"
+            aria-expanded="{{ if eq $k 0 }}true{{ else }}false{{ end }}"
+            aria-controls="faq-kalau-ikut-{{ add $k 1 }}"
+            class="flex items-center justify-between gap-4 w-full min-h-11 p-5 text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            <span class="font-semibold text-foreground">{{ $item.q }}</span>
+            <span aria-hidden="true" class="text-xl text-turquoise-deep transition-transform" :class="{ 'rotate-45': open === {{ $k }} }">+</span>
+          </button>
+          <div
+            id="faq-kalau-ikut-{{ add $k 1 }}"
+            x-show="open === {{ $k }}"
+            class="px-5 pb-5 text-muted-foreground [&_a]:font-semibold [&_a]:text-turquoise-deep [&_a]:underline"
+          >
+            {{ $item.a | markdownify }}
+          </div>
+        </div>
         {{ end }}
-      </ul>
+      </div>
+
+      <div class="mt-8 sm:w-fit">
+        {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta "full" true "location" "kalau-ikut") }}
+      </div>
 
       <p class="mt-6">
         <a href="/research/jadi-tangguh/" class="text-sm font-semibold text-turquoise-deep underline underline-offset-4">

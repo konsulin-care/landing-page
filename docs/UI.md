@@ -9,13 +9,46 @@ All live in `layouts/partials/`. Call with `partial "name.html" (dict ...)`.
 
 | Partial | Params | Notes |
 | --- | --- | --- |
-| `button.html` | `href`, `label`, `size` (default, sm, lg), `tone` (default, on-dark), `type` | Primary CTA pill. `type` renders a `<button>` instead of `<a>`. |
+| `button.html` | `href`, `label`, `size` (default, sm, lg), `tone` (default, on-dark), `location`, `type` | Primary CTA pill. `type` renders a `<button>` instead of `<a>`. `location` adds `data-cta-location` for CTA tracking. |
 | `card.html` | `inner` (safeHTML) | `bg-card border border-border rounded-lg p-6`. |
+| `icon.html` | `name`, `class` | Lucide icon, see below. |
+| `home-trust.html` | none (flat dict from `scroll-section.html`) | The 05 trust strip. Renders `ethics_status` verbatim via `site.GetPage`; no rail. |
 | `page-header.html` | `title`, `description`, `kicker`, `extra`, `width` | `width` is a max-w class, default `max-w-6xl`. |
 | `summary-card.html` | `page`, `variant` (blog, research) | Aside with the "Ringkasan" kicker. |
 | `scroll-section.html` | `num`, `id`, `partial`, `context`, `tone` (paper, surface, charcoal) | Band wrapper. Sets `page.Store` key `sectionNum` to `num - 1`. |
 | `section-kicker.html` | `label`, `num` | Renders `01 · label`, or `label` alone without `num`, or nothing without `label`. |
 | `scroll-indicator.html` | none | Site-wide scroll indicator rail, included once from `baseof.html`. See below. |
+
+## Icons
+
+`layouts/partials/icon.html` inlines a Lucide icon from
+`node_modules/@iconify-json/lucide/icons.json` (an exact devDependency,
+`@iconify-json/lucide@1.2.157`). Pass `name` and an optional `class`:
+
+```go-html-template
+{{ partial "icon.html" (dict "name" "brain" "class" "h-5 w-5") }}
+```
+
+The partial reads the `icons` map (`prefix`, `icons{name:{body}}`, `aliases`,
+`width` 24, `height` 24); the icon body already carries `fill="none"`,
+`stroke="currentColor"` and `stroke-width="2"`, so it inherits the text colour.
+The rendered `<svg>` is `aria-hidden="true"` and gets the passed `class`.
+An unknown `name` calls `errorf` so a typo fails the build instead of shipping a
+blank box. Lucide is ISC-licensed; keep the notice with the dependency. Icon
+names live per item in `hugo.yaml` as `icon:`.
+
+## Home trust strip
+
+`layouts/partials/home-trust.html` is the 05 paper band and has no rail. It
+reads the ethics status from site config and prints it verbatim (never a claim
+of approval):
+
+```go-html-template
+{{ with site.GetPage "/research/jadi-tangguh" }}{{ .Params.ethics_status }}{{ end }}
+```
+
+The strip is compact (`py-12 md:py-16`) and must not wrap the value in a
+sentence that implies more than the front matter says.
 
 ## Scroll indicator
 
@@ -41,6 +74,56 @@ only (`bg-charcoal-400`, `rounded-full`, `motion-reduce:transition-none`).
 
 Home section partials (`home-*.html`) take one flat dict. Read the visible
 number with `page.Store.Get "sectionNum"`.
+
+## Splash intro
+
+A paper veil covers the first homepage view of a tab session while the real nav
+lockup appears centred and enlarged, then glides into its slot. The lockup is
+the existing `<a href="/">` in `layouts/partials/nav.html`, marked with
+`data-splash-logo`; never add a second logo. Behaviour and skip rules:
+`docs/UX.md`.
+
+Files:
+
+- `assets/js/splash-state.js`: shared constants with no side effects
+  (`SPLASH_KEY`, `SPLASH_CLASS`, `SPLASH_RUN_CLASS`, `SPLASH_DONE_EVENT`,
+  `SPLASH_FALLBACK_MS`, `VEIL_ANIMATION`). `splash.js` and `hero-rotation.js`
+  both import from it; `hero-rotation.js` must not import `splash.js`.
+- `assets/js/splash.js`: the gate (`shouldPlay`), the dock offset (`dockOffset`)
+  and the lifecycle (`start`, `dock`, `cleanup`), loaded only on the home page.
+- `layouts/partials/splash.html`: home-only script include, called from
+  `layouts/_default/baseof.html` in the head; the body also calls
+  `window.jtSplashDock()` after the nav renders.
+- `assets/css/main.css`: the veil and lockup animation rules, mirrored in the
+  committed `assets/css/style.css` build.
+
+Classes and custom properties:
+
+- `jt-splash` on `html`: mounts the veil via `html.jt-splash body::before`.
+- `jt-splash-run` on `html`: starts the lockup timeline.
+- `--jt-splash-x`, `--jt-splash-y`, `--jt-splash-scale` on `html`: the measured
+  translation and scale set by `dockOffset`, consumed by the keyframes.
+
+Layering:
+
+- The veil uses `z-index: 60`, above the `z-50` scroll indicator, and is
+  `pointer-events: none` so it never blocks input.
+- The lockup uses `z-index: 61` so it sits above the veil.
+
+The timeline is about 1.2s. Keyframe percentages map to the 1100ms lockup
+animation: 0 to 15% is the fade-in at centre (scale
+`min(2, 0.6 * viewportWidth / lockupWidth)`, floored at 1), 15 to 45% is the
+hold, and 45 to 100% is the glide into the nav slot with
+`cubic-bezier(0.65, 0, 0.35, 1)`. The veil fades out over 400ms with an 800ms
+delay (`ease-out`) and then becomes `visibility: hidden`. Only `transform` and
+`opacity` are animated.
+
+To change timings, edit `assets/css/main.css`: shift the keyframe percentages
+against the 1100ms duration, and adjust the veil `animation` delay and duration.
+`SPLASH_FALLBACK_MS` in `assets/js/splash-state.js` (default 2500) is the safety
+timeout that tears the splash down if the veil never finishes. After changing
+scanned CSS or markup run `pnpm run build:tw` and commit the regenerated
+`assets/css/style.css`.
 
 # Recipes
 
@@ -189,10 +272,24 @@ On `bg-muted` use `charcoal-700` or `charcoal-900` text, not `charcoal-600`.
 # Check and build
 
 - Test breakpoints at 375, 640 and 768px.
-- `assets/css/style.css` is a committed Tailwind build. After adding classes run
-  `pnpm run build:tw` and commit the regenerated file. Whichever task changes
-  scanned markup or scripts rebuilds and commits it; docs changes are not
-  scanned.
+- `assets/css/style.css` is a committed Tailwind build. **Every task that edits
+  `layouts/**/*.html` owns it**: run `pnpm run build:tw` and commit the
+  regenerated `assets/css/style.css` in the same commit, never leave it dirty for
+  a later task. Content (`*.md`) and docs (`docs/*.md`) are not scanned, so those
+tasks do not rebuild. Whichever task changes scanned markup or scripts rebuilds
+  and commits it.
+- Tappable tiles (for example the 02 `kenali-tandanya` signs) are `h-full`
+  buttons so tiles sharing a grid row match height (`<li>` stretches, the button
+  fills it; no `auto-rows-fr`). They read as controls: `cursor-pointer`,
+  `hover:border-turquoise`, `active:border-turquoise-deep` and
+  `transition-colors motion-reduce:transition-none`. The category icon sits in a
+  `rounded-full border-border` circle (`h-10 w-10`), and the state indicator is a
+  `rounded-full` check circle on the right, `self-center` and visible at rest
+  (`border border-border`); it fills `turquoise-deep` with a `text-background`
+  check when selected. Selection uses `aria-pressed` variants bound through
+  Alpine (`:aria-pressed`), paired with a second visual cue (the filled circle)
+  beside `turquoise-tint`; the selected state is client-only. `rounded-full` on
+  these decorative spans is allowed - never on an `<a>` other than the CTA.
 - Run `pnpm test` and `pnpm run build` before merging.
 - `docs/ALPINE_PATTERNS.md` uses legacy colour classes (blue, gray) and emoji.
   Copy the Alpine logic only, never the classes.

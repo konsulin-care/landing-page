@@ -6,6 +6,7 @@
   - tone (string, optional: default | on-dark; on-dark is for charcoal bands, hover flips to paper)
   - full (bool, optional: when true appends w-full so the pill fills its container)
   - type (string, optional: when set, renders <button type="..."> instead of <a href>)
+  - location (string, optional: when set, renders data-cta-location for CTA tracking)
 */}}
 {{- $size := .size | default "default" -}}
 {{- $tone := .tone | default "default" -}}
@@ -24,7 +25,7 @@
   {{- $class = printf "%s w-full" $class -}}
 {{- end -}}
 {{- if .type -}}
-<button type="{{ .type }}" class="{{ $class }}">{{ .label }}</button>
+<button type="{{ .type }}" class="{{ $class }}"{{ if .location }} data-cta-location="{{ .location }}"{{ end }}>{{ .label }}</button>
 {{- else -}}
-<a href="{{ .href }}" class="{{ $class }}">{{ .label }}</a>
+<a href="{{ .href }}" class="{{ $class }}"{{ if .location }} data-cta-location="{{ .location }}"{{ end }}>{{ .label }}</a>
 {{- end -}}

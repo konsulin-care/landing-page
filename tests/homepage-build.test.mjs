@@ -1,17 +1,20 @@
-// The committed Tailwind build covers every static utility used by the five
-// homepage section partials, and the shared production Hugo build is clean.
+// The committed Tailwind build covers every static utility used by the eight
+// homepage partials, and the shared production Hugo build is clean.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildSite } from './helpers/build.mjs';
 import { read } from './helpers/html.mjs';
 
-/** Section partials that make up the six-section homepage sequence. */
+/** Homepage partials whose static utility classes must be in the committed stylesheet. */
 const SECTION_PARTIALS = [
   'layouts/partials/home-hero.html',
   'layouts/partials/home-meaning.html',
+  'layouts/partials/home-recognition.html',
   'layouts/partials/home-why-record.html',
   'layouts/partials/home-if-join.html',
+  'layouts/partials/home-trust.html',
   'layouts/partials/home-final-cta.html',
+  'layouts/partials/icon.html',
 ];
 
 /** Hand-written classes that are not Tailwind utilities. */
@@ -67,4 +70,12 @@ test('the shared production build exits 0 without WARN lines', () => {
     .map((line) => line.trim())
     .filter((line) => line.includes('WARN'));
   assert.deepEqual(warnings, [], `hugo build emitted warnings:\n${warnings.join('\n')}`);
+});
+
+test('the head partial does not post-process the production stylesheet', () => {
+  const source = read('layouts/partials/head.html');
+  assert.ok(
+    !source.includes('resources.PostProcess'),
+    'layouts/partials/head.html must not reference resources.PostProcess',
+  );
 });

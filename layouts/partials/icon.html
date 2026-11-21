@@ -1,0 +1,12 @@
+{{/*
+  icon: renders a Lucide icon as inline SVG
+  - name (string, required): Lucide icon name, e.g. "check"
+  - class (string, optional): utility classes for the svg; default "h-5 w-5"
+
+  Icon data comes from @iconify-json/lucide (node_modules/@iconify-json/lucide/icons.json).
+  Lucide is licensed under the ISC License, Copyright (c) Lucide Icons and Contributors.
+*/}}
+{{- $set := os.ReadFile "node_modules/@iconify-json/lucide/icons.json" | transform.Unmarshal -}}
+{{- $icon := index $set.icons .name -}}
+{{- if not $icon -}}{{- errorf "icon.html: unknown Lucide icon %q" .name -}}{{- end -}}
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="{{ .class | default "h-5 w-5" }}">{{ $icon.body | safeHTML }}</svg>

@@ -30,5 +30,8 @@
         "build"
       ]
     }
+  },
+  "finalize": {
+    "maxPathsPerTask": 6
   }
 }

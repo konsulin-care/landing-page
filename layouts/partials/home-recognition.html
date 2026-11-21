@@ -1,4 +1,4 @@
-<!-- Recognition section: everyday signs of strain, not a diagnostic checklist -->
+<!-- Recognition section: everyday signs of strain the reader can tap to reflect on -->
 <div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
   <div class="md:grid md:grid-cols-12 md:gap-12">
     <div class="md:col-span-4">
@@ -11,23 +11,46 @@
       </p>
     </div>
 
-    <div class="mt-12 md:col-span-8 md:mt-0">
-      <ul class="grid gap-4 sm:grid-cols-2">
+    <div class="mt-12 md:col-span-8 md:mt-0" x-data="{ picked: [], toggle(k) { this.picked = this.picked.includes(k) ? this.picked.filter(function (i) { return i !== k }) : this.picked.concat([k]) } }">
+      <p class="text-base font-semibold text-foreground">{{ .Site.Params.home.recognition.prompt }}</p>
+      <p class="mt-1 text-sm leading-6 text-muted-foreground">{{ .Site.Params.home.recognition.prompt_hint }}</p>
+
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
         {{ range .Site.Params.home.recognition.signals }}
-        <li class="rounded-lg border border-border bg-card p-6">
-          <h3 class="text-base font-semibold text-foreground">{{ .label }}</h3>
-          <p class="mt-2 text-sm leading-6 text-charcoal-700">{{ .text | markdownify }}</p>
+        <li>
+          <button
+            type="button"
+            aria-pressed="false"
+            :aria-pressed="picked.includes('{{ .label }}').toString()"
+            @click="toggle('{{ .label }}')"
+            class="group flex h-full w-full min-h-11 cursor-pointer items-start gap-4 rounded-lg border border-border bg-card p-5 text-left transition-colors motion-reduce:transition-none hover:border-turquoise active:border-turquoise-deep aria-pressed:border-turquoise-deep aria-pressed:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            {{ partial "icon-circle.html" (dict "name" .icon) }}
+            <span class="flex-1">
+              <span class="block font-semibold text-foreground">{{ .label }}</span>
+              <span class="mt-1 block text-sm leading-6 text-charcoal-700">{{ .text | markdownify }}</span>
+            </span>
+            <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 self-center items-center justify-center rounded-full border border-border group-aria-pressed:border-turquoise-deep group-aria-pressed:bg-turquoise-deep">
+              {{ partial "icon.html" (dict "name" "check" "class" "h-4 w-4 text-background opacity-0 transition-opacity group-aria-pressed:opacity-100") }}
+            </span>
+          </button>
         </li>
         {{ end }}
       </ul>
 
+      <div aria-live="polite">
+        <div x-show="picked.length" x-cloak class="mt-6 rounded-lg border border-turquoise-deep bg-accent p-6">
+          <h3 class="text-lg font-semibold text-foreground">{{ .Site.Params.home.recognition.selected.title }}</h3>
+          <p class="mt-2 text-base leading-7 text-charcoal-700">{{ .Site.Params.home.recognition.selected.body }}</p>
+          <div class="mt-4 sm:w-fit">
+            {{ partial "button.html" (dict "href" .Site.Params.forward "label" .Site.Params.home.hero.primary_cta "full" true "location" "kenali-tandanya") }}
+          </div>
+        </div>
+        <p x-show="!picked.length" class="mt-6 text-base leading-7 text-charcoal-700">{{ .Site.Params.home.recognition.idle }}</p>
+      </div>
+
       <p class="mt-8 text-sm leading-6 text-muted-foreground">
         {{ .Site.Params.home.recognition.note }}
-      </p>
-      {{ $url := .Site.Params.hashtag_url | default .Site.Params.social_media.instagram.url }}
-      {{ $link := printf `<a href="%s" target="_blank" rel="noopener" class="font-semibold text-turquoise-deep hover:underline">#JadiTangguh</a>` $url }}
-      <p class="mt-4 text-base font-medium text-foreground md:text-lg">
-        {{ replace .Site.Params.home.recognition.closing "#JadiTangguh" $link | safeHTML }}
       </p>
       <p class="mt-6">
         <a href="/faq/#bantuan" class="text-sm font-semibold text-turquoise-deep underline underline-offset-4">

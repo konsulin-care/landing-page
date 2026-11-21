@@ -1,25 +1,31 @@
 <!-- Meaning section: what #JadiTangguh does and does not mean -->
-<div class="max-w-6xl mx-auto px-6 py-24 md:px-8">
+<div class="max-w-6xl mx-auto px-6 py-12 md:px-8 md:py-16">
+  {{ $notLabel := .Site.Params.home.meaning.not_label }}
   <div class="md:grid md:grid-cols-12 md:gap-12">
     <div class="md:col-span-4">
       {{ partial "section-kicker.html" (dict "label" .Site.Params.home.meaning.kicker "num" (page.Store.Get "sectionNum")) }}
-      <h2 class="text-3xl font-semibold leading-tight text-foreground md:text-4xl">
+      <h2 class="text-2xl font-semibold leading-tight text-foreground md:text-3xl">
         {{ .Site.Params.home.meaning.title }}
       </h2>
-      <p class="mt-6 text-base leading-7 text-charcoal-700 md:text-lg md:leading-8">
+      <p class="mt-4 text-base leading-7 text-charcoal-700">
         {{ .Site.Params.home.meaning.lead }}
       </p>
     </div>
 
-    <div class="mt-12 md:col-span-8 md:mt-0">
-      <ul class="grid gap-4 md:grid-cols-3">
-        {{ range .Site.Params.home.meaning.cards }}
-        <li class="rounded-lg border border-border bg-card p-6">
-          <p class="text-sm leading-6 text-muted-foreground">{{ .muted }}</p>
-          <p class="mt-2 text-base font-semibold text-foreground">{{ .strong }}</p>
-        </li>
-        {{ end }}
-      </ul>
+    <div class="mt-8 md:col-span-8 md:mt-0">
+      <div class="rounded-lg border border-border bg-card">
+        <ul class="divide-y divide-border">
+          {{ range .Site.Params.home.meaning.rows }}
+          <li class="flex flex-col gap-1 px-6 py-5 sm:flex-row sm:items-baseline sm:gap-6">
+            <div class="text-sm leading-6 text-muted-foreground sm:w-1/2">
+              <span class="text-muted-foreground">{{ $notLabel }}</span>
+              <s>{{ .not }}</s>
+            </div>
+            <p class="text-base font-semibold text-foreground sm:w-1/2">{{ .is }}</p>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
     </div>
   </div>
 </div>

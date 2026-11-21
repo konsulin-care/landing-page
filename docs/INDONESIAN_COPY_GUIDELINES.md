@@ -97,7 +97,7 @@ Avoid "instan", "pasti", "terbukti menyembuhkan". Prefer "mulai dari sini" and "
 - Hook: "Pernah merasa...?" / "Bagaimana kalau...?"
 - Outcome: "Anda bisa [aksi], [tanpa beban]" without promising results.
 - Trust: "Dipimpin oleh Konsulin" and links to study details; no unconfirmed numbers.
-- Action: "Ikut Berkontribusi", "Pelajari riset ini".
+- Action: "Mulai Survei (10 Menit)", "Pelajari riset ini".
 
 ### Sparse punctuation
 

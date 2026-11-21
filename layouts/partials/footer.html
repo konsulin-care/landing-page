@@ -11,6 +11,8 @@
 <script src="{{ $hero.RelPermalink }}" defer></script>
 {{ $scroll := resources.Get "js/scroll-indicator.js" | js.Build }}
 <script src="{{ $scroll.RelPermalink }}" defer></script>
+{{ $reveal := resources.Get "js/reveal.js" | js.Build }}
+<script src="{{ $reveal.RelPermalink }}" defer></script>
 {{ $alpine := resources.Get "js/alpine.min.js" }}
 <script defer src="{{ $alpine.RelPermalink }}"></script>
 {{ else }}
@@ -22,6 +24,8 @@
 <script src="{{ $hero.RelPermalink }}" integrity="{{ $hero.Data.Integrity }}" defer></script>
 {{ $scroll := resources.Get "js/scroll-indicator.js" | js.Build | minify | fingerprint }}
 <script src="{{ $scroll.RelPermalink }}" integrity="{{ $scroll.Data.Integrity }}" defer></script>
+{{ $reveal := resources.Get "js/reveal.js" | js.Build | minify | fingerprint }}
+<script src="{{ $reveal.RelPermalink }}" integrity="{{ $reveal.Data.Integrity }}" defer></script>
 {{ $alpine := resources.Get "js/alpine.min.js" | fingerprint }}
 <script defer src="{{ $alpine.RelPermalink }}" integrity="{{ $alpine.Data.Integrity }}"></script>
 {{ end }}

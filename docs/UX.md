@@ -49,13 +49,46 @@ footer help link out of reach.
 # Behaviour
 
 - Scroll-snap: only the hero is an exact-fit slide (`scroll-snap-section--slide`,
-  `100svh`). Sections 2 to 6 flow naturally. On screens shorter than 700px the
+  `100svh`). Sections 2 to 7 flow naturally. On screens shorter than 700px the
   snap is disabled and the chevron is hidden.
-- The hero chevron and the ArrowDown key scroll to the next section.
+- The hero chevron links to `#makna-tangguh` and its label comes from
+  `params.home.meaning.kicker`. Keyboard users move with the browser's normal
+  keys; there is no custom key handler.
 - Interaction uses Alpine.js (carousel, expand and collapse, tabs, reveal).
   No other animation or UI library. Patterns: `docs/ALPINE_PATTERNS.md`.
 - Mobile-first. Check 375, 640 and 768px. The 8/4 rail stacks below `md`.
 - Touch targets are at least 44px (`min-h-11`).
+
+## Section behaviour
+
+- The 02 `kenali-tandanya` signs are tappable tiles. Tapping one only toggles
+  Alpine state in the browser: nothing is stored, sent or counted, and the
+  selection is gone on reload. The copy must state that screening is not a
+  diagnosis.
+- The 04 `kalau-ikut` give/get blocks are a one-open accordion: opening one
+  panel closes any other open panel, so only one answer is expanded at a time.
+
+## Splash intro
+
+On the first homepage view of a tab session, a paper veil covers the page and
+the real nav lockup appears centred and enlarged, then glides into its nav slot
+while the veil fades. It plays once per tab session, on the homepage only, and
+never creates a second logo.
+
+Timeline, about 1.2s:
+
+- 0 to 165ms: the lockup fades in at the centre, scaled up.
+- 165 to 495ms: hold.
+- 495 to 1100ms: the lockup moves into its slot, easing
+  `cubic-bezier(0.65, 0, 0.35, 1)`.
+- 800 to 1200ms: the veil fades out, then is hidden.
+
+The splash is skipped when any of these is true: `prefers-reduced-motion` is
+`reduce`; `location.hash` is non-empty; `document.referrer` is same-origin;
+`sessionStorage` is unavailable or throws; the `jt-splash-seen` key is already
+set. Without JavaScript nothing changes. The hero clock holds under the
+`splash` reason until the `jt-splash-done` event, so the rotating headline does
+not start under the veil. Build details: `docs/UI.md`.
 
 ## Hero clock
 
@@ -130,7 +163,7 @@ run only under `no-preference`: no interval starts, the pair at index 0 stays,
 `progress()` returns 1 so every stage shows its final state (all ID cards, all
 bars filled, "Tersimpan"), the segments still work, and `cycled` is already
 true. Nothing is drawn on a canvas. The citizen-science canvas falls back to a
-static image.
+static image. The splash never plays.
 
 # Before merging
 
