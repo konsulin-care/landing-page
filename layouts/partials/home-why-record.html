@@ -49,19 +49,24 @@
       {{ $last := sub (len $loop) 1 }}
       <ol class="mt-4 flex flex-col gap-4 lg:flex-row">
         {{ range $index, $step := $loop }}
-        <li class="flex items-start gap-3 lg:flex-1">
-          <span aria-hidden="true" class="mt-0.5 flex-shrink-0 text-turquoise-deep">
-            {{ partial "icon.html" (dict "name" $step.icon "class" "h-5 w-5") }}
-          </span>
+        <li
+          class="relative flex items-start gap-3 transition duration-500 ease-out motion-reduce:transition-none lg:flex-1 lg:flex-col{{ if eq $index 1 }} lg:delay-150{{ else if eq $index 2 }} lg:delay-300{{ end }}"
+          x-data="jtReveal()"
+          :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
+        >
+          {{ if ne $index $last }}
+          {{/* Static hairline: runs down to the next step on mobile, across the gap to the next circle at lg */}}
+          <span
+            aria-hidden="true"
+            data-loop-connector
+            class="absolute left-5 top-10 -bottom-4 w-px bg-border lg:left-10 lg:-right-4 lg:top-5 lg:bottom-auto lg:h-px lg:w-auto"
+          ></span>
+          {{ end }}
+          {{ partial "icon-circle.html" (dict "name" $step.icon) }}
           <span class="flex-1">
             <span class="block font-semibold text-foreground">{{ $step.title }}</span>
             <span class="mt-1 block text-sm leading-6 text-charcoal-700">{{ $step.text }}</span>
           </span>
-          {{ if ne $index $last }}
-          <span aria-hidden="true" class="mt-4 flex-shrink-0 text-muted-foreground lg:mt-0">
-            {{ partial "icon.html" (dict "name" "arrow-right" "class" "h-5 w-5 rotate-90 lg:rotate-0") }}
-          </span>
-          {{ end }}
         </li>
         {{ end }}
       </ol>

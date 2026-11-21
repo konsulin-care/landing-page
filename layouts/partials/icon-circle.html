@@ -1,0 +1,5 @@
+{{/* Circular icon badge: a bordered 10x10 circle holding one decorative Lucide icon.
+     Params: name (required) Lucide icon name. */}}
+<span aria-hidden="true" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-border">
+  {{ partial "icon.html" (dict "name" .name "class" "h-5 w-5 text-turquoise-deep") }}
+</span>
