@@ -51,7 +51,12 @@ test('the trust section is a paper band between if-join and the final CTA', () =
   const classes = sectionClasses(html, 'siapa-di-baliknya');
   assert.ok(classes.includes('band-paper'), 'the section uses the paper band');
   assert.match(section, /05 · Siapa di baliknya/, 'the numbered kicker is 05');
-  assert.match(section, /<h2[^>]*>\s*Riset terbuka, bisa diperiksa siapa pun\s*<\/h2>/);
+  assert.match(section, /<h2[^>]*>\s*Riset terbuka, bisa diperiksa oleh publik\s*<\/h2>/);
+});
+
+test('the old trust heading wording is gone from the config and the built homepage', () => {
+  assert.doesNotMatch(read('hugo.yaml'), /Riset terbuka, bisa diperiksa siapa pun/);
+  assert.doesNotMatch(html, /Riset terbuka, bisa diperiksa siapa pun/);
 });
 
 test('the trust section renders four items without images', () => {

@@ -1019,6 +1019,9 @@
   .rotate-45 {
     rotate: 45deg;
   }
+  .rotate-90 {
+    rotate: 90deg;
+  }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
@@ -1826,6 +1829,9 @@
     .lg\:left-10 {
       left: calc(var(--spacing) * 10);
     }
+    .lg\:mt-0 {
+      margin-top: 0px;
+    }
     .lg\:h-px {
       height: 1px;
     }
@@ -1837,6 +1843,9 @@
     }
     .lg\:flex-1 {
       flex: 1;
+    }
+    .lg\:rotate-0 {
+      rotate: 0deg;
     }
     .lg\:grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));

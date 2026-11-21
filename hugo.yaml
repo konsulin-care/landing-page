@@ -252,7 +252,7 @@ params:
       link_label: "Baca detail studi dan cara data dikelola"
     trust:
       kicker: "Siapa di baliknya"
-      title: "Riset terbuka, bisa diperiksa siapa pun"
+      title: "Riset terbuka, bisa diperiksa oleh publik"
       items:
         - label: "Peneliti utama"
           text: "Aly Lamuri, kandidat doktor di University of Groningen."
