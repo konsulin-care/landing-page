@@ -208,7 +208,7 @@ params:
           label: "Ilustrasi: satu titik terisi dan tiga titik kosong"
         - title: "Isi berulang"
           caption: "Terlihat perubahannya, dan apa yang membantu."
-          label: "Ilustrasi: empat titik terisi yang terhubung garis"
+          label: "Ilustrasi: empat titik terhubung garis, turun di titik kedua, naik sedikit, lalu naik lagi"
       compare_note: "Ilustrasi, bukan data. Ikut satu kali pun tetap berharga."
       loop_title: "Ini riset oleh warga, untuk warga."
       loop:

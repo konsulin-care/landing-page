@@ -978,6 +978,9 @@
   .grow {
     flex-grow: 1;
   }
+  .origin-center {
+    transform-origin: center;
+  }
   .origin-left {
     transform-origin: 0;
   }
@@ -992,6 +995,18 @@
   .translate-y-2 {
     --tw-translate-y: calc(var(--spacing) * 2);
     translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .scale-50 {
+    --tw-scale-x: 50%;
+    --tw-scale-y: 50%;
+    --tw-scale-z: 50%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .scale-100 {
+    --tw-scale-x: 100%;
+    --tw-scale-y: 100%;
+    --tw-scale-z: 100%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
   }
   .scale-x-0 {
     --tw-scale-x: 0%;
@@ -1524,6 +1539,18 @@
   .delay-300 {
     transition-delay: 300ms;
   }
+  .delay-450 {
+    transition-delay: 450ms;
+  }
+  .delay-600 {
+    transition-delay: 600ms;
+  }
+  .delay-750 {
+    transition-delay: 750ms;
+  }
+  .delay-900 {
+    transition-delay: 900ms;
+  }
   .duration-100 {
     --tw-duration: 100ms;
     transition-duration: 100ms;
@@ -1585,6 +1612,9 @@
     --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
     --tw-prose-invert-th-borders: oklch(43.9% 0 none);
     --tw-prose-invert-td-borders: oklch(37.1% 0 none);
+  }
+  .transform-fill {
+    transform-box: fill-box;
   }
   .group-aria-pressed\:border-turquoise-deep:is(:where(.group)[aria-pressed="true"] *) {
     border-color: var(--color-turquoise-deep);
